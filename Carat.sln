@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carat", "Carat\Carat.csproj", "{F61B52DB-32B1-4C53-BC54-BA14DCEC6CA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carat", "Carat\Carat.csproj", "{05C85D4C-91F6-4560-9A02-738BDAD5EB5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F61B52DB-32B1-4C53-BC54-BA14DCEC6CA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F61B52DB-32B1-4C53-BC54-BA14DCEC6CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F61B52DB-32B1-4C53-BC54-BA14DCEC6CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F61B52DB-32B1-4C53-BC54-BA14DCEC6CA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05C85D4C-91F6-4560-9A02-738BDAD5EB5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05C85D4C-91F6-4560-9A02-738BDAD5EB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05C85D4C-91F6-4560-9A02-738BDAD5EB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05C85D4C-91F6-4560-9A02-738BDAD5EB5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C146117E-2202-4287-86A9-A44A1657B494}
+		SolutionGuid = {10D409CD-0C17-45E0-BC17-6CE77A7D1F6D}
 	EndGlobalSection
 EndGlobal

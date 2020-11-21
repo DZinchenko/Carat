@@ -15,62 +15,34 @@ namespace Carat
         public mainForm()
         {
             InitializeComponent();
-
-            customizeDesign();
+            InitializeSubmenu();
         }
 
-        private void customizeDesign()
+        private void InitializeSubmenu()
         {
-            hideSubMenu(tablesPanel);
-            hideSubMenu(distributionSubMenuPanel);
-            hideSubMenu(reportsPanel);
+            panelTablesSubmenu.Visible = false;
+            panelSectionSubmenu.Visible = false;
+            panelReportSubmenu.Visible = false;
         }
 
-        private void hideSubMenu(Panel panel)
+        private void changeViewStateOfSubmenu(Panel panel)
         {
-            panel.Visible = false;
+            panel.Visible = !(panel.Visible);
         }
 
-        private void invertSubMenuVisibleState(Panel panel)
+        private void buttonTables_Click(object sender, EventArgs e)
         {
-            panel.Visible = (!(panel.Visible));
+            changeViewStateOfSubmenu(panelTablesSubmenu);
         }
 
-        private void moveCurrentPanelPointer(Button button, Panel panel)
+        private void buttonSection_Click(object sender, EventArgs e)
         {
-            if (panel.Visible == true)
-            {
-                currentPanel.Location = button.Location;
-                currentPanel.Size = button.Size;
-            }
+            changeViewStateOfSubmenu(panelSectionSubmenu);
         }
 
-        private void tablesSubMenuButton_Click(object sender, EventArgs e)
+        private void buttonReport_Click(object sender, EventArgs e)
         {
-            invertSubMenuVisibleState(tablesPanel);
-            moveCurrentPanelPointer(tablesSubMenuButton, tablesPanel);
-        }
-
-        private void distributionSubMenuButton_Click(object sender, EventArgs e)
-        {
-            invertSubMenuVisibleState(distributionSubMenuPanel);
-            moveCurrentPanelPointer(distributionSubMenuButton, distributionSubMenuPanel);
-        }
-
-        private void reportsSubMenuButton_Click(object sender, EventArgs e)
-        {
-            invertSubMenuVisibleState(reportsPanel);
-            moveCurrentPanelPointer(reportsSubMenuButton, reportsPanel);
-        }
-
-        private void helpButton_Click_1(object sender, EventArgs e)
-        {
-            moveCurrentPanelPointer(helpButton, panelMainLeft);
-        }
-
-        private void aboutButton_Click_1(object sender, EventArgs e)
-        {
-            moveCurrentPanelPointer(aboutButton, panelMainLeft);
+            changeViewStateOfSubmenu(panelReportSubmenu);
         }
     }
 }

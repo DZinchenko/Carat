@@ -20,6 +20,7 @@
             base.Dispose(disposing);
         }
 
+
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -28,558 +29,473 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
-            this.panelMainLeft = new System.Windows.Forms.Panel();
-            this.panelFunctionButtons = new System.Windows.Forms.Panel();
-            this.helpButton = new System.Windows.Forms.Button();
-            this.reportsPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.reportsSubMenuButton = new System.Windows.Forms.Button();
-            this.distributionSubMenuPanel = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.distributionSubMenuButton = new System.Windows.Forms.Button();
-            this.tablesPanel = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.tablesSubMenuButton = new System.Windows.Forms.Button();
-            this.movePanel = new System.Windows.Forms.Panel();
-            this.currentPanel = new System.Windows.Forms.Panel();
-            this.logoPanel = new System.Windows.Forms.Panel();
-            this.kpiLabel = new System.Windows.Forms.Label();
             this.panelOptions = new System.Windows.Forms.Panel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStripOptions = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.налаштуванняToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.базаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.вікнаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutButton = new System.Windows.Forms.Button();
-            this.panelMainLeft.SuspendLayout();
-            this.panelFunctionButtons.SuspendLayout();
-            this.reportsPanel.SuspendLayout();
-            this.distributionSubMenuPanel.SuspendLayout();
-            this.tablesPanel.SuspendLayout();
-            this.movePanel.SuspendLayout();
-            this.logoPanel.SuspendLayout();
+            this.baseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelTools = new System.Windows.Forms.Panel();
+            this.panelFooter = new System.Windows.Forms.Panel();
+            this.panelWorkspace = new System.Windows.Forms.Panel();
+            this.panelLeftMain = new System.Windows.Forms.Panel();
+            this.buttonTables = new System.Windows.Forms.Button();
+            this.panelTablesSubmenu = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.panelSectionSubmenu = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.buttonSection = new System.Windows.Forms.Button();
+            this.panelReportSubmenu = new System.Windows.Forms.Panel();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.buttonReport = new System.Windows.Forms.Button();
             this.panelOptions.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.menuStripOptions.SuspendLayout();
+            this.panelLeftMain.SuspendLayout();
+            this.panelTablesSubmenu.SuspendLayout();
+            this.panelSectionSubmenu.SuspendLayout();
+            this.panelReportSubmenu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panelMainLeft
-            // 
-            this.panelMainLeft.Controls.Add(this.panelFunctionButtons);
-            this.panelMainLeft.Controls.Add(this.movePanel);
-            this.panelMainLeft.Controls.Add(this.logoPanel);
-            this.panelMainLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelMainLeft.Location = new System.Drawing.Point(0, 0);
-            this.panelMainLeft.Name = "panelMainLeft";
-            this.panelMainLeft.Size = new System.Drawing.Size(139, 561);
-            this.panelMainLeft.TabIndex = 5;
-            // 
-            // panelFunctionButtons
-            // 
-            this.panelFunctionButtons.AutoScroll = true;
-            this.panelFunctionButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.panelFunctionButtons.Controls.Add(this.aboutButton);
-            this.panelFunctionButtons.Controls.Add(this.helpButton);
-            this.panelFunctionButtons.Controls.Add(this.reportsPanel);
-            this.panelFunctionButtons.Controls.Add(this.reportsSubMenuButton);
-            this.panelFunctionButtons.Controls.Add(this.distributionSubMenuPanel);
-            this.panelFunctionButtons.Controls.Add(this.distributionSubMenuButton);
-            this.panelFunctionButtons.Controls.Add(this.tablesPanel);
-            this.panelFunctionButtons.Controls.Add(this.tablesSubMenuButton);
-            this.panelFunctionButtons.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelFunctionButtons.Location = new System.Drawing.Point(0, 55);
-            this.panelFunctionButtons.Name = "panelFunctionButtons";
-            this.panelFunctionButtons.Size = new System.Drawing.Size(134, 506);
-            this.panelFunctionButtons.TabIndex = 9;
-            // 
-            // helpButton
-            // 
-            this.helpButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.helpButton.FlatAppearance.BorderSize = 0;
-            this.helpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.helpButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.helpButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.helpButton.Location = new System.Drawing.Point(0, 230);
-            this.helpButton.Name = "helpButton";
-            this.helpButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.helpButton.Size = new System.Drawing.Size(134, 30);
-            this.helpButton.TabIndex = 6;
-            this.helpButton.Text = "Help";
-            this.helpButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.helpButton.UseVisualStyleBackColor = true;
-            this.helpButton.Click += new System.EventHandler(this.helpButton_Click_1);
-            // 
-            // reportsPanel
-            // 
-            this.reportsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.reportsPanel.Controls.Add(this.button1);
-            this.reportsPanel.Controls.Add(this.button10);
-            this.reportsPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.reportsPanel.Location = new System.Drawing.Point(0, 190);
-            this.reportsPanel.Name = "reportsPanel";
-            this.reportsPanel.Size = new System.Drawing.Size(134, 40);
-            this.reportsPanel.TabIndex = 5;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(0, 20);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(134, 20);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            this.button10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button10.FlatAppearance.BorderSize = 0;
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button10.ForeColor = System.Drawing.SystemColors.Control;
-            this.button10.Location = new System.Drawing.Point(0, 0);
-            this.button10.Name = "button10";
-            this.button10.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button10.Size = new System.Drawing.Size(134, 20);
-            this.button10.TabIndex = 0;
-            this.button10.Text = "button10";
-            this.button10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button10.UseVisualStyleBackColor = true;
-            // 
-            // reportsSubMenuButton
-            // 
-            this.reportsSubMenuButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.reportsSubMenuButton.FlatAppearance.BorderSize = 0;
-            this.reportsSubMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reportsSubMenuButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.reportsSubMenuButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.reportsSubMenuButton.Location = new System.Drawing.Point(0, 160);
-            this.reportsSubMenuButton.Name = "reportsSubMenuButton";
-            this.reportsSubMenuButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.reportsSubMenuButton.Size = new System.Drawing.Size(134, 30);
-            this.reportsSubMenuButton.TabIndex = 4;
-            this.reportsSubMenuButton.Text = "Звіти";
-            this.reportsSubMenuButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.reportsSubMenuButton.UseVisualStyleBackColor = true;
-            this.reportsSubMenuButton.Click += new System.EventHandler(this.reportsSubMenuButton_Click);
-            // 
-            // distributionSubMenuPanel
-            // 
-            this.distributionSubMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.distributionSubMenuPanel.Controls.Add(this.button6);
-            this.distributionSubMenuPanel.Controls.Add(this.button7);
-            this.distributionSubMenuPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.distributionSubMenuPanel.Location = new System.Drawing.Point(0, 120);
-            this.distributionSubMenuPanel.Name = "distributionSubMenuPanel";
-            this.distributionSubMenuPanel.Size = new System.Drawing.Size(134, 40);
-            this.distributionSubMenuPanel.TabIndex = 3;
-            // 
-            // button6
-            // 
-            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button6.ForeColor = System.Drawing.SystemColors.Control;
-            this.button6.Location = new System.Drawing.Point(0, 20);
-            this.button6.Name = "button6";
-            this.button6.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button6.Size = new System.Drawing.Size(134, 20);
-            this.button6.TabIndex = 1;
-            this.button6.Text = "button6";
-            this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button7.ForeColor = System.Drawing.SystemColors.Control;
-            this.button7.Location = new System.Drawing.Point(0, 0);
-            this.button7.Name = "button7";
-            this.button7.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button7.Size = new System.Drawing.Size(134, 20);
-            this.button7.TabIndex = 0;
-            this.button7.Text = "button7";
-            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // distributionSubMenuButton
-            // 
-            this.distributionSubMenuButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.distributionSubMenuButton.FlatAppearance.BorderSize = 0;
-            this.distributionSubMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.distributionSubMenuButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.distributionSubMenuButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.distributionSubMenuButton.Location = new System.Drawing.Point(0, 90);
-            this.distributionSubMenuButton.Name = "distributionSubMenuButton";
-            this.distributionSubMenuButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.distributionSubMenuButton.Size = new System.Drawing.Size(134, 30);
-            this.distributionSubMenuButton.TabIndex = 2;
-            this.distributionSubMenuButton.Text = "Розподіли";
-            this.distributionSubMenuButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.distributionSubMenuButton.UseVisualStyleBackColor = true;
-            this.distributionSubMenuButton.Click += new System.EventHandler(this.distributionSubMenuButton_Click);
-            // 
-            // tablesPanel
-            // 
-            this.tablesPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.tablesPanel.Controls.Add(this.button4);
-            this.tablesPanel.Controls.Add(this.button3);
-            this.tablesPanel.Controls.Add(this.button2);
-            this.tablesPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tablesPanel.Location = new System.Drawing.Point(0, 30);
-            this.tablesPanel.Name = "tablesPanel";
-            this.tablesPanel.Size = new System.Drawing.Size(134, 60);
-            this.tablesPanel.TabIndex = 1;
-            // 
-            // button4
-            // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.ForeColor = System.Drawing.SystemColors.Control;
-            this.button4.Location = new System.Drawing.Point(0, 40);
-            this.button4.Name = "button4";
-            this.button4.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button4.Size = new System.Drawing.Size(134, 20);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "button4";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.ForeColor = System.Drawing.SystemColors.Control;
-            this.button3.Location = new System.Drawing.Point(0, 20);
-            this.button3.Name = "button3";
-            this.button3.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button3.Size = new System.Drawing.Size(134, 20);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "button3";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.ForeColor = System.Drawing.SystemColors.Control;
-            this.button2.Location = new System.Drawing.Point(0, 0);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(134, 20);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "button2";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // tablesSubMenuButton
-            // 
-            this.tablesSubMenuButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tablesSubMenuButton.FlatAppearance.BorderSize = 0;
-            this.tablesSubMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.tablesSubMenuButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tablesSubMenuButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.tablesSubMenuButton.Location = new System.Drawing.Point(0, 0);
-            this.tablesSubMenuButton.Name = "tablesSubMenuButton";
-            this.tablesSubMenuButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.tablesSubMenuButton.Size = new System.Drawing.Size(134, 30);
-            this.tablesSubMenuButton.TabIndex = 0;
-            this.tablesSubMenuButton.Text = "Таблиці";
-            this.tablesSubMenuButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tablesSubMenuButton.UseVisualStyleBackColor = true;
-            this.tablesSubMenuButton.Click += new System.EventHandler(this.tablesSubMenuButton_Click);
-            // 
-            // movePanel
-            // 
-            this.movePanel.Controls.Add(this.currentPanel);
-            this.movePanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.movePanel.Location = new System.Drawing.Point(134, 55);
-            this.movePanel.Name = "movePanel";
-            this.movePanel.Size = new System.Drawing.Size(5, 506);
-            this.movePanel.TabIndex = 8;
-            // 
-            // currentPanel
-            // 
-            this.currentPanel.BackColor = System.Drawing.Color.Silver;
-            this.currentPanel.Location = new System.Drawing.Point(0, 0);
-            this.currentPanel.Name = "currentPanel";
-            this.currentPanel.Size = new System.Drawing.Size(5, 30);
-            this.currentPanel.TabIndex = 0;
-            // 
-            // logoPanel
-            // 
-            this.logoPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.logoPanel.Controls.Add(this.kpiLabel);
-            this.logoPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.logoPanel.Location = new System.Drawing.Point(0, 0);
-            this.logoPanel.Name = "logoPanel";
-            this.logoPanel.Size = new System.Drawing.Size(139, 55);
-            this.logoPanel.TabIndex = 7;
-            // 
-            // kpiLabel
-            // 
-            this.kpiLabel.AutoSize = true;
-            this.kpiLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kpiLabel.Font = new System.Drawing.Font("Elephant", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kpiLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.kpiLabel.Location = new System.Drawing.Point(0, 0);
-            this.kpiLabel.Name = "kpiLabel";
-            this.kpiLabel.Size = new System.Drawing.Size(140, 62);
-            this.kpiLabel.TabIndex = 0;
-            this.kpiLabel.Text = "KPI";
             // 
             // panelOptions
             // 
-            this.panelOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.panelOptions.Controls.Add(this.menuStrip1);
+            this.panelOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.panelOptions.Controls.Add(this.menuStripOptions);
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelOptions.Location = new System.Drawing.Point(139, 0);
+            this.panelOptions.Location = new System.Drawing.Point(0, 0);
             this.panelOptions.Name = "panelOptions";
-            this.panelOptions.Size = new System.Drawing.Size(795, 26);
-            this.panelOptions.TabIndex = 6;
+            this.panelOptions.Size = new System.Drawing.Size(1090, 25);
+            this.panelOptions.TabIndex = 0;
             // 
-            // menuStrip1
+            // menuStripOptions
             // 
-            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.файлToolStripMenuItem,
-            this.налаштуванняToolStripMenuItem,
-            this.базаToolStripMenuItem,
-            this.вікнаToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(795, 27);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStripOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.menuStripOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.menuStripOptions.ImageScalingSize = new System.Drawing.Size(0, 0);
+            this.menuStripOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.settingsToolStripMenuItem,
+            this.baseToolStripMenuItem,
+            this.windowToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.menuStripOptions.Location = new System.Drawing.Point(0, 0);
+            this.menuStripOptions.Name = "menuStripOptions";
+            this.menuStripOptions.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStripOptions.Size = new System.Drawing.Size(1090, 25);
+            this.menuStripOptions.TabIndex = 5;
+            this.menuStripOptions.Text = "menuStrip1";
             // 
-            // файлToolStripMenuItem
+            // fileToolStripMenuItem
             // 
-            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
             this.toolStripMenuItem4});
-            this.файлToolStripMenuItem.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.файлToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control;
-            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(58, 23);
-            this.файлToolStripMenuItem.Text = "Файл";
+            this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.fileToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.fileToolStripMenuItem.MergeIndex = 0;
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 21);
+            this.fileToolStripMenuItem.Text = "Файл";
             // 
             // toolStripMenuItem2
             // 
-            this.toolStripMenuItem2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.toolStripMenuItem2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 24);
+            this.toolStripMenuItem2.Padding = new System.Windows.Forms.Padding(0);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 20);
             this.toolStripMenuItem2.Text = "1";
             // 
             // toolStripMenuItem3
             // 
+            this.toolStripMenuItem3.BackColor = System.Drawing.Color.Maroon;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 24);
-            this.toolStripMenuItem3.Text = "1";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Text = "2";
             // 
             // toolStripMenuItem4
             // 
+            this.toolStripMenuItem4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 24);
-            this.toolStripMenuItem4.Text = "1";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem4.Text = "3";
             // 
-            // налаштуванняToolStripMenuItem
+            // settingsToolStripMenuItem
             // 
-            this.налаштуванняToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem5,
-            this.toolStripMenuItem6,
-            this.toolStripMenuItem7});
-            this.налаштуванняToolStripMenuItem.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.налаштуванняToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control;
-            this.налаштуванняToolStripMenuItem.Name = "налаштуванняToolStripMenuItem";
-            this.налаштуванняToolStripMenuItem.Size = new System.Drawing.Size(123, 23);
-            this.налаштуванняToolStripMenuItem.Text = "Налаштування";
-            // 
-            // базаToolStripMenuItem
-            // 
-            this.базаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem8,
-            this.toolStripMenuItem9,
-            this.toolStripMenuItem10});
-            this.базаToolStripMenuItem.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.базаToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control;
-            this.базаToolStripMenuItem.Name = "базаToolStripMenuItem";
-            this.базаToolStripMenuItem.Size = new System.Drawing.Size(53, 23);
-            this.базаToolStripMenuItem.Text = "База";
-            // 
-            // вікнаToolStripMenuItem
-            // 
-            this.вікнаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem11});
-            this.вікнаToolStripMenuItem.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
-            this.вікнаToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control;
-            this.вікнаToolStripMenuItem.Name = "вікнаToolStripMenuItem";
-            this.вікнаToolStripMenuItem.Size = new System.Drawing.Size(59, 23);
-            this.вікнаToolStripMenuItem.Text = "Вікна";
+            this.toolStripMenuItem6});
+            this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(101, 21);
+            this.settingsToolStripMenuItem.Text = "Налаштування";
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 24);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem5.Text = "1";
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(180, 24);
-            this.toolStripMenuItem6.Text = "1";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem6.Text = "2";
             // 
-            // toolStripMenuItem7
+            // baseToolStripMenuItem
             // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(180, 24);
-            this.toolStripMenuItem7.Text = "1";
+            this.baseToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.baseToolStripMenuItem.Name = "baseToolStripMenuItem";
+            this.baseToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
+            this.baseToolStripMenuItem.Text = "База";
             // 
-            // toolStripMenuItem8
+            // windowToolStripMenuItem
             // 
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(180, 24);
-            this.toolStripMenuItem8.Text = "1";
+            this.windowToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(51, 21);
+            this.windowToolStripMenuItem.Text = "Вікна ";
             // 
-            // toolStripMenuItem9
+            // aboutToolStripMenuItem
             // 
-            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(180, 24);
-            this.toolStripMenuItem9.Text = "1";
+            this.aboutToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
-            // toolStripMenuItem10
+            // panelTools
             // 
-            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(180, 24);
-            this.toolStripMenuItem10.Text = "1";
+            this.panelTools.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(156)))), ((int)(((byte)(149)))));
+            this.panelTools.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTools.Location = new System.Drawing.Point(0, 25);
+            this.panelTools.Name = "panelTools";
+            this.panelTools.Size = new System.Drawing.Size(1090, 35);
+            this.panelTools.TabIndex = 1;
             // 
-            // toolStripMenuItem11
+            // panelFooter
             // 
-            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(180, 24);
-            this.toolStripMenuItem11.Text = "1";
+            this.panelFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(156)))), ((int)(((byte)(149)))));
+            this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelFooter.Location = new System.Drawing.Point(175, 618);
+            this.panelFooter.Name = "panelFooter";
+            this.panelFooter.Size = new System.Drawing.Size(915, 29);
+            this.panelFooter.TabIndex = 3;
             // 
-            // aboutButton
+            // panelWorkspace
             // 
-            this.aboutButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.aboutButton.FlatAppearance.BorderSize = 0;
-            this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aboutButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.aboutButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.aboutButton.Location = new System.Drawing.Point(0, 260);
-            this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.aboutButton.Size = new System.Drawing.Size(134, 30);
-            this.aboutButton.TabIndex = 7;
-            this.aboutButton.Text = "About";
-            this.aboutButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.aboutButton.UseVisualStyleBackColor = true;
-            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click_1);
+            this.panelWorkspace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(205)))), ((int)(((byte)(224)))));
+            this.panelWorkspace.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelWorkspace.Location = new System.Drawing.Point(175, 60);
+            this.panelWorkspace.Name = "panelWorkspace";
+            this.panelWorkspace.Size = new System.Drawing.Size(915, 558);
+            this.panelWorkspace.TabIndex = 4;
+            // 
+            // panelLeftMain
+            // 
+            this.panelLeftMain.AutoScroll = true;
+            this.panelLeftMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(205)))), ((int)(((byte)(167)))));
+            this.panelLeftMain.Controls.Add(this.panelReportSubmenu);
+            this.panelLeftMain.Controls.Add(this.buttonReport);
+            this.panelLeftMain.Controls.Add(this.panelSectionSubmenu);
+            this.panelLeftMain.Controls.Add(this.buttonSection);
+            this.panelLeftMain.Controls.Add(this.panelTablesSubmenu);
+            this.panelLeftMain.Controls.Add(this.buttonTables);
+            this.panelLeftMain.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelLeftMain.Location = new System.Drawing.Point(0, 60);
+            this.panelLeftMain.Name = "panelLeftMain";
+            this.panelLeftMain.Size = new System.Drawing.Size(175, 587);
+            this.panelLeftMain.TabIndex = 2;
+            // 
+            // buttonTables
+            // 
+            this.buttonTables.AutoEllipsis = true;
+            this.buttonTables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(160)))), ((int)(((byte)(157)))));
+            this.buttonTables.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonTables.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonTables.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTables.ForeColor = System.Drawing.Color.White;
+            this.buttonTables.Location = new System.Drawing.Point(0, 0);
+            this.buttonTables.Name = "buttonTables";
+            this.buttonTables.Size = new System.Drawing.Size(175, 50);
+            this.buttonTables.TabIndex = 1;
+            this.buttonTables.Text = "Таблиці";
+            this.buttonTables.UseVisualStyleBackColor = false;
+            this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
+            // 
+            // panelTablesSubmenu
+            // 
+            this.panelTablesSubmenu.Controls.Add(this.button3);
+            this.panelTablesSubmenu.Controls.Add(this.button2);
+            this.panelTablesSubmenu.Controls.Add(this.button1);
+            this.panelTablesSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTablesSubmenu.Location = new System.Drawing.Point(0, 50);
+            this.panelTablesSubmenu.Name = "panelTablesSubmenu";
+            this.panelTablesSubmenu.Size = new System.Drawing.Size(175, 105);
+            this.panelTablesSubmenu.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.AutoEllipsis = true;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(175, 35);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Таблиці";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.AutoEllipsis = true;
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(0, 35);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(175, 35);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Таблиці";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button3
+            // 
+            this.button3.AutoEllipsis = true;
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(0, 70);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(175, 35);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "Таблиці";
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // panelSectionSubmenu
+            // 
+            this.panelSectionSubmenu.Controls.Add(this.button4);
+            this.panelSectionSubmenu.Controls.Add(this.button5);
+            this.panelSectionSubmenu.Controls.Add(this.button6);
+            this.panelSectionSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSectionSubmenu.Location = new System.Drawing.Point(0, 205);
+            this.panelSectionSubmenu.Name = "panelSectionSubmenu";
+            this.panelSectionSubmenu.Size = new System.Drawing.Size(175, 105);
+            this.panelSectionSubmenu.TabIndex = 4;
+            // 
+            // button4
+            // 
+            this.button4.AutoEllipsis = true;
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.ForeColor = System.Drawing.Color.White;
+            this.button4.Location = new System.Drawing.Point(0, 70);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(175, 35);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Розділ";
+            this.button4.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            this.button5.AutoEllipsis = true;
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.ForeColor = System.Drawing.Color.White;
+            this.button5.Location = new System.Drawing.Point(0, 35);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(175, 35);
+            this.button5.TabIndex = 3;
+            this.button5.Text = "Розділ";
+            this.button5.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            this.button6.AutoEllipsis = true;
+            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.ForeColor = System.Drawing.Color.White;
+            this.button6.Location = new System.Drawing.Point(0, 0);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(175, 35);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "Розділ";
+            this.button6.UseVisualStyleBackColor = false;
+            // 
+            // buttonSection
+            // 
+            this.buttonSection.AutoEllipsis = true;
+            this.buttonSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(160)))), ((int)(((byte)(157)))));
+            this.buttonSection.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonSection.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonSection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSection.ForeColor = System.Drawing.Color.White;
+            this.buttonSection.Location = new System.Drawing.Point(0, 155);
+            this.buttonSection.Name = "buttonSection";
+            this.buttonSection.Size = new System.Drawing.Size(175, 50);
+            this.buttonSection.TabIndex = 3;
+            this.buttonSection.Text = "Розділ";
+            this.buttonSection.UseVisualStyleBackColor = false;
+            this.buttonSection.Click += new System.EventHandler(this.buttonSection_Click);
+            // 
+            // panelReportSubmenu
+            // 
+            this.panelReportSubmenu.Controls.Add(this.button8);
+            this.panelReportSubmenu.Controls.Add(this.button9);
+            this.panelReportSubmenu.Controls.Add(this.button10);
+            this.panelReportSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelReportSubmenu.Location = new System.Drawing.Point(0, 360);
+            this.panelReportSubmenu.Name = "panelReportSubmenu";
+            this.panelReportSubmenu.Size = new System.Drawing.Size(175, 105);
+            this.panelReportSubmenu.TabIndex = 6;
+            // 
+            // button8
+            // 
+            this.button8.AutoEllipsis = true;
+            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.ForeColor = System.Drawing.Color.White;
+            this.button8.Location = new System.Drawing.Point(0, 70);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(175, 35);
+            this.button8.TabIndex = 4;
+            this.button8.Text = "Звіти";
+            this.button8.UseVisualStyleBackColor = false;
+            // 
+            // button9
+            // 
+            this.button9.AutoEllipsis = true;
+            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button9.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button9.ForeColor = System.Drawing.Color.White;
+            this.button9.Location = new System.Drawing.Point(0, 35);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(175, 35);
+            this.button9.TabIndex = 3;
+            this.button9.Text = "Звіти";
+            this.button9.UseVisualStyleBackColor = false;
+            // 
+            // button10
+            // 
+            this.button10.AutoEllipsis = true;
+            this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button10.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button10.ForeColor = System.Drawing.Color.White;
+            this.button10.Location = new System.Drawing.Point(0, 0);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(175, 35);
+            this.button10.TabIndex = 2;
+            this.button10.Text = "Звіти";
+            this.button10.UseVisualStyleBackColor = false;
+            // 
+            // buttonReport
+            // 
+            this.buttonReport.AutoEllipsis = true;
+            this.buttonReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(160)))), ((int)(((byte)(157)))));
+            this.buttonReport.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonReport.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonReport.ForeColor = System.Drawing.Color.White;
+            this.buttonReport.Location = new System.Drawing.Point(0, 310);
+            this.buttonReport.Name = "buttonReport";
+            this.buttonReport.Size = new System.Drawing.Size(175, 50);
+            this.buttonReport.TabIndex = 5;
+            this.buttonReport.Text = "Звіти";
+            this.buttonReport.UseVisualStyleBackColor = false;
+            this.buttonReport.Click += new System.EventHandler(this.buttonReport_Click);
             // 
             // mainForm
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(934, 561);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(110)))), ((int)(((byte)(95)))));
+            this.ClientSize = new System.Drawing.Size(1090, 647);
+            this.Controls.Add(this.panelWorkspace);
+            this.Controls.Add(this.panelFooter);
+            this.Controls.Add(this.panelLeftMain);
+            this.Controls.Add(this.panelTools);
             this.Controls.Add(this.panelOptions);
-            this.Controls.Add(this.panelMainLeft);
-            this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ForeColor = System.Drawing.SystemColors.Control;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(950, 600);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.MinimumSize = new System.Drawing.Size(1106, 686);
             this.Name = "mainForm";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Tag = "";
             this.Text = "Carat";
-            this.panelMainLeft.ResumeLayout(false);
-            this.panelFunctionButtons.ResumeLayout(false);
-            this.reportsPanel.ResumeLayout(false);
-            this.distributionSubMenuPanel.ResumeLayout(false);
-            this.tablesPanel.ResumeLayout(false);
-            this.movePanel.ResumeLayout(false);
-            this.logoPanel.ResumeLayout(false);
-            this.logoPanel.PerformLayout();
             this.panelOptions.ResumeLayout(false);
             this.panelOptions.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStripOptions.ResumeLayout(false);
+            this.menuStripOptions.PerformLayout();
+            this.panelLeftMain.ResumeLayout(false);
+            this.panelTablesSubmenu.ResumeLayout(false);
+            this.panelSectionSubmenu.ResumeLayout(false);
+            this.panelReportSubmenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panelMainLeft;
-        private System.Windows.Forms.Panel panelFunctionButtons;
-        private System.Windows.Forms.Button helpButton;
-        private System.Windows.Forms.Panel reportsPanel;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button reportsSubMenuButton;
-        private System.Windows.Forms.Panel distributionSubMenuPanel;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button distributionSubMenuButton;
-        private System.Windows.Forms.Panel tablesPanel;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button tablesSubMenuButton;
-        private System.Windows.Forms.Panel movePanel;
-        private System.Windows.Forms.Panel currentPanel;
-        private System.Windows.Forms.Panel logoPanel;
-        private System.Windows.Forms.Label kpiLabel;
         private System.Windows.Forms.Panel panelOptions;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.Panel panelTools;
+        private System.Windows.Forms.Panel panelFooter;
+        private System.Windows.Forms.Panel panelWorkspace;
+        private System.Windows.Forms.Panel panelLeftMain;
+        private System.Windows.Forms.MenuStrip menuStripOptions;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem налаштуванняToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem базаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem вікнаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
-        private System.Windows.Forms.Button aboutButton;
+        private System.Windows.Forms.ToolStripMenuItem baseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.Button buttonTables;
+        private System.Windows.Forms.Panel panelTablesSubmenu;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panelReportSubmenu;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button buttonReport;
+        private System.Windows.Forms.Panel panelSectionSubmenu;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button buttonSection;
     }
 }
 
