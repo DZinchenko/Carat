@@ -1,3 +1,8 @@
 .vs/
 Carat/bin/
 Carat/obj/
+Carat.Data/bin/
+Carat.Data/obj/
+Carat.EF/bin/
+Carat.EF/obj/
+packages/

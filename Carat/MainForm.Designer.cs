@@ -45,27 +45,27 @@
             this.panelFooter = new System.Windows.Forms.Panel();
             this.panelWorkspace = new System.Windows.Forms.Panel();
             this.panelLeftMain = new System.Windows.Forms.Panel();
-            this.buttonTables = new System.Windows.Forms.Button();
-            this.panelTablesSubmenu = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.panelSectionSubmenu = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.buttonSection = new System.Windows.Forms.Button();
             this.panelReportSubmenu = new System.Windows.Forms.Panel();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.buttonReport = new System.Windows.Forms.Button();
+            this.panelSectionSubmenu = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.buttonSection = new System.Windows.Forms.Button();
+            this.panelTablesSubmenu = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.buttonTables = new System.Windows.Forms.Button();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelLeftMain.SuspendLayout();
-            this.panelTablesSubmenu.SuspendLayout();
-            this.panelSectionSubmenu.SuspendLayout();
             this.panelReportSubmenu.SuspendLayout();
+            this.panelSectionSubmenu.SuspendLayout();
+            this.panelTablesSubmenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelOptions
@@ -115,21 +115,21 @@
             this.toolStripMenuItem2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 20);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(80, 20);
             this.toolStripMenuItem2.Text = "1";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.BackColor = System.Drawing.Color.Maroon;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem3.Text = "2";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem4.Text = "3";
             // 
             // settingsToolStripMenuItem
@@ -145,13 +145,13 @@
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem5.Text = "1";
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem6.Text = "2";
             // 
             // baseToolStripMenuItem
@@ -217,150 +217,6 @@
             this.panelLeftMain.Name = "panelLeftMain";
             this.panelLeftMain.Size = new System.Drawing.Size(175, 587);
             this.panelLeftMain.TabIndex = 2;
-            // 
-            // buttonTables
-            // 
-            this.buttonTables.AutoEllipsis = true;
-            this.buttonTables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(160)))), ((int)(((byte)(157)))));
-            this.buttonTables.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonTables.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.buttonTables.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTables.ForeColor = System.Drawing.Color.White;
-            this.buttonTables.Location = new System.Drawing.Point(0, 0);
-            this.buttonTables.Name = "buttonTables";
-            this.buttonTables.Size = new System.Drawing.Size(175, 50);
-            this.buttonTables.TabIndex = 1;
-            this.buttonTables.Text = "Таблиці";
-            this.buttonTables.UseVisualStyleBackColor = false;
-            this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
-            // 
-            // panelTablesSubmenu
-            // 
-            this.panelTablesSubmenu.Controls.Add(this.button3);
-            this.panelTablesSubmenu.Controls.Add(this.button2);
-            this.panelTablesSubmenu.Controls.Add(this.button1);
-            this.panelTablesSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTablesSubmenu.Location = new System.Drawing.Point(0, 50);
-            this.panelTablesSubmenu.Name = "panelTablesSubmenu";
-            this.panelTablesSubmenu.Size = new System.Drawing.Size(175, 105);
-            this.panelTablesSubmenu.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.AutoEllipsis = true;
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(175, 35);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Таблиці";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.AutoEllipsis = true;
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(0, 35);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(175, 35);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Таблиці";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.AutoEllipsis = true;
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(0, 70);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(175, 35);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Таблиці";
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // panelSectionSubmenu
-            // 
-            this.panelSectionSubmenu.Controls.Add(this.button4);
-            this.panelSectionSubmenu.Controls.Add(this.button5);
-            this.panelSectionSubmenu.Controls.Add(this.button6);
-            this.panelSectionSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSectionSubmenu.Location = new System.Drawing.Point(0, 205);
-            this.panelSectionSubmenu.Name = "panelSectionSubmenu";
-            this.panelSectionSubmenu.Size = new System.Drawing.Size(175, 105);
-            this.panelSectionSubmenu.TabIndex = 4;
-            // 
-            // button4
-            // 
-            this.button4.AutoEllipsis = true;
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(0, 70);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(175, 35);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Розділ";
-            this.button4.UseVisualStyleBackColor = false;
-            // 
-            // button5
-            // 
-            this.button5.AutoEllipsis = true;
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.button5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(0, 35);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(175, 35);
-            this.button5.TabIndex = 3;
-            this.button5.Text = "Розділ";
-            this.button5.UseVisualStyleBackColor = false;
-            // 
-            // button6
-            // 
-            this.button6.AutoEllipsis = true;
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(0, 0);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(175, 35);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "Розділ";
-            this.button6.UseVisualStyleBackColor = false;
-            // 
-            // buttonSection
-            // 
-            this.buttonSection.AutoEllipsis = true;
-            this.buttonSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(160)))), ((int)(((byte)(157)))));
-            this.buttonSection.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonSection.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.buttonSection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSection.ForeColor = System.Drawing.Color.White;
-            this.buttonSection.Location = new System.Drawing.Point(0, 155);
-            this.buttonSection.Name = "buttonSection";
-            this.buttonSection.Size = new System.Drawing.Size(175, 50);
-            this.buttonSection.TabIndex = 3;
-            this.buttonSection.Text = "Розділ";
-            this.buttonSection.UseVisualStyleBackColor = false;
-            this.buttonSection.Click += new System.EventHandler(this.buttonSection_Click);
             // 
             // panelReportSubmenu
             // 
@@ -434,6 +290,151 @@
             this.buttonReport.UseVisualStyleBackColor = false;
             this.buttonReport.Click += new System.EventHandler(this.buttonReport_Click);
             // 
+            // panelSectionSubmenu
+            // 
+            this.panelSectionSubmenu.Controls.Add(this.button4);
+            this.panelSectionSubmenu.Controls.Add(this.button5);
+            this.panelSectionSubmenu.Controls.Add(this.button6);
+            this.panelSectionSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSectionSubmenu.Location = new System.Drawing.Point(0, 205);
+            this.panelSectionSubmenu.Name = "panelSectionSubmenu";
+            this.panelSectionSubmenu.Size = new System.Drawing.Size(175, 105);
+            this.panelSectionSubmenu.TabIndex = 4;
+            // 
+            // button4
+            // 
+            this.button4.AutoEllipsis = true;
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.ForeColor = System.Drawing.Color.White;
+            this.button4.Location = new System.Drawing.Point(0, 70);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(175, 35);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Розділ";
+            this.button4.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            this.button5.AutoEllipsis = true;
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.ForeColor = System.Drawing.Color.White;
+            this.button5.Location = new System.Drawing.Point(0, 35);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(175, 35);
+            this.button5.TabIndex = 3;
+            this.button5.Text = "Розділ";
+            this.button5.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            this.button6.AutoEllipsis = true;
+            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.ForeColor = System.Drawing.Color.White;
+            this.button6.Location = new System.Drawing.Point(0, 0);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(175, 35);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "Розділ";
+            this.button6.UseVisualStyleBackColor = false;
+            // 
+            // buttonSection
+            // 
+            this.buttonSection.AutoEllipsis = true;
+            this.buttonSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(160)))), ((int)(((byte)(157)))));
+            this.buttonSection.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonSection.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonSection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSection.ForeColor = System.Drawing.Color.White;
+            this.buttonSection.Location = new System.Drawing.Point(0, 155);
+            this.buttonSection.Name = "buttonSection";
+            this.buttonSection.Size = new System.Drawing.Size(175, 50);
+            this.buttonSection.TabIndex = 3;
+            this.buttonSection.Text = "Розділ";
+            this.buttonSection.UseVisualStyleBackColor = false;
+            this.buttonSection.Click += new System.EventHandler(this.buttonSection_Click);
+            // 
+            // panelTablesSubmenu
+            // 
+            this.panelTablesSubmenu.Controls.Add(this.button3);
+            this.panelTablesSubmenu.Controls.Add(this.button2);
+            this.panelTablesSubmenu.Controls.Add(this.button1);
+            this.panelTablesSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTablesSubmenu.Location = new System.Drawing.Point(0, 50);
+            this.panelTablesSubmenu.Name = "panelTablesSubmenu";
+            this.panelTablesSubmenu.Size = new System.Drawing.Size(175, 105);
+            this.panelTablesSubmenu.TabIndex = 2;
+            // 
+            // button3
+            // 
+            this.button3.AutoEllipsis = true;
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(0, 70);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(175, 35);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "Таблиці";
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.AutoEllipsis = true;
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(0, 35);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(175, 35);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Таблиці";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.AutoEllipsis = true;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(175, 35);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Таблиці";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // buttonTables
+            // 
+            this.buttonTables.AutoEllipsis = true;
+            this.buttonTables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(160)))), ((int)(((byte)(157)))));
+            this.buttonTables.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonTables.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonTables.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTables.ForeColor = System.Drawing.Color.White;
+            this.buttonTables.Location = new System.Drawing.Point(0, 0);
+            this.buttonTables.Name = "buttonTables";
+            this.buttonTables.Size = new System.Drawing.Size(175, 50);
+            this.buttonTables.TabIndex = 1;
+            this.buttonTables.Text = "Таблиці";
+            this.buttonTables.UseVisualStyleBackColor = false;
+            this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -456,9 +457,9 @@
             this.menuStripOptions.ResumeLayout(false);
             this.menuStripOptions.PerformLayout();
             this.panelLeftMain.ResumeLayout(false);
-            this.panelTablesSubmenu.ResumeLayout(false);
-            this.panelSectionSubmenu.ResumeLayout(false);
             this.panelReportSubmenu.ResumeLayout(false);
+            this.panelSectionSubmenu.ResumeLayout(false);
+            this.panelTablesSubmenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
