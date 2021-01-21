@@ -158,6 +158,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ISaveChanges.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,6 +203,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Carat.Data\Carat.Data.csproj">
+      <Project>{a8bfc484-ea84-4a8c-9725-b774e100d943}</Project>
+      <Name>Carat.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Carat.EF\Carat.EF.csproj">
       <Project>{415387f0-533e-45e3-af1d-df00a64bbeaf}</Project>
       <Name>Carat.EF</Name>

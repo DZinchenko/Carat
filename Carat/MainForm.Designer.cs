@@ -46,7 +46,6 @@
             this.panelWorkspace = new System.Windows.Forms.Panel();
             this.panelLeftMain = new System.Windows.Forms.Panel();
             this.panelReportSubmenu = new System.Windows.Forms.Panel();
-            this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.buttonReport = new System.Windows.Forms.Button();
@@ -56,10 +55,11 @@
             this.button6 = new System.Windows.Forms.Button();
             this.buttonSection = new System.Windows.Forms.Button();
             this.panelTablesSubmenu = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonTeachers = new System.Windows.Forms.Button();
+            this.buttonGroups = new System.Windows.Forms.Button();
+            this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelLeftMain.SuspendLayout();
@@ -229,21 +229,6 @@
             this.panelReportSubmenu.Size = new System.Drawing.Size(175, 105);
             this.panelReportSubmenu.TabIndex = 6;
             // 
-            // button8
-            // 
-            this.button8.AutoEllipsis = true;
-            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.button8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(0, 70);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(175, 35);
-            this.button8.TabIndex = 4;
-            this.button8.Text = "Звіти";
-            this.button8.UseVisualStyleBackColor = false;
-            // 
             // button9
             // 
             this.button9.AutoEllipsis = true;
@@ -364,60 +349,60 @@
             // 
             // panelTablesSubmenu
             // 
-            this.panelTablesSubmenu.Controls.Add(this.button3);
-            this.panelTablesSubmenu.Controls.Add(this.button2);
-            this.panelTablesSubmenu.Controls.Add(this.button1);
+            this.panelTablesSubmenu.Controls.Add(this.buttonTeachers);
+            this.panelTablesSubmenu.Controls.Add(this.buttonGroups);
+            this.panelTablesSubmenu.Controls.Add(this.buttonSubjects);
             this.panelTablesSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTablesSubmenu.Location = new System.Drawing.Point(0, 50);
             this.panelTablesSubmenu.Name = "panelTablesSubmenu";
             this.panelTablesSubmenu.Size = new System.Drawing.Size(175, 105);
             this.panelTablesSubmenu.TabIndex = 2;
             // 
-            // button3
+            // buttonTeachers
             // 
-            this.button3.AutoEllipsis = true;
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(0, 70);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(175, 35);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Таблиці";
-            this.button3.UseVisualStyleBackColor = false;
+            this.buttonTeachers.AutoEllipsis = true;
+            this.buttonTeachers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.buttonTeachers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonTeachers.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonTeachers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTeachers.ForeColor = System.Drawing.Color.White;
+            this.buttonTeachers.Location = new System.Drawing.Point(0, 70);
+            this.buttonTeachers.Name = "buttonTeachers";
+            this.buttonTeachers.Size = new System.Drawing.Size(175, 35);
+            this.buttonTeachers.TabIndex = 4;
+            this.buttonTeachers.Text = "Викладачі";
+            this.buttonTeachers.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // buttonGroups
             // 
-            this.button2.AutoEllipsis = true;
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(0, 35);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(175, 35);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Таблиці";
-            this.button2.UseVisualStyleBackColor = false;
+            this.buttonGroups.AutoEllipsis = true;
+            this.buttonGroups.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.buttonGroups.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonGroups.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGroups.ForeColor = System.Drawing.Color.White;
+            this.buttonGroups.Location = new System.Drawing.Point(0, 35);
+            this.buttonGroups.Name = "buttonGroups";
+            this.buttonGroups.Size = new System.Drawing.Size(175, 35);
+            this.buttonGroups.TabIndex = 3;
+            this.buttonGroups.Text = "Групи";
+            this.buttonGroups.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // buttonSubjects
             // 
-            this.button1.AutoEllipsis = true;
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(175, 35);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Таблиці";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonSubjects.AutoEllipsis = true;
+            this.buttonSubjects.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.buttonSubjects.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonSubjects.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonSubjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSubjects.ForeColor = System.Drawing.Color.White;
+            this.buttonSubjects.Location = new System.Drawing.Point(0, 0);
+            this.buttonSubjects.Name = "buttonSubjects";
+            this.buttonSubjects.Size = new System.Drawing.Size(175, 35);
+            this.buttonSubjects.TabIndex = 2;
+            this.buttonSubjects.Text = "Дисципліни";
+            this.buttonSubjects.UseVisualStyleBackColor = false;
+            this.buttonSubjects.Click += new System.EventHandler(this.buttonSubjects_Click);
             // 
             // buttonTables
             // 
@@ -434,6 +419,21 @@
             this.buttonTables.Text = "Таблиці";
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
+            // 
+            // button8
+            // 
+            this.button8.AutoEllipsis = true;
+            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.button8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.ForeColor = System.Drawing.Color.White;
+            this.button8.Location = new System.Drawing.Point(0, 70);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(175, 35);
+            this.button8.TabIndex = 4;
+            this.button8.Text = "Звіти";
+            this.button8.UseVisualStyleBackColor = false;
             // 
             // mainForm
             // 
@@ -484,11 +484,10 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Button buttonTables;
         private System.Windows.Forms.Panel panelTablesSubmenu;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonTeachers;
+        private System.Windows.Forms.Button buttonGroups;
+        private System.Windows.Forms.Button buttonSubjects;
         private System.Windows.Forms.Panel panelReportSubmenu;
-        private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button buttonReport;
@@ -497,6 +496,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button buttonSection;
+        private System.Windows.Forms.Button button8;
     }
 }
 

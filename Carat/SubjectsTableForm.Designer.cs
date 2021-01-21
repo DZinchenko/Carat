@@ -14,6 +14,8 @@ namespace Carat
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            SaveData();
+
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -40,6 +42,7 @@ namespace Carat
             // dataGridViewSubjects
             // 
             this.dataGridViewSubjects.AllowDrop = true;
+            this.dataGridViewSubjects.AllowUserToOrderColumns = true;
             this.dataGridViewSubjects.AllowUserToResizeRows = false;
             this.dataGridViewSubjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 

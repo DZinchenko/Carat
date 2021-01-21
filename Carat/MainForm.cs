@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Carat.EF;
+using Carat.Interfaces;
 
 namespace Carat
 {
@@ -58,7 +59,14 @@ namespace Carat
             {
                 activeForm.Close();
             }
-            
+
+            var loadDataForm = childForm as IDataUser;
+
+            if (loadDataForm != null)
+            {
+                loadDataForm.LoadData();
+            }
+
             childForm.TopLevel = false;
             childForm.Dock = DockStyle.Fill;
             panelWorkspace.Controls.Add(childForm);
@@ -70,7 +78,7 @@ namespace Carat
             childForm.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonSubjects_Click(object sender, EventArgs e)
         {
             openChildForm(new SubjectsTableForm());
         }
