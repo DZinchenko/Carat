@@ -18,10 +18,13 @@ namespace Carat
     public partial class SubjectsTableForm : Form, IDataUser
     {
         private ISubjectRepository subjectRepository = new SubjectRepository();
+        private MainForm parentForm = null;
 
-        public SubjectsTableForm()
+        public SubjectsTableForm(MainForm parentForm)
         {
             InitializeComponent();
+
+            this.parentForm = parentForm;
         }
 
         public void SaveData()
@@ -51,6 +54,17 @@ namespace Carat
             {
                 dataGridViewSubjects.Rows.Add(subject.Name, subject.Notes);
             }
+        }
+
+        private void SubjectsTableForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveData();
+        }
+
+        private void SubjectsTableForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            parentForm.subjectsForm = null;
+            parentForm.SetButtonState();
         }
     }
 }

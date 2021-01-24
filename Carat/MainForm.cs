@@ -12,11 +12,15 @@ using Carat.Interfaces;
 
 namespace Carat
 {
-    public partial class mainForm : Form
-    {
-        private Form activeForm = null;
+    public enum Forms { SubjectsForm, GroupsForm, TeachersForm }
 
-        public mainForm()
+    public partial class MainForm : Form
+    {
+        public Form subjectsForm = null;
+        public Form groupsForm = null;
+        public Form teachersForm = null;
+
+        public MainForm()
         {
             InitializeComponent();
             InitializeSubmenu();
@@ -28,6 +32,22 @@ namespace Carat
 
             using (var db = new CaratDbContext())
             {
+            }
+        }
+
+        public void SetButtonState()
+        {
+            if (subjectsForm == null)
+            {
+                buttonSubjects.Image = Properties.Resources.icons8_круг_16;
+            }
+            if (groupsForm == null)
+            {
+                buttonGroups.Image = Properties.Resources.icons8_круг_16;
+            }
+            if (teachersForm == null)
+            {
+                buttonTeachers.Image = Properties.Resources.icons8_круг_16;
             }
         }
 
@@ -58,29 +78,23 @@ namespace Carat
             changeViewStateOfSubmenu(panelReportSubmenu);
         }
 
-        private void openChildForm(Form childForm)
+        private void openChildForm(Form form)
         {
-            if (activeForm != null)
-            {
-                activeForm.Close();
-            }
-
-            var loadDataForm = childForm as IDataUser;
+            var loadDataForm = form as IDataUser;
 
             if (loadDataForm != null)
             {
                 loadDataForm.LoadData();
             }
 
-            childForm.TopLevel = false;
-            childForm.Dock = DockStyle.Fill;
-            panelWorkspace.Controls.Add(childForm);
-            panelWorkspace.Tag = childForm;
-            childForm.BringToFront();
-            
-            activeForm = childForm;
+            form.TopLevel = false;
+            form.WindowState = FormWindowState.Maximized;
 
-            childForm.Show();
+            panelWorkspace.Controls.Add(form);
+            panelWorkspace.Tag = form;
+            form.BringToFront();
+
+            form.Show();
         }
 
         private void toolStripMenuItem_Click(ToolStripMenuItem toolStripMenuItem)
@@ -108,8 +122,15 @@ namespace Carat
 
         private void buttonSubjects_Click(object sender, EventArgs e)
         {
-            buttonSubjects.Image = Properties.Resources.icons8_заполненный_круг_16;
-            openChildForm(new SubjectsTableForm());
+            if (subjectsForm == null)
+            {
+                buttonSubjects.Image = Properties.Resources.icons8_заполненный_круг_16;
+                subjectsForm = new SubjectsTableForm(this);
+                openChildForm(subjectsForm);
+            }
+            else {
+                subjectsForm.BringToFront();
+            }
         }
 
         private void fileToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
@@ -204,6 +225,11 @@ namespace Carat
         private void comboBoxSemestr_DropDownClosed(object sender, EventArgs e)
         {
             buttonHidePanel.Focus();
+        }
+
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            subjectsForm?.Close();
         }
     }
 }

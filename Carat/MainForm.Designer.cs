@@ -1,6 +1,6 @@
 ﻿namespace Carat
 {
-    partial class mainForm
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panelOptions = new System.Windows.Forms.Panel();
             this.menuStripOptions = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +59,7 @@
             this.buttonHidePanel = new System.Windows.Forms.Button();
             this.panelFooter = new System.Windows.Forms.Panel();
             this.panelWorkspace = new System.Windows.Forms.Panel();
+            this.labelCarat = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.panelLeftMain = new System.Windows.Forms.Panel();
             this.panelReportSubmenu = new System.Windows.Forms.Panel();
@@ -76,7 +77,6 @@
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
-            this.labelCarat = new System.Windows.Forms.Label();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
@@ -437,6 +437,17 @@
             this.panelWorkspace.Size = new System.Drawing.Size(915, 558);
             this.panelWorkspace.TabIndex = 4;
             // 
+            // labelCarat
+            // 
+            this.labelCarat.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelCarat.AutoSize = true;
+            this.labelCarat.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCarat.Location = new System.Drawing.Point(348, 298);
+            this.labelCarat.Name = "labelCarat";
+            this.labelCarat.Size = new System.Drawing.Size(244, 106);
+            this.labelCarat.TabIndex = 1;
+            this.labelCarat.Text = "Carat";
+            // 
             // pictureBox5
             // 
             this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -622,7 +633,7 @@
             this.buttonSection.Name = "buttonSection";
             this.buttonSection.Size = new System.Drawing.Size(173, 50);
             this.buttonSection.TabIndex = 3;
-            this.buttonSection.Text = "Розділ";
+            this.buttonSection.Text = "Розподіл";
             this.buttonSection.UseVisualStyleBackColor = false;
             this.buttonSection.Click += new System.EventHandler(this.buttonSection_Click);
             // 
@@ -710,18 +721,7 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
-            // labelCarat
-            // 
-            this.labelCarat.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.labelCarat.AutoSize = true;
-            this.labelCarat.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCarat.Location = new System.Drawing.Point(348, 298);
-            this.labelCarat.Name = "labelCarat";
-            this.labelCarat.Size = new System.Drawing.Size(244, 106);
-            this.labelCarat.TabIndex = 1;
-            this.labelCarat.Text = "Carat";
-            // 
-            // mainForm
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -736,9 +736,10 @@
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1106, 686);
-            this.Name = "mainForm";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Carat";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.panelOptions.ResumeLayout(false);
             this.panelOptions.PerformLayout();
             this.menuStripOptions.ResumeLayout(false);
