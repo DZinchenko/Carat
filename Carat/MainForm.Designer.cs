@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.panelOptions = new System.Windows.Forms.Panel();
             this.menuStripOptions = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +44,7 @@
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTools = new System.Windows.Forms.Panel();
+            this.buttonHidePanel = new System.Windows.Forms.Button();
             this.panelFooter = new System.Windows.Forms.Panel();
             this.panelWorkspace = new System.Windows.Forms.Panel();
             this.panelLeftMain = new System.Windows.Forms.Panel();
@@ -63,6 +65,7 @@
             this.buttonTables = new System.Windows.Forms.Button();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
+            this.panelTools.SuspendLayout();
             this.panelLeftMain.SuspendLayout();
             this.panelReportSubmenu.SuspendLayout();
             this.panelSectionSubmenu.SuspendLayout();
@@ -199,11 +202,25 @@
             // 
             this.panelTools.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
             this.panelTools.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTools.Controls.Add(this.buttonHidePanel);
             this.panelTools.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTools.Location = new System.Drawing.Point(0, 25);
             this.panelTools.Name = "panelTools";
             this.panelTools.Size = new System.Drawing.Size(1090, 35);
             this.panelTools.TabIndex = 1;
+            // 
+            // buttonHidePanel
+            // 
+            this.buttonHidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
+            this.buttonHidePanel.FlatAppearance.BorderSize = 0;
+            this.buttonHidePanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHidePanel.Image = global::Carat.Properties.Resources.icons8_открыть_панель_32;
+            this.buttonHidePanel.Location = new System.Drawing.Point(3, 3);
+            this.buttonHidePanel.Name = "buttonHidePanel";
+            this.buttonHidePanel.Size = new System.Drawing.Size(33, 27);
+            this.buttonHidePanel.TabIndex = 0;
+            this.buttonHidePanel.UseVisualStyleBackColor = false;
+            this.buttonHidePanel.Click += new System.EventHandler(this.buttonHidePanel_Click);
             // 
             // panelFooter
             // 
@@ -257,9 +274,11 @@
             this.button8.AutoEllipsis = true;
             this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
             this.button8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.ForeColor = System.Drawing.Color.Black;
+            this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
+            this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button8.Location = new System.Drawing.Point(0, 70);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(173, 35);
@@ -272,9 +291,11 @@
             this.button9.AutoEllipsis = true;
             this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
             this.button9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button9.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button9.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.ForeColor = System.Drawing.Color.Black;
+            this.button9.Image = ((System.Drawing.Image)(resources.GetObject("button9.Image")));
+            this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button9.Location = new System.Drawing.Point(0, 35);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(173, 35);
@@ -287,9 +308,11 @@
             this.button10.AutoEllipsis = true;
             this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
             this.button10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button10.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button10.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.ForeColor = System.Drawing.Color.Black;
+            this.button10.Image = ((System.Drawing.Image)(resources.GetObject("button10.Image")));
+            this.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button10.Location = new System.Drawing.Point(0, 0);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(173, 35);
@@ -302,9 +325,12 @@
             this.buttonReport.AutoEllipsis = true;
             this.buttonReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(136)))), ((int)(((byte)(103)))));
             this.buttonReport.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonReport.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonReport.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonReport.ForeColor = System.Drawing.Color.White;
+            this.buttonReport.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonReport.ForeColor = System.Drawing.Color.Black;
+            this.buttonReport.Image = ((System.Drawing.Image)(resources.GetObject("buttonReport.Image")));
+            this.buttonReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonReport.Location = new System.Drawing.Point(0, 310);
             this.buttonReport.Name = "buttonReport";
             this.buttonReport.Size = new System.Drawing.Size(173, 50);
@@ -329,9 +355,11 @@
             this.button4.AutoEllipsis = true;
             this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
             this.button4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.ForeColor = System.Drawing.Color.Black;
+            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button4.Location = new System.Drawing.Point(0, 70);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(173, 35);
@@ -344,9 +372,11 @@
             this.button5.AutoEllipsis = true;
             this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
             this.button5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.ForeColor = System.Drawing.Color.Black;
+            this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
+            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button5.Location = new System.Drawing.Point(0, 35);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(173, 35);
@@ -359,9 +389,11 @@
             this.button6.AutoEllipsis = true;
             this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
             this.button6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.ForeColor = System.Drawing.Color.Black;
+            this.button6.Image = ((System.Drawing.Image)(resources.GetObject("button6.Image")));
+            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button6.Location = new System.Drawing.Point(0, 0);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(173, 35);
@@ -374,9 +406,12 @@
             this.buttonSection.AutoEllipsis = true;
             this.buttonSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(136)))), ((int)(((byte)(103)))));
             this.buttonSection.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonSection.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonSection.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonSection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSection.ForeColor = System.Drawing.Color.White;
+            this.buttonSection.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSection.ForeColor = System.Drawing.Color.Black;
+            this.buttonSection.Image = ((System.Drawing.Image)(resources.GetObject("buttonSection.Image")));
+            this.buttonSection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonSection.Location = new System.Drawing.Point(0, 155);
             this.buttonSection.Name = "buttonSection";
             this.buttonSection.Size = new System.Drawing.Size(173, 50);
@@ -401,39 +436,47 @@
             this.buttonTeachers.AutoEllipsis = true;
             this.buttonTeachers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
             this.buttonTeachers.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonTeachers.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonTeachers.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonTeachers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonTeachers.ForeColor = System.Drawing.Color.Black;
+            this.buttonTeachers.Image = ((System.Drawing.Image)(resources.GetObject("buttonTeachers.Image")));
+            this.buttonTeachers.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonTeachers.Location = new System.Drawing.Point(0, 70);
             this.buttonTeachers.Name = "buttonTeachers";
             this.buttonTeachers.Size = new System.Drawing.Size(173, 35);
             this.buttonTeachers.TabIndex = 4;
             this.buttonTeachers.Text = "Викладачі";
             this.buttonTeachers.UseVisualStyleBackColor = false;
+            this.buttonTeachers.Click += new System.EventHandler(this.buttonTeachers_Click);
             // 
             // buttonGroups
             // 
             this.buttonGroups.AutoEllipsis = true;
             this.buttonGroups.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
             this.buttonGroups.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonGroups.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonGroups.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGroups.ForeColor = System.Drawing.Color.Black;
+            this.buttonGroups.Image = ((System.Drawing.Image)(resources.GetObject("buttonGroups.Image")));
+            this.buttonGroups.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonGroups.Location = new System.Drawing.Point(0, 35);
             this.buttonGroups.Name = "buttonGroups";
             this.buttonGroups.Size = new System.Drawing.Size(173, 35);
             this.buttonGroups.TabIndex = 3;
             this.buttonGroups.Text = "Групи";
             this.buttonGroups.UseVisualStyleBackColor = false;
+            this.buttonGroups.Click += new System.EventHandler(this.buttonGroups_Click);
             // 
             // buttonSubjects
             // 
             this.buttonSubjects.AutoEllipsis = true;
             this.buttonSubjects.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
             this.buttonSubjects.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonSubjects.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonSubjects.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonSubjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSubjects.ForeColor = System.Drawing.Color.Black;
+            this.buttonSubjects.Image = global::Carat.Properties.Resources.icons8_круг_16;
+            this.buttonSubjects.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonSubjects.Location = new System.Drawing.Point(0, 0);
             this.buttonSubjects.Name = "buttonSubjects";
             this.buttonSubjects.Size = new System.Drawing.Size(173, 35);
@@ -447,9 +490,12 @@
             this.buttonTables.AutoEllipsis = true;
             this.buttonTables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(136)))), ((int)(((byte)(103)))));
             this.buttonTables.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonTables.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(9)))), ((int)(((byte)(49)))));
+            this.buttonTables.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonTables.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTables.ForeColor = System.Drawing.Color.White;
+            this.buttonTables.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonTables.ForeColor = System.Drawing.Color.Black;
+            this.buttonTables.Image = ((System.Drawing.Image)(resources.GetObject("buttonTables.Image")));
+            this.buttonTables.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonTables.Location = new System.Drawing.Point(0, 0);
             this.buttonTables.Name = "buttonTables";
             this.buttonTables.Size = new System.Drawing.Size(173, 50);
@@ -479,6 +525,7 @@
             this.panelOptions.PerformLayout();
             this.menuStripOptions.ResumeLayout(false);
             this.menuStripOptions.PerformLayout();
+            this.panelTools.ResumeLayout(false);
             this.panelLeftMain.ResumeLayout(false);
             this.panelReportSubmenu.ResumeLayout(false);
             this.panelSectionSubmenu.ResumeLayout(false);
@@ -521,6 +568,7 @@
         private System.Windows.Forms.Button buttonSection;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button buttonHidePanel;
     }
 }
 

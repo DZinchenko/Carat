@@ -103,6 +103,7 @@ namespace Carat
 
         private void buttonSubjects_Click(object sender, EventArgs e)
         {
+            buttonSubjects.Image = Properties.Resources.icons8_заполненный_круг_16;
             openChildForm(new SubjectsTableForm());
         }
 
@@ -154,6 +155,30 @@ namespace Carat
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
         {
             toolStripMenuItem6.Checked = !toolStripMenuItem6.Checked;
+        }
+
+        private void buttonGroups_Click(object sender, EventArgs e)
+        {
+            buttonGroups.Image = Properties.Resources.icons8_заполненный_круг_16;
+        }
+
+        private void buttonTeachers_Click(object sender, EventArgs e)
+        {
+            buttonTeachers.Image = Properties.Resources.icons8_заполненный_круг_16;
+        }
+
+        private void buttonHidePanel_Click(object sender, EventArgs e)
+        {
+            if (panelLeftMain.Visible)
+            {
+                panelLeftMain.Visible = false;
+                buttonHidePanel.Image = Properties.Resources.icons8_закрыть_панель_32;
+            }
+            else
+            {
+                panelLeftMain.Visible = true;
+                buttonHidePanel.Image = Properties.Resources.icons8_открыть_панель_32;
+            }
         }
     }
 }
