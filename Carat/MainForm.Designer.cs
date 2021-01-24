@@ -44,8 +44,13 @@
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTools = new System.Windows.Forms.Panel();
+            this.comboBoxSemestr = new System.Windows.Forms.ComboBox();
+            this.labelSemestr = new System.Windows.Forms.Label();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.labelCourse = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.comboBoxCourse = new System.Windows.Forms.ComboBox();
             this.labelEducForm = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.comboBoxEducForm = new System.Windows.Forms.ComboBox();
@@ -54,6 +59,7 @@
             this.buttonHidePanel = new System.Windows.Forms.Button();
             this.panelFooter = new System.Windows.Forms.Panel();
             this.panelWorkspace = new System.Windows.Forms.Panel();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.panelLeftMain = new System.Windows.Forms.Panel();
             this.panelReportSubmenu = new System.Windows.Forms.Panel();
             this.button8 = new System.Windows.Forms.Button();
@@ -70,22 +76,20 @@
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.labelCourse = new System.Windows.Forms.Label();
-            this.comboBoxCourse = new System.Windows.Forms.ComboBox();
-            this.labelSemestr = new System.Windows.Forms.Label();
-            this.comboBoxSemestr = new System.Windows.Forms.ComboBox();
+            this.labelCarat = new System.Windows.Forms.Label();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelWorkspace.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panelLeftMain.SuspendLayout();
             this.panelReportSubmenu.SuspendLayout();
             this.panelSectionSubmenu.SuspendLayout();
             this.panelTablesSubmenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // panelOptions
@@ -237,6 +241,46 @@
             this.panelTools.Size = new System.Drawing.Size(1090, 35);
             this.panelTools.TabIndex = 1;
             // 
+            // comboBoxSemestr
+            // 
+            this.comboBoxSemestr.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.comboBoxSemestr.BackColor = System.Drawing.Color.White;
+            this.comboBoxSemestr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSemestr.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBoxSemestr.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxSemestr.FormattingEnabled = true;
+            this.comboBoxSemestr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.comboBoxSemestr.Items.AddRange(new object[] {
+            "<всі>",
+            "1",
+            "2"});
+            this.comboBoxSemestr.Location = new System.Drawing.Point(632, 6);
+            this.comboBoxSemestr.Name = "comboBoxSemestr";
+            this.comboBoxSemestr.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.comboBoxSemestr.Size = new System.Drawing.Size(55, 28);
+            this.comboBoxSemestr.TabIndex = 8;
+            this.comboBoxSemestr.Tag = "";
+            this.comboBoxSemestr.DropDownClosed += new System.EventHandler(this.comboBoxSemestr_DropDownClosed);
+            // 
+            // labelSemestr
+            // 
+            this.labelSemestr.AutoSize = true;
+            this.labelSemestr.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelSemestr.Location = new System.Drawing.Point(568, 6);
+            this.labelSemestr.Name = "labelSemestr";
+            this.labelSemestr.Size = new System.Drawing.Size(80, 23);
+            this.labelSemestr.TabIndex = 9;
+            this.labelSemestr.Text = "Семестр:";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox4.Location = new System.Drawing.Point(544, 4);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox4.TabIndex = 6;
+            this.pictureBox4.TabStop = false;
+            // 
             // pictureBox3
             // 
             this.pictureBox3.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
@@ -246,6 +290,16 @@
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
             // 
+            // labelCourse
+            // 
+            this.labelCourse.AutoSize = true;
+            this.labelCourse.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCourse.Location = new System.Drawing.Point(441, 6);
+            this.labelCourse.Name = "labelCourse";
+            this.labelCourse.Size = new System.Drawing.Size(50, 23);
+            this.labelCourse.TabIndex = 8;
+            this.labelCourse.Text = "Курс:";
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
@@ -254,6 +308,31 @@
             this.pictureBox2.Size = new System.Drawing.Size(27, 26);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
+            // 
+            // comboBoxCourse
+            // 
+            this.comboBoxCourse.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.comboBoxCourse.BackColor = System.Drawing.Color.White;
+            this.comboBoxCourse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCourse.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBoxCourse.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxCourse.FormattingEnabled = true;
+            this.comboBoxCourse.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.comboBoxCourse.Items.AddRange(new object[] {
+            "<всі>",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
+            this.comboBoxCourse.Location = new System.Drawing.Point(483, 6);
+            this.comboBoxCourse.Name = "comboBoxCourse";
+            this.comboBoxCourse.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.comboBoxCourse.Size = new System.Drawing.Size(55, 28);
+            this.comboBoxCourse.TabIndex = 7;
+            this.comboBoxCourse.Tag = "";
+            this.comboBoxCourse.DropDownClosed += new System.EventHandler(this.comboBoxCourse_DropDownClosed);
             // 
             // labelEducForm
             // 
@@ -277,9 +356,9 @@
             // comboBoxEducForm
             // 
             this.comboBoxEducForm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.comboBoxEducForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
+            this.comboBoxEducForm.BackColor = System.Drawing.Color.White;
             this.comboBoxEducForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxEducForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxEducForm.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxEducForm.ForeColor = System.Drawing.Color.Black;
             this.comboBoxEducForm.FormattingEnabled = true;
             this.comboBoxEducForm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -307,9 +386,9 @@
             // comboBoxEducType
             // 
             this.comboBoxEducType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.comboBoxEducType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
+            this.comboBoxEducType.BackColor = System.Drawing.Color.White;
             this.comboBoxEducType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxEducType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxEducType.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxEducType.ForeColor = System.Drawing.Color.Black;
             this.comboBoxEducType.FormattingEnabled = true;
             this.comboBoxEducType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -349,12 +428,24 @@
             // 
             // panelWorkspace
             // 
-            this.panelWorkspace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(205)))), ((int)(((byte)(224)))));
+            this.panelWorkspace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
+            this.panelWorkspace.Controls.Add(this.labelCarat);
+            this.panelWorkspace.Controls.Add(this.pictureBox5);
             this.panelWorkspace.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelWorkspace.Location = new System.Drawing.Point(175, 60);
             this.panelWorkspace.Name = "panelWorkspace";
             this.panelWorkspace.Size = new System.Drawing.Size(915, 558);
             this.panelWorkspace.TabIndex = 4;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox5.Image = global::Carat.Properties.Resources.preciousstone_105028;
+            this.pictureBox5.Location = new System.Drawing.Point(337, 73);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(255, 222);
+            this.pictureBox5.TabIndex = 0;
+            this.pictureBox5.TabStop = false;
             // 
             // panelLeftMain
             // 
@@ -387,7 +478,7 @@
             // button8
             // 
             this.button8.AutoEllipsis = true;
-            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
+            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
             this.button8.Dock = System.Windows.Forms.DockStyle.Top;
             this.button8.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -404,7 +495,7 @@
             // button9
             // 
             this.button9.AutoEllipsis = true;
-            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
+            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
             this.button9.Dock = System.Windows.Forms.DockStyle.Top;
             this.button9.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -421,7 +512,7 @@
             // button10
             // 
             this.button10.AutoEllipsis = true;
-            this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
+            this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
             this.button10.Dock = System.Windows.Forms.DockStyle.Top;
             this.button10.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -438,7 +529,7 @@
             // buttonReport
             // 
             this.buttonReport.AutoEllipsis = true;
-            this.buttonReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(136)))), ((int)(((byte)(103)))));
+            this.buttonReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
             this.buttonReport.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonReport.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -468,7 +559,7 @@
             // button4
             // 
             this.button4.AutoEllipsis = true;
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
             this.button4.Dock = System.Windows.Forms.DockStyle.Top;
             this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -485,7 +576,7 @@
             // button5
             // 
             this.button5.AutoEllipsis = true;
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
             this.button5.Dock = System.Windows.Forms.DockStyle.Top;
             this.button5.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -502,7 +593,7 @@
             // button6
             // 
             this.button6.AutoEllipsis = true;
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
+            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
             this.button6.Dock = System.Windows.Forms.DockStyle.Top;
             this.button6.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -519,7 +610,7 @@
             // buttonSection
             // 
             this.buttonSection.AutoEllipsis = true;
-            this.buttonSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(136)))), ((int)(((byte)(103)))));
+            this.buttonSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
             this.buttonSection.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonSection.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonSection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -549,7 +640,7 @@
             // buttonTeachers
             // 
             this.buttonTeachers.AutoEllipsis = true;
-            this.buttonTeachers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
+            this.buttonTeachers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
             this.buttonTeachers.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonTeachers.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonTeachers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -567,7 +658,7 @@
             // buttonGroups
             // 
             this.buttonGroups.AutoEllipsis = true;
-            this.buttonGroups.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
+            this.buttonGroups.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
             this.buttonGroups.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonGroups.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -585,7 +676,7 @@
             // buttonSubjects
             // 
             this.buttonSubjects.AutoEllipsis = true;
-            this.buttonSubjects.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(192)))));
+            this.buttonSubjects.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
             this.buttonSubjects.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonSubjects.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonSubjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -603,7 +694,7 @@
             // buttonTables
             // 
             this.buttonTables.AutoEllipsis = true;
-            this.buttonTables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(136)))), ((int)(((byte)(103)))));
+            this.buttonTables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
             this.buttonTables.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonTables.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.buttonTables.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -619,80 +710,16 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
-            // pictureBox4
+            // labelCarat
             // 
-            this.pictureBox4.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox4.Location = new System.Drawing.Point(544, 4);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox4.TabIndex = 6;
-            this.pictureBox4.TabStop = false;
-            // 
-            // labelCourse
-            // 
-            this.labelCourse.AutoSize = true;
-            this.labelCourse.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCourse.Location = new System.Drawing.Point(441, 6);
-            this.labelCourse.Name = "labelCourse";
-            this.labelCourse.Size = new System.Drawing.Size(50, 23);
-            this.labelCourse.TabIndex = 8;
-            this.labelCourse.Text = "Курс:";
-            // 
-            // comboBoxCourse
-            // 
-            this.comboBoxCourse.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.comboBoxCourse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
-            this.comboBoxCourse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxCourse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBoxCourse.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxCourse.FormattingEnabled = true;
-            this.comboBoxCourse.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.comboBoxCourse.Items.AddRange(new object[] {
-            "<всі>",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6"});
-            this.comboBoxCourse.Location = new System.Drawing.Point(483, 6);
-            this.comboBoxCourse.Name = "comboBoxCourse";
-            this.comboBoxCourse.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.comboBoxCourse.Size = new System.Drawing.Size(55, 28);
-            this.comboBoxCourse.TabIndex = 7;
-            this.comboBoxCourse.Tag = "";
-            this.comboBoxCourse.DropDownClosed += new System.EventHandler(this.comboBoxCourse_DropDownClosed);
-            // 
-            // labelSemestr
-            // 
-            this.labelSemestr.AutoSize = true;
-            this.labelSemestr.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSemestr.Location = new System.Drawing.Point(568, 6);
-            this.labelSemestr.Name = "labelSemestr";
-            this.labelSemestr.Size = new System.Drawing.Size(80, 23);
-            this.labelSemestr.TabIndex = 9;
-            this.labelSemestr.Text = "Семестр:";
-            // 
-            // comboBoxSemestr
-            // 
-            this.comboBoxSemestr.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.comboBoxSemestr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
-            this.comboBoxSemestr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSemestr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBoxSemestr.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxSemestr.FormattingEnabled = true;
-            this.comboBoxSemestr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.comboBoxSemestr.Items.AddRange(new object[] {
-            "<всі>",
-            "1",
-            "2"});
-            this.comboBoxSemestr.Location = new System.Drawing.Point(632, 6);
-            this.comboBoxSemestr.Name = "comboBoxSemestr";
-            this.comboBoxSemestr.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.comboBoxSemestr.Size = new System.Drawing.Size(55, 28);
-            this.comboBoxSemestr.TabIndex = 8;
-            this.comboBoxSemestr.Tag = "";
-            this.comboBoxSemestr.DropDownClosed += new System.EventHandler(this.comboBoxSemestr_DropDownClosed);
+            this.labelCarat.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelCarat.AutoSize = true;
+            this.labelCarat.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCarat.Location = new System.Drawing.Point(348, 298);
+            this.labelCarat.Name = "labelCarat";
+            this.labelCarat.Size = new System.Drawing.Size(244, 106);
+            this.labelCarat.TabIndex = 1;
+            this.labelCarat.Text = "Carat";
             // 
             // mainForm
             // 
@@ -718,14 +745,17 @@
             this.menuStripOptions.PerformLayout();
             this.panelTools.ResumeLayout(false);
             this.panelTools.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelWorkspace.ResumeLayout(false);
+            this.panelWorkspace.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panelLeftMain.ResumeLayout(false);
             this.panelReportSubmenu.ResumeLayout(false);
             this.panelSectionSubmenu.ResumeLayout(false);
             this.panelTablesSubmenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -777,6 +807,8 @@
         private System.Windows.Forms.ComboBox comboBoxCourse;
         private System.Windows.Forms.ComboBox comboBoxSemestr;
         private System.Windows.Forms.Label labelSemestr;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Label labelCarat;
     }
 }
 
