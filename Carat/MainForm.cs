@@ -21,6 +21,11 @@ namespace Carat
             InitializeComponent();
             InitializeSubmenu();
 
+            comboBoxEducType.SelectedIndex = 0;
+            comboBoxEducForm.SelectedIndex = 0;
+            comboBoxCourse.SelectedIndex = 0;
+            comboBoxSemestr.SelectedIndex = 0;
+
             using (var db = new CaratDbContext())
             {
             }
@@ -179,6 +184,26 @@ namespace Carat
                 panelLeftMain.Visible = true;
                 buttonHidePanel.Image = Properties.Resources.icons8_открыть_панель_32;
             }
+        }
+
+        private void comboBoxEducType_DropDownClosed(object sender, EventArgs e)
+        {
+            buttonHidePanel.Focus();
+        }
+
+        private void comboBoxEducForm_DropDownClosed(object sender, EventArgs e)
+        {
+            buttonHidePanel.Focus();
+        }
+
+        private void comboBoxCourse_DropDownClosed(object sender, EventArgs e)
+        {
+            buttonHidePanel.Focus();
+        }
+
+        private void comboBoxSemestr_DropDownClosed(object sender, EventArgs e)
+        {
+            buttonHidePanel.Focus();
         }
     }
 }

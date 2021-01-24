@@ -44,6 +44,13 @@
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTools = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.labelEducForm = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.comboBoxEducForm = new System.Windows.Forms.ComboBox();
+            this.labelEducType = new System.Windows.Forms.Label();
+            this.comboBoxEducType = new System.Windows.Forms.ComboBox();
             this.buttonHidePanel = new System.Windows.Forms.Button();
             this.panelFooter = new System.Windows.Forms.Panel();
             this.panelWorkspace = new System.Windows.Forms.Panel();
@@ -63,13 +70,22 @@
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.labelCourse = new System.Windows.Forms.Label();
+            this.comboBoxCourse = new System.Windows.Forms.ComboBox();
+            this.labelSemestr = new System.Windows.Forms.Label();
+            this.comboBoxSemestr = new System.Windows.Forms.ComboBox();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelLeftMain.SuspendLayout();
             this.panelReportSubmenu.SuspendLayout();
             this.panelSectionSubmenu.SuspendLayout();
             this.panelTablesSubmenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // panelOptions
@@ -202,6 +218,18 @@
             // 
             this.panelTools.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
             this.panelTools.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTools.Controls.Add(this.comboBoxSemestr);
+            this.panelTools.Controls.Add(this.labelSemestr);
+            this.panelTools.Controls.Add(this.pictureBox4);
+            this.panelTools.Controls.Add(this.pictureBox3);
+            this.panelTools.Controls.Add(this.labelCourse);
+            this.panelTools.Controls.Add(this.pictureBox2);
+            this.panelTools.Controls.Add(this.comboBoxCourse);
+            this.panelTools.Controls.Add(this.labelEducForm);
+            this.panelTools.Controls.Add(this.pictureBox1);
+            this.panelTools.Controls.Add(this.comboBoxEducForm);
+            this.panelTools.Controls.Add(this.labelEducType);
+            this.panelTools.Controls.Add(this.comboBoxEducType);
             this.panelTools.Controls.Add(this.buttonHidePanel);
             this.panelTools.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTools.Location = new System.Drawing.Point(0, 25);
@@ -209,13 +237,100 @@
             this.panelTools.Size = new System.Drawing.Size(1090, 35);
             this.panelTools.TabIndex = 1;
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox3.Location = new System.Drawing.Point(418, 4);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox2.Location = new System.Drawing.Point(253, 4);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // labelEducForm
+            // 
+            this.labelEducForm.AutoSize = true;
+            this.labelEducForm.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelEducForm.Location = new System.Drawing.Point(276, 6);
+            this.labelEducForm.Name = "labelEducForm";
+            this.labelEducForm.Size = new System.Drawing.Size(67, 23);
+            this.labelEducForm.TabIndex = 5;
+            this.labelEducForm.Text = "Форма:";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox1.Location = new System.Drawing.Point(42, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // comboBoxEducForm
+            // 
+            this.comboBoxEducForm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.comboBoxEducForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
+            this.comboBoxEducForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxEducForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxEducForm.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxEducForm.FormattingEnabled = true;
+            this.comboBoxEducForm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.comboBoxEducForm.Items.AddRange(new object[] {
+            "<всі>",
+            "Денна",
+            "Заочна"});
+            this.comboBoxEducForm.Location = new System.Drawing.Point(334, 6);
+            this.comboBoxEducForm.Name = "comboBoxEducForm";
+            this.comboBoxEducForm.Size = new System.Drawing.Size(78, 28);
+            this.comboBoxEducForm.TabIndex = 4;
+            this.comboBoxEducForm.Tag = "";
+            this.comboBoxEducForm.DropDownClosed += new System.EventHandler(this.comboBoxEducForm_DropDownClosed);
+            // 
+            // labelEducType
+            // 
+            this.labelEducType.AutoSize = true;
+            this.labelEducType.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelEducType.Location = new System.Drawing.Point(64, 6);
+            this.labelEducType.Name = "labelEducType";
+            this.labelEducType.Size = new System.Drawing.Size(124, 23);
+            this.labelEducType.TabIndex = 2;
+            this.labelEducType.Text = "Вид навчання:";
+            // 
+            // comboBoxEducType
+            // 
+            this.comboBoxEducType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.comboBoxEducType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
+            this.comboBoxEducType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxEducType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxEducType.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxEducType.FormattingEnabled = true;
+            this.comboBoxEducType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.comboBoxEducType.Items.AddRange(new object[] {
+            "<всі>",
+            "Бюджет",
+            "Контракт"});
+            this.comboBoxEducType.Location = new System.Drawing.Point(165, 6);
+            this.comboBoxEducType.Name = "comboBoxEducType";
+            this.comboBoxEducType.Size = new System.Drawing.Size(82, 28);
+            this.comboBoxEducType.TabIndex = 1;
+            this.comboBoxEducType.Tag = "";
+            this.comboBoxEducType.DropDownClosed += new System.EventHandler(this.comboBoxEducType_DropDownClosed);
+            // 
             // buttonHidePanel
             // 
             this.buttonHidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
             this.buttonHidePanel.FlatAppearance.BorderSize = 0;
             this.buttonHidePanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHidePanel.Image = global::Carat.Properties.Resources.icons8_открыть_панель_32;
-            this.buttonHidePanel.Location = new System.Drawing.Point(3, 3);
+            this.buttonHidePanel.Location = new System.Drawing.Point(3, 2);
             this.buttonHidePanel.Name = "buttonHidePanel";
             this.buttonHidePanel.Size = new System.Drawing.Size(33, 27);
             this.buttonHidePanel.TabIndex = 0;
@@ -504,6 +619,81 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox4.Location = new System.Drawing.Point(544, 4);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox4.TabIndex = 6;
+            this.pictureBox4.TabStop = false;
+            // 
+            // labelCourse
+            // 
+            this.labelCourse.AutoSize = true;
+            this.labelCourse.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCourse.Location = new System.Drawing.Point(441, 6);
+            this.labelCourse.Name = "labelCourse";
+            this.labelCourse.Size = new System.Drawing.Size(50, 23);
+            this.labelCourse.TabIndex = 8;
+            this.labelCourse.Text = "Курс:";
+            // 
+            // comboBoxCourse
+            // 
+            this.comboBoxCourse.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.comboBoxCourse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
+            this.comboBoxCourse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCourse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxCourse.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxCourse.FormattingEnabled = true;
+            this.comboBoxCourse.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.comboBoxCourse.Items.AddRange(new object[] {
+            "<всі>",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
+            this.comboBoxCourse.Location = new System.Drawing.Point(483, 6);
+            this.comboBoxCourse.Name = "comboBoxCourse";
+            this.comboBoxCourse.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.comboBoxCourse.Size = new System.Drawing.Size(55, 28);
+            this.comboBoxCourse.TabIndex = 7;
+            this.comboBoxCourse.Tag = "";
+            this.comboBoxCourse.DropDownClosed += new System.EventHandler(this.comboBoxCourse_DropDownClosed);
+            // 
+            // labelSemestr
+            // 
+            this.labelSemestr.AutoSize = true;
+            this.labelSemestr.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelSemestr.Location = new System.Drawing.Point(568, 6);
+            this.labelSemestr.Name = "labelSemestr";
+            this.labelSemestr.Size = new System.Drawing.Size(80, 23);
+            this.labelSemestr.TabIndex = 9;
+            this.labelSemestr.Text = "Семестр:";
+            // 
+            // comboBoxSemestr
+            // 
+            this.comboBoxSemestr.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.comboBoxSemestr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
+            this.comboBoxSemestr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSemestr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxSemestr.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxSemestr.FormattingEnabled = true;
+            this.comboBoxSemestr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.comboBoxSemestr.Items.AddRange(new object[] {
+            "<всі>",
+            "1",
+            "2"});
+            this.comboBoxSemestr.Location = new System.Drawing.Point(632, 6);
+            this.comboBoxSemestr.Name = "comboBoxSemestr";
+            this.comboBoxSemestr.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.comboBoxSemestr.Size = new System.Drawing.Size(55, 28);
+            this.comboBoxSemestr.TabIndex = 8;
+            this.comboBoxSemestr.Tag = "";
+            this.comboBoxSemestr.DropDownClosed += new System.EventHandler(this.comboBoxSemestr_DropDownClosed);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -527,10 +717,15 @@
             this.menuStripOptions.ResumeLayout(false);
             this.menuStripOptions.PerformLayout();
             this.panelTools.ResumeLayout(false);
+            this.panelTools.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelLeftMain.ResumeLayout(false);
             this.panelReportSubmenu.ResumeLayout(false);
             this.panelSectionSubmenu.ResumeLayout(false);
             this.panelTablesSubmenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -570,6 +765,18 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button buttonHidePanel;
+        private System.Windows.Forms.ComboBox comboBoxEducType;
+        private System.Windows.Forms.Label labelEducType;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Label labelEducForm;
+        private System.Windows.Forms.ComboBox comboBoxEducForm;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Label labelCourse;
+        private System.Windows.Forms.ComboBox comboBoxCourse;
+        private System.Windows.Forms.ComboBox comboBoxSemestr;
+        private System.Windows.Forms.Label labelSemestr;
     }
 }
 
