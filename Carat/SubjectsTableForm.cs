@@ -17,38 +17,19 @@ namespace Carat
 {
     public partial class SubjectsTableForm : Form, IDataUser
     {
-        private ISubjectRepository subjectRepository = new SubjectRepository();
-        private MainForm parentForm = null;
+        private ISubjectRepository m_subjectRepository = new SubjectRepository();
+        private MainForm m_parentForm = null;
 
         public SubjectsTableForm(MainForm parentForm)
         {
             InitializeComponent();
 
-            this.parentForm = parentForm;
-        }
-
-        public void SaveData()
-        {
-            List<Subject> changedSubjects = new List<Subject>();
-
-            for (int i = 0; i < dataGridViewSubjects.RowCount - 1; ++i)
-            { 
-                var subject = new Subject();
-
-                subject.Name = dataGridViewSubjects[0, i].Value.ToString();
-                subject.Notes = dataGridViewSubjects[1, i].Value != null ? dataGridViewSubjects[1, i].Value.ToString() : "";
-
-                changedSubjects.Add(subject);
-            }
-
-            dataGridViewSubjects.Rows.Clear();
-
-            subjectRepository.UpdateSubjects(changedSubjects);
+            m_parentForm = parentForm;
         }
 
         public void LoadData()
         {
-            var subjects = subjectRepository.GetAllSubjects();
+            var subjects = m_subjectRepository.GetAllSubjects();
 
             foreach (var subject in subjects)
             {
@@ -56,15 +37,111 @@ namespace Carat
             }
         }
 
-        private void SubjectsTableForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void syncData()
         {
-            SaveData();
+            var subjects = m_subjectRepository.GetAllSubjects();
+
+            for (int i = 0; i < subjects.Count; ++i)
+            {
+                dataGridViewSubjects.Rows[i].SetValues(subjects[i].Name, subjects[i].Notes);
+            }
+        }
+
+        private void removeLastRow()
+        {
+            int index = dataGridViewSubjects.Rows.Count - 2;
+
+            if (index < 0)
+            {
+                return;
+            }
+
+            dataGridViewSubjects.Rows.Remove(dataGridViewSubjects.Rows[index]);
         }
 
         private void SubjectsTableForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            parentForm.subjectsForm = null;
-            parentForm.SetButtonState();
+            m_parentForm.subjectsForm = null;
+            m_parentForm.SetButtonState();
+        }
+
+        private void dataGridViewSubjects_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            var subjects = m_subjectRepository.GetAllSubjects();
+            var subject = new Subject();
+
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            subject.Name = dataGridViewSubjects[0, e.RowIndex].Value?.ToString();
+            subject.Notes = dataGridViewSubjects[1, e.RowIndex].Value?.ToString();
+
+            if (e.RowIndex < subjects.Count)
+            {
+                subject.Id = subjects[e.RowIndex].Id;
+
+                if (!isValidName(subject.Name))
+                {
+                    MessageBox.Show("Некоректна назва предмета!");
+                    syncData();
+                    return;
+                }
+
+                m_subjectRepository.UpdateSubject(subject);
+            }
+            else 
+            {
+                if (!isValidName(subject.Name))
+                {
+                    MessageBox.Show("Некоректна назва предмета!");
+                    removeLastRow();
+                    return;
+                }
+
+                m_subjectRepository.AddSubject(subject);
+            }
+        }
+
+        private void dataGridViewSubjects_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            var subjects = m_subjectRepository.GetAllSubjects();
+
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            if (e.RowIndex >= subjects.Count)
+            {
+                return;
+            }
+
+            for (int i = 0; i < e.RowCount; ++i)
+            {
+                m_subjectRepository.RemoveSubject(subjects[i+e.RowIndex]);
+            }
+        }
+
+        private bool isValidName(string name)
+        {
+            int duplicatesCounter = 0;
+
+            if (name == null || name == "")
+            {
+                return false;
+            }
+
+            for (int i = 0; i < dataGridViewSubjects.Rows.Count; ++i)
+            {
+                if (dataGridViewSubjects[0, i].Value?.ToString().ToLower() == name.ToLower())
+                {
+                    ++duplicatesCounter;
+                }
+            }
+
+            return duplicatesCounter > 1 ? false : true;
         }
     }
 }

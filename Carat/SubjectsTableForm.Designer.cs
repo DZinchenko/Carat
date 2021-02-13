@@ -52,6 +52,8 @@ namespace Carat
             this.dataGridViewSubjects.Size = new System.Drawing.Size(900, 520);
             this.dataGridViewSubjects.StandardTab = true;
             this.dataGridViewSubjects.TabIndex = 0;
+            this.dataGridViewSubjects.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSubjects_CellValueChanged);
+            this.dataGridViewSubjects.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewSubjects_RowsRemoved);
             // 
             // SubjectName
             // 
@@ -81,7 +83,6 @@ namespace Carat
             this.MinimumSize = new System.Drawing.Size(350, 301);
             this.Name = "SubjectsTableForm";
             this.Text = "Дисципліни";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SubjectsTableForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SubjectsTableForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSubjects)).EndInit();
             this.ResumeLayout(false);

@@ -10,8 +10,9 @@ namespace Carat.Data.Repositories
     {
         List<Subject> GetAllSubjects();
         Subject GetSubject(int subjectId);
-        void AddSubjects(List<Subject> subjects);
-        void UpdateSubjects(List<Subject> subjects);
+        void AddSubject(Subject subject);
+        void RemoveSubject(Subject subject);
+        void UpdateSubject(Subject subject);
         void DeleteAllSubjects();
     }
 }

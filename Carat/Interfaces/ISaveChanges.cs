@@ -8,7 +8,6 @@ namespace Carat.Interfaces
 {
     public interface IDataUser
     {
-        void SaveData();
         void LoadData();
     }
 }

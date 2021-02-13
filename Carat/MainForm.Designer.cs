@@ -442,7 +442,7 @@
             this.labelCarat.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelCarat.AutoSize = true;
             this.labelCarat.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCarat.Location = new System.Drawing.Point(348, 298);
+            this.labelCarat.Location = new System.Drawing.Point(366, 298);
             this.labelCarat.Name = "labelCarat";
             this.labelCarat.Size = new System.Drawing.Size(244, 106);
             this.labelCarat.TabIndex = 1;

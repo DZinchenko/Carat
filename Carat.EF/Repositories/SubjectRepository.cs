@@ -10,11 +10,29 @@ namespace Carat.EF.Repositories
 {
     public class SubjectRepository : ISubjectRepository
     {
-        public void AddSubjects(List<Subject> subjects)
+        public void AddSubject(Subject subject)
         {
             using (var ctx = new CaratDbContext())
             {
-                ctx.AddRange(subjects);
+                ctx.Add(subject);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void RemoveSubject(Subject subject)
+        {
+            using (var ctx = new CaratDbContext())
+            {
+                ctx.Remove(subject);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void UpdateSubject(Subject subject)
+        {
+            using (var ctx = new CaratDbContext())
+            {
+                ctx.Update(subject);
                 ctx.SaveChanges();
             }
         }
@@ -30,12 +48,6 @@ namespace Carat.EF.Repositories
         public Subject GetSubject(int subjectId)
         {
             throw new NotImplementedException();
-        }
-
-        public void UpdateSubjects(List<Subject> subjects)
-        {
-            DeleteAllSubjects();
-            AddSubjects(subjects);
         }
 
         public void DeleteAllSubjects()
