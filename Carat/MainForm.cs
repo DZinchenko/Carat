@@ -66,7 +66,9 @@ namespace Carat
                 dataBaseStatelabel.Text = m_dbName;
 
                 subjectsForm?.Close();
+                groupsForm?.Close();
                 subjectsForm = null;
+                groupsForm = null;
             }
         }
 
@@ -197,20 +199,16 @@ namespace Carat
 
         private void buttonGroups_Click(object sender, EventArgs e)
         {
-            buttonGroups.Image = Properties.Resources.icons8_заполненный_круг_16;
-
-            if (subjectsForm == null)
+            if (groupsForm == null)
             {
-                buttonSubjects.Image = Properties.Resources.icons8_заполненный_круг_16;
-                subjectsForm = new SubjectsTableForm(this, m_dbName);
-                openChildForm(subjectsForm);
+                buttonGroups.Image = Properties.Resources.icons8_заполненный_круг_16;
+                groupsForm = new GroupsTableForm(this, m_dbName);
+                openChildForm(groupsForm);
             }
             else
             {
-                subjectsForm.BringToFront();
+                groupsForm.BringToFront();
             }
-
-
         }
 
         private void buttonTeachers_Click(object sender, EventArgs e)

@@ -162,6 +162,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GroupsTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GroupsTableForm.Designer.cs">
+      <DependentUpon>GroupsTableForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\ISaveChanges.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -177,6 +183,9 @@
     <Compile Include="SubjectsTableForm.Designer.cs">
       <DependentUpon>SubjectsTableForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GroupsTableForm.resx">
+      <DependentUpon>GroupsTableForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
