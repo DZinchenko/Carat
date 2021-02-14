@@ -77,6 +77,8 @@
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
+            this.dataBaseStatelabel = new System.Windows.Forms.Label();
+            this.dataBaseStateHelpLabel = new System.Windows.Forms.Label();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
@@ -84,6 +86,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelFooter.SuspendLayout();
             this.panelWorkspace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panelLeftMain.SuspendLayout();
@@ -146,6 +149,7 @@
             this.toolStripMenuItem2.Padding = new System.Windows.Forms.Padding(0);
             this.toolStripMenuItem2.Size = new System.Drawing.Size(301, 24);
             this.toolStripMenuItem2.Text = "Створити нову БД...";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripSeparator1
             // 
@@ -165,6 +169,7 @@
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(301, 26);
             this.toolStripMenuItem4.Text = "Відновити з резервної копії...";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -420,6 +425,8 @@
             // 
             this.panelFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
             this.panelFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelFooter.Controls.Add(this.dataBaseStateHelpLabel);
+            this.panelFooter.Controls.Add(this.dataBaseStatelabel);
             this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelFooter.Location = new System.Drawing.Point(175, 618);
             this.panelFooter.Name = "panelFooter";
@@ -721,6 +728,24 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
+            // dataBaseStatelabel
+            // 
+            this.dataBaseStatelabel.AutoSize = true;
+            this.dataBaseStatelabel.Location = new System.Drawing.Point(144, 2);
+            this.dataBaseStatelabel.Name = "dataBaseStatelabel";
+            this.dataBaseStatelabel.Size = new System.Drawing.Size(45, 20);
+            this.dataBaseStatelabel.TabIndex = 0;
+            this.dataBaseStatelabel.Text = "None";
+            // 
+            // dataBaseStateHelpLabel
+            // 
+            this.dataBaseStateHelpLabel.AutoSize = true;
+            this.dataBaseStateHelpLabel.Location = new System.Drawing.Point(3, 2);
+            this.dataBaseStateHelpLabel.Name = "dataBaseStateHelpLabel";
+            this.dataBaseStateHelpLabel.Size = new System.Drawing.Size(184, 20);
+            this.dataBaseStateHelpLabel.TabIndex = 1;
+            this.dataBaseStateHelpLabel.Text = "Завантажена база даних:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -750,6 +775,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelFooter.ResumeLayout(false);
+            this.panelFooter.PerformLayout();
             this.panelWorkspace.ResumeLayout(false);
             this.panelWorkspace.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
@@ -810,6 +837,8 @@
         private System.Windows.Forms.Label labelSemestr;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label labelCarat;
+        private System.Windows.Forms.Label dataBaseStateHelpLabel;
+        private System.Windows.Forms.Label dataBaseStatelabel;
     }
 }
 

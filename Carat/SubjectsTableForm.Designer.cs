@@ -49,7 +49,7 @@ namespace Carat
             this.dataGridViewSubjects.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridViewSubjects.Name = "dataGridViewSubjects";
             this.dataGridViewSubjects.RowHeadersWidth = 51;
-            this.dataGridViewSubjects.Size = new System.Drawing.Size(900, 520);
+            this.dataGridViewSubjects.Size = new System.Drawing.Size(899, 519);
             this.dataGridViewSubjects.StandardTab = true;
             this.dataGridViewSubjects.TabIndex = 0;
             this.dataGridViewSubjects.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSubjects_CellValueChanged);
@@ -73,9 +73,9 @@ namespace Carat
             // 
             // SubjectsTableForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 520);
+            this.ClientSize = new System.Drawing.Size(899, 519);
             this.Controls.Add(this.dataGridViewSubjects);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;

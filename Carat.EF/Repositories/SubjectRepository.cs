@@ -10,9 +10,15 @@ namespace Carat.EF.Repositories
 {
     public class SubjectRepository : ISubjectRepository
     {
+        string m_dbPath = "";
+        public SubjectRepository(string dbPath)
+        {
+            m_dbPath = dbPath;
+        }
+
         public void AddSubject(Subject subject)
         {
-            using (var ctx = new CaratDbContext())
+            using (var ctx = new CaratDbContext(m_dbPath))
             {
                 ctx.Add(subject);
                 ctx.SaveChanges();
@@ -21,7 +27,7 @@ namespace Carat.EF.Repositories
 
         public void RemoveSubject(Subject subject)
         {
-            using (var ctx = new CaratDbContext())
+            using (var ctx = new CaratDbContext(m_dbPath))
             {
                 ctx.Remove(subject);
                 ctx.SaveChanges();
@@ -30,7 +36,7 @@ namespace Carat.EF.Repositories
 
         public void UpdateSubject(Subject subject)
         {
-            using (var ctx = new CaratDbContext())
+            using (var ctx = new CaratDbContext(m_dbPath))
             {
                 ctx.Update(subject);
                 ctx.SaveChanges();
@@ -39,7 +45,7 @@ namespace Carat.EF.Repositories
 
         public List<Subject> GetAllSubjects()
         {
-            using (var ctx = new CaratDbContext())
+            using (var ctx = new CaratDbContext(m_dbPath))
             {
                 return ctx.Subjects.ToList();
             }
@@ -52,7 +58,7 @@ namespace Carat.EF.Repositories
 
         public void DeleteAllSubjects()
         {
-            using (var ctx = new CaratDbContext())
+            using (var ctx = new CaratDbContext(m_dbPath))
             {
                 ctx.RemoveRange(GetAllSubjects());
                 ctx.SaveChanges();

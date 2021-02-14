@@ -17,14 +17,15 @@ namespace Carat
 {
     public partial class SubjectsTableForm : Form, IDataUser
     {
-        private ISubjectRepository m_subjectRepository = new SubjectRepository();
+        private ISubjectRepository m_subjectRepository;
         private MainForm m_parentForm = null;
 
-        public SubjectsTableForm(MainForm parentForm)
+        public SubjectsTableForm(MainForm parentForm, string dbName)
         {
             InitializeComponent();
 
             m_parentForm = parentForm;
+            m_subjectRepository = new SubjectRepository(dbName);
         }
 
         public void LoadData()
@@ -67,6 +68,11 @@ namespace Carat
 
         private void dataGridViewSubjects_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            if (m_subjectRepository == null)
+            {
+                return;
+            }
+
             var subjects = m_subjectRepository.GetAllSubjects();
             var subject = new Subject();
 

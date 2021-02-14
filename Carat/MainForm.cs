@@ -20,6 +20,8 @@ namespace Carat
         public Form groupsForm = null;
         public Form teachersForm = null;
 
+        private string m_dbName = "Carat.db";
+
         public MainForm()
         {
             InitializeComponent();
@@ -30,9 +32,7 @@ namespace Carat
             comboBoxCourse.SelectedIndex = 0;
             comboBoxSemestr.SelectedIndex = 0;
 
-            using (var db = new CaratDbContext())
-            {
-            }
+            dataBaseStatelabel.Text = m_dbName;
         }
 
         public void SetButtonState()
@@ -56,6 +56,18 @@ namespace Carat
             panelTablesSubmenu.Visible = false;
             panelSectionSubmenu.Visible = false;
             panelReportSubmenu.Visible = false;
+        }
+
+        private void UpdateDB(string filePath)
+        {
+            if (filePath != string.Empty)
+            {
+                m_dbName = filePath;
+                dataBaseStatelabel.Text = m_dbName;
+
+                subjectsForm?.Close();
+                subjectsForm = null;
+            }
         }
 
         private void changeViewStateOfSubmenu(Panel panel)
@@ -125,7 +137,7 @@ namespace Carat
             if (subjectsForm == null)
             {
                 buttonSubjects.Image = Properties.Resources.icons8_заполненный_круг_16;
-                subjectsForm = new SubjectsTableForm(this);
+                subjectsForm = new SubjectsTableForm(this, m_dbName);
                 openChildForm(subjectsForm);
             }
             else {
@@ -186,6 +198,19 @@ namespace Carat
         private void buttonGroups_Click(object sender, EventArgs e)
         {
             buttonGroups.Image = Properties.Resources.icons8_заполненный_круг_16;
+
+            if (subjectsForm == null)
+            {
+                buttonSubjects.Image = Properties.Resources.icons8_заполненный_круг_16;
+                subjectsForm = new SubjectsTableForm(this, m_dbName);
+                openChildForm(subjectsForm);
+            }
+            else
+            {
+                subjectsForm.BringToFront();
+            }
+
+
         }
 
         private void buttonTeachers_Click(object sender, EventArgs e)
@@ -230,6 +255,39 @@ namespace Carat
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             subjectsForm?.Close();
+        }
+
+        private void openDB(FileDialog openFileDialog)
+        {
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "Data bases|*.db";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                UpdateDB(openFileDialog.FileName);
+            }
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openDB(openFileDialog);
+            }
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            var filePath = string.Empty;
+
+            using (SaveFileDialog openFileDialog = new SaveFileDialog())
+            {
+                openDB(openFileDialog);
+            }
         }
     }
 }

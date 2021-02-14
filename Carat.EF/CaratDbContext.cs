@@ -7,14 +7,16 @@ namespace Carat.EF
     public class CaratDbContext : DbContext
     {
         public DbSet<Subject> Subjects { get; set; }
+        private string m_dbPath = "";
 
-        public CaratDbContext()
+        public CaratDbContext(string dbPath)
         {
+            m_dbPath = dbPath;
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=Carat.db");
+            optionsBuilder.UseSqlite("Filename=" + m_dbPath);
         }
     }
 }
