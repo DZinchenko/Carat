@@ -12,8 +12,6 @@ using Carat.Interfaces;
 
 namespace Carat
 {
-    public enum Forms { SubjectsForm, GroupsForm, TeachersForm }
-
     public partial class MainForm : Form
     {
         public Form subjectsForm = null;
@@ -213,7 +211,16 @@ namespace Carat
 
         private void buttonTeachers_Click(object sender, EventArgs e)
         {
-            buttonTeachers.Image = Properties.Resources.icons8_заполненный_круг_16;
+            if (groupsForm == null)
+            {
+                buttonTeachers.Image = Properties.Resources.icons8_заполненный_круг_16;
+                teachersForm = new TeachersTableForm(this, m_dbName);
+                openChildForm(teachersForm);
+            }
+            else
+            {
+                teachersForm.BringToFront();
+            }
         }
 
         private void buttonHidePanel_Click(object sender, EventArgs e)

@@ -29,10 +29,10 @@ namespace Carat
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewGroups = new System.Windows.Forms.DataGridView();
             this.GroupCourse = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,8 +68,8 @@ namespace Carat
             // GroupCourse
             // 
             this.GroupCourse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle9.NullValue = "1";
-            this.GroupCourse.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.NullValue = "1";
+            this.GroupCourse.DefaultCellStyle = dataGridViewCellStyle1;
             this.GroupCourse.HeaderText = "Курс";
             this.GroupCourse.Items.AddRange(new object[] {
             "1",
@@ -94,8 +94,8 @@ namespace Carat
             // GroupEduForm
             // 
             this.GroupEduForm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle10.NullValue = "Денна";
-            this.GroupEduForm.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.NullValue = "Денна";
+            this.GroupEduForm.DefaultCellStyle = dataGridViewCellStyle2;
             this.GroupEduForm.HeaderText = "Форма навчання";
             this.GroupEduForm.Items.AddRange(new object[] {
             "Денна",
@@ -103,14 +103,14 @@ namespace Carat
             this.GroupEduForm.Name = "GroupEduForm";
             this.GroupEduForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.GroupEduForm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.GroupEduForm.Width = 125;
+            this.GroupEduForm.Width = 114;
             // 
             // GroupBudj_cnt
             // 
             this.GroupBudj_cnt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle11.Format = "N2";
-            dataGridViewCellStyle11.NullValue = "0";
-            this.GroupBudj_cnt.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = "0";
+            this.GroupBudj_cnt.DefaultCellStyle = dataGridViewCellStyle3;
             this.GroupBudj_cnt.HeaderText = "Бюджетників";
             this.GroupBudj_cnt.Name = "GroupBudj_cnt";
             this.GroupBudj_cnt.Width = 104;
@@ -118,9 +118,9 @@ namespace Carat
             // GroupContr_cnt
             // 
             this.GroupContr_cnt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle12.Format = "N2";
-            dataGridViewCellStyle12.NullValue = "0";
-            this.GroupContr_cnt.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = "0";
+            this.GroupContr_cnt.DefaultCellStyle = dataGridViewCellStyle4;
             this.GroupContr_cnt.HeaderText = "Контрактників";
             this.GroupContr_cnt.Name = "GroupContr_cnt";
             this.GroupContr_cnt.Width = 111;
@@ -141,7 +141,7 @@ namespace Carat
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MinimumSize = new System.Drawing.Size(350, 301);
+            this.MinimumSize = new System.Drawing.Size(700, 301);
             this.Name = "GroupsTableForm";
             this.Text = "Групи";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GroupsTableForm_FormClosed);
