@@ -6,60 +6,59 @@ using System.Linq;
 
 namespace Carat.EF.Repositories
 {
-    public class SubjectRepository : ISubjectRepository
+    public class TeacherRepository : ITeacherRepository
     {
-        string m_dbPath = "";
+        private string m_dbPath = "";
 
-        public SubjectRepository(string dbPath)
+        public TeacherRepository(string dbPath)
         {
             m_dbPath = dbPath;
         }
 
-        public void AddSubject(Subject subject)
+        public List<Teacher> GetAllTeachers()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Add(subject);
-                ctx.SaveChanges();
+                return ctx.Teachers.ToList();
             }
         }
-
-        public void RemoveSubject(Subject subject)
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                ctx.Remove(subject);
-                ctx.SaveChanges();
-            }
-        }
-
-        public void UpdateSubject(Subject subject)
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                ctx.Update(subject);
-                ctx.SaveChanges();
-            }
-        }
-
-        public List<Subject> GetAllSubjects()
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                return ctx.Subjects.ToList();
-            }
-        }
-
-        public Subject GetSubject(int subjectId)
+        public Teacher GetTeacher(int teacherId)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteAllSubjects()
+        public void AddTeacher(Teacher teacher)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.RemoveRange(GetAllSubjects());
+                ctx.Add(teacher);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void RemoveTeacher(Teacher teacher)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.Remove(teacher);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void UpdateTeacher(Teacher teacher)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.Update(teacher);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void DeleteAllTeachers()
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.RemoveRange(GetAllTeachers());
                 ctx.SaveChanges();
             }
         }

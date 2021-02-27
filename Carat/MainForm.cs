@@ -211,7 +211,7 @@ namespace Carat
 
         private void buttonTeachers_Click(object sender, EventArgs e)
         {
-            if (groupsForm == null)
+            if (teachersForm == null)
             {
                 buttonTeachers.Image = Properties.Resources.icons8_заполненный_круг_16;
                 teachersForm = new TeachersTableForm(this, m_dbName);

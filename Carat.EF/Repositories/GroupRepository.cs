@@ -6,60 +6,59 @@ using System.Linq;
 
 namespace Carat.EF.Repositories
 {
-    public class SubjectRepository : ISubjectRepository
+    public class GroupRepository : IGroupRepository
     {
-        string m_dbPath = "";
+        private string m_dbPath = "";
 
-        public SubjectRepository(string dbPath)
+        public GroupRepository(string dbPath)
         {
             m_dbPath = dbPath;
         }
 
-        public void AddSubject(Subject subject)
+        public List<Group> GetAllGroups()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Add(subject);
-                ctx.SaveChanges();
+                return ctx.Groups.ToList();
             }
         }
-
-        public void RemoveSubject(Subject subject)
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                ctx.Remove(subject);
-                ctx.SaveChanges();
-            }
-        }
-
-        public void UpdateSubject(Subject subject)
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                ctx.Update(subject);
-                ctx.SaveChanges();
-            }
-        }
-
-        public List<Subject> GetAllSubjects()
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                return ctx.Subjects.ToList();
-            }
-        }
-
-        public Subject GetSubject(int subjectId)
+        public Group GetGroup(int groupId)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteAllSubjects()
+        public void AddGroup(Group group)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.RemoveRange(GetAllSubjects());
+                ctx.Add(group);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void RemoveGroup(Group group)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.Remove(group);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void UpdateGroup(Group group)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.Update(group);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void DeleteAllGroups()
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.RemoveRange(GetAllGroups());
                 ctx.SaveChanges();
             }
         }
