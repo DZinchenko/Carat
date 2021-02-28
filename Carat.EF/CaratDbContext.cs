@@ -10,6 +10,7 @@ namespace Carat.EF
 
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Group> Groups { get; set; }
 
         public CaratDbContext(string dbPath)
         {

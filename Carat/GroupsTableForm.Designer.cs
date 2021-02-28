@@ -33,6 +33,7 @@ namespace Carat
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GroupsTableForm));
             this.dataGridViewGroups = new System.Windows.Forms.DataGridView();
             this.GroupCourse = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -139,6 +140,7 @@ namespace Carat
             this.ClientSize = new System.Drawing.Size(899, 519);
             this.Controls.Add(this.dataGridViewGroups);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(700, 301);

@@ -65,8 +65,10 @@ namespace Carat
 
                 subjectsForm?.Close();
                 groupsForm?.Close();
+                teachersForm?.Close();
                 subjectsForm = null;
                 groupsForm = null;
+                teachersForm = null;
             }
         }
 
@@ -259,7 +261,6 @@ namespace Carat
 
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            subjectsForm?.Close();
         }
 
         private void openDB(FileDialog openFileDialog)

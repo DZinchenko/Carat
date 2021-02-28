@@ -58,6 +58,8 @@
             this.comboBoxEducType = new System.Windows.Forms.ComboBox();
             this.buttonHidePanel = new System.Windows.Forms.Button();
             this.panelFooter = new System.Windows.Forms.Panel();
+            this.dataBaseStateHelpLabel = new System.Windows.Forms.Label();
+            this.dataBaseStatelabel = new System.Windows.Forms.Label();
             this.panelWorkspace = new System.Windows.Forms.Panel();
             this.labelCarat = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
@@ -77,8 +79,6 @@
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
-            this.dataBaseStatelabel = new System.Windows.Forms.Label();
-            this.dataBaseStateHelpLabel = new System.Windows.Forms.Label();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
@@ -135,7 +135,7 @@
             this.fileToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.fileToolStripMenuItem.MergeIndex = 0;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 21);
             this.fileToolStripMenuItem.Text = "Файл";
             this.fileToolStripMenuItem.DropDownClosed += new System.EventHandler(this.fileToolStripMenuItem_DropDownClosed);
             this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
@@ -147,27 +147,27 @@
             this.toolStripMenuItem2.BackColor = System.Drawing.Color.White;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(301, 24);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(240, 20);
             this.toolStripMenuItem2.Text = "Створити нову БД...";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(298, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(237, 6);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.BackColor = System.Drawing.Color.White;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(301, 26);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(240, 22);
             this.toolStripMenuItem3.Text = "Зберегти резервну копію БД...";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.BackColor = System.Drawing.Color.White;
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(301, 26);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(240, 22);
             this.toolStripMenuItem4.Text = "Відновити з резервної копії...";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
@@ -178,7 +178,7 @@
             this.toolStripMenuItem6});
             this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(125, 21);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(101, 21);
             this.settingsToolStripMenuItem.Text = "Налаштування";
             this.settingsToolStripMenuItem.DropDownClosed += new System.EventHandler(this.settingsToolStripMenuItem_DropDownClosed);
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
@@ -190,7 +190,7 @@
             this.toolStripMenuItem5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem5.ImageTransparentColor = System.Drawing.Color.Black;
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(301, 26);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(237, 22);
             this.toolStripMenuItem5.Text = "Розгортати вікно при запуску";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
@@ -198,7 +198,7 @@
             // 
             this.toolStripMenuItem6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(301, 26);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(237, 22);
             this.toolStripMenuItem6.Text = "Приховувати панель навігації";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
@@ -206,21 +206,21 @@
             // 
             this.baseToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.baseToolStripMenuItem.Name = "baseToolStripMenuItem";
-            this.baseToolStripMenuItem.Size = new System.Drawing.Size(55, 21);
+            this.baseToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
             this.baseToolStripMenuItem.Text = "База";
             // 
             // windowToolStripMenuItem
             // 
             this.windowToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(64, 21);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(51, 21);
             this.windowToolStripMenuItem.Text = "Вікна ";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 21);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // panelTools
@@ -262,7 +262,7 @@
             this.comboBoxSemestr.Location = new System.Drawing.Point(632, 6);
             this.comboBoxSemestr.Name = "comboBoxSemestr";
             this.comboBoxSemestr.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.comboBoxSemestr.Size = new System.Drawing.Size(55, 28);
+            this.comboBoxSemestr.Size = new System.Drawing.Size(55, 23);
             this.comboBoxSemestr.TabIndex = 8;
             this.comboBoxSemestr.Tag = "";
             this.comboBoxSemestr.DropDownClosed += new System.EventHandler(this.comboBoxSemestr_DropDownClosed);
@@ -273,7 +273,7 @@
             this.labelSemestr.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelSemestr.Location = new System.Drawing.Point(568, 6);
             this.labelSemestr.Name = "labelSemestr";
-            this.labelSemestr.Size = new System.Drawing.Size(80, 23);
+            this.labelSemestr.Size = new System.Drawing.Size(65, 19);
             this.labelSemestr.TabIndex = 9;
             this.labelSemestr.Text = "Семестр:";
             // 
@@ -301,7 +301,7 @@
             this.labelCourse.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelCourse.Location = new System.Drawing.Point(441, 6);
             this.labelCourse.Name = "labelCourse";
-            this.labelCourse.Size = new System.Drawing.Size(50, 23);
+            this.labelCourse.Size = new System.Drawing.Size(41, 19);
             this.labelCourse.TabIndex = 8;
             this.labelCourse.Text = "Курс:";
             // 
@@ -334,7 +334,7 @@
             this.comboBoxCourse.Location = new System.Drawing.Point(483, 6);
             this.comboBoxCourse.Name = "comboBoxCourse";
             this.comboBoxCourse.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.comboBoxCourse.Size = new System.Drawing.Size(55, 28);
+            this.comboBoxCourse.Size = new System.Drawing.Size(55, 23);
             this.comboBoxCourse.TabIndex = 7;
             this.comboBoxCourse.Tag = "";
             this.comboBoxCourse.DropDownClosed += new System.EventHandler(this.comboBoxCourse_DropDownClosed);
@@ -345,7 +345,7 @@
             this.labelEducForm.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelEducForm.Location = new System.Drawing.Point(276, 6);
             this.labelEducForm.Name = "labelEducForm";
-            this.labelEducForm.Size = new System.Drawing.Size(67, 23);
+            this.labelEducForm.Size = new System.Drawing.Size(55, 19);
             this.labelEducForm.TabIndex = 5;
             this.labelEducForm.Text = "Форма:";
             // 
@@ -373,7 +373,7 @@
             "Заочна"});
             this.comboBoxEducForm.Location = new System.Drawing.Point(334, 6);
             this.comboBoxEducForm.Name = "comboBoxEducForm";
-            this.comboBoxEducForm.Size = new System.Drawing.Size(78, 28);
+            this.comboBoxEducForm.Size = new System.Drawing.Size(78, 23);
             this.comboBoxEducForm.TabIndex = 4;
             this.comboBoxEducForm.Tag = "";
             this.comboBoxEducForm.DropDownClosed += new System.EventHandler(this.comboBoxEducForm_DropDownClosed);
@@ -384,7 +384,7 @@
             this.labelEducType.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelEducType.Location = new System.Drawing.Point(64, 6);
             this.labelEducType.Name = "labelEducType";
-            this.labelEducType.Size = new System.Drawing.Size(124, 23);
+            this.labelEducType.Size = new System.Drawing.Size(100, 19);
             this.labelEducType.TabIndex = 2;
             this.labelEducType.Text = "Вид навчання:";
             // 
@@ -403,7 +403,7 @@
             "Контракт"});
             this.comboBoxEducType.Location = new System.Drawing.Point(165, 6);
             this.comboBoxEducType.Name = "comboBoxEducType";
-            this.comboBoxEducType.Size = new System.Drawing.Size(82, 28);
+            this.comboBoxEducType.Size = new System.Drawing.Size(82, 23);
             this.comboBoxEducType.TabIndex = 1;
             this.comboBoxEducType.Tag = "";
             this.comboBoxEducType.DropDownClosed += new System.EventHandler(this.comboBoxEducType_DropDownClosed);
@@ -433,6 +433,24 @@
             this.panelFooter.Size = new System.Drawing.Size(915, 29);
             this.panelFooter.TabIndex = 3;
             // 
+            // dataBaseStateHelpLabel
+            // 
+            this.dataBaseStateHelpLabel.AutoSize = true;
+            this.dataBaseStateHelpLabel.Location = new System.Drawing.Point(3, 2);
+            this.dataBaseStateHelpLabel.Name = "dataBaseStateHelpLabel";
+            this.dataBaseStateHelpLabel.Size = new System.Drawing.Size(143, 15);
+            this.dataBaseStateHelpLabel.TabIndex = 1;
+            this.dataBaseStateHelpLabel.Text = "Завантажена база даних:";
+            // 
+            // dataBaseStatelabel
+            // 
+            this.dataBaseStatelabel.AutoSize = true;
+            this.dataBaseStatelabel.Location = new System.Drawing.Point(144, 2);
+            this.dataBaseStatelabel.Name = "dataBaseStatelabel";
+            this.dataBaseStatelabel.Size = new System.Drawing.Size(36, 15);
+            this.dataBaseStatelabel.TabIndex = 0;
+            this.dataBaseStatelabel.Text = "None";
+            // 
             // panelWorkspace
             // 
             this.panelWorkspace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
@@ -451,7 +469,7 @@
             this.labelCarat.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelCarat.Location = new System.Drawing.Point(366, 298);
             this.labelCarat.Name = "labelCarat";
-            this.labelCarat.Size = new System.Drawing.Size(244, 106);
+            this.labelCarat.Size = new System.Drawing.Size(195, 86);
             this.labelCarat.TabIndex = 1;
             this.labelCarat.Text = "Carat";
             // 
@@ -728,28 +746,11 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
-            // dataBaseStatelabel
-            // 
-            this.dataBaseStatelabel.AutoSize = true;
-            this.dataBaseStatelabel.Location = new System.Drawing.Point(144, 2);
-            this.dataBaseStatelabel.Name = "dataBaseStatelabel";
-            this.dataBaseStatelabel.Size = new System.Drawing.Size(45, 20);
-            this.dataBaseStatelabel.TabIndex = 0;
-            this.dataBaseStatelabel.Text = "None";
-            // 
-            // dataBaseStateHelpLabel
-            // 
-            this.dataBaseStateHelpLabel.AutoSize = true;
-            this.dataBaseStateHelpLabel.Location = new System.Drawing.Point(3, 2);
-            this.dataBaseStateHelpLabel.Name = "dataBaseStateHelpLabel";
-            this.dataBaseStateHelpLabel.Size = new System.Drawing.Size(184, 20);
-            this.dataBaseStateHelpLabel.TabIndex = 1;
-            this.dataBaseStateHelpLabel.Text = "Завантажена база даних:";
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(110)))), ((int)(((byte)(95)))));
             this.ClientSize = new System.Drawing.Size(1090, 647);
             this.Controls.Add(this.panelWorkspace);

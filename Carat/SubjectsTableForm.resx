@@ -123,10 +123,81 @@
   <metadata name="Notes.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="SubjectName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Notes.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAgBAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzBTEx
+        MXEyMjLMMjIyzDExMXEzMzMFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMz
+        MygyMjLOMzMz/zMzM/8zMzP/MzMz/zMzM80tLS0nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAMzMzQTIyMogyMjKJMjIyiTIyMokyMjKJMjIyiTIyMokyMjKJMjIyiTIy
+        MokxMTGfMjIy9zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zIyMvYxMTGfMjIyiTIyMokyMjKJMjIyiTIy
+        MokyMjKJMjIyiTIyMokyMjKJMjIyiDIyMkIyMjLyMzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zIyMvwzMzPDMTExwjIyMvwzMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MjIy8jMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8yMjL3MDAwPwAAAAAAAAAAMDAwPzIyMvczMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MjIy6DExMVMAAAAAAAAAAAAAAAAAAAAAMTExUjIy
+        MugzMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/UxMTFnMzMzLS0tLSctLS0nLS0tJy0tLSctLS0nLi4uJjExMRoAAAABAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAATExMRouLi4mLS0tJy0tLSctLS0nLS0tJy0tLSczMzMtMzMzaTIyMvYzMzP/MzMz/zMz
+        M/8zMzP/MjIymAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMTExKQAA
+        AAAAAAAAMTExKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMTExmjMz
+        M/8zMzP/MzMz/zMzM/8xMTF3AAAAACQkJAczMzNfMTExWDIyMkwwMDA/MDAwNTIyMjMzMzNBMzMzaTIy
+        MrsyMjLEAAAAAAAAAAAzMzPDMjIyuzMzM2kzMzNBMjIyMzAwMDUwMDA/MjIyTDExMVgzMzNfJCQkBwAA
+        AAAxMTF3MzMz/zMzM/8zMzP/MzMz/zIyMnUAAAAAKCgoEzMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zIyMsQAAAAAAAAAADIyMsQzMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8oKCgTAAAAADIyMnUzMzP/MzMz/zMzM/8zMzP/MjIydQAAAAAoKCgTMzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MjIyxAAAAAAAAAAAMjIyxDMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/ygoKBMAAAAAMjIydTMzM/8zMzP/MzMz/zMzM/8yMjJ1AAAAACgoKBMzMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8yMjLEAAAAAAAAAAAyMjLEMzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/KCgoEwAAAAAyMjJ1MzMz/zMzM/8zMzP/MzMz/zIyMnUAAAAAKCgoEzMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zIyMsQAAAAAAAAAADIyMsQzMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8oKCgTAAAAADIyMnUzMzP/MzMz/zMzM/8zMzP/MjIydQAA
+        AAAoKCgTMzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MjIyxAAAAAAAAAAAMjIyxDMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/ygoKBMAAAAAMjIydTMzM/8zMzP/MzMz/zMz
+        M/8yMjJ1AAAAACgoKBMzMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8yMjLEAAAAAAAA
+        AAAyMjLEMzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/KCgoEwAAAAAyMjJ1MzMz/zMz
+        M/8zMzP/MzMz/zIyMnUAAAAAKCgoEzMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zIy
+        MsQAAAAAAAAAADIyMsQzMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8oKCgTAAAAADIy
+        MnUzMzP/MzMz/zMzM/8zMzP/MjIydQAAAAAoKCgTMzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MjIyxAAAAAAAAAAAMjIyxDMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/ygo
+        KBMAAAAAMjIydTMzM/8zMzP/MzMz/zMzM/8yMjJ1AAAAACgoKBMzMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8yMjLEAAAAAAAAAAAyMjLEMzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/KCgoEwAAAAAyMjJ1MzMz/zMzM/8zMzP/MzMz/zIyMnUAAAAAKCgoEzMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zIyMsQAAAAAAAAAADIyMsQzMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8oKCgTAAAAADIyMnUzMzP/MzMz/zMzM/8zMzP/MjIydQAAAAAoKCgTMzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MjIyxAAAAAAAAAAAMjIyxDMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/ygoKBMAAAAAMjIydTMzM/8zMzP/MzMz/zMzM/8yMjJ1AAAAACgo
+        KBMzMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8yMjLEAAAAAAAAAAAyMjLEMzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/KCgoEwAAAAAyMjJ1MzMz/zMzM/8zMzP/MzMz/zIy
+        MnUAAAAAKCgoEzMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zIyMsQAAAAAAAAAADIy
+        MsQzMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8oKCgTAAAAADIyMnUzMzP/MzMz/zMz
+        M/8zMzP/MjIydQAAAAAoKCgTMzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MjIyxAAA
+        AAAAAAAAMjIyxDMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/ygoKBMAAAAAMjIydTMz
+        M/8zMzP/MzMz/zMzM/8yMjJ1AAAAACgoKBMzMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8yMjLEAAAAAAAAAAAyMjLEMzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/KCgoEwAA
+        AAAyMjJ1MzMz/zMzM/8zMzP/MzMz/zIyMnUAAAAAKCgoEzMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zIyMsQAAAAAAAAAADIyMsQzMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8oKCgTAAAAADIyMnUzMzP/MzMz/zIyMv4zMzP/MjIydQAAAAAoKCgTMzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MjIyxAAAAAAAAAAAMjIyxDMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/ygoKBMAAAAAMjIydTMzM/8yMjL+MTExvTMzM/8yMjJ1AAAAACgoKBMzMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8yMjLEAAAAAAAAAAAyMjLEMzMz/zMzM/8zMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/KCgoEwAAAAAyMjJ1MzMz/zExMb0AAAABKioqEh8fHwgAAAAAKCgoEzMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zIyMsQAAAAAAAAAADIyMsQzMzP/MzMz/zMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8oKCgTAAAAAB8fHwgqKioSAAAAAQAAAAAAAAAAAAAAAAAA
+        AAAoKCgTMzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MjIyogAAAAAAAAAAMjIyojMz
+        M/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/ygoKBMAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAACgoKBMzMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MjIy6TExMXIAAAADAAAAAAAA
+        AAAAAAADMTExcjIyMukzMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/KCgoEwAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAJCQkDjMzM8MyMjLBMjIyvDIyMrAyMjKcMjIyeTExMUMzMzMFAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAMzMzBTExMUMyMjJ5MjIynDIyMrAyMjK8MjIywTMzM8MkJCQOAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA//gf///wD/8AAAAAAAAAAAABgAAAA8AAAAfgAB/9v/gQAYAIEAGACBAB
+        gAgQAYAIEAGACBABgAgQAYAIEAGACBABgAgQAYAIEAGACBABgAgQAYAIEAGACBABgAgQAYAIEAGACBAB
+        gAgQAYAIEAGACPABgA/wAYAP8AfgD/////8=
+</value>
+  </data>
 </root>

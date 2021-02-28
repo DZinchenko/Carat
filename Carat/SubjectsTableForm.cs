@@ -38,7 +38,7 @@ namespace Carat
             }
         }
 
-        private void syncData()
+        private void SyncData()
         {
             var subjects = m_subjectRepository.GetAllSubjects();
 
@@ -48,7 +48,7 @@ namespace Carat
             }
         }
 
-        private void removeLastRow()
+        private void RemoveLastRow()
         {
             int index = dataGridViewSubjects.Rows.Count - 2;
 
@@ -91,7 +91,7 @@ namespace Carat
                 if (!isValidName(subject.Name))
                 {
                     MessageBox.Show("Некоректна назва предмета!");
-                    syncData();
+                    SyncData();
                     return;
                 }
 
@@ -102,7 +102,7 @@ namespace Carat
                 if (!isValidName(subject.Name))
                 {
                     MessageBox.Show("Некоректна назва предмета!");
-                    removeLastRow();
+                    RemoveLastRow();
                     return;
                 }
 

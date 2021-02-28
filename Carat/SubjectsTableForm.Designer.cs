@@ -29,6 +29,7 @@ namespace Carat
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubjectsTableForm));
             this.dataGridViewSubjects = new System.Windows.Forms.DataGridView();
             this.SubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,7 +72,7 @@ namespace Carat
             this.Notes.MinimumWidth = 6;
             this.Notes.Name = "Notes";
             // 
-            // GroupsTableForm
+            // SubjectsTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -79,10 +80,11 @@ namespace Carat
             this.ClientSize = new System.Drawing.Size(899, 519);
             this.Controls.Add(this.dataGridViewSubjects);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MinimumSize = new System.Drawing.Size(350, 301);
-            this.Name = "GroupsTableForm";
+            this.Name = "SubjectsTableForm";
             this.Text = "Дисципліни";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SubjectsTableForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSubjects)).EndInit();
