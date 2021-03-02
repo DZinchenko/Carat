@@ -102,7 +102,8 @@ namespace Carat
             }
 
             form.TopLevel = false;
-            form.WindowState = FormWindowState.Maximized;
+            form.WindowState = FormWindowState.Normal;
+            form.Size = panelWorkspace.Size;
 
             panelWorkspace.Controls.Add(form);
             panelWorkspace.Tag = form;
@@ -294,6 +295,18 @@ namespace Carat
             {
                 openDB(openFileDialog);
             }
+        }
+
+        private void panelWorkspace_SizeChanged(object sender, EventArgs e)
+        {
+            if (subjectsForm != null)
+                subjectsForm.Size = panelWorkspace.Size;
+
+            if (groupsForm != null)
+                groupsForm.Size = panelWorkspace.Size;
+
+            if (teachersForm != null)
+                teachersForm.Size = panelWorkspace.Size;
         }
     }
 }

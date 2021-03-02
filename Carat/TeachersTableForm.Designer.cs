@@ -65,6 +65,7 @@ namespace Carat
             this.dataGridViewTeachers.StandardTab = true;
             this.dataGridViewTeachers.TabIndex = 0;
             this.dataGridViewTeachers.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTeachers_CellValueChanged);
+            this.dataGridViewTeachers.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewTeachers_DataError);
             this.dataGridViewTeachers.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewTeachers_RowsRemoved);
             // 
             // TeacherName
@@ -90,6 +91,7 @@ namespace Carat
             this.TeacherPosition.DefaultCellStyle = dataGridViewCellStyle2;
             this.TeacherPosition.HeaderText = "Посада";
             this.TeacherPosition.Items.AddRange(new object[] {
+            "<not set>",
             "асистент",
             "викладач",
             "ст. викладач",

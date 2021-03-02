@@ -24,7 +24,10 @@ namespace Carat.EF.Repositories
         }
         public Teacher GetTeacher(int teacherId)
         {
-            throw new NotImplementedException();
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.Teachers.Where(b => b.Id == teacherId).FirstOrDefault();
+            }
         }
 
         public void AddTeacher(Teacher teacher)

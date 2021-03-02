@@ -461,6 +461,7 @@
             this.panelWorkspace.Name = "panelWorkspace";
             this.panelWorkspace.Size = new System.Drawing.Size(915, 558);
             this.panelWorkspace.TabIndex = 4;
+            this.panelWorkspace.SizeChanged += new System.EventHandler(this.panelWorkspace_SizeChanged);
             // 
             // labelCarat
             // 

@@ -24,7 +24,10 @@ namespace Carat.EF.Repositories
         }
         public Group GetGroup(int groupId)
         {
-            throw new NotImplementedException();
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.Groups.Where(b => b.Id == groupId).FirstOrDefault();
+            }
         }
 
         public void AddGroup(Group group)

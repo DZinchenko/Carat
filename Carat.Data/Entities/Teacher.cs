@@ -8,10 +8,10 @@ namespace Carat.Data.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double StaffUnit { get; set; }
-        public string Position { get; set; }
-        public string Rank { get; set; }
-        public string Degree { get; set; }
+        public double StaffUnit { get; set; } = 1.00;
+        public string Position { get; set; } = "<not set>";
+        public string Rank { get; set; } = "<not set>";
+        public string Degree { get; set; } = "<not set>";
         public string Note { get; set; }
     }
 }

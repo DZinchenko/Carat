@@ -19,6 +19,7 @@ namespace Carat
     {
         private ISubjectRepository m_subjectRepository;
         private MainForm m_parentForm = null;
+        private const string IncorrectNameMessage = "Некоректна назва предмета!";
 
         public SubjectsTableForm(MainForm parentForm, string dbName)
         {
@@ -81,7 +82,7 @@ namespace Carat
                 return;
             }
 
-            subject.Name = dataGridViewSubjects[0, e.RowIndex].Value?.ToString();
+            subject.Name = dataGridViewSubjects[0, e.RowIndex].Value?.ToString()?.Trim(); ;
             subject.Notes = dataGridViewSubjects[1, e.RowIndex].Value?.ToString();
 
             if (e.RowIndex < subjects.Count)
@@ -90,7 +91,7 @@ namespace Carat
 
                 if (!isValidName(subject.Name))
                 {
-                    MessageBox.Show("Некоректна назва предмета!");
+                    MessageBox.Show(IncorrectNameMessage);
                     SyncData();
                     return;
                 }
@@ -101,7 +102,7 @@ namespace Carat
             {
                 if (!isValidName(subject.Name))
                 {
-                    MessageBox.Show("Некоректна назва предмета!");
+                    MessageBox.Show(IncorrectNameMessage);
                     RemoveLastRow();
                     return;
                 }

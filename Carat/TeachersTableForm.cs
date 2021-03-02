@@ -18,7 +18,9 @@ namespace Carat
     {
         MainForm m_parentForm = null;
         ITeacherRepository m_teacherRepository = null;
-        const string WarningMessage = "Некоректне ім'я викладача!";
+        const string IncorrectNameMessage = "Некоректне ім'я викладача!";
+        const string IncorrectDataMessage = "Некоректні дані!";
+        const string NotSet = "<not set>";
 
         public TeachersTableForm(MainForm parentForm, string dbPath)
         {
@@ -105,29 +107,19 @@ namespace Carat
                 return;
             }
 
-            var teachers = m_teacherRepository.GetAllTeachers();
-            var teacher = new Teacher();
-
             if (e.RowIndex < 0)
             {
                 return;
             }
 
-            teacher.Name = dataGridViewTeachers[0, e.RowIndex].Value?.ToString();
-            teacher.StaffUnit = Convert.ToDouble(dataGridViewTeachers[1, e.RowIndex].Value?.ToString());
-            teacher.Position = dataGridViewTeachers[2, e.RowIndex].Value?.ToString();
-            teacher.Rank = dataGridViewTeachers[3, e.RowIndex].Value?.ToString();
-            teacher.Degree = dataGridViewTeachers[4, e.RowIndex].Value?.ToString();
-            teacher.Note = dataGridViewTeachers[5, e.RowIndex].Value?.ToString();
+            var teachers = m_teacherRepository.GetAllTeachers();
 
             if (e.RowIndex < teachers.Count)
             {
-                teacher.Id = teachers[e.RowIndex].Id;
+                var teacher = teachers[e.RowIndex];
 
-                if (!isValidName(teacher.Name))
+                if (!UpdateData(teacher, e, false))
                 {
-                    MessageBox.Show(WarningMessage);
-                    SyncData();
                     return;
                 }
 
@@ -135,15 +127,77 @@ namespace Carat
             }
             else
             {
-                if (!isValidName(teacher.Name))
+                var teacher = new Teacher();
+
+                if (!UpdateData(teacher, e, true))
                 {
-                    MessageBox.Show(WarningMessage);
                     RemoveLastRow();
                     return;
                 }
 
                 m_teacherRepository.AddTeacher(teacher);
             }
+        }
+
+        private bool UpdateData(Teacher teacher, DataGridViewCellEventArgs e, bool isNewObject)
+        {
+            try
+            {
+                var Name = dataGridViewTeachers[0, e.RowIndex].Value?.ToString()?.Trim();
+                if (!isValidName(Name))
+                {
+                    MessageBox.Show(IncorrectNameMessage);
+                    if (!isNewObject)
+                    {
+                        SyncData();
+                    }
+
+                    return false;
+                }
+
+                switch (e.ColumnIndex)
+                {
+                    case 0:
+                        {
+                            teacher.Name = dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            break;
+                        }
+                    case 1:
+                        {
+                            teacher.StaffUnit = Convert.ToUInt32(dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString());
+                            break;
+                        }
+                    case 2:
+                        {
+                            teacher.Position = dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            break;
+                        }
+                    case 3:
+                        {
+                            teacher.Rank = dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            break;
+                        }
+                    case 4:
+                        {
+                            teacher.Degree = dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            break;
+                        }
+                    case 5:
+                        {
+                            teacher.Note = dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            break;
+                        }
+                    default: { return false; }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(IncorrectDataMessage);
+                SyncData();
+                return false;
+            }
+
+            return true;
         }
 
         private void dataGridViewTeachers_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
@@ -164,6 +218,11 @@ namespace Carat
             {
                 m_teacherRepository.RemoveTeacher(teachers[i + e.RowIndex]);
             }
+        }
+
+        private void dataGridViewTeachers_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.Cancel = true;
         }
     }
 }
