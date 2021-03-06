@@ -18,6 +18,7 @@ namespace Carat
         public Form groupsForm = null;
         public Form teachersForm = null;
         public Form workTypesForm = null;
+        public Form curriculumForm = null;
 
         private string m_dbName = "Carat.db";
 
@@ -37,21 +38,19 @@ namespace Carat
         public void SetButtonState()
         {
             if (subjectsForm == null)
-            {
                 buttonSubjects.Image = Properties.Resources.icons8_круг_16;
-            }
+
             if (groupsForm == null)
-            {
                 buttonGroups.Image = Properties.Resources.icons8_круг_16;
-            }
+
             if (teachersForm == null)
-            {
                 buttonTeachers.Image = Properties.Resources.icons8_круг_16;
-            }
+
             if (workTypesForm == null)
-            {
                 buttonWorkTypes.Image = Properties.Resources.icons8_круг_16;
-            }
+
+            if (curriculumForm == null)
+                buttonCurriculum.Image = Properties.Resources.icons8_круг_16;
         }
 
         private void InitializeSubmenu()
@@ -72,11 +71,13 @@ namespace Carat
                 groupsForm?.Close();
                 teachersForm?.Close();
                 workTypesForm?.Close();
+                curriculumForm?.Close();
                 
                 subjectsForm = null;
                 groupsForm = null;
                 teachersForm = null;
                 workTypesForm = null;
+                curriculumForm = null;
             }
         }
 
@@ -318,6 +319,9 @@ namespace Carat
 
             if (workTypesForm != null)
                 workTypesForm.Size = panelWorkspace.Size;
+
+            if (curriculumForm != null)
+                curriculumForm.Size = panelWorkspace.Size;
         }
 
         private void buttonWorkTypes_Click(object sender, EventArgs e)
@@ -331,6 +335,20 @@ namespace Carat
             else
             {
                 workTypesForm.BringToFront();
+            }
+        }
+
+        private void buttonCurriculum_Click(object sender, EventArgs e)
+        {
+            if (curriculumForm == null)
+            {
+                buttonCurriculum.Image = Properties.Resources.icons8_заполненный_круг_16;
+                curriculumForm = new CurriculumForm(this, m_dbName);
+                openChildForm(curriculumForm);
+            }
+            else
+            {
+                curriculumForm.BringToFront();
             }
         }
     }

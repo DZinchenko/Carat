@@ -167,7 +167,7 @@ namespace Carat
 
                 if (!isValidName(name))
                 {
-                    MessageBox.Show(IncorrectNameMessage);
+                    MessageBox.Show(IncorrectNameMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     if (!isNewObject)
                     {
@@ -219,7 +219,7 @@ namespace Carat
             }
             catch (Exception)
             {
-                MessageBox.Show(IncorrectDataMessage);
+                MessageBox.Show(IncorrectDataMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 SyncData();
                 return false;
             }

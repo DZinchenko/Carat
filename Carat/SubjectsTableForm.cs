@@ -91,7 +91,7 @@ namespace Carat
 
                 if (!isValidName(subject.Name))
                 {
-                    MessageBox.Show(IncorrectNameMessage);
+                    MessageBox.Show(IncorrectNameMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     SyncData();
                     return;
                 }
@@ -102,7 +102,7 @@ namespace Carat
             {
                 if (!isValidName(subject.Name))
                 {
-                    MessageBox.Show(IncorrectNameMessage);
+                    MessageBox.Show(IncorrectNameMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     RemoveLastRow();
                     return;
                 }

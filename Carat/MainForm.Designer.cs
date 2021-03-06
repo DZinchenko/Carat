@@ -46,53 +46,53 @@
             this.panelTools = new System.Windows.Forms.Panel();
             this.comboBoxSemestr = new System.Windows.Forms.ComboBox();
             this.labelSemestr = new System.Windows.Forms.Label();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.labelCourse = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.comboBoxCourse = new System.Windows.Forms.ComboBox();
             this.labelEducForm = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.comboBoxEducForm = new System.Windows.Forms.ComboBox();
             this.labelEducType = new System.Windows.Forms.Label();
             this.comboBoxEducType = new System.Windows.Forms.ComboBox();
-            this.buttonHidePanel = new System.Windows.Forms.Button();
             this.panelFooter = new System.Windows.Forms.Panel();
             this.dataBaseStateHelpLabel = new System.Windows.Forms.Label();
             this.dataBaseStatelabel = new System.Windows.Forms.Label();
             this.panelWorkspace = new System.Windows.Forms.Panel();
             this.labelCarat = new System.Windows.Forms.Label();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.panelLeftMain = new System.Windows.Forms.Panel();
             this.panelReportSubmenu = new System.Windows.Forms.Panel();
+            this.panelSectionSubmenu = new System.Windows.Forms.Panel();
+            this.panelTablesSubmenu = new System.Windows.Forms.Panel();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.buttonReport = new System.Windows.Forms.Button();
-            this.panelSectionSubmenu = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.buttonCurriculum = new System.Windows.Forms.Button();
             this.buttonSection = new System.Windows.Forms.Button();
-            this.panelTablesSubmenu = new System.Windows.Forms.Panel();
+            this.buttonWorkTypes = new System.Windows.Forms.Button();
+            this.buttonTeachers = new System.Windows.Forms.Button();
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
-            this.buttonTeachers = new System.Windows.Forms.Button();
-            this.buttonWorkTypes = new System.Windows.Forms.Button();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonHidePanel = new System.Windows.Forms.Button();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelFooter.SuspendLayout();
             this.panelWorkspace.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panelLeftMain.SuspendLayout();
             this.panelReportSubmenu.SuspendLayout();
             this.panelSectionSubmenu.SuspendLayout();
             this.panelTablesSubmenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelOptions
@@ -277,24 +277,6 @@
             this.labelSemestr.TabIndex = 9;
             this.labelSemestr.Text = "Семестр:";
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox4.Location = new System.Drawing.Point(544, 4);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox4.TabIndex = 6;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox3.Location = new System.Drawing.Point(418, 4);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            // 
             // labelCourse
             // 
             this.labelCourse.AutoSize = true;
@@ -304,15 +286,6 @@
             this.labelCourse.Size = new System.Drawing.Size(41, 19);
             this.labelCourse.TabIndex = 8;
             this.labelCourse.Text = "Курс:";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox2.Location = new System.Drawing.Point(253, 4);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
             // 
             // comboBoxCourse
             // 
@@ -348,15 +321,6 @@
             this.labelEducForm.Size = new System.Drawing.Size(55, 19);
             this.labelEducForm.TabIndex = 5;
             this.labelEducForm.Text = "Форма:";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox1.Location = new System.Drawing.Point(42, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // comboBoxEducForm
             // 
@@ -407,19 +371,6 @@
             this.comboBoxEducType.TabIndex = 1;
             this.comboBoxEducType.Tag = "";
             this.comboBoxEducType.DropDownClosed += new System.EventHandler(this.comboBoxEducType_DropDownClosed);
-            // 
-            // buttonHidePanel
-            // 
-            this.buttonHidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
-            this.buttonHidePanel.FlatAppearance.BorderSize = 0;
-            this.buttonHidePanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHidePanel.Image = global::Carat.Properties.Resources.icons8_открыть_панель_32;
-            this.buttonHidePanel.Location = new System.Drawing.Point(3, 2);
-            this.buttonHidePanel.Name = "buttonHidePanel";
-            this.buttonHidePanel.Size = new System.Drawing.Size(33, 27);
-            this.buttonHidePanel.TabIndex = 0;
-            this.buttonHidePanel.UseVisualStyleBackColor = false;
-            this.buttonHidePanel.Click += new System.EventHandler(this.buttonHidePanel_Click);
             // 
             // panelFooter
             // 
@@ -474,16 +425,6 @@
             this.labelCarat.TabIndex = 1;
             this.labelCarat.Text = "Carat";
             // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox5.Image = global::Carat.Properties.Resources.preciousstone_105028;
-            this.pictureBox5.Location = new System.Drawing.Point(337, 73);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(255, 222);
-            this.pictureBox5.TabIndex = 0;
-            this.pictureBox5.TabStop = false;
-            // 
             // panelLeftMain
             // 
             this.panelLeftMain.AutoScroll = true;
@@ -511,6 +452,38 @@
             this.panelReportSubmenu.Name = "panelReportSubmenu";
             this.panelReportSubmenu.Size = new System.Drawing.Size(173, 105);
             this.panelReportSubmenu.TabIndex = 6;
+            // 
+            // panelSectionSubmenu
+            // 
+            this.panelSectionSubmenu.Controls.Add(this.button5);
+            this.panelSectionSubmenu.Controls.Add(this.buttonCurriculum);
+            this.panelSectionSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSectionSubmenu.Location = new System.Drawing.Point(0, 240);
+            this.panelSectionSubmenu.Name = "panelSectionSubmenu";
+            this.panelSectionSubmenu.Size = new System.Drawing.Size(173, 70);
+            this.panelSectionSubmenu.TabIndex = 4;
+            // 
+            // panelTablesSubmenu
+            // 
+            this.panelTablesSubmenu.Controls.Add(this.buttonWorkTypes);
+            this.panelTablesSubmenu.Controls.Add(this.buttonTeachers);
+            this.panelTablesSubmenu.Controls.Add(this.buttonGroups);
+            this.panelTablesSubmenu.Controls.Add(this.buttonSubjects);
+            this.panelTablesSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTablesSubmenu.Location = new System.Drawing.Point(0, 50);
+            this.panelTablesSubmenu.Name = "panelTablesSubmenu";
+            this.panelTablesSubmenu.Size = new System.Drawing.Size(173, 140);
+            this.panelTablesSubmenu.TabIndex = 2;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox5.Image = global::Carat.Properties.Resources.preciousstone_105028;
+            this.pictureBox5.Location = new System.Drawing.Point(337, 73);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(255, 222);
+            this.pictureBox5.TabIndex = 0;
+            this.pictureBox5.TabStop = false;
             // 
             // button8
             // 
@@ -582,16 +555,6 @@
             this.buttonReport.UseVisualStyleBackColor = false;
             this.buttonReport.Click += new System.EventHandler(this.buttonReport_Click);
             // 
-            // panelSectionSubmenu
-            // 
-            this.panelSectionSubmenu.Controls.Add(this.button5);
-            this.panelSectionSubmenu.Controls.Add(this.button6);
-            this.panelSectionSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSectionSubmenu.Location = new System.Drawing.Point(0, 240);
-            this.panelSectionSubmenu.Name = "panelSectionSubmenu";
-            this.panelSectionSubmenu.Size = new System.Drawing.Size(173, 70);
-            this.panelSectionSubmenu.TabIndex = 4;
-            // 
             // button5
             // 
             this.button5.AutoEllipsis = true;
@@ -609,22 +572,23 @@
             this.button5.Text = "Розділ";
             this.button5.UseVisualStyleBackColor = false;
             // 
-            // button6
+            // buttonCurriculum
             // 
-            this.button6.AutoEllipsis = true;
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
-            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.ForeColor = System.Drawing.Color.Black;
-            this.button6.Image = ((System.Drawing.Image)(resources.GetObject("button6.Image")));
-            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(0, 0);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(173, 35);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "Розділ";
-            this.button6.UseVisualStyleBackColor = false;
+            this.buttonCurriculum.AutoEllipsis = true;
+            this.buttonCurriculum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
+            this.buttonCurriculum.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonCurriculum.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonCurriculum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCurriculum.ForeColor = System.Drawing.Color.Black;
+            this.buttonCurriculum.Image = ((System.Drawing.Image)(resources.GetObject("buttonCurriculum.Image")));
+            this.buttonCurriculum.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonCurriculum.Location = new System.Drawing.Point(0, 0);
+            this.buttonCurriculum.Name = "buttonCurriculum";
+            this.buttonCurriculum.Size = new System.Drawing.Size(173, 35);
+            this.buttonCurriculum.TabIndex = 2;
+            this.buttonCurriculum.Text = "Навчальний план";
+            this.buttonCurriculum.UseVisualStyleBackColor = false;
+            this.buttonCurriculum.Click += new System.EventHandler(this.buttonCurriculum_Click);
             // 
             // buttonSection
             // 
@@ -645,17 +609,41 @@
             this.buttonSection.UseVisualStyleBackColor = false;
             this.buttonSection.Click += new System.EventHandler(this.buttonSection_Click);
             // 
-            // panelTablesSubmenu
+            // buttonWorkTypes
             // 
-            this.panelTablesSubmenu.Controls.Add(this.buttonWorkTypes);
-            this.panelTablesSubmenu.Controls.Add(this.buttonTeachers);
-            this.panelTablesSubmenu.Controls.Add(this.buttonGroups);
-            this.panelTablesSubmenu.Controls.Add(this.buttonSubjects);
-            this.panelTablesSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTablesSubmenu.Location = new System.Drawing.Point(0, 50);
-            this.panelTablesSubmenu.Name = "panelTablesSubmenu";
-            this.panelTablesSubmenu.Size = new System.Drawing.Size(173, 140);
-            this.panelTablesSubmenu.TabIndex = 2;
+            this.buttonWorkTypes.AutoEllipsis = true;
+            this.buttonWorkTypes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
+            this.buttonWorkTypes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonWorkTypes.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonWorkTypes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonWorkTypes.ForeColor = System.Drawing.Color.Black;
+            this.buttonWorkTypes.Image = ((System.Drawing.Image)(resources.GetObject("buttonWorkTypes.Image")));
+            this.buttonWorkTypes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonWorkTypes.Location = new System.Drawing.Point(0, 105);
+            this.buttonWorkTypes.Name = "buttonWorkTypes";
+            this.buttonWorkTypes.Size = new System.Drawing.Size(173, 35);
+            this.buttonWorkTypes.TabIndex = 5;
+            this.buttonWorkTypes.Text = "Види робіт";
+            this.buttonWorkTypes.UseVisualStyleBackColor = false;
+            this.buttonWorkTypes.Click += new System.EventHandler(this.buttonWorkTypes_Click);
+            // 
+            // buttonTeachers
+            // 
+            this.buttonTeachers.AutoEllipsis = true;
+            this.buttonTeachers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
+            this.buttonTeachers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonTeachers.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonTeachers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonTeachers.ForeColor = System.Drawing.Color.Black;
+            this.buttonTeachers.Image = ((System.Drawing.Image)(resources.GetObject("buttonTeachers.Image")));
+            this.buttonTeachers.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonTeachers.Location = new System.Drawing.Point(0, 70);
+            this.buttonTeachers.Name = "buttonTeachers";
+            this.buttonTeachers.Size = new System.Drawing.Size(173, 35);
+            this.buttonTeachers.TabIndex = 4;
+            this.buttonTeachers.Text = "Викладачі";
+            this.buttonTeachers.UseVisualStyleBackColor = false;
+            this.buttonTeachers.Click += new System.EventHandler(this.buttonTeachers_Click);
             // 
             // buttonGroups
             // 
@@ -712,41 +700,54 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
-            // buttonTeachers
+            // pictureBox4
             // 
-            this.buttonTeachers.AutoEllipsis = true;
-            this.buttonTeachers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
-            this.buttonTeachers.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonTeachers.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonTeachers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonTeachers.ForeColor = System.Drawing.Color.Black;
-            this.buttonTeachers.Image = ((System.Drawing.Image)(resources.GetObject("buttonTeachers.Image")));
-            this.buttonTeachers.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonTeachers.Location = new System.Drawing.Point(0, 70);
-            this.buttonTeachers.Name = "buttonTeachers";
-            this.buttonTeachers.Size = new System.Drawing.Size(173, 35);
-            this.buttonTeachers.TabIndex = 4;
-            this.buttonTeachers.Text = "Викладачі";
-            this.buttonTeachers.UseVisualStyleBackColor = false;
-            this.buttonTeachers.Click += new System.EventHandler(this.buttonTeachers_Click);
+            this.pictureBox4.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox4.Location = new System.Drawing.Point(544, 4);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox4.TabIndex = 6;
+            this.pictureBox4.TabStop = false;
             // 
-            // buttonWorkTypes
+            // pictureBox3
             // 
-            this.buttonWorkTypes.AutoEllipsis = true;
-            this.buttonWorkTypes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
-            this.buttonWorkTypes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonWorkTypes.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonWorkTypes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonWorkTypes.ForeColor = System.Drawing.Color.Black;
-            this.buttonWorkTypes.Image = ((System.Drawing.Image)(resources.GetObject("buttonWorkTypes.Image")));
-            this.buttonWorkTypes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonWorkTypes.Location = new System.Drawing.Point(0, 105);
-            this.buttonWorkTypes.Name = "buttonWorkTypes";
-            this.buttonWorkTypes.Size = new System.Drawing.Size(173, 35);
-            this.buttonWorkTypes.TabIndex = 5;
-            this.buttonWorkTypes.Text = "Види робіт";
-            this.buttonWorkTypes.UseVisualStyleBackColor = false;
-            this.buttonWorkTypes.Click += new System.EventHandler(this.buttonWorkTypes_Click);
+            this.pictureBox3.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox3.Location = new System.Drawing.Point(418, 4);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox2.Location = new System.Drawing.Point(253, 4);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox1.Location = new System.Drawing.Point(42, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // buttonHidePanel
+            // 
+            this.buttonHidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
+            this.buttonHidePanel.FlatAppearance.BorderSize = 0;
+            this.buttonHidePanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHidePanel.Image = global::Carat.Properties.Resources.icons8_открыть_панель_32;
+            this.buttonHidePanel.Location = new System.Drawing.Point(3, 2);
+            this.buttonHidePanel.Name = "buttonHidePanel";
+            this.buttonHidePanel.Size = new System.Drawing.Size(33, 27);
+            this.buttonHidePanel.TabIndex = 0;
+            this.buttonHidePanel.UseVisualStyleBackColor = false;
+            this.buttonHidePanel.Click += new System.EventHandler(this.buttonHidePanel_Click);
             // 
             // MainForm
             // 
@@ -774,19 +775,19 @@
             this.menuStripOptions.PerformLayout();
             this.panelTools.ResumeLayout(false);
             this.panelTools.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelFooter.ResumeLayout(false);
             this.panelFooter.PerformLayout();
             this.panelWorkspace.ResumeLayout(false);
             this.panelWorkspace.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panelLeftMain.ResumeLayout(false);
             this.panelReportSubmenu.ResumeLayout(false);
             this.panelSectionSubmenu.ResumeLayout(false);
             this.panelTablesSubmenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -819,7 +820,7 @@
         private System.Windows.Forms.Button buttonReport;
         private System.Windows.Forms.Panel panelSectionSubmenu;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button buttonCurriculum;
         private System.Windows.Forms.Button buttonSection;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Button button8;
