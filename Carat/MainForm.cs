@@ -17,6 +17,7 @@ namespace Carat
         public Form subjectsForm = null;
         public Form groupsForm = null;
         public Form teachersForm = null;
+        public Form workTypesForm = null;
 
         private string m_dbName = "Carat.db";
 
@@ -47,6 +48,10 @@ namespace Carat
             {
                 buttonTeachers.Image = Properties.Resources.icons8_круг_16;
             }
+            if (workTypesForm == null)
+            {
+                buttonWorkTypes.Image = Properties.Resources.icons8_круг_16;
+            }
         }
 
         private void InitializeSubmenu()
@@ -66,9 +71,12 @@ namespace Carat
                 subjectsForm?.Close();
                 groupsForm?.Close();
                 teachersForm?.Close();
+                workTypesForm?.Close();
+                
                 subjectsForm = null;
                 groupsForm = null;
                 teachersForm = null;
+                workTypesForm = null;
             }
         }
 
@@ -307,6 +315,23 @@ namespace Carat
 
             if (teachersForm != null)
                 teachersForm.Size = panelWorkspace.Size;
+
+            if (workTypesForm != null)
+                workTypesForm.Size = panelWorkspace.Size;
+        }
+
+        private void buttonWorkTypes_Click(object sender, EventArgs e)
+        {
+            if (workTypesForm == null)
+            {
+                buttonWorkTypes.Image = Properties.Resources.icons8_заполненный_круг_16;
+                workTypesForm = new WorkTypesTableForm(this, m_dbName);
+                openChildForm(workTypesForm);
+            }
+            else
+            {
+                workTypesForm.BringToFront();
+            }
         }
     }
 }

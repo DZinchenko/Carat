@@ -77,6 +77,7 @@ namespace Carat
             this.MinimumSize = new System.Drawing.Size(350, 301);
             this.Name = "WorkTypesTableForm";
             this.Text = "Види робіт";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WorkTypesTableForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorkTypes)).EndInit();
             this.ResumeLayout(false);
 

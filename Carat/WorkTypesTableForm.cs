@@ -39,6 +39,12 @@ namespace Carat
             //}
         }
 
+        private void WorkTypesTableForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            m_parentForm.workTypesForm = null;
+            m_parentForm.SetButtonState();
+        }
+
         //    private void SyncData()
         //    {
         //        var subjects = m_subjectRepository.GetAllSubjects();
@@ -59,12 +65,6 @@ namespace Carat
         //        }
 
         //        dataGridViewSubjects.Rows.Remove(dataGridViewSubjects.Rows[index]);
-        //    }
-
-        //    private void SubjectsTableForm_FormClosed(object sender, FormClosedEventArgs e)
-        //    {
-        //        m_parentForm.subjectsForm = null;
-        //        m_parentForm.SetButtonState();
         //    }
 
         //    private void dataGridViewSubjects_CellValueChanged(object sender, DataGridViewCellEventArgs e)
