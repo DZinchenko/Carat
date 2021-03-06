@@ -8,7 +8,7 @@ namespace Carat.Data.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public uint StudentHours { get; set; }
-        public uint TotalHours { get; set; }
+        public double StudentHours { get; set; }
+        public double TotalHours { get; set; }
     }
 }

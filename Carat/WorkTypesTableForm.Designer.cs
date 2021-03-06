@@ -29,6 +29,8 @@ namespace Carat
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkTypesTableForm));
             this.dataGridViewWorkTypes = new System.Windows.Forms.DataGridView();
             this.WorkTypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WorkTypeStudentHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,6 +53,9 @@ namespace Carat
             this.dataGridViewWorkTypes.StandardTab = true;
             this.dataGridViewWorkTypes.TabIndex = 0;
             this.dataGridViewWorkTypes.TabStop = false;
+            this.dataGridViewWorkTypes.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewWorkTypes_CellValueChanged);
+            this.dataGridViewWorkTypes.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewWorkTypes_DataError);
+            this.dataGridViewWorkTypes.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewWorkTypes_RowsRemoved);
             // 
             // WorkTypeName
             // 
@@ -61,6 +66,8 @@ namespace Carat
             // WorkTypeStudentHours
             // 
             this.WorkTypeStudentHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle2.NullValue = "0";
+            this.WorkTypeStudentHours.DefaultCellStyle = dataGridViewCellStyle2;
             this.WorkTypeStudentHours.HeaderText = "год./студ.";
             this.WorkTypeStudentHours.Name = "WorkTypeStudentHours";
             this.WorkTypeStudentHours.Width = 84;
@@ -73,6 +80,7 @@ namespace Carat
             this.ClientSize = new System.Drawing.Size(899, 519);
             this.Controls.Add(this.dataGridViewWorkTypes);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
             this.MinimumSize = new System.Drawing.Size(350, 301);
             this.Name = "WorkTypesTableForm";

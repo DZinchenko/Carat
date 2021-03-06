@@ -20,6 +20,7 @@ namespace Carat
         private IWorkTypeRepository m_workTypeRepository;
         private MainForm m_parentForm = null;
         private const string IncorrectNameMessage = "Некоректна назва типу роботи!";
+        private const string IncorrectDataMessage = "Некоректні дані!";
 
         public WorkTypesTableForm(MainForm parentForm, string dbName)
         {
@@ -31,12 +32,12 @@ namespace Carat
 
         public void LoadData()
         {
-            //var workTypes = m_subjectRepository.GetAllSubjects();
+            var workTypes = m_workTypeRepository.GetAllWorkTypes();
 
-            //foreach (var subject in subjects)
-            //{
-            //    dataGridViewSubjects.Rows.Add(subject.Name, subject.Notes);
-            //}
+            foreach (var work in workTypes)
+            {
+                dataGridViewWorkTypes.Rows.Add(work.Name, work.StudentHours);
+            }
         }
 
         private void WorkTypesTableForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -45,111 +46,157 @@ namespace Carat
             m_parentForm.SetButtonState();
         }
 
-        //    private void SyncData()
-        //    {
-        //        var subjects = m_subjectRepository.GetAllSubjects();
+        private void SyncData()
+        {
+            var workTypes = m_workTypeRepository.GetAllWorkTypes();
 
-        //        for (int i = 0; i < subjects.Count; ++i)
-        //        {
-        //            dataGridViewSubjects.Rows[i].SetValues(subjects[i].Name, subjects[i].Notes);
-        //        }
-        //    }
+            for (int i = 0; i < workTypes.Count; ++i)
+            {
+                dataGridViewWorkTypes.Rows[i].SetValues(workTypes[i].Name, workTypes[i].StudentHours);
+            }
+        }
 
-        //    private void RemoveLastRow()
-        //    {
-        //        int index = dataGridViewSubjects.Rows.Count - 2;
+        private void RemoveLastRow()
+        {
+            int index = dataGridViewWorkTypes.Rows.Count - 2;
 
-        //        if (index < 0)
-        //        {
-        //            return;
-        //        }
+            if (index < 0)
+            {
+                return;
+            }
 
-        //        dataGridViewSubjects.Rows.Remove(dataGridViewSubjects.Rows[index]);
-        //    }
+            dataGridViewWorkTypes.Rows.Remove(dataGridViewWorkTypes.Rows[index]);
+        }
 
-        //    private void dataGridViewSubjects_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        //    {
-        //        if (m_subjectRepository == null)
-        //        {
-        //            return;
-        //        }
+        private void dataGridViewWorkTypes_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (m_workTypeRepository == null)
+            {
+                return;
+            }
 
-        //        var subjects = m_subjectRepository.GetAllSubjects();
-        //        var subject = new Subject();
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
 
-        //        if (e.RowIndex < 0)
-        //        {
-        //            return;
-        //        }
+            var workTypes = m_workTypeRepository.GetAllWorkTypes();
 
-        //        subject.Name = dataGridViewSubjects[0, e.RowIndex].Value?.ToString()?.Trim(); ;
-        //        subject.Notes = dataGridViewSubjects[1, e.RowIndex].Value?.ToString();
+            if (e.RowIndex < workTypes.Count)
+            {
+                var work = workTypes[e.RowIndex];
 
-        //        if (e.RowIndex < subjects.Count)
-        //        {
-        //            subject.Id = subjects[e.RowIndex].Id;
+                if (!UpdateData(work, e, false))
+                {
+                    return;
+                }
 
-        //            if (!isValidName(subject.Name))
-        //            {
-        //                MessageBox.Show(IncorrectNameMessage);
-        //                SyncData();
-        //                return;
-        //            }
+                m_workTypeRepository.UpdateWorkType(work);
+            }
+            else
+            {
+                var work = new WorkType();
 
-        //            m_subjectRepository.UpdateSubject(subject);
-        //        }
-        //        else
-        //        {
-        //            if (!isValidName(subject.Name))
-        //            {
-        //                MessageBox.Show(IncorrectNameMessage);
-        //                RemoveLastRow();
-        //                return;
-        //            }
+                if (!UpdateData(work, e, true))
+                {
+                    RemoveLastRow();
+                    return;
+                }
+                m_workTypeRepository.AddWorkType(work);
+            }
+        }
 
-        //            m_subjectRepository.AddSubject(subject);
-        //        }
-        //    }
+        private bool isValidName(string name)
+        {
+            int duplicatesCounter = 0;
 
-        //    private void dataGridViewSubjects_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        //    {
-        //        var subjects = m_subjectRepository.GetAllSubjects();
+            if (name == null || name == "")
+            {
+                return false;
+            }
 
-        //        if (e.RowIndex < 0)
-        //        {
-        //            return;
-        //        }
+            for (int i = 0; i < dataGridViewWorkTypes.Rows.Count; ++i)
+            {
+                if (dataGridViewWorkTypes[0, i].Value?.ToString().ToLower() == name.ToLower())
+                {
+                    ++duplicatesCounter;
+                }
+            }
 
-        //        if (e.RowIndex >= subjects.Count)
-        //        {
-        //            return;
-        //        }
+            return duplicatesCounter > 1 ? false : true;
+        }
 
-        //        for (int i = 0; i < e.RowCount; ++i)
-        //        {
-        //            m_subjectRepository.RemoveSubject(subjects[i + e.RowIndex]);
-        //        }
-        //    }
+        private bool UpdateData(WorkType work, DataGridViewCellEventArgs e, bool isNewObject)
+        {
+            try
+            {
+                var Name = dataGridViewWorkTypes[0, e.RowIndex].Value?.ToString()?.Trim();
+                
+                if (!isValidName(Name))
+                {
+                    MessageBox.Show(IncorrectNameMessage);
+                    if (!isNewObject)
+                    {
+                        SyncData();
+                    }
 
-        //    private bool isValidName(string name)
-        //    {
-        //        int duplicatesCounter = 0;
+                    return false;
+                }
 
-        //        if (name == null || name == "")
-        //        {
-        //            return false;
-        //        }
+                switch (e.ColumnIndex)
+                {
+                    case 0:
+                        {
+                            work.Name = dataGridViewWorkTypes[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            break;
+                        }
+                    case 1:
+                        {
+                            work.StudentHours = Convert.ToDouble(dataGridViewWorkTypes[e.ColumnIndex, e.RowIndex].Value?.ToString());
 
-        //        for (int i = 0; i < dataGridViewSubjects.Rows.Count; ++i)
-        //        {
-        //            if (dataGridViewSubjects[0, i].Value?.ToString().ToLower() == name.ToLower())
-        //            {
-        //                ++duplicatesCounter;
-        //            }
-        //        }
+                            if (Tools.isLessThanZero(work.StudentHours))
+                            {
+                                throw new Exception();
+                            }
 
-        //        return duplicatesCounter > 1 ? false : true;
-        //    }
-        //}
+                            break;
+                        }
+                    default: { return false; }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(IncorrectDataMessage);
+                SyncData();
+                return false;
+            }
+
+            return true;
+        }
+
+        private void dataGridViewWorkTypes_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            var workTypes = m_workTypeRepository.GetAllWorkTypes();
+
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            if (e.RowIndex >= workTypes.Count)
+            {
+                return;
+            }
+
+            for (int i = 0; i < e.RowCount; ++i)
+            {
+                m_workTypeRepository.RemoveWorkType(workTypes[i + e.RowIndex]);
+            }
+        }
+
+        private void dataGridViewWorkTypes_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }

@@ -189,6 +189,7 @@
     <Compile Include="TeachersTableForm.Designer.cs">
       <DependentUpon>TeachersTableForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools.cs" />
     <Compile Include="WorkTypesTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
