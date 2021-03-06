@@ -189,6 +189,12 @@
     <Compile Include="TeachersTableForm.Designer.cs">
       <DependentUpon>TeachersTableForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkTypesTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkTypesTableForm.Designer.cs">
+      <DependentUpon>WorkTypesTableForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="GroupsTableForm.resx">
       <DependentUpon>GroupsTableForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -210,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TeachersTableForm.resx">
       <DependentUpon>TeachersTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkTypesTableForm.resx">
+      <DependentUpon>WorkTypesTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
