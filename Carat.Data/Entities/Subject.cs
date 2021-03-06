@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Carat.Data.Entities
+﻿namespace Carat.Data.Entities
 {
     public class Subject
     {

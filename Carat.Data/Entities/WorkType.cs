@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Carat.Data.Entities
+﻿namespace Carat.Data.Entities
 {
     public class WorkType
     {
