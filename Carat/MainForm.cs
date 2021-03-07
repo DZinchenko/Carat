@@ -19,6 +19,7 @@ namespace Carat
         public Form teachersForm = null;
         public Form workTypesForm = null;
         public Form curriculumForm = null;
+        public Form TAForm = null;
 
         private string m_dbName = "Carat.db";
 
@@ -51,6 +52,9 @@ namespace Carat
 
             if (curriculumForm == null)
                 buttonCurriculum.Image = Properties.Resources.icons8_круг_16;
+
+            if (TAForm == null)
+                buttonTA.Image = Properties.Resources.icons8_круг_16;
         }
 
         private void InitializeSubmenu()
@@ -72,12 +76,14 @@ namespace Carat
                 teachersForm?.Close();
                 workTypesForm?.Close();
                 curriculumForm?.Close();
-                
+                TAForm?.Close();
+
                 subjectsForm = null;
                 groupsForm = null;
                 teachersForm = null;
                 workTypesForm = null;
                 curriculumForm = null;
+                TAForm = null;
             }
         }
 
@@ -147,6 +153,7 @@ namespace Carat
         private void buttonSubjects_Click(object sender, EventArgs e)
         {
             curriculumForm?.Close();
+            TAForm?.Close();
 
             if (subjectsForm == null)
             {
@@ -212,6 +219,7 @@ namespace Carat
         private void buttonGroups_Click(object sender, EventArgs e)
         {
             curriculumForm?.Close();
+            TAForm?.Close();
 
             if (groupsForm == null)
             {
@@ -228,6 +236,7 @@ namespace Carat
         private void buttonTeachers_Click(object sender, EventArgs e)
         {
             curriculumForm?.Close();
+            TAForm?.Close();
 
             if (teachersForm == null)
             {
@@ -328,11 +337,15 @@ namespace Carat
 
             if (curriculumForm != null)
                 curriculumForm.Size = panelWorkspace.Size;
+
+            if (TAForm != null)
+                TAForm.Size = panelWorkspace.Size;
         }
 
         private void buttonWorkTypes_Click(object sender, EventArgs e)
         {
             curriculumForm?.Close();
+            TAForm?.Close();
 
             if (workTypesForm == null)
             {
@@ -352,6 +365,7 @@ namespace Carat
             groupsForm?.Close();
             teachersForm?.Close();
             workTypesForm?.Close();
+            TAForm?.Close();
 
             if (curriculumForm == null)
             {
@@ -362,6 +376,26 @@ namespace Carat
             else
             {
                 curriculumForm.BringToFront();
+            }
+        }
+
+        private void buttonTA_Click(object sender, EventArgs e)
+        {
+            subjectsForm?.Close();
+            groupsForm?.Close();
+            teachersForm?.Close();
+            workTypesForm?.Close();
+            curriculumForm?.Close();
+
+            if (TAForm == null)
+            {
+                buttonTA.Image = Properties.Resources.icons8_заполненный_круг_16;
+                TAForm = new TeacherAssignmentForm(this, m_dbName);
+                openChildForm(TAForm);
+            }
+            else
+            {
+                TAForm.BringToFront();
             }
         }
     }

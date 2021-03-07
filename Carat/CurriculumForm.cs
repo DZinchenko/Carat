@@ -32,6 +32,7 @@ namespace Carat
 
             listBoxCourse.SelectedIndex = 0;
             listBoxWorkTypes.Visible = false;
+            dataGridViewCurriculumWorkTypes.Visible = false;
 
             m_curriculumItemRepository = new CurriculumItemRepository(dbName);
             m_workTypeRepository = new WorkTypeRepository(dbName);
@@ -281,13 +282,15 @@ namespace Carat
 
                 if (rowIndex >= curriculumItems.Count)
                 {
+                    listBoxWorkTypes.Visible = false;
+                    dataGridViewCurriculumWorkTypes.Visible = false;
                     return;
                 }
 
                 var curriculumItemId = curriculumItems[rowIndex].Id;
                 var curriculumItemWorks = m_workRepository.GetWorks(curriculumItemId);
 
-                for (int i = 0; i <= dataGridViewCurriculumWorkTypes.RowCount; ++i)
+                for (int i = 0, limit = dataGridViewCurriculumWorkTypes.RowCount; i < limit; ++i)
                 {
                     RemoveLastRowCurriculumWorks();
                 }
@@ -297,6 +300,8 @@ namespace Carat
                     var workType = m_workTypeRepository.GetWorkType(work.WorkTypeId);
                     dataGridViewCurriculumWorkTypes.Rows.Add(workType?.Name, work?.TotalHours);
                 }
+
+                dataGridViewCurriculumWorkTypes.Visible = true;
             }
         }
 
