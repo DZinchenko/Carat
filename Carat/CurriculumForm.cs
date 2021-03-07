@@ -28,6 +28,7 @@ namespace Carat
             InitializeComponent();
 
             m_parentForm = parentForm;
+            listBoxCourse.SelectedIndex = 0;
             m_curriculumItemRepository = new CurriculumItemRepository(dbName);
             m_workTypeRepository = new WorkTypeRepository(dbName);
             m_subjectRepository = new SubjectRepository(dbName);
@@ -52,7 +53,7 @@ namespace Carat
             foreach (var curriculumItem in curriculumItems)
             {
                 dataGridViewCurriculumSubjects.Rows.Add(m_subjectRepository.GetSubject(
-                    curriculumItem.SubjectId)?.Name, curriculumItem?.SubjectHours);
+                    curriculumItem.SubjectId)?.Name, curriculumItem?.Course, curriculumItem?.SubjectHours);
             }
         }
 
@@ -72,7 +73,7 @@ namespace Carat
                 var subjects = m_subjectRepository.GetAllSubjects();
 
                 dataGridViewCurriculumSubjects.Rows.Add();
-                dataGridViewCurriculumSubjects.Rows[dgvIndex].SetValues(subjects[index].Name, 0);
+                dataGridViewCurriculumSubjects.Rows[dgvIndex].SetValues(subjects[index].Name, listBoxCourse.SelectedItem, 0);
             }
         }
 
@@ -83,7 +84,7 @@ namespace Carat
             for (int i = 0; i < curriculumItems.Count; ++i)
             {
                 dataGridViewCurriculumSubjects.Rows[i].SetValues(m_subjectRepository.GetSubject(
-                    curriculumItems[i].SubjectId)?.Name, curriculumItems[i]?.SubjectHours);
+                    curriculumItems[i].SubjectId)?.Name, curriculumItems[i]?.Course, curriculumItems[i]?.SubjectHours);
             }
         }
 
@@ -201,6 +202,12 @@ namespace Carat
                             break;
                         }
                     case 1:
+                        {
+                            curriculumItem.Course = Convert.ToUInt32(dataGridViewCurriculumSubjects[e.ColumnIndex, e.RowIndex].Value?.ToString());
+
+                            break;
+                        }
+                    case 2:
                         {
                             curriculumItem.SubjectHours = Convert.ToDouble(dataGridViewCurriculumSubjects[e.ColumnIndex, e.RowIndex].Value?.ToString());
 
