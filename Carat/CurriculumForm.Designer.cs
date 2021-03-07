@@ -80,6 +80,7 @@ namespace Carat
             this.dataGridViewCurriculumSubjects.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCurriculumSubjects_CellValueChanged);
             this.dataGridViewCurriculumSubjects.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewCurriculumSubjects_DataError);
             this.dataGridViewCurriculumSubjects.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewCurriculumSubjects_RowsRemoved);
+            this.dataGridViewCurriculumSubjects.SelectionChanged += new System.EventHandler(this.dataGridViewCurriculumSubjects_SelectionChanged);
             // 
             // CurriculumSubject
             // 
@@ -164,6 +165,7 @@ namespace Carat
             this.dataGridViewCurriculumWorkTypes.Name = "dataGridViewCurriculumWorkTypes";
             this.dataGridViewCurriculumWorkTypes.Size = new System.Drawing.Size(280, 410);
             this.dataGridViewCurriculumWorkTypes.TabIndex = 1;
+            this.dataGridViewCurriculumWorkTypes.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCurriculumWorkTypes_CellValueChanged);
             // 
             // CurriculumWorkType
             // 
@@ -190,6 +192,7 @@ namespace Carat
             this.listBoxWorkTypes.Name = "listBoxWorkTypes";
             this.listBoxWorkTypes.Size = new System.Drawing.Size(280, 109);
             this.listBoxWorkTypes.TabIndex = 0;
+            this.listBoxWorkTypes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxWorkTypes_MouseDoubleClick);
             // 
             // CurriculumForm
             // 

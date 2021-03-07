@@ -20,6 +20,7 @@ namespace Carat
         private ICurriculumItemRepository m_curriculumItemRepository;
         private ISubjectRepository m_subjectRepository;
         private IWorkTypeRepository m_workTypeRepository;
+        private IWorkRepository m_workRepository;
         private MainForm m_parentForm = null;
         private const string IncorrectDataMessage = "Некоректні дані!";
 
@@ -28,10 +29,14 @@ namespace Carat
             InitializeComponent();
 
             m_parentForm = parentForm;
+
             listBoxCourse.SelectedIndex = 0;
+            listBoxWorkTypes.Visible = false;
+
             m_curriculumItemRepository = new CurriculumItemRepository(dbName);
             m_workTypeRepository = new WorkTypeRepository(dbName);
             m_subjectRepository = new SubjectRepository(dbName);
+            m_workRepository = new WorkRepository(dbName);
         }
 
         public void LoadData()
@@ -100,7 +105,7 @@ namespace Carat
             dataGridViewCurriculumSubjects.Rows.Remove(dataGridViewCurriculumSubjects.Rows[index]);
         }
 
-        private void RemoveLastRowCurriculumWorkTypes()
+        private void RemoveLastRowCurriculumWorks()
         {
             int index = dataGridViewCurriculumWorkTypes.Rows.Count - 2;
 
@@ -151,7 +156,7 @@ namespace Carat
             }
         }
 
-        private bool isValid(string name, string course, DataGridView dgv)
+        private bool isValidSubject(string name, string course, DataGridView dgv)
         {
             int duplicatesCounter = 0;
 
@@ -184,7 +189,7 @@ namespace Carat
 
                 if (isNewObject)
                 {
-                    if (!isValid(name, listBoxCourse.SelectedItem.ToString(), dataGridViewCurriculumSubjects))
+                    if (!isValidSubject(name, listBoxCourse.SelectedItem.ToString(), dataGridViewCurriculumSubjects))
                     {
                         MessageBox.Show(IncorrectDataMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -257,6 +262,183 @@ namespace Carat
         private void dataGridViewCurriculumSubjects_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        private void dataGridViewCurriculumSubjects_SelectionChanged(object sender, EventArgs e)
+        {
+            listBoxWorkTypes.Visible = true;
+
+            if (dataGridViewCurriculumSubjects.SelectedCells.Count == 1)
+            {
+                var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems();
+
+                if (curriculumItems.Count == 0)
+                {
+                    return;
+                }
+
+                var rowIndex = dataGridViewCurriculumSubjects.SelectedCells[0].RowIndex;
+
+                if (rowIndex >= curriculumItems.Count)
+                {
+                    return;
+                }
+
+                var curriculumItemId = curriculumItems[rowIndex].Id;
+                var curriculumItemWorks = m_workRepository.GetWorks(curriculumItemId);
+
+                for (int i = 0; i <= dataGridViewCurriculumWorkTypes.RowCount; ++i)
+                {
+                    RemoveLastRowCurriculumWorks();
+                }
+
+                foreach (var work in curriculumItemWorks)
+                {
+                    var workType = m_workTypeRepository.GetWorkType(work.WorkTypeId);
+                    dataGridViewCurriculumWorkTypes.Rows.Add(workType?.Name, work?.TotalHours);
+                }
+            }
+        }
+
+        private void listBoxWorkTypes_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = this.listBoxWorkTypes.IndexFromPoint(e.Location);
+
+            if (index != ListBox.NoMatches)
+            {
+                var dgvIndex = dataGridViewCurriculumWorkTypes.Rows.Count - 1;
+                var workTypes = m_workTypeRepository.GetAllWorkTypes();
+
+                dataGridViewCurriculumWorkTypes.Rows.Add();
+                dataGridViewCurriculumWorkTypes.Rows[dgvIndex].SetValues(workTypes[index].Name, 0);
+            }
+        }
+
+        private void dataGridViewCurriculumWorkTypes_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (m_workRepository == null)
+            {
+                return;
+            }
+
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems();
+            var rowIndex = dataGridViewCurriculumSubjects.SelectedCells[0].RowIndex;
+            var curriculumItemId = curriculumItems[rowIndex].Id;
+            var curriculumItemWorks = m_workRepository.GetWorks(curriculumItemId);
+
+            if (e.RowIndex < curriculumItemWorks.Count)
+            {
+                var curriculumItemWork = curriculumItemWorks[e.RowIndex];
+
+                if (!UpdateDataCurriculumWork(curriculumItemWork, curriculumItemId, e, false))
+                {
+                    return;
+                }
+
+                m_workRepository.UpdateWork(curriculumItemWork);
+            }
+            else
+            {
+                var curriculumItemWork = new Work();
+
+                if (!UpdateDataCurriculumWork(curriculumItemWork, curriculumItemId, e, true))
+                {
+                    RemoveLastRowCurriculumWorks();
+                    return;
+                }
+
+                m_workRepository.AddWork(curriculumItemWork);
+            }
+        }
+
+        private bool isValidWork(string name, DataGridView dgv)
+        {
+            int duplicatesCounter = 0;
+
+            if (name == null || name == "")
+            {
+                return false;
+            }
+
+            for (int i = 0; i < dgv.Rows.Count; ++i)
+            {
+                if (dgv[0, i].Value?.ToString().ToLower() == name.ToLower())
+                {
+                    ++duplicatesCounter;
+                }
+            }
+
+            return duplicatesCounter > 1 ? false : true;
+        }
+
+        private void SyncDataCurriculumWorks()
+        {
+            var works = m_workRepository.GetAllWorks();
+
+            for (int i = 0; i < works.Count; ++i)
+            {
+                dataGridViewCurriculumWorkTypes.Rows[i].SetValues(m_workTypeRepository.GetWorkType(
+                    works[i].WorkTypeId)?.Name, works[i]?.TotalHours);
+            }
+        }
+
+        private bool UpdateDataCurriculumWork(Work work, int curriculumItemId, DataGridViewCellEventArgs e, bool isNewObject)
+        {
+            try
+            {
+                var Name = dataGridViewCurriculumWorkTypes[0, e.RowIndex].Value?.ToString()?.Trim();
+
+                if (!isValidWork(Name, dataGridViewCurriculumWorkTypes))
+                {
+                    MessageBox.Show(IncorrectDataMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
+                    if (!isNewObject)
+                    {
+                        SyncDataCurriculumWorks();
+                    }
+
+                    return false;
+                }
+
+                switch (e.ColumnIndex)
+                {
+                    case 0:
+                        {
+                            var curriculumItem = m_curriculumItemRepository.GetCurriculumItem(curriculumItemId);
+                            var name = dataGridViewCurriculumWorkTypes[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+
+                            work.CurriculumItemId = curriculumItemId;
+                            work.WorkTypeId = m_workTypeRepository.GetWorkTypeByName(name).Id;
+
+                            break;
+                        }
+                    case 1:
+                        {
+                            work.TotalHours = Convert.ToDouble(dataGridViewCurriculumWorkTypes[e.ColumnIndex, e.RowIndex].Value?.ToString());
+
+                            if (Tools.isLessThanZero(work.TotalHours))
+                            {
+                                throw new Exception();
+                            }
+
+                            break;
+                        }
+                    default: { return false; }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(IncorrectDataMessage);
+                SyncDataCurriculumWorks();
+                return false;
+            }
+
+            return true;
         }
     }
 }

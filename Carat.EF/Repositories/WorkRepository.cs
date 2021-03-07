@@ -6,71 +6,71 @@ using System.Linq;
 
 namespace Carat.EF.Repositories
 {
-    public class WorkTypeRepository : IWorkTypeRepository
+    public class WorkRepository : IWorkRepository
     {
         private string m_dbPath = "";
 
-        public WorkTypeRepository(string dbPath)
+        public WorkRepository(string dbPath)
         {
             m_dbPath = dbPath;
         }
 
-        public List<WorkType> GetAllWorkTypes()
+        public List<Work> GetAllWorks()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.WorkTypes.ToList();
+                return ctx.Works.ToList();
             }
         }
 
-        public WorkType GetWorkType(int workTypeId)
+        public List<Work> GetWorks(int curriculumItemId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.WorkTypes.Where(b => b.Id == workTypeId).FirstOrDefault();
+                return ctx.Works.Where(b => b.CurriculumItemId == curriculumItemId).ToList();
             }
         }
 
-        public WorkType GetWorkTypeByName(string name)
+        public Work GetWork(int workId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.WorkTypes.Where(b => b.Name == name).FirstOrDefault();
+                return ctx.Works.Where(b => b.Id == workId).FirstOrDefault();
             }
         }
 
-        public void AddWorkType(WorkType workType)
+        public void AddWork(Work work)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Add(workType);
+                ctx.Add(work);
                 ctx.SaveChanges();
             }
         }
 
-        public void RemoveWorkType(WorkType workType)
+        public void RemoveWork(Work work)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Remove(workType);
+                ctx.Remove(work);
                 ctx.SaveChanges();
             }
         }
 
-        public void UpdateWorkType(WorkType workType)
+        public void UpdateWork(Work work)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Update(workType);
+                ctx.Update(work);
                 ctx.SaveChanges();
             }
         }
 
-        public void DeleteAllWorkTypes()
+        public void DeleteAllWorks()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.RemoveRange(GetAllWorkTypes());
+                ctx.RemoveRange(GetAllWorks());
                 ctx.SaveChanges();
             }
         }

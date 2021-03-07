@@ -7,6 +7,7 @@ namespace Carat.Data.Repositories
     {
         List<WorkType> GetAllWorkTypes();
         WorkType GetWorkType(int workTypeId);
+        WorkType GetWorkTypeByName(string name);
         void AddWorkType(WorkType workType);
         void RemoveWorkType(WorkType workType);
         void UpdateWorkType(WorkType workType);
