@@ -58,6 +58,14 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public Subject GetSubject(string name)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.Subjects.Where(b => b.Name == name).FirstOrDefault();
+            }
+        }
+
         public void DeleteAllSubjects()
         {
             using (var ctx = new CaratDbContext(m_dbPath))

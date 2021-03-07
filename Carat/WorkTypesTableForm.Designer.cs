@@ -29,7 +29,7 @@ namespace Carat
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkTypesTableForm));
             this.dataGridViewWorkTypes = new System.Windows.Forms.DataGridView();
             this.WorkTypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,7 +50,6 @@ namespace Carat
             this.dataGridViewWorkTypes.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewWorkTypes.Name = "dataGridViewWorkTypes";
             this.dataGridViewWorkTypes.Size = new System.Drawing.Size(899, 519);
-            this.dataGridViewWorkTypes.StandardTab = true;
             this.dataGridViewWorkTypes.TabIndex = 0;
             this.dataGridViewWorkTypes.TabStop = false;
             this.dataGridViewWorkTypes.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewWorkTypes_CellValueChanged);
@@ -66,8 +65,8 @@ namespace Carat
             // WorkTypeStudentHours
             // 
             this.WorkTypeStudentHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle2.NullValue = "0";
-            this.WorkTypeStudentHours.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.NullValue = "0";
+            this.WorkTypeStudentHours.DefaultCellStyle = dataGridViewCellStyle1;
             this.WorkTypeStudentHours.HeaderText = "год./студ.";
             this.WorkTypeStudentHours.Name = "WorkTypeStudentHours";
             this.WorkTypeStudentHours.Width = 84;

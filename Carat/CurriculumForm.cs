@@ -17,27 +17,43 @@ namespace Carat
 {
     public partial class CurriculumForm : Form, IDataUser
     {
-       // private IWorkTypeRepository m_workTypeRepository;
+        private ICurriculumItemRepository m_curriculumItemRepository;
+        private ISubjectRepository m_subjectRepository;
+        private IWorkTypeRepository m_workTypeRepository;
         private MainForm m_parentForm = null;
-        //private const string IncorrectNameMessage = "Некоректна назва типу роботи!";
-        //private const string IncorrectDataMessage = "Некоректні дані!";
+        private const string IncorrectDataMessage = "Некоректні дані!";
 
         public CurriculumForm(MainForm parentForm, string dbName)
         {
             InitializeComponent();
 
             m_parentForm = parentForm;
-            //m_workTypeRepository = new WorkTypeRepository(dbName);
+            m_curriculumItemRepository = new CurriculumItemRepository(dbName);
+            m_workTypeRepository = new WorkTypeRepository(dbName);
+            m_subjectRepository = new SubjectRepository(dbName);
         }
 
         public void LoadData()
         {
-            //var workTypes = m_workTypeRepository.GetAllWorkTypes();
+            var workTypes = m_workTypeRepository.GetAllWorkTypes();
+            var subjects = m_subjectRepository.GetAllSubjects();
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems();
 
-            //foreach (var work in workTypes)
-            //{
-            //    dataGridViewWorkTypes.Rows.Add(work.Name, work.StudentHours);
-            //}
+            foreach (var work in workTypes)
+            {
+                listBoxWorkTypes.Items.Add(work.Name);
+            }
+
+            foreach (var subject in subjects)
+            {
+                listBoxSubjects.Items.Add(subject.Name);
+            }
+
+            foreach (var curriculumItem in curriculumItems)
+            {
+                dataGridViewCurriculumSubjects.Rows.Add(m_subjectRepository.GetSubject(
+                    curriculumItem.SubjectId)?.Name, curriculumItem?.SubjectHours);
+            }
         }
 
         private void CurriculumForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -46,157 +62,176 @@ namespace Carat
             m_parentForm.SetButtonState();
         }
 
-        //private void SyncData()
-        //{
-        //    var workTypes = m_workTypeRepository.GetAllWorkTypes();
+        private void listBoxSubjects_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = this.listBoxSubjects.IndexFromPoint(e.Location);
 
-        //    for (int i = 0; i < workTypes.Count; ++i)
-        //    {
-        //        dataGridViewWorkTypes.Rows[i].SetValues(workTypes[i].Name, workTypes[i].StudentHours);
-        //    }
-        //}
+            if (index != ListBox.NoMatches)
+            {
+                var subjects = m_subjectRepository.GetAllSubjects();
 
-        //private void RemoveLastRow()
-        //{
-        //    int index = dataGridViewWorkTypes.Rows.Count - 2;
+                dataGridViewCurriculumSubjects.Rows.Add(subjects[index].Name, 0);
+            }
+        }
 
-        //    if (index < 0)
-        //    {
-        //        return;
-        //    }
+        private void SyncDataCurriculumSubjects()
+        {
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems();
 
-        //    dataGridViewWorkTypes.Rows.Remove(dataGridViewWorkTypes.Rows[index]);
-        //}
+            for (int i = 0; i < curriculumItems.Count; ++i)
+            {
+                dataGridViewCurriculumSubjects.Rows[i].SetValues(m_subjectRepository.GetSubject(
+                    curriculumItems[i].SubjectId)?.Name, curriculumItems[i]?.SubjectHours);
+            }
+        }
 
-        //private void dataGridViewWorkTypes_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    if (m_workTypeRepository == null)
-        //    {
-        //        return;
-        //    }
+        private void RemoveLastRowCurriculumSubjects()
+        {
+            int index = dataGridViewCurriculumSubjects.Rows.Count - 2;
 
-        //    if (e.RowIndex < 0)
-        //    {
-        //        return;
-        //    }
+            if (index < 0)
+            {
+                return;
+            }
 
-        //    var workTypes = m_workTypeRepository.GetAllWorkTypes();
+            dataGridViewCurriculumSubjects.Rows.Remove(dataGridViewCurriculumSubjects.Rows[index]);
+        }
 
-        //    if (e.RowIndex < workTypes.Count)
-        //    {
-        //        var work = workTypes[e.RowIndex];
+        private void RemoveLastRowCurriculumWorkTypes()
+        {
+            int index = dataGridViewCurriculumWorkTypes.Rows.Count - 2;
 
-        //        if (!UpdateData(work, e, false))
-        //        {
-        //            return;
-        //        }
+            if (index < 0)
+            {
+                return;
+            }
 
-        //        m_workTypeRepository.UpdateWorkType(work);
-        //    }
-        //    else
-        //    {
-        //        var work = new WorkType();
+            dataGridViewCurriculumWorkTypes.Rows.Remove(dataGridViewCurriculumWorkTypes.Rows[index]);
+        }
 
-        //        if (!UpdateData(work, e, true))
-        //        {
-        //            RemoveLastRow();
-        //            return;
-        //        }
-        //        m_workTypeRepository.AddWorkType(work);
-        //    }
-        //}
+        private void dataGridViewCurriculumSubjects_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (m_curriculumItemRepository == null)
+            {
+                return;
+            }
 
-        //private bool isValidName(string name)
-        //{
-        //    int duplicatesCounter = 0;
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
 
-        //    if (name == null || name == "")
-        //    {
-        //        return false;
-        //    }
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems();
 
-        //    for (int i = 0; i < dataGridViewWorkTypes.Rows.Count; ++i)
-        //    {
-        //        if (dataGridViewWorkTypes[0, i].Value?.ToString().ToLower() == name.ToLower())
-        //        {
-        //            ++duplicatesCounter;
-        //        }
-        //    }
+            if (e.RowIndex < curriculumItems.Count)
+            {
+                var curriculumItem = curriculumItems[e.RowIndex];
 
-        //    return duplicatesCounter > 1 ? false : true;
-        //}
+                if (!UpdateDataCurriculumSubject(curriculumItem, e, false))
+                {
+                    return;
+                }
 
-        //private bool UpdateData(WorkType work, DataGridViewCellEventArgs e, bool isNewObject)
-        //{
-        //    try
-        //    {
-        //        var Name = dataGridViewWorkTypes[0, e.RowIndex].Value?.ToString()?.Trim();
+                m_curriculumItemRepository.UpdateCurriculumItem(curriculumItem);
+            }
+            else
+            {
+                var curriculumItem = new CurriculumItem();
 
-        //        if (!isValidName(Name))
-        //        {
-        //            MessageBox.Show(IncorrectNameMessage);
-        //            if (!isNewObject)
-        //            {
-        //                SyncData();
-        //            }
+                if (!UpdateDataCurriculumSubject(curriculumItem, e, true))
+                {
+                    RemoveLastRowCurriculumSubjects();
+                    return;
+                }
 
-        //            return false;
-        //        }
+                m_curriculumItemRepository.AddCurriculumItem(curriculumItem);
+            }
+        }
 
-        //        switch (e.ColumnIndex)
-        //        {
-        //            case 0:
-        //                {
-        //                    work.Name = dataGridViewWorkTypes[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
-        //                    break;
-        //                }
-        //            case 1:
-        //                {
-        //                    work.StudentHours = Convert.ToDouble(dataGridViewWorkTypes[e.ColumnIndex, e.RowIndex].Value?.ToString());
+        private bool isValidName(string name, DataGridView dgv)
+        {
+            int duplicatesCounter = 0;
 
-        //                    if (Tools.isLessThanZero(work.StudentHours))
-        //                    {
-        //                        throw new Exception();
-        //                    }
+            if (name == null || name == "")
+            {
+                return false;
+            }
 
-        //                    break;
-        //                }
-        //            default: { return false; }
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        MessageBox.Show(IncorrectDataMessage);
-        //        SyncData();
-        //        return false;
-        //    }
+            for (int i = 0; i < dgv.Rows.Count; ++i)
+            {
+                if (dgv[0, i].Value?.ToString().ToLower() == name.ToLower())
+                {
+                    ++duplicatesCounter;
+                }
+            }
 
-        //    return true;
-        //}
+            return duplicatesCounter > 1 ? false : true;
+        }
 
-        //private void dataGridViewWorkTypes_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        //{
-        //    var workTypes = m_workTypeRepository.GetAllWorkTypes();
+        private bool UpdateDataCurriculumSubject(CurriculumItem curriculumItem, DataGridViewCellEventArgs e, bool isNewObject)
+        {
+            try
+            {
+                switch (e.ColumnIndex)
+                {
+                    case 0:
+                        {
+                            curriculumItem.SubjectId = m_subjectRepository.
+                                GetSubject(dataGridViewCurriculumSubjects[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim()).Id;
+                            break;
+                        }
+                    case 1:
+                        {
+                            curriculumItem.SubjectHours = Convert.ToDouble(dataGridViewCurriculumSubjects[e.ColumnIndex, e.RowIndex].Value?.ToString());
 
-        //    if (e.RowIndex < 0)
-        //    {
-        //        return;
-        //    }
+                            if (Tools.isLessThanZero(curriculumItem.SubjectHours))
+                            {
+                                throw new Exception();
+                            }
 
-        //    if (e.RowIndex >= workTypes.Count)
-        //    {
-        //        return;
-        //    }
+                            break;
+                        }
+                    default: { return false; }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(IncorrectDataMessage);
+                SyncDataCurriculumSubjects();
+                return false;
+            }
 
-        //    for (int i = 0; i < e.RowCount; ++i)
-        //    {
-        //        m_workTypeRepository.RemoveWorkType(workTypes[i + e.RowIndex]);
-        //    }
-        //}
+            return true;
+        }
 
-        //private void dataGridViewWorkTypes_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        //{
-        //    e.Cancel = true;
-        //}
+        private void dataGridViewCurriculumSubjects_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems();
+
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            if (e.RowIndex >= curriculumItems.Count)
+            {
+                return;
+            }
+
+            for (int i = 0; i < e.RowCount; ++i)
+            {
+                m_curriculumItemRepository.RemoveCurriculumItem(curriculumItems[i + e.RowIndex]);
+            }
+        }
+
+        private void dataGridViewCurriculumSubjects_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.Cancel = true;
+        }
+
+        private void dataGridViewCurriculumSubjects_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            dataGridViewCurriculumSubjects_CellValueChanged(sender, new DataGridViewCellEventArgs(0, e.RowIndex));
+        }
     }
 }

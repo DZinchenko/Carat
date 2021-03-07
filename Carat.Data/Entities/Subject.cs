@@ -1,4 +1,6 @@
-﻿namespace Carat.Data.Entities
+﻿using System.Collections.Generic;
+
+namespace Carat.Data.Entities
 {
     public class Subject
     {

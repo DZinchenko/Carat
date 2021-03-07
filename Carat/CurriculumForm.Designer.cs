@@ -30,20 +30,21 @@ namespace Carat
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CurriculumForm));
             this.panelCurriculumRight = new System.Windows.Forms.Panel();
-            this.panelCurriculumLeft = new System.Windows.Forms.Panel();
-            this.listBoxSubjects = new System.Windows.Forms.ListBox();
-            this.listBoxWorkTypes = new System.Windows.Forms.ListBox();
             this.dataGridViewCurriculumSubjects = new System.Windows.Forms.DataGridView();
-            this.dataGridViewCurriculumWorkTypes = new System.Windows.Forms.DataGridView();
             this.CurriculumSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CurriculumSubjectHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listBoxSubjects = new System.Windows.Forms.ListBox();
+            this.panelCurriculumLeft = new System.Windows.Forms.Panel();
+            this.dataGridViewCurriculumWorkTypes = new System.Windows.Forms.DataGridView();
             this.CurriculumWorkType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CurriculumWorkTypesHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listBoxWorkTypes = new System.Windows.Forms.ListBox();
             this.panelCurriculumRight.SuspendLayout();
-            this.panelCurriculumLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurriculumSubjects)).BeginInit();
+            this.panelCurriculumLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurriculumWorkTypes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,58 +57,6 @@ namespace Carat
             this.panelCurriculumRight.Name = "panelCurriculumRight";
             this.panelCurriculumRight.Size = new System.Drawing.Size(619, 519);
             this.panelCurriculumRight.TabIndex = 1;
-            // 
-            // panelCurriculumLeft
-            // 
-            this.panelCurriculumLeft.Controls.Add(this.dataGridViewCurriculumWorkTypes);
-            this.panelCurriculumLeft.Controls.Add(this.listBoxWorkTypes);
-            this.panelCurriculumLeft.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelCurriculumLeft.Location = new System.Drawing.Point(619, 0);
-            this.panelCurriculumLeft.Name = "panelCurriculumLeft";
-            this.panelCurriculumLeft.Size = new System.Drawing.Size(280, 519);
-            this.panelCurriculumLeft.TabIndex = 0;
-            // 
-            // listBoxSubjects
-            // 
-            this.listBoxSubjects.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.listBoxSubjects.FormattingEnabled = true;
-            this.listBoxSubjects.ItemHeight = 15;
-            this.listBoxSubjects.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.listBoxSubjects.Location = new System.Drawing.Point(0, 410);
-            this.listBoxSubjects.Name = "listBoxSubjects";
-            this.listBoxSubjects.Size = new System.Drawing.Size(619, 109);
-            this.listBoxSubjects.TabIndex = 0;
-            // 
-            // listBoxWorkTypes
-            // 
-            this.listBoxWorkTypes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.listBoxWorkTypes.FormattingEnabled = true;
-            this.listBoxWorkTypes.ItemHeight = 15;
-            this.listBoxWorkTypes.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.listBoxWorkTypes.Location = new System.Drawing.Point(0, 410);
-            this.listBoxWorkTypes.Name = "listBoxWorkTypes";
-            this.listBoxWorkTypes.Size = new System.Drawing.Size(280, 109);
-            this.listBoxWorkTypes.TabIndex = 0;
             // 
             // dataGridViewCurriculumSubjects
             // 
@@ -122,20 +71,11 @@ namespace Carat
             this.dataGridViewCurriculumSubjects.Name = "dataGridViewCurriculumSubjects";
             this.dataGridViewCurriculumSubjects.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewCurriculumSubjects.Size = new System.Drawing.Size(619, 410);
-            this.dataGridViewCurriculumSubjects.StandardTab = true;
             this.dataGridViewCurriculumSubjects.TabIndex = 1;
-            // 
-            // dataGridViewCurriculumWorkTypes
-            // 
-            this.dataGridViewCurriculumWorkTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCurriculumWorkTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CurriculumWorkType,
-            this.CurriculumWorkTypesHours});
-            this.dataGridViewCurriculumWorkTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewCurriculumWorkTypes.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewCurriculumWorkTypes.Name = "dataGridViewCurriculumWorkTypes";
-            this.dataGridViewCurriculumWorkTypes.Size = new System.Drawing.Size(280, 410);
-            this.dataGridViewCurriculumWorkTypes.TabIndex = 1;
+            this.dataGridViewCurriculumSubjects.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCurriculumSubjects_CellValueChanged);
+            this.dataGridViewCurriculumSubjects.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewCurriculumSubjects_DataError);
+            this.dataGridViewCurriculumSubjects.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewCurriculumSubjects_RowsAdded);
+            this.dataGridViewCurriculumSubjects.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewCurriculumSubjects_RowsRemoved);
             // 
             // CurriculumSubject
             // 
@@ -153,6 +93,39 @@ namespace Carat
             this.CurriculumSubjectHours.Name = "CurriculumSubjectHours";
             this.CurriculumSubjectHours.Width = 65;
             // 
+            // listBoxSubjects
+            // 
+            this.listBoxSubjects.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listBoxSubjects.FormattingEnabled = true;
+            this.listBoxSubjects.ItemHeight = 15;
+            this.listBoxSubjects.Location = new System.Drawing.Point(0, 410);
+            this.listBoxSubjects.Name = "listBoxSubjects";
+            this.listBoxSubjects.Size = new System.Drawing.Size(619, 109);
+            this.listBoxSubjects.TabIndex = 0;
+            this.listBoxSubjects.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxSubjects_MouseDoubleClick);
+            // 
+            // panelCurriculumLeft
+            // 
+            this.panelCurriculumLeft.Controls.Add(this.dataGridViewCurriculumWorkTypes);
+            this.panelCurriculumLeft.Controls.Add(this.listBoxWorkTypes);
+            this.panelCurriculumLeft.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelCurriculumLeft.Location = new System.Drawing.Point(619, 0);
+            this.panelCurriculumLeft.Name = "panelCurriculumLeft";
+            this.panelCurriculumLeft.Size = new System.Drawing.Size(280, 519);
+            this.panelCurriculumLeft.TabIndex = 0;
+            // 
+            // dataGridViewCurriculumWorkTypes
+            // 
+            this.dataGridViewCurriculumWorkTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCurriculumWorkTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CurriculumWorkType,
+            this.CurriculumWorkTypesHours});
+            this.dataGridViewCurriculumWorkTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewCurriculumWorkTypes.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewCurriculumWorkTypes.Name = "dataGridViewCurriculumWorkTypes";
+            this.dataGridViewCurriculumWorkTypes.Size = new System.Drawing.Size(280, 410);
+            this.dataGridViewCurriculumWorkTypes.TabIndex = 1;
+            // 
             // CurriculumWorkType
             // 
             this.CurriculumWorkType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -163,9 +136,21 @@ namespace Carat
             // CurriculumWorkTypesHours
             // 
             this.CurriculumWorkTypesHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle2.NullValue = "0";
+            this.CurriculumWorkTypesHours.DefaultCellStyle = dataGridViewCellStyle2;
             this.CurriculumWorkTypesHours.HeaderText = "Години";
             this.CurriculumWorkTypesHours.Name = "CurriculumWorkTypesHours";
             this.CurriculumWorkTypesHours.Width = 72;
+            // 
+            // listBoxWorkTypes
+            // 
+            this.listBoxWorkTypes.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listBoxWorkTypes.FormattingEnabled = true;
+            this.listBoxWorkTypes.ItemHeight = 15;
+            this.listBoxWorkTypes.Location = new System.Drawing.Point(0, 410);
+            this.listBoxWorkTypes.Name = "listBoxWorkTypes";
+            this.listBoxWorkTypes.Size = new System.Drawing.Size(280, 109);
+            this.listBoxWorkTypes.TabIndex = 0;
             // 
             // CurriculumForm
             // 
@@ -182,8 +167,8 @@ namespace Carat
             this.Text = "Навчальний план";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CurriculumForm_FormClosed);
             this.panelCurriculumRight.ResumeLayout(false);
-            this.panelCurriculumLeft.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurriculumSubjects)).EndInit();
+            this.panelCurriculumLeft.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurriculumWorkTypes)).EndInit();
             this.ResumeLayout(false);
 

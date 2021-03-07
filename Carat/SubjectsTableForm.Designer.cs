@@ -51,7 +51,6 @@ namespace Carat
             this.dataGridViewSubjects.Name = "dataGridViewSubjects";
             this.dataGridViewSubjects.RowHeadersWidth = 51;
             this.dataGridViewSubjects.Size = new System.Drawing.Size(899, 519);
-            this.dataGridViewSubjects.StandardTab = true;
             this.dataGridViewSubjects.TabIndex = 0;
             this.dataGridViewSubjects.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSubjects_CellValueChanged);
             this.dataGridViewSubjects.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewSubjects_RowsRemoved);

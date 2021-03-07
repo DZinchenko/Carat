@@ -146,6 +146,8 @@ namespace Carat
 
         private void buttonSubjects_Click(object sender, EventArgs e)
         {
+            curriculumForm?.Close();
+
             if (subjectsForm == null)
             {
                 buttonSubjects.Image = Properties.Resources.icons8_заполненный_круг_16;
@@ -209,6 +211,8 @@ namespace Carat
 
         private void buttonGroups_Click(object sender, EventArgs e)
         {
+            curriculumForm?.Close();
+
             if (groupsForm == null)
             {
                 buttonGroups.Image = Properties.Resources.icons8_заполненный_круг_16;
@@ -223,6 +227,8 @@ namespace Carat
 
         private void buttonTeachers_Click(object sender, EventArgs e)
         {
+            curriculumForm?.Close();
+
             if (teachersForm == null)
             {
                 buttonTeachers.Image = Properties.Resources.icons8_заполненный_круг_16;
@@ -326,6 +332,8 @@ namespace Carat
 
         private void buttonWorkTypes_Click(object sender, EventArgs e)
         {
+            curriculumForm?.Close();
+
             if (workTypesForm == null)
             {
                 buttonWorkTypes.Image = Properties.Resources.icons8_заполненный_круг_16;
@@ -340,6 +348,11 @@ namespace Carat
 
         private void buttonCurriculum_Click(object sender, EventArgs e)
         {
+            subjectsForm?.Close();
+            groupsForm?.Close();
+            teachersForm?.Close();
+            workTypesForm?.Close();
+
             if (curriculumForm == null)
             {
                 buttonCurriculum.Image = Properties.Resources.icons8_заполненный_круг_16;

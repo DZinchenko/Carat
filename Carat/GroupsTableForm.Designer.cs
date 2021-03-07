@@ -66,7 +66,6 @@ namespace Carat
             this.dataGridViewGroups.Name = "dataGridViewGroups";
             this.dataGridViewGroups.RowHeadersWidth = 51;
             this.dataGridViewGroups.Size = new System.Drawing.Size(899, 519);
-            this.dataGridViewGroups.StandardTab = true;
             this.dataGridViewGroups.TabIndex = 1;
             this.dataGridViewGroups.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGroups_CellValueChanged);
             this.dataGridViewGroups.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewGroups_DataError);

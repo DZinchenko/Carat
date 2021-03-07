@@ -62,7 +62,6 @@ namespace Carat
             this.dataGridViewTeachers.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewTeachers.RowTemplate.Height = 24;
             this.dataGridViewTeachers.Size = new System.Drawing.Size(899, 519);
-            this.dataGridViewTeachers.StandardTab = true;
             this.dataGridViewTeachers.TabIndex = 0;
             this.dataGridViewTeachers.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTeachers_CellValueChanged);
             this.dataGridViewTeachers.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewTeachers_DataError);
