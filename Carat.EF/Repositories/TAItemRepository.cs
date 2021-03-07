@@ -6,70 +6,71 @@ using System.Linq;
 
 namespace Carat.EF.Repositories
 {
-    public class TeacherRepository : ITeacherRepository
+    public class TAItemRepository : ITAItemRepository
     {
-        private string m_dbPath = "";
+        string m_dbPath = "";
 
-        public TeacherRepository(string dbPath)
+        public TAItemRepository(string dbPath)
         {
             m_dbPath = dbPath;
         }
 
-        public List<Teacher> GetAllTeachers()
+        public void AddTAItem(TAItem TAItem)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.Teachers.ToList();
-            }
-        }
-        public Teacher GetTeacher(int teacherId)
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                return ctx.Teachers.Where(b => b.Id == teacherId).FirstOrDefault();
-            }
-        }
-
-        public Teacher GetTeacherByName(string name)
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                return ctx.Teachers.Where(b => b.Name == name).FirstOrDefault();
-            }
-        }
-
-        public void AddTeacher(Teacher teacher)
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                ctx.Add(teacher);
+                ctx.Add(TAItem);
                 ctx.SaveChanges();
             }
         }
 
-        public void RemoveTeacher(Teacher teacher)
+        public void RemoveTAItem(TAItem TAItem)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Remove(teacher);
+                ctx.Remove(TAItem);
                 ctx.SaveChanges();
             }
         }
 
-        public void UpdateTeacher(Teacher teacher)
+        public void UpdateTAItem(TAItem TAItem)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Update(teacher);
+                ctx.Update(TAItem);
                 ctx.SaveChanges();
             }
         }
 
-        public void DeleteAllTeachers()
+        public List<TAItem> GetAllTAItems()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.RemoveRange(GetAllTeachers());
+                return ctx.TAItems.ToList();
+            }
+        }
+
+        public List<TAItem> GetTAItems(int workId)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.TAItems.Where(b => b.WorkId == workId).ToList();
+            }
+        }
+
+        public TAItem GetTAItem(int TAItemId)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.TAItems.Where(b => b.Id == TAItemId).FirstOrDefault();
+            }
+        }
+
+        public void DeleteAllTAItems()
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.RemoveRange(GetAllTAItems());
                 ctx.SaveChanges();
             }
         }

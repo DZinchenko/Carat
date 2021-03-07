@@ -9,6 +9,5 @@ namespace Carat.Data.Entities
         public int SubjectId { get; set; }
         public double SubjectHours { get; set; }
         public double WorkTypeHours { get; set; }
-        public List<WorkType> WorkTypes { get; set; }
     }
 }

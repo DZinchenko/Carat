@@ -72,6 +72,8 @@ namespace Carat
             this.dataGridViewTATeachers.Name = "dataGridViewTATeachers";
             this.dataGridViewTATeachers.Size = new System.Drawing.Size(899, 133);
             this.dataGridViewTATeachers.TabIndex = 1;
+            this.dataGridViewTATeachers.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTATeachers_CellValueChanged);
+            this.dataGridViewTATeachers.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewTATeachers_RowsRemoved);
             // 
             // TATeacher
             // 
@@ -102,6 +104,7 @@ namespace Carat
             this.comboBoxTATeachers.Name = "comboBoxTATeachers";
             this.comboBoxTATeachers.Size = new System.Drawing.Size(899, 23);
             this.comboBoxTATeachers.TabIndex = 0;
+            this.comboBoxTATeachers.SelectedIndexChanged += new System.EventHandler(this.comboBoxTATeachers_SelectedIndexChanged);
             // 
             // panelTeacherAssignmentTop
             // 
@@ -161,6 +164,7 @@ namespace Carat
             this.dataGridViewTAWorks.Name = "dataGridViewTAWorks";
             this.dataGridViewTAWorks.Size = new System.Drawing.Size(317, 363);
             this.dataGridViewTAWorks.TabIndex = 0;
+            this.dataGridViewTAWorks.SelectionChanged += new System.EventHandler(this.dataGridViewTAWorks_SelectionChanged);
             // 
             // TAWork
             // 

@@ -7,6 +7,7 @@ namespace Carat.Data.Repositories
     {
         List<Teacher> GetAllTeachers();
         Teacher GetTeacher(int teacherId);
+        Teacher GetTeacherByName(string name);
         void AddTeacher(Teacher teacher);
         void RemoveTeacher(Teacher teacher);
         void UpdateTeacher(Teacher teacher);

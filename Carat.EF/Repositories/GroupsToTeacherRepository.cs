@@ -6,70 +6,62 @@ using System.Linq;
 
 namespace Carat.EF.Repositories
 {
-    public class TeacherRepository : ITeacherRepository
+    public class GroupsToTeacherRepository : IGroupsToTeacherRepository
     {
         private string m_dbPath = "";
 
-        public TeacherRepository(string dbPath)
+        public GroupsToTeacherRepository(string dbPath)
         {
             m_dbPath = dbPath;
         }
 
-        public List<Teacher> GetAllTeachers()
+        public List<GroupsToTeacher> GetAllGroupsToTeachers()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.Teachers.ToList();
+                return ctx.GroupsToTeachers.ToList();
             }
         }
-        public Teacher GetTeacher(int teacherId)
+        public GroupsToTeacher GetGroupsToTeacher(int groupsToTeacherId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.Teachers.Where(b => b.Id == teacherId).FirstOrDefault();
-            }
-        }
-
-        public Teacher GetTeacherByName(string name)
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                return ctx.Teachers.Where(b => b.Name == name).FirstOrDefault();
+                return ctx.GroupsToTeachers.Where(b => b.Id == groupsToTeacherId).FirstOrDefault();
             }
         }
 
-        public void AddTeacher(Teacher teacher)
+        public void AddGroupsToTeacher(GroupsToTeacher groupsToTeacher)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Add(teacher);
+                ctx.Add(groupsToTeacher);
                 ctx.SaveChanges();
             }
         }
 
-        public void RemoveTeacher(Teacher teacher)
+        public void RemoveGroupsToTeacher(GroupsToTeacher groupsToTeacher)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Remove(teacher);
+                ctx.Remove(groupsToTeacher);
                 ctx.SaveChanges();
             }
         }
 
-        public void UpdateTeacher(Teacher teacher)
+        public void UpdateGroupsToTeacher(GroupsToTeacher groupsToTeacher)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Update(teacher);
+                ctx.Update(groupsToTeacher);
                 ctx.SaveChanges();
             }
         }
 
-        public void DeleteAllTeachers()
+        public void DeleteAllGroupsToTeachers()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.RemoveRange(GetAllTeachers());
+                ctx.RemoveRange(GetAllGroupsToTeachers());
                 ctx.SaveChanges();
             }
         }
