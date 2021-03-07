@@ -151,24 +151,20 @@ namespace Carat
             }
         }
 
-        private bool isValidName(string name, DataGridView dgv)
+        private bool isValid(string name, string course, DataGridView dgv)
         {
             int duplicatesCounter = 0;
 
-            if (name == null || name == "")
-            {
-                return false;
-            }
-
             for (int i = 0; i < dgv.Rows.Count; ++i)
             {
-                if (dgv[0, i].Value?.ToString().ToLower() == name.ToLower())
+                if ((dgv[0, i].Value?.ToString().ToLower() == name.ToLower()) 
+                    && dgv[1, i].Value?.ToString().ToLower() == course)
                 {
                     ++duplicatesCounter;
                 }
             }
 
-            return duplicatesCounter > 1 ? false : true;
+            return duplicatesCounter >= 1 ? false : true;
         }
 
         private bool UpdateDataCurriculumSubject(CurriculumItem curriculumItem, DataGridViewCellEventArgs e, bool isNewObject)
@@ -177,16 +173,23 @@ namespace Carat
             {
                 var name = dataGridViewCurriculumSubjects[0, e.RowIndex].Value?.ToString()?.Trim();
 
-                if (!isValidName(name, dataGridViewCurriculumSubjects))
+                if (name == null)
                 {
                     MessageBox.Show(IncorrectDataMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    if (!isNewObject)
-                    {
-                        SyncDataCurriculumSubjects();
-                    }
+                    SyncDataCurriculumSubjects();
 
                     return false;
+                }
+
+                if (isNewObject)
+                {
+                    if (!isValid(name, listBoxCourse.SelectedItem.ToString(), dataGridViewCurriculumSubjects))
+                    {
+                        MessageBox.Show(IncorrectDataMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return false;
+                    }
                 }
 
                 switch (e.ColumnIndex)
