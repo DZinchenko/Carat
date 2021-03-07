@@ -74,7 +74,6 @@ namespace Carat
             this.dataGridViewCurriculumSubjects.TabIndex = 1;
             this.dataGridViewCurriculumSubjects.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCurriculumSubjects_CellValueChanged);
             this.dataGridViewCurriculumSubjects.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewCurriculumSubjects_DataError);
-            this.dataGridViewCurriculumSubjects.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewCurriculumSubjects_RowsAdded);
             this.dataGridViewCurriculumSubjects.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewCurriculumSubjects_RowsRemoved);
             // 
             // CurriculumSubject

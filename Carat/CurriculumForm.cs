@@ -68,9 +68,11 @@ namespace Carat
 
             if (index != ListBox.NoMatches)
             {
+                var dgvIndex = dataGridViewCurriculumSubjects.Rows.Count - 1;
                 var subjects = m_subjectRepository.GetAllSubjects();
 
-                dataGridViewCurriculumSubjects.Rows.Add(subjects[index].Name, 0);
+                dataGridViewCurriculumSubjects.Rows.Add();
+                dataGridViewCurriculumSubjects.Rows[dgvIndex].SetValues(subjects[index].Name, 0);
             }
         }
 
@@ -172,12 +174,30 @@ namespace Carat
         {
             try
             {
+                var name = dataGridViewCurriculumSubjects[0, e.RowIndex].Value?.ToString()?.Trim();
+
+                if (!isValidName(name, dataGridViewCurriculumSubjects))
+                {
+                    MessageBox.Show(IncorrectDataMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    if (!isNewObject)
+                    {
+                        SyncDataCurriculumSubjects();
+                    }
+
+                    return false;
+                }
+
                 switch (e.ColumnIndex)
                 {
                     case 0:
                         {
-                            curriculumItem.SubjectId = m_subjectRepository.
-                                GetSubject(dataGridViewCurriculumSubjects[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim()).Id;
+                            var subject = m_subjectRepository.GetSubject(dataGridViewCurriculumSubjects[e.ColumnIndex, e.RowIndex]?.Value?.ToString()?.Trim());
+
+                            if (subject == null)
+                                throw new Exception();
+
+                            curriculumItem.SubjectId = subject.Id;
                             break;
                         }
                     case 1:
@@ -227,11 +247,6 @@ namespace Carat
         private void dataGridViewCurriculumSubjects_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.Cancel = true;
-        }
-
-        private void dataGridViewCurriculumSubjects_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-            dataGridViewCurriculumSubjects_CellValueChanged(sender, new DataGridViewCellEventArgs(0, e.RowIndex));
         }
     }
 }
