@@ -15,7 +15,7 @@ using Carat.EF.Repositories;
 
 namespace Carat
 {
-    public partial class CurriculumForm : Form, IDataUserForm, IFilterUserForm
+    public partial class CurriculumForm : Form, IDataUserForm
     {
         private ICurriculumItemRepository m_curriculumItemRepository;
         private ISubjectRepository m_subjectRepository;
@@ -47,7 +47,7 @@ namespace Carat
             m_semestr = semestr;
             m_educLevel = educLevel;
 
-            FiltersStatesChanged();
+            EnableListBoxes();
 
             listBoxWorkTypes.Enabled = false;
             listBoxCourse.Visible = false;
@@ -99,11 +99,6 @@ namespace Carat
                 dataGridViewCurriculumSubjects.Rows.Add(m_subjectRepository.GetSubject(
                     curriculumItem.SubjectId)?.Name, curriculumItem?.Course, curriculumItem?.SubjectHours);
             }
-        }
-
-        public void FiltersStatesChanged()
-        {
-            EnableListBoxes();
         }
 
         private int getCurrentCurriculumId()

@@ -175,7 +175,6 @@
       <DependentUpon>GroupsTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IDataUserForm.cs" />
-    <Compile Include="Interfaces\IFilterUserForm.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

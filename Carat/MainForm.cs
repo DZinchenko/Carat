@@ -128,15 +128,6 @@ namespace Carat
             }
         }
 
-        private void NotifyIFilterUserForms()
-        {
-            var tempCurriculumForm = curriculumForm as IFilterUserForm;
-            var tempTaForm = TAForm as IFilterUserForm;
-
-            tempCurriculumForm?.FiltersStatesChanged();
-            tempTaForm?.FiltersStatesChanged();
-        }
-
         private void changeViewStateOfSubmenu(Panel panel)
         {
             panel.Visible = !(panel.Visible);
