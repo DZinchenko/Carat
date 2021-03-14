@@ -17,7 +17,7 @@ namespace Carat.EF
         public DbSet<Work> Works { get; set; }
         public DbSet<CurriculumItem> CurriculumItems { get; set; }
         public DbSet<TAItem> TAItems { get; set; }
-        public DbSet<GroupsToTeacher> GroupsToTeachers { get; set; }
+        public DbSet<GroupsToTAItem> GroupsToTeachers { get; set; }
 
         public CaratDbContext(string dbPath)
         {

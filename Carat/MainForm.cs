@@ -426,7 +426,14 @@ namespace Carat
             if (TAForm == null)
             {
                 buttonTA.Image = Properties.Resources.icons8_заполненный_круг_16;
-                TAForm = new TeacherAssignmentForm(this, m_dbName);
+                TAForm = new TeacherAssignmentForm(this,
+                                                    m_dbName,
+                                                    getEducTypeFilter(),
+                                                    getEducFormFilter(),
+                                                    getCourseFilter(),
+                                                    getSemesterFilter(),
+                                                    getEducLevelFilter());
+
                 openChildForm(TAForm);
             }
             else
@@ -439,8 +446,13 @@ namespace Carat
         {
             if (curriculumForm != null)
             {
-                curriculumForm?.Close();
+                curriculumForm.Close();
                 buttonCurriculum.PerformClick();
+            }
+            if (TAForm != null)
+            {
+                TAForm.Close();
+                buttonTA.PerformClick();
             }
         }
 

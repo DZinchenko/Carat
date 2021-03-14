@@ -205,9 +205,12 @@ namespace Carat
                 foreach (var workType in m_workTypeRepository.GetAllWorkTypes())
                 {
                     var work = new Work();
+                    var course = m_course == 0 ? Convert.ToUInt32(listBoxCourse.SelectedItem.ToString()) : m_course;
+
                     work.WorkTypeId = workType.Id;
-                    work.CurriculumItemId = m_curriculumItemRepository.GetCurriculumItem(m_subjectRepository.GetSubject(curriculumItem.SubjectId).Id, m_educType, m_educForm, m_course, m_semestr, m_educLevel).Id;
+                    work.CurriculumItemId = m_curriculumItemRepository.GetCurriculumItem(m_subjectRepository.GetSubject(curriculumItem.SubjectId).Id, m_educType, m_educForm, course, m_semestr, m_educLevel).Id;
                     work.TotalHours = 0;
+
                     m_workRepository.AddWork(work);
                 }
             }

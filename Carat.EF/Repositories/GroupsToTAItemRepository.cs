@@ -6,23 +6,23 @@ using System.Linq;
 
 namespace Carat.EF.Repositories
 {
-    public class GroupsToTeacherRepository : IGroupsToTeacherRepository
+    public class GroupsToTAItemRepository : IGroupsToTAItemRepository
     {
         private string m_dbPath = "";
 
-        public GroupsToTeacherRepository(string dbPath)
+        public GroupsToTAItemRepository(string dbPath)
         {
             m_dbPath = dbPath;
         }
 
-        public List<GroupsToTeacher> GetAllGroupsToTeachers()
+        public List<GroupsToTAItem> GetAllGroupsToTeachers()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
                 return ctx.GroupsToTeachers.ToList();
             }
         }
-        public GroupsToTeacher GetGroupsToTeacher(int groupsToTeacherId)
+        public GroupsToTAItem GetGroupsToTeacher(int groupsToTeacherId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
@@ -30,7 +30,7 @@ namespace Carat.EF.Repositories
             }
         }
 
-        public void AddGroupsToTeacher(GroupsToTeacher groupsToTeacher)
+        public void AddGroupsToTeacher(GroupsToTAItem groupsToTeacher)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
@@ -39,7 +39,7 @@ namespace Carat.EF.Repositories
             }
         }
 
-        public void RemoveGroupsToTeacher(GroupsToTeacher groupsToTeacher)
+        public void RemoveGroupsToTeacher(GroupsToTAItem groupsToTeacher)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
@@ -48,7 +48,7 @@ namespace Carat.EF.Repositories
             }
         }
 
-        public void UpdateGroupsToTeacher(GroupsToTeacher groupsToTeacher)
+        public void UpdateGroupsToTeacher(GroupsToTAItem groupsToTeacher)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {

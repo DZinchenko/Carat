@@ -32,17 +32,17 @@ namespace Carat
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeacherAssignmentForm));
             this.panelTeacherAssignmentBottom = new System.Windows.Forms.Panel();
             this.dataGridViewTATeachers = new System.Windows.Forms.DataGridView();
-            this.comboBoxTATeachers = new System.Windows.Forms.ComboBox();
-            this.panelTeacherAssignmentTop = new System.Windows.Forms.Panel();
-            this.dataGridViewTASubjects = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTAWorks = new System.Windows.Forms.DataGridView();
-            this.TASubjects = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TASubjectCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TAWork = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TAWorkFreeHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TATeacher = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TATeacherHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TATeacherGroups = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.comboBoxTATeachers = new System.Windows.Forms.ComboBox();
+            this.panelTeacherAssignmentTop = new System.Windows.Forms.Panel();
+            this.dataGridViewTASubjects = new System.Windows.Forms.DataGridView();
+            this.TASubjects = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TASubjectCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTAWorks = new System.Windows.Forms.DataGridView();
+            this.TAWork = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TAWorkFreeHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelTeacherAssignmentBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTATeachers)).BeginInit();
             this.panelTeacherAssignmentTop.SuspendLayout();
@@ -62,6 +62,7 @@ namespace Carat
             // 
             // dataGridViewTATeachers
             // 
+            this.dataGridViewTATeachers.AllowUserToAddRows = false;
             this.dataGridViewTATeachers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTATeachers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TATeacher,
@@ -74,6 +75,29 @@ namespace Carat
             this.dataGridViewTATeachers.TabIndex = 1;
             this.dataGridViewTATeachers.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTATeachers_CellValueChanged);
             this.dataGridViewTATeachers.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewTATeachers_RowsRemoved);
+            // 
+            // TATeacher
+            // 
+            this.TATeacher.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.TATeacher.HeaderText = "Викладач";
+            this.TATeacher.Name = "TATeacher";
+            this.TATeacher.ReadOnly = true;
+            this.TATeacher.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // TATeacherHours
+            // 
+            this.TATeacherHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.TATeacherHours.HeaderText = "Години";
+            this.TATeacherHours.Name = "TATeacherHours";
+            this.TATeacherHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TATeacherHours.Width = 53;
+            // 
+            // TATeacherGroups
+            // 
+            this.TATeacherGroups.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.TATeacherGroups.HeaderText = "Групи";
+            this.TATeacherGroups.Name = "TATeacherGroups";
+            this.TATeacherGroups.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // comboBoxTATeachers
             // 
@@ -114,22 +138,6 @@ namespace Carat
             this.dataGridViewTASubjects.TabIndex = 1;
             this.dataGridViewTASubjects.SelectionChanged += new System.EventHandler(this.dataGridViewTASubjects_SelectionChanged);
             // 
-            // dataGridViewTAWorks
-            // 
-            this.dataGridViewTAWorks.AllowUserToAddRows = false;
-            this.dataGridViewTAWorks.AllowUserToDeleteRows = false;
-            this.dataGridViewTAWorks.AllowUserToResizeRows = false;
-            this.dataGridViewTAWorks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTAWorks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TAWork,
-            this.TAWorkFreeHours});
-            this.dataGridViewTAWorks.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dataGridViewTAWorks.Location = new System.Drawing.Point(582, 0);
-            this.dataGridViewTAWorks.Name = "dataGridViewTAWorks";
-            this.dataGridViewTAWorks.Size = new System.Drawing.Size(317, 363);
-            this.dataGridViewTAWorks.TabIndex = 0;
-            this.dataGridViewTAWorks.SelectionChanged += new System.EventHandler(this.dataGridViewTAWorks_SelectionChanged);
-            // 
             // TASubjects
             // 
             this.TASubjects.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -147,6 +155,22 @@ namespace Carat
             this.TASubjectCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.TASubjectCourse.Width = 39;
             // 
+            // dataGridViewTAWorks
+            // 
+            this.dataGridViewTAWorks.AllowUserToAddRows = false;
+            this.dataGridViewTAWorks.AllowUserToDeleteRows = false;
+            this.dataGridViewTAWorks.AllowUserToResizeRows = false;
+            this.dataGridViewTAWorks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTAWorks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TAWork,
+            this.TAWorkFreeHours});
+            this.dataGridViewTAWorks.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dataGridViewTAWorks.Location = new System.Drawing.Point(582, 0);
+            this.dataGridViewTAWorks.Name = "dataGridViewTAWorks";
+            this.dataGridViewTAWorks.Size = new System.Drawing.Size(317, 363);
+            this.dataGridViewTAWorks.TabIndex = 0;
+            this.dataGridViewTAWorks.SelectionChanged += new System.EventHandler(this.dataGridViewTAWorks_SelectionChanged);
+            // 
             // TAWork
             // 
             this.TAWork.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -163,29 +187,6 @@ namespace Carat
             this.TAWorkFreeHours.ReadOnly = true;
             this.TAWorkFreeHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.TAWorkFreeHours.Width = 50;
-            // 
-            // TATeacher
-            // 
-            this.TATeacher.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.TATeacher.HeaderText = "Викладач";
-            this.TATeacher.Name = "TATeacher";
-            this.TATeacher.ReadOnly = true;
-            this.TATeacher.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // TATeacherHours
-            // 
-            this.TATeacherHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.TATeacherHours.HeaderText = "Години";
-            this.TATeacherHours.Name = "TATeacherHours";
-            this.TATeacherHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TATeacherHours.Width = 53;
-            // 
-            // TATeacherGroups
-            // 
-            this.TATeacherGroups.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.TATeacherGroups.HeaderText = "Групи";
-            this.TATeacherGroups.Name = "TATeacherGroups";
-            this.TATeacherGroups.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // TeacherAssignmentForm
             // 

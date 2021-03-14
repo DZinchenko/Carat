@@ -23,5 +23,10 @@ namespace Carat
         {
             return value > (0 + accuracy);
         }
+
+        static public bool isGreaterThan(double value1, double value2)
+        {
+            return value1 > (value2 + accuracy);
+        }
     }
 }

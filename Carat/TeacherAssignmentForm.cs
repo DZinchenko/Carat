@@ -17,28 +17,47 @@ namespace Carat
 {
     public partial class TeacherAssignmentForm : Form, IDataUserForm
     {
-        MainForm m_parentForm = null;
-        ISubjectRepository m_subjectRepository = null;
-        IGroupRepository m_groupRepository = null;
-        ICurriculumItemRepository m_curriculumItemRepository = null;
-        IWorkRepository m_workRepository = null;
-        IWorkTypeRepository m_workTypeRepository = null;
-        ITeacherRepository m_teacherRepository = null;
-        IGroupsToTeacherRepository m_groupsToTeacherRepository = null;
-        ITAItemRepository m_TAItemRepository = null;
+        private MainForm m_parentForm = null;
+        private ISubjectRepository m_subjectRepository = null;
+        private IGroupRepository m_groupRepository = null;
+        private ICurriculumItemRepository m_curriculumItemRepository = null;
+        private IWorkRepository m_workRepository = null;
+        private IWorkTypeRepository m_workTypeRepository = null;
+        private ITeacherRepository m_teacherRepository = null;
+        private IGroupsToTAItemRepository m_groupsToTeacherRepository = null;
+        private ITAItemRepository m_TAItemRepository = null;
 
-        bool isSelectionChanging = false;
+        private bool isSelectionChanging = false;
 
         private double selectedFreeHours = 0;
         private int selectedWorkId = 0;
         private int selectedWorkIndex = 0;
         private int selectedCurriculumSubjectId = 0;
 
+        private string m_educType;
+        private string m_educForm;
+        private uint m_course;
+        private uint m_semestr;
+        private string m_educLevel;
+
         const string IncorrectDataMessage = "Некоректні дані";
 
-        public TeacherAssignmentForm(MainForm parentForm, string dbPath)
+        public TeacherAssignmentForm(MainForm parentForm,
+                              string dbPath,
+                              string educType,
+                              string educForm,
+                              uint course,
+                              uint semestr,
+                              string educLevel)
         {
             InitializeComponent();
+
+            m_educType = educType;
+            m_educForm = educForm;
+            m_course = course;
+            m_semestr = semestr;
+            m_educLevel = educLevel;
+
             comboBoxTATeachers.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTATeachers.Enabled = false;
 
@@ -49,24 +68,29 @@ namespace Carat
             m_workRepository = new WorkRepository(dbPath);
             m_workTypeRepository = new WorkTypeRepository(dbPath);
             m_teacherRepository = new TeacherRepository(dbPath);
-            m_groupsToTeacherRepository = new GroupsToTeacherRepository(dbPath);
+            m_groupsToTeacherRepository = new GroupsToTAItemRepository(dbPath);
             m_TAItemRepository = new TAItemRepository(dbPath);
         }
 
         public void LoadData()
         {
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems();
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
             var teachers = m_teacherRepository.GetAllTeachers();
 
             foreach (var item in curriculumItems)
             {
-                dataGridViewTASubjects.Rows.Add(m_subjectRepository.GetSubject(item.SubjectId)?.Name, item.SubjectHours);
+                dataGridViewTASubjects.Rows.Add(m_subjectRepository.GetSubject(item.SubjectId)?.Name, item.Course);
             }
 
             foreach (var teacher in teachers)
             {
                 comboBoxTATeachers.Items.Add(teacher.Name);
             }
+        }
+
+        private uint getCourseBySelected()
+        {
+            return m_curriculumItemRepository.GetCurriculumItem(m_workRepository.GetWork(selectedWorkId).CurriculumItemId).Course;
         }
 
         private void TeacherAssignment_FormClosed(object sender, FormClosedEventArgs e)
@@ -82,7 +106,7 @@ namespace Carat
                 return;
             }
 
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems();
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
             var rowIndex = dataGridViewTASubjects.SelectedRows[0].Index;
 
             if (curriculumItems.Count <= rowIndex)
@@ -118,7 +142,15 @@ namespace Carat
 
             foreach (var work in works)
             {
-                dataGridViewTAWorks.Rows.Add(m_workTypeRepository.GetWorkType(work.WorkTypeId)?.Name?.ToString(), work?.TotalHours);
+                var taItems = m_TAItemRepository.GetTAItems(work.Id);
+                double sum = 0;
+
+                foreach (var taItem in taItems)
+                {
+                    sum += taItem.WorkHours;
+                }
+
+                dataGridViewTAWorks.Rows.Add(m_workTypeRepository.GetWorkType(work.WorkTypeId)?.Name?.ToString(), work.TotalHours - sum);
             }
         }
 
@@ -203,13 +235,13 @@ namespace Carat
                 var dgvIndex = dataGridViewTATeachers.Rows.Count;
 
                 dataGridViewTATeachers.Rows.Add();
-                dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, selectedFreeHours, "");
+                dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, 0, "");
             }
         }
 
         private void RemoveLastTAItem()
         {
-            int index = dataGridViewTATeachers.Rows.Count - 2;
+            int index = dataGridViewTATeachers.Rows.Count - 1;
 
             if (index < 0)
             {
@@ -231,7 +263,7 @@ namespace Carat
                 return;
             }
 
-            var TAItems = m_TAItemRepository.GetAllTAItems();
+            var TAItems = m_TAItemRepository.GetTAItems(selectedWorkId);
 
             if (e.RowIndex < TAItems.Count)
             {
@@ -243,6 +275,8 @@ namespace Carat
                 }
 
                 m_TAItemRepository.UpdateTAItem(item);
+
+                SyncHours(item.WorkId);
             }
             else
             {
@@ -255,6 +289,8 @@ namespace Carat
                 }
 
                 m_TAItemRepository.AddTAItem(item);
+
+                SyncHours(item.WorkId);
             }
         }
 
@@ -280,13 +316,26 @@ namespace Carat
 
         private void SyncData()
         {
-            var TAItems = m_TAItemRepository.GetAllTAItems();
+            var TAItems = m_TAItemRepository.GetAllTAItems(m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
 
             for (int i = 0; i < TAItems.Count; ++i)
             {
                 dataGridViewTATeachers.Rows[i].SetValues(
                     m_teacherRepository.GetTeacher(TAItems[i].TeacherId)?.Name, TAItems[i].WorkHours);
             }
+        }
+
+        private void SyncHours(int workId)
+        {
+            var taItems = m_TAItemRepository.GetTAItems(workId);
+            double sum = 0;
+
+            foreach (var item in taItems)
+            {
+                sum += item.WorkHours;
+            }
+
+            dataGridViewTAWorks[1, selectedWorkIndex].Value = m_workRepository.GetWork(workId).TotalHours - sum;
         }
 
         private bool UpdateTAItem(TAItem item, DataGridViewCellEventArgs e, bool isNewObject)
@@ -318,20 +367,34 @@ namespace Carat
 
                             item.TeacherId = teacher.Id;
                             item.WorkId = selectedWorkId;
+                            item.Course = getCourseBySelected();
+                            item.EducType = m_educType;
+                            item.EducForm = m_educForm;
+                            item.EducLevel = m_educLevel;
+                            item.Semestr = m_semestr;
 
                             break;
                         }
                     case 1:
                         {
-                            item.WorkHours = Convert.ToDouble(dataGridViewTATeachers[e.ColumnIndex, e.RowIndex].Value?.ToString());
-                            var freeHourse = Convert.ToDouble(dataGridViewTAWorks[1, selectedWorkIndex].Value);
+                            var workHours = Convert.ToDouble(dataGridViewTATeachers[e.ColumnIndex, e.RowIndex].Value?.ToString());
+                            var freeHours = Convert.ToDouble(dataGridViewTAWorks[1, selectedWorkIndex].Value);
+                            var work = m_workRepository.GetWork(item.WorkId);
+                            double sum = 0;
 
-                            dataGridViewTAWorks[1, selectedWorkIndex].Value = (freeHourse - item.WorkHours).ToString();
+                            for (int i = 0; i < dataGridViewTATeachers.RowCount; ++i)
+                            {
+                                sum += Convert.ToDouble(dataGridViewTATeachers.Rows[i].Cells[1].Value.ToString());
+                            }
 
-                            if (Tools.isLessThanZero(item.WorkHours))
+                            if (Tools.isLessThanZero(workHours) || Tools.isGreaterThan(sum, work.TotalHours))
                             {
                                 throw new Exception();
                             }
+
+                            dataGridViewTAWorks[1, selectedWorkIndex].Value = work.TotalHours - sum;
+
+                            item.WorkHours = workHours;
 
                             break;
                         }
@@ -355,7 +418,7 @@ namespace Carat
 
         private void dataGridViewTATeachers_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            var items = m_TAItemRepository.GetAllTAItems();
+            var items = m_TAItemRepository.GetAllTAItems(m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
 
             if (e.RowIndex < 0)
             {
@@ -373,6 +436,8 @@ namespace Carat
                 {
                     m_TAItemRepository.RemoveTAItem(items[i + e.RowIndex]);
                 }
+
+                SyncHours(selectedWorkId);
             }
         }
     }

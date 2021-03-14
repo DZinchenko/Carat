@@ -50,6 +50,32 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public List<TAItem> GetAllTAItems(string educType, string educForm, uint semestr, string educlevel)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.TAItems.Where(b => b.EducType == educType
+                                                   && b.EducForm == educForm
+                                                   && b.Semestr == semestr
+                                                   && b.EducLevel == educlevel).ToList();
+            }
+        }
+
+        public List<TAItem> GetAllTAItems(string educType, string educForm, uint course, uint semestr, string educlevel)
+        {
+            if (course == 0)
+                return GetAllTAItems(educType, educForm, semestr, educlevel);
+
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.TAItems.Where(b => b.EducType == educType
+                                                   && b.EducForm == educForm
+                                                   && b.Course == course
+                                                   && b.Semestr == semestr
+                                                   && b.EducLevel == educlevel).ToList();
+            }
+        }
+
         public List<TAItem> GetTAItems(int workId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
