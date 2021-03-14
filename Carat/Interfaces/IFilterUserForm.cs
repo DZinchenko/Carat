@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Carat.Interfaces
 {
-    public interface IDataUser
+    public interface IFilterUserForm
     {
-        void LoadData();
+        void FiltersStatesChanged();
     }
 }

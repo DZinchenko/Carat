@@ -14,14 +14,16 @@ namespace Carat
 {
     public partial class MainForm : Form
     {
+        private string m_dbName = "Carat.db";
+
         public Form subjectsForm = null;
         public Form groupsForm = null;
         public Form teachersForm = null;
         public Form workTypesForm = null;
         public Form curriculumForm = null;
         public Form TAForm = null;
-
-        private string m_dbName = "Carat.db";
+        public bool IsFiltersValuesSelected = false;
+        public bool IsRequiredFiltersValuesSelected = false;
 
         public MainForm()
         {
@@ -32,6 +34,7 @@ namespace Carat
             comboBoxEducForm.SelectedIndex = 0;
             comboBoxCourse.SelectedIndex = 0;
             comboBoxSemestr.SelectedIndex = 0;
+            comboBoxEducLevel.SelectedIndex = 0;
 
             dataBaseStatelabel.Text = m_dbName;
         }
@@ -46,9 +49,6 @@ namespace Carat
 
             if (teachersForm == null)
                 buttonTeachers.Image = Properties.Resources.icons8_круг_16;
-
-            if (workTypesForm == null)
-                buttonWorkTypes.Image = Properties.Resources.icons8_круг_16;
 
             if (curriculumForm == null)
                 buttonCurriculum.Image = Properties.Resources.icons8_круг_16;
@@ -87,6 +87,24 @@ namespace Carat
             }
         }
 
+        private void SetIsFiltersValuesSelected()
+        {
+            IsRequiredFiltersValuesSelected = (comboBoxEducForm.SelectedIndex != 0)
+                                      && (comboBoxEducType.SelectedIndex != 0)
+                                      && (comboBoxEducLevel.SelectedIndex != 0);
+
+            IsFiltersValuesSelected = (comboBoxCourse.SelectedIndex != 0) && IsRequiredFiltersValuesSelected;
+        }
+
+        private void NotifyIFilterUserForms()
+        {
+            var tempCurriculumForm = curriculumForm as IFilterUserForm;
+            var tempTaForm = TAForm as IFilterUserForm;
+
+            tempCurriculumForm?.FiltersStatesChanged();
+            tempTaForm?.FiltersStatesChanged();
+        }
+
         private void changeViewStateOfSubmenu(Panel panel)
         {
             panel.Visible = !(panel.Visible);
@@ -109,7 +127,7 @@ namespace Carat
 
         private void openChildForm(Form form)
         {
-            var loadDataForm = form as IDataUser;
+            var loadDataForm = form as IDataUserForm;
 
             if (loadDataForm != null)
             {
@@ -344,19 +362,7 @@ namespace Carat
 
         private void buttonWorkTypes_Click(object sender, EventArgs e)
         {
-            curriculumForm?.Close();
-            TAForm?.Close();
 
-            if (workTypesForm == null)
-            {
-                buttonWorkTypes.Image = Properties.Resources.icons8_заполненный_круг_16;
-                workTypesForm = new WorkTypesTableForm(this, m_dbName);
-                openChildForm(workTypesForm);
-            }
-            else
-            {
-                workTypesForm.BringToFront();
-            }
         }
 
         private void buttonCurriculum_Click(object sender, EventArgs e)
@@ -397,6 +403,73 @@ namespace Carat
             {
                 TAForm.BringToFront();
             }
+        }
+
+        private void comboBoxEducType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetIsFiltersValuesSelected();
+            NotifyIFilterUserForms();
+        }
+
+        private void comboBoxEducForm_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetIsFiltersValuesSelected();
+            NotifyIFilterUserForms();
+        }
+
+        private void comboBoxCourse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetIsFiltersValuesSelected();
+            NotifyIFilterUserForms();
+        }
+
+        private void comboBoxSemestr_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetIsFiltersValuesSelected();
+            NotifyIFilterUserForms();
+        }
+
+        private void workTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            curriculumForm?.Close();
+            TAForm?.Close();
+
+            if (workTypesForm == null)
+            {
+                workTypesForm = new WorkTypesTableForm(this, m_dbName);
+                openChildForm(workTypesForm);
+            }
+            else
+            {
+                workTypesForm.BringToFront();
+            }
+        }
+
+        private void baseToolStripMenuItem_MouseEnter(object sender, EventArgs e)
+        {
+            baseToolStripMenuItem.ForeColor = Color.Black;
+        }
+
+        private void baseToolStripMenuItem_MouseLeave(object sender, EventArgs e)
+        {
+            if (!baseToolStripMenuItem.Pressed)
+                baseToolStripMenuItem.ForeColor = Color.White;
+        }
+
+        private void baseToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
+        {
+            baseToolStripMenuItem.ForeColor = Color.White;
+        }
+
+        private void baseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            baseToolStripMenuItem.ForeColor = Color.Black;
+        }
+
+        private void comboBoxEducLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetIsFiltersValuesSelected();
+            NotifyIFilterUserForms();
         }
     }
 }

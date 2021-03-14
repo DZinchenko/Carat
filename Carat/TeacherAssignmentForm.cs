@@ -16,7 +16,7 @@ using Carat.EF.Repositories;
 
 namespace Carat
 {
-    public partial class TeacherAssignmentForm : Form, IDataUser
+    public partial class TeacherAssignmentForm : Form, IDataUserForm, IFilterUserForm
     {
         MainForm m_parentForm = null;
         ISubjectRepository m_subjectRepository = null;
@@ -68,6 +68,11 @@ namespace Carat
             {
                 comboBoxTATeachers.Items.Add(teacher.Name);
             }
+        }
+
+        public void FiltersStatesChanged()
+        { 
+        
         }
 
         private void TeacherAssignment_FormClosed(object sender, FormClosedEventArgs e)

@@ -33,6 +33,7 @@ namespace Carat
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeachersTableForm));
             this.dataGridViewTeachers = new System.Windows.Forms.DataGridView();
             this.TeacherName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,6 +41,7 @@ namespace Carat
             this.TeacherPosition = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.TeacherRank = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.TeacherDegree = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.TeachersOccupForm = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.TeacherNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeachers)).BeginInit();
             this.SuspendLayout();
@@ -54,6 +56,7 @@ namespace Carat
             this.TeacherPosition,
             this.TeacherRank,
             this.TeacherDegree,
+            this.TeachersOccupForm,
             this.TeacherNotes});
             this.dataGridViewTeachers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewTeachers.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
@@ -72,6 +75,7 @@ namespace Carat
             this.TeacherName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.TeacherName.HeaderText = "ПІБ";
             this.TeacherName.Name = "TeacherName";
+            this.TeacherName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // TeacherStake
             // 
@@ -81,7 +85,8 @@ namespace Carat
             this.TeacherStake.DefaultCellStyle = dataGridViewCellStyle1;
             this.TeacherStake.HeaderText = "Кіл-ть штат. один.";
             this.TeacherStake.Name = "TeacherStake";
-            this.TeacherStake.Width = 120;
+            this.TeacherStake.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TeacherStake.Width = 112;
             // 
             // TeacherPosition
             // 
@@ -98,7 +103,6 @@ namespace Carat
             "професор"});
             this.TeacherPosition.Name = "TeacherPosition";
             this.TeacherPosition.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TeacherPosition.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.TeacherPosition.Width = 84;
             // 
             // TeacherRank
@@ -106,14 +110,13 @@ namespace Carat
             this.TeacherRank.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle3.NullValue = "<not set>";
             this.TeacherRank.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TeacherRank.HeaderText = "Звання";
+            this.TeacherRank.HeaderText = "Ступінь";
             this.TeacherRank.Items.AddRange(new object[] {
             "<not set>",
             "к. т. н.",
             "д. т. н."});
             this.TeacherRank.Name = "TeacherRank";
             this.TeacherRank.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TeacherRank.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.TeacherRank.Width = 84;
             // 
             // TeacherDegree
@@ -121,21 +124,34 @@ namespace Carat
             this.TeacherDegree.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle4.NullValue = "<not set>";
             this.TeacherDegree.DefaultCellStyle = dataGridViewCellStyle4;
-            this.TeacherDegree.HeaderText = "Ступінь";
+            this.TeacherDegree.HeaderText = "Звання";
             this.TeacherDegree.Items.AddRange(new object[] {
             "<not set>",
             "доцент",
             "професор"});
             this.TeacherDegree.Name = "TeacherDegree";
             this.TeacherDegree.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TeacherDegree.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.TeacherDegree.Width = 84;
+            // 
+            // TeachersOccupForm
+            // 
+            this.TeachersOccupForm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle5.NullValue = "Штатний";
+            this.TeachersOccupForm.DefaultCellStyle = dataGridViewCellStyle5;
+            this.TeachersOccupForm.HeaderText = "Форма зайнятості";
+            this.TeachersOccupForm.Items.AddRange(new object[] {
+            "Штатний",
+            "Сумісник"});
+            this.TeachersOccupForm.Name = "TeachersOccupForm";
+            this.TeachersOccupForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TeachersOccupForm.Width = 111;
             // 
             // TeacherNotes
             // 
             this.TeacherNotes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.TeacherNotes.HeaderText = "Примітки";
             this.TeacherNotes.Name = "TeacherNotes";
+            this.TeacherNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // TeachersTableForm
             // 
@@ -164,6 +180,7 @@ namespace Carat
         private System.Windows.Forms.DataGridViewComboBoxColumn TeacherPosition;
         private System.Windows.Forms.DataGridViewComboBoxColumn TeacherRank;
         private System.Windows.Forms.DataGridViewComboBoxColumn TeacherDegree;
+        private System.Windows.Forms.DataGridViewComboBoxColumn TeachersOccupForm;
         private System.Windows.Forms.DataGridViewTextBoxColumn TeacherNotes;
     }
 }

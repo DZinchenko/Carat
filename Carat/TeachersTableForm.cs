@@ -14,7 +14,7 @@ using Carat.Interfaces;
 
 namespace Carat
 {
-    public partial class TeachersTableForm : Form, IDataUser
+    public partial class TeachersTableForm : Form, IDataUserForm
     {
         MainForm m_parentForm = null;
         ITeacherRepository m_teacherRepository = null;
@@ -48,6 +48,7 @@ namespace Carat
                     teacher.Position, 
                     teacher.Rank, 
                     teacher.Degree, 
+                    teacher.OccupForm,
                     teacher.Note);
             }
         }
@@ -64,6 +65,7 @@ namespace Carat
                     teachers[i].Position,
                     teachers[i].Rank,
                     teachers[i].Degree,
+                    teachers[i].OccupForm,
                     teachers[i].Note);
             }
         }
@@ -184,6 +186,11 @@ namespace Carat
                         }
                     case 5:
                         {
+                            teacher.OccupForm = dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            break;
+                        }
+                    case 6:
+                        {
                             teacher.Note = dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
                             break;
                         }
@@ -224,5 +231,6 @@ namespace Carat
         {
             e.Cancel = true;
         }
+
     }
 }

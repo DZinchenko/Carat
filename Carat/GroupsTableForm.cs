@@ -14,7 +14,7 @@ using Carat.Interfaces;
 
 namespace Carat
 {
-    public partial class GroupsTableForm : Form, IDataUser
+    public partial class GroupsTableForm : Form, IDataUserForm
     {
         MainForm m_parentForm = null;
         IGroupRepository m_groupRepository = null;
@@ -38,7 +38,8 @@ namespace Carat
                 dataGridViewGroups.Rows.Add(
                     group.Course,
                     group.Name, 
-                    group.EducForm, 
+                    group.EducForm,
+                    group.EducLevel,
                     group.BudgetNumber, 
                     group.ContractNumber,
                     group.Faculty,
@@ -56,6 +57,7 @@ namespace Carat
                     groups[i].Course,
                     groups[i].Name,
                     groups[i].EducForm,
+                    groups[i].EducLevel,
                     groups[i].BudgetNumber,
                     groups[i].ContractNumber,
                     groups[i].Faculty,
@@ -196,20 +198,25 @@ namespace Carat
                         }
                     case 3:
                         {
-                            group.BudgetNumber = Convert.ToUInt32(dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim());
+                            group.EducLevel = dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
                             break;
                         }
                     case 4:
                         {
-                            group.ContractNumber = Convert.ToUInt32(dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim());
+                            group.BudgetNumber = Convert.ToUInt32(dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim());
                             break;
                         }
                     case 5:
                         {
-                            group.Faculty = dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            group.ContractNumber = Convert.ToUInt32(dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim());
                             break;
                         }
                     case 6:
+                        {
+                            group.Faculty = dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            break;
+                        }
+                    case 7:
                         {
                             group.Note = dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
                             break;

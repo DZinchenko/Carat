@@ -61,6 +61,7 @@ namespace Carat
             this.WorkTypeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.WorkTypeName.HeaderText = "Назва";
             this.WorkTypeName.Name = "WorkTypeName";
+            this.WorkTypeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // WorkTypeStudentHours
             // 
@@ -69,7 +70,8 @@ namespace Carat
             this.WorkTypeStudentHours.DefaultCellStyle = dataGridViewCellStyle1;
             this.WorkTypeStudentHours.HeaderText = "год./студ.";
             this.WorkTypeStudentHours.Name = "WorkTypeStudentHours";
-            this.WorkTypeStudentHours.Width = 84;
+            this.WorkTypeStudentHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.WorkTypeStudentHours.Width = 65;
             // 
             // WorkTypesTableForm
             // 

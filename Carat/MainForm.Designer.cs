@@ -41,9 +41,13 @@
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.baseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.workTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTools = new System.Windows.Forms.Panel();
+            this.comboBoxEducLevel = new System.Windows.Forms.ComboBox();
+            this.labelEducLevel = new System.Windows.Forms.Label();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.comboBoxSemestr = new System.Windows.Forms.ComboBox();
             this.labelSemestr = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
@@ -74,7 +78,6 @@
             this.buttonCurriculum = new System.Windows.Forms.Button();
             this.buttonSection = new System.Windows.Forms.Button();
             this.panelTablesSubmenu = new System.Windows.Forms.Panel();
-            this.buttonWorkTypes = new System.Windows.Forms.Button();
             this.buttonTeachers = new System.Windows.Forms.Button();
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
@@ -82,6 +85,7 @@
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -204,10 +208,23 @@
             // 
             // baseToolStripMenuItem
             // 
+            this.baseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.workTypesToolStripMenuItem});
             this.baseToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.baseToolStripMenuItem.Name = "baseToolStripMenuItem";
             this.baseToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
             this.baseToolStripMenuItem.Text = "База";
+            this.baseToolStripMenuItem.DropDownClosed += new System.EventHandler(this.baseToolStripMenuItem_DropDownClosed);
+            this.baseToolStripMenuItem.Click += new System.EventHandler(this.baseToolStripMenuItem_Click);
+            this.baseToolStripMenuItem.MouseEnter += new System.EventHandler(this.baseToolStripMenuItem_MouseEnter);
+            this.baseToolStripMenuItem.MouseLeave += new System.EventHandler(this.baseToolStripMenuItem_MouseLeave);
+            // 
+            // workTypesToolStripMenuItem
+            // 
+            this.workTypesToolStripMenuItem.Name = "workTypesToolStripMenuItem";
+            this.workTypesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.workTypesToolStripMenuItem.Text = "Види робіт";
+            this.workTypesToolStripMenuItem.Click += new System.EventHandler(this.workTypesToolStripMenuItem_Click);
             // 
             // windowToolStripMenuItem
             // 
@@ -227,6 +244,9 @@
             // 
             this.panelTools.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
             this.panelTools.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTools.Controls.Add(this.comboBoxEducLevel);
+            this.panelTools.Controls.Add(this.labelEducLevel);
+            this.panelTools.Controls.Add(this.pictureBox6);
             this.panelTools.Controls.Add(this.comboBoxSemestr);
             this.panelTools.Controls.Add(this.labelSemestr);
             this.panelTools.Controls.Add(this.pictureBox4);
@@ -246,6 +266,47 @@
             this.panelTools.Size = new System.Drawing.Size(1090, 35);
             this.panelTools.TabIndex = 1;
             // 
+            // comboBoxEducLevel
+            // 
+            this.comboBoxEducLevel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.comboBoxEducLevel.BackColor = System.Drawing.Color.White;
+            this.comboBoxEducLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxEducLevel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBoxEducLevel.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxEducLevel.FormattingEnabled = true;
+            this.comboBoxEducLevel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.comboBoxEducLevel.Items.AddRange(new object[] {
+            "<всі>",
+            "Бакалавр",
+            "Магістр",
+            "PhD"});
+            this.comboBoxEducLevel.Location = new System.Drawing.Point(834, 6);
+            this.comboBoxEducLevel.Name = "comboBoxEducLevel";
+            this.comboBoxEducLevel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.comboBoxEducLevel.Size = new System.Drawing.Size(82, 23);
+            this.comboBoxEducLevel.TabIndex = 12;
+            this.comboBoxEducLevel.Tag = "";
+            this.comboBoxEducLevel.SelectedIndexChanged += new System.EventHandler(this.comboBoxEducLevel_SelectedIndexChanged);
+            // 
+            // labelEducLevel
+            // 
+            this.labelEducLevel.AutoSize = true;
+            this.labelEducLevel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelEducLevel.Location = new System.Drawing.Point(717, 6);
+            this.labelEducLevel.Name = "labelEducLevel";
+            this.labelEducLevel.Size = new System.Drawing.Size(116, 19);
+            this.labelEducLevel.TabIndex = 11;
+            this.labelEducLevel.Text = "Рівень навчання:";
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox6.Location = new System.Drawing.Point(693, 4);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox6.TabIndex = 10;
+            this.pictureBox6.TabStop = false;
+            // 
             // comboBoxSemestr
             // 
             this.comboBoxSemestr.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
@@ -256,7 +317,6 @@
             this.comboBoxSemestr.FormattingEnabled = true;
             this.comboBoxSemestr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.comboBoxSemestr.Items.AddRange(new object[] {
-            "<всі>",
             "1",
             "2"});
             this.comboBoxSemestr.Location = new System.Drawing.Point(632, 6);
@@ -265,6 +325,7 @@
             this.comboBoxSemestr.Size = new System.Drawing.Size(55, 23);
             this.comboBoxSemestr.TabIndex = 8;
             this.comboBoxSemestr.Tag = "";
+            this.comboBoxSemestr.SelectedIndexChanged += new System.EventHandler(this.comboBoxSemestr_SelectedIndexChanged);
             this.comboBoxSemestr.DropDownClosed += new System.EventHandler(this.comboBoxSemestr_DropDownClosed);
             // 
             // labelSemestr
@@ -328,15 +389,14 @@
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.comboBoxCourse.Location = new System.Drawing.Point(483, 6);
             this.comboBoxCourse.Name = "comboBoxCourse";
             this.comboBoxCourse.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.comboBoxCourse.Size = new System.Drawing.Size(55, 23);
             this.comboBoxCourse.TabIndex = 7;
             this.comboBoxCourse.Tag = "";
+            this.comboBoxCourse.SelectedIndexChanged += new System.EventHandler(this.comboBoxCourse_SelectedIndexChanged);
             this.comboBoxCourse.DropDownClosed += new System.EventHandler(this.comboBoxCourse_DropDownClosed);
             // 
             // labelEducForm
@@ -370,12 +430,14 @@
             this.comboBoxEducForm.Items.AddRange(new object[] {
             "<всі>",
             "Денна",
-            "Заочна"});
+            "Заочна",
+            "Вечірня"});
             this.comboBoxEducForm.Location = new System.Drawing.Point(334, 6);
             this.comboBoxEducForm.Name = "comboBoxEducForm";
             this.comboBoxEducForm.Size = new System.Drawing.Size(78, 23);
             this.comboBoxEducForm.TabIndex = 4;
             this.comboBoxEducForm.Tag = "";
+            this.comboBoxEducForm.SelectedIndexChanged += new System.EventHandler(this.comboBoxEducForm_SelectedIndexChanged);
             this.comboBoxEducForm.DropDownClosed += new System.EventHandler(this.comboBoxEducForm_DropDownClosed);
             // 
             // labelEducType
@@ -406,6 +468,7 @@
             this.comboBoxEducType.Size = new System.Drawing.Size(82, 23);
             this.comboBoxEducType.TabIndex = 1;
             this.comboBoxEducType.Tag = "";
+            this.comboBoxEducType.SelectedIndexChanged += new System.EventHandler(this.comboBoxEducType_SelectedIndexChanged);
             this.comboBoxEducType.DropDownClosed += new System.EventHandler(this.comboBoxEducType_DropDownClosed);
             // 
             // buttonHidePanel
@@ -507,7 +570,7 @@
             this.panelReportSubmenu.Controls.Add(this.button9);
             this.panelReportSubmenu.Controls.Add(this.button10);
             this.panelReportSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelReportSubmenu.Location = new System.Drawing.Point(0, 360);
+            this.panelReportSubmenu.Location = new System.Drawing.Point(0, 325);
             this.panelReportSubmenu.Name = "panelReportSubmenu";
             this.panelReportSubmenu.Size = new System.Drawing.Size(173, 105);
             this.panelReportSubmenu.TabIndex = 6;
@@ -574,7 +637,7 @@
             this.buttonReport.ForeColor = System.Drawing.Color.Black;
             this.buttonReport.Image = ((System.Drawing.Image)(resources.GetObject("buttonReport.Image")));
             this.buttonReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonReport.Location = new System.Drawing.Point(0, 310);
+            this.buttonReport.Location = new System.Drawing.Point(0, 275);
             this.buttonReport.Name = "buttonReport";
             this.buttonReport.Size = new System.Drawing.Size(173, 50);
             this.buttonReport.TabIndex = 5;
@@ -587,7 +650,7 @@
             this.panelSectionSubmenu.Controls.Add(this.buttonTA);
             this.panelSectionSubmenu.Controls.Add(this.buttonCurriculum);
             this.panelSectionSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSectionSubmenu.Location = new System.Drawing.Point(0, 240);
+            this.panelSectionSubmenu.Location = new System.Drawing.Point(0, 205);
             this.panelSectionSubmenu.Name = "panelSectionSubmenu";
             this.panelSectionSubmenu.Size = new System.Drawing.Size(173, 70);
             this.panelSectionSubmenu.TabIndex = 4;
@@ -639,7 +702,7 @@
             this.buttonSection.ForeColor = System.Drawing.Color.Black;
             this.buttonSection.Image = ((System.Drawing.Image)(resources.GetObject("buttonSection.Image")));
             this.buttonSection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSection.Location = new System.Drawing.Point(0, 190);
+            this.buttonSection.Location = new System.Drawing.Point(0, 155);
             this.buttonSection.Name = "buttonSection";
             this.buttonSection.Size = new System.Drawing.Size(173, 50);
             this.buttonSection.TabIndex = 3;
@@ -649,33 +712,14 @@
             // 
             // panelTablesSubmenu
             // 
-            this.panelTablesSubmenu.Controls.Add(this.buttonWorkTypes);
             this.panelTablesSubmenu.Controls.Add(this.buttonTeachers);
             this.panelTablesSubmenu.Controls.Add(this.buttonGroups);
             this.panelTablesSubmenu.Controls.Add(this.buttonSubjects);
             this.panelTablesSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTablesSubmenu.Location = new System.Drawing.Point(0, 50);
             this.panelTablesSubmenu.Name = "panelTablesSubmenu";
-            this.panelTablesSubmenu.Size = new System.Drawing.Size(173, 140);
+            this.panelTablesSubmenu.Size = new System.Drawing.Size(173, 105);
             this.panelTablesSubmenu.TabIndex = 2;
-            // 
-            // buttonWorkTypes
-            // 
-            this.buttonWorkTypes.AutoEllipsis = true;
-            this.buttonWorkTypes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
-            this.buttonWorkTypes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonWorkTypes.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonWorkTypes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonWorkTypes.ForeColor = System.Drawing.Color.Black;
-            this.buttonWorkTypes.Image = ((System.Drawing.Image)(resources.GetObject("buttonWorkTypes.Image")));
-            this.buttonWorkTypes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonWorkTypes.Location = new System.Drawing.Point(0, 105);
-            this.buttonWorkTypes.Name = "buttonWorkTypes";
-            this.buttonWorkTypes.Size = new System.Drawing.Size(173, 35);
-            this.buttonWorkTypes.TabIndex = 5;
-            this.buttonWorkTypes.Text = "Види робіт";
-            this.buttonWorkTypes.UseVisualStyleBackColor = false;
-            this.buttonWorkTypes.Click += new System.EventHandler(this.buttonWorkTypes_Click);
             // 
             // buttonTeachers
             // 
@@ -776,6 +820,7 @@
             this.menuStripOptions.PerformLayout();
             this.panelTools.ResumeLayout(false);
             this.panelTools.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -842,8 +887,11 @@
         private System.Windows.Forms.Label labelCarat;
         private System.Windows.Forms.Label dataBaseStateHelpLabel;
         private System.Windows.Forms.Label dataBaseStatelabel;
-        private System.Windows.Forms.Button buttonWorkTypes;
         private System.Windows.Forms.Button buttonTeachers;
+        private System.Windows.Forms.ComboBox comboBoxEducLevel;
+        private System.Windows.Forms.Label labelEducLevel;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.ToolStripMenuItem workTypesToolStripMenuItem;
     }
 }
 

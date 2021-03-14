@@ -8,6 +8,7 @@
         public string Position { get; set; } = "<not set>";
         public string Rank { get; set; } = "<not set>";
         public string Degree { get; set; } = "<not set>";
+        public string OccupForm { get; set; } = "Штатний";
         public string Note { get; set; }
     }
 }

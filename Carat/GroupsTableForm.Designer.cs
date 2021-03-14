@@ -34,11 +34,13 @@ namespace Carat
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GroupsTableForm));
             this.dataGridViewGroups = new System.Windows.Forms.DataGridView();
             this.GroupCourse = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupEduForm = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.GroupsEducLevel = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBudj_cnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupContr_cnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupFaculty = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -56,6 +58,7 @@ namespace Carat
             this.GroupCourse,
             this.GroupName,
             this.GroupEduForm,
+            this.GroupsEducLevel,
             this.GroupBudj_cnt,
             this.GroupContr_cnt,
             this.GroupFaculty,
@@ -81,14 +84,11 @@ namespace Carat
             "1",
             "2",
             "3",
-            "4",
-            "5",
-            "6"});
+            "4"});
             this.GroupCourse.MinimumWidth = 6;
             this.GroupCourse.Name = "GroupCourse";
             this.GroupCourse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GroupCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.GroupCourse.Width = 58;
+            this.GroupCourse.Width = 39;
             // 
             // GroupName
             // 
@@ -96,6 +96,7 @@ namespace Carat
             this.GroupName.HeaderText = "Назва";
             this.GroupName.MinimumWidth = 6;
             this.GroupName.Name = "GroupName";
+            this.GroupName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // GroupEduForm
             // 
@@ -105,35 +106,51 @@ namespace Carat
             this.GroupEduForm.HeaderText = "Форма навчання";
             this.GroupEduForm.Items.AddRange(new object[] {
             "Денна",
-            "Заочна"});
+            "Заочна",
+            "Вечірня"});
             this.GroupEduForm.Name = "GroupEduForm";
             this.GroupEduForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GroupEduForm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.GroupEduForm.Width = 114;
+            this.GroupEduForm.Width = 106;
+            // 
+            // GroupsEducLevel
+            // 
+            this.GroupsEducLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle3.NullValue = "Бакалавр";
+            this.GroupsEducLevel.DefaultCellStyle = dataGridViewCellStyle3;
+            this.GroupsEducLevel.HeaderText = "Рівень навчання";
+            this.GroupsEducLevel.Items.AddRange(new object[] {
+            "Бакалавр",
+            "Магістр",
+            "PhD"});
+            this.GroupsEducLevel.Name = "GroupsEducLevel";
+            this.GroupsEducLevel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.GroupsEducLevel.Width = 103;
             // 
             // GroupBudj_cnt
             // 
             this.GroupBudj_cnt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.NullValue = "0";
-            this.GroupBudj_cnt.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.NullValue = "0";
+            this.GroupBudj_cnt.DefaultCellStyle = dataGridViewCellStyle4;
             this.GroupBudj_cnt.HeaderText = "Бюджетників";
             this.GroupBudj_cnt.Name = "GroupBudj_cnt";
-            this.GroupBudj_cnt.Width = 104;
+            this.GroupBudj_cnt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.GroupBudj_cnt.Width = 85;
             // 
             // GroupContr_cnt
             // 
             this.GroupContr_cnt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.NullValue = "0";
-            this.GroupContr_cnt.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.NullValue = "0";
+            this.GroupContr_cnt.DefaultCellStyle = dataGridViewCellStyle5;
             this.GroupContr_cnt.HeaderText = "Контрактників";
             this.GroupContr_cnt.Name = "GroupContr_cnt";
-            this.GroupContr_cnt.Width = 111;
+            this.GroupContr_cnt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.GroupContr_cnt.Width = 92;
             // 
             // GroupFaculty
             // 
             this.GroupFaculty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle5.NullValue = "ТЕФ";
-            this.GroupFaculty.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.NullValue = "ТЕФ";
+            this.GroupFaculty.DefaultCellStyle = dataGridViewCellStyle6;
             this.GroupFaculty.HeaderText = "Факультет";
             this.GroupFaculty.Items.AddRange(new object[] {
             "ТЕФ",
@@ -148,14 +165,14 @@ namespace Carat
             this.GroupFaculty.MaxDropDownItems = 20;
             this.GroupFaculty.Name = "GroupFaculty";
             this.GroupFaculty.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GroupFaculty.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.GroupFaculty.Width = 88;
+            this.GroupFaculty.Width = 69;
             // 
             // GroupNotes
             // 
             this.GroupNotes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.GroupNotes.HeaderText = "Примітки";
             this.GroupNotes.Name = "GroupNotes";
+            this.GroupNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // GroupsTableForm
             // 
@@ -182,6 +199,7 @@ namespace Carat
         private System.Windows.Forms.DataGridViewComboBoxColumn GroupCourse;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupName;
         private System.Windows.Forms.DataGridViewComboBoxColumn GroupEduForm;
+        private System.Windows.Forms.DataGridViewComboBoxColumn GroupsEducLevel;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupBudj_cnt;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupContr_cnt;
         private System.Windows.Forms.DataGridViewComboBoxColumn GroupFaculty;

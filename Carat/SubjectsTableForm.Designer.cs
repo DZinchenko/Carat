@@ -62,6 +62,7 @@ namespace Carat
             this.SubjectName.HeaderText = "Назва";
             this.SubjectName.MinimumWidth = 6;
             this.SubjectName.Name = "SubjectName";
+            this.SubjectName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Notes
             // 
@@ -70,6 +71,7 @@ namespace Carat
             this.Notes.HeaderText = "Примітки";
             this.Notes.MinimumWidth = 6;
             this.Notes.Name = "Notes";
+            this.Notes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // SubjectsTableForm
             // 

@@ -174,7 +174,8 @@
     <Compile Include="GroupsTableForm.Designer.cs">
       <DependentUpon>GroupsTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\ISaveChanges.cs" />
+    <Compile Include="Interfaces\IDataUserForm.cs" />
+    <Compile Include="Interfaces\IFilterUserForm.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

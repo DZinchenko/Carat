@@ -15,7 +15,7 @@ using Carat.EF.Repositories;
 
 namespace Carat
 {
-    public partial class SubjectsTableForm : Form, IDataUser
+    public partial class SubjectsTableForm : Form, IDataUserForm
     {
         private ISubjectRepository m_subjectRepository;
         private MainForm m_parentForm = null;
