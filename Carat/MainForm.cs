@@ -96,6 +96,38 @@ namespace Carat
             IsFiltersValuesSelected = (comboBoxCourse.SelectedIndex != 0) && IsRequiredFiltersValuesSelected;
         }
 
+        private string getEducTypeFilter()
+        {
+            return comboBoxEducType.SelectedItem.ToString();
+        }
+
+        private string getEducFormFilter()
+        {
+            return comboBoxEducForm.SelectedItem.ToString();
+        }
+
+        private string getEducLevelFilter()
+        {
+            return comboBoxEducLevel.SelectedItem.ToString();
+        }
+
+        private uint getSemesterFilter()
+        {
+            return Convert.ToUInt32(comboBoxSemestr.SelectedItem.ToString());
+        }
+
+        private uint getCourseFilter()
+        {
+            try
+            {
+                return Convert.ToUInt32(comboBoxCourse.SelectedItem.ToString());
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
         private void NotifyIFilterUserForms()
         {
             var tempCurriculumForm = curriculumForm as IFilterUserForm;
@@ -376,7 +408,14 @@ namespace Carat
             if (curriculumForm == null)
             {
                 buttonCurriculum.Image = Properties.Resources.icons8_заполненный_круг_16;
-                curriculumForm = new CurriculumForm(this, m_dbName);
+                curriculumForm = new CurriculumForm(this, 
+                                                    m_dbName, 
+                                                    getEducTypeFilter(), 
+                                                    getEducFormFilter(), 
+                                                    getCourseFilter(), 
+                                                    getSemesterFilter(), 
+                                                    getEducLevelFilter());
+
                 openChildForm(curriculumForm);
             }
             else
@@ -405,28 +444,43 @@ namespace Carat
             }
         }
 
+        private void ReopenFiltersUsersForms()
+        {
+            if (curriculumForm != null)
+            {
+                curriculumForm?.Close();
+                buttonCurriculum.PerformClick();
+            }
+        }
+
         private void comboBoxEducType_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetIsFiltersValuesSelected();
-            NotifyIFilterUserForms();
+            ReopenFiltersUsersForms();
         }
 
         private void comboBoxEducForm_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetIsFiltersValuesSelected();
-            NotifyIFilterUserForms();
+            ReopenFiltersUsersForms();
         }
 
         private void comboBoxCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetIsFiltersValuesSelected();
-            NotifyIFilterUserForms();
+            ReopenFiltersUsersForms();
         }
 
         private void comboBoxSemestr_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetIsFiltersValuesSelected();
-            NotifyIFilterUserForms();
+            ReopenFiltersUsersForms();
+        }
+
+        private void comboBoxEducLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetIsFiltersValuesSelected();
+            ReopenFiltersUsersForms();
         }
 
         private void workTypesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -464,12 +518,6 @@ namespace Carat
         private void baseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             baseToolStripMenuItem.ForeColor = Color.Black;
-        }
-
-        private void comboBoxEducLevel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SetIsFiltersValuesSelected();
-            NotifyIFilterUserForms();
         }
     }
 }

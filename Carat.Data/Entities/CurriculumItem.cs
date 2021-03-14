@@ -9,5 +9,9 @@ namespace Carat.Data.Entities
         public int SubjectId { get; set; }
         public double SubjectHours { get; set; }
         public double WorkTypeHours { get; set; }
+        public string EducType { get; set; }
+        public string EducForm { get; set; }
+        public uint Semestr { get; set; }
+        public string EducLevel { get; set; }
     }
 }

@@ -22,11 +22,51 @@ namespace Carat.EF.Repositories
                 return ctx.CurriculumItems.ToList();
             }
         }
+
         public CurriculumItem GetCurriculumItem(int curriculumItemId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
                 return ctx.CurriculumItems.Where(b => b.Id == curriculumItemId).FirstOrDefault();
+            }
+        }
+
+        public CurriculumItem GetCurriculumItem(int subjectId, string educType, string educForm, uint course, uint semestr, string educlevel)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                   && b.SubjectId == subjectId
+                                                   && b.EducForm == educForm
+                                                   && b.Course == course
+                                                   && b.Semestr == semestr
+                                                   && b.EducLevel == educlevel).FirstOrDefault();
+            }
+        }
+
+        public List<CurriculumItem> GetAllCurriculumItems(string educType, string educForm, uint semestr, string educlevel)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                   && b.EducForm == educForm
+                                                   && b.Semestr == semestr
+                                                   && b.EducLevel == educlevel).ToList();
+            }
+        }
+
+        public List<CurriculumItem> GetAllCurriculumItems(string educType, string educForm, uint course, uint semestr, string educlevel)
+        {
+            if (course == 0)
+                return GetAllCurriculumItems(educType, educForm, semestr, educlevel);
+
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                   && b.EducForm == educForm
+                                                   && b.Course == course
+                                                   && b.Semestr == semestr
+                                                   && b.EducLevel == educlevel).ToList();
             }
         }
 
