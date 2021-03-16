@@ -5,11 +5,12 @@ namespace Carat.Data.Repositories
 {
     public interface IGroupsToTAItemRepository
     {
-        List<GroupsToTAItem> GetAllGroupsToTeachers();
-        GroupsToTAItem GetGroupsToTeacher(int groupsToTeacherId);
-        void AddGroupsToTeacher(GroupsToTAItem groupsToTeacher);
-        void RemoveGroupsToTeacher(GroupsToTAItem groupsToTeacher);
-        void UpdateGroupsToTeacher(GroupsToTAItem groupsToTeacher);
-        void DeleteAllGroupsToTeachers();
+        List<GroupsToTAItem> GetAllGroupsToTAItem();
+        List<GroupsToTAItem> GetGroupsToTAItem(int TAItemId);
+        GroupsToTAItem GetGroupsToTAItem(int TAItemId, int groupId);
+        void AddGroupsToTAItem(GroupsToTAItem groupsToTAItem);
+        void RemoveGroupsToTAItem(GroupsToTAItem groupsToTAItem);
+        void UpdateGroupsToTAItem(GroupsToTAItem groupsToTAItem);
+        void DeleteAllGroupsToTAItem();
     }
 }

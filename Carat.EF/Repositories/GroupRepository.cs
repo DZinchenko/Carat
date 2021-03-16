@@ -30,6 +30,16 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public List<Group> GetGroups(uint course, string educForm, string educLevel)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.Groups.Where(b => b.Course == course
+                                          && b.EducForm == educForm
+                                          && b.EducLevel == educLevel).ToList();
+            }
+        }
+
         public void AddGroup(Group group)
         {
             using (var ctx = new CaratDbContext(m_dbPath))

@@ -28,5 +28,10 @@ namespace Carat
         {
             return value1 > (value2 + accuracy);
         }
+
+        static public bool isEqual(double value1, double value2)
+        {
+            return Math.Abs(value1 - value2) < accuracy;
+        }
     }
 }

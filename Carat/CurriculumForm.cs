@@ -39,7 +39,8 @@ namespace Carat
                               uint course,
                               uint semestr,
                               string educLevel,
-                              bool isEmptyWorks)
+                              bool isEmptyWorks,
+                              object[] courses)
         {
             InitializeComponent();
             m_parentForm = parentForm;
@@ -50,6 +51,13 @@ namespace Carat
             m_semestr = semestr;
             m_educLevel = educLevel;
             m_isEmptyWorks = isEmptyWorks;
+
+            listBoxCourse.Items.Clear();
+
+            foreach (var item in courses)
+            {
+                listBoxCourse.Items.Add(item);
+            }
 
             EnableListBoxes();
 
@@ -543,6 +551,15 @@ namespace Carat
                     m_workRepository.RemoveWork(works[i + e.RowIndex]);
                 }
             }
+        }
+
+        private void dataGridViewCurriculumSubjects_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItem = curriculumItems[e.Row.Index];
+            var works = m_workRepository.GetWorks(curriculumItem.Id, false);
+
+            e.Cancel = !(works.All(work => work.TotalHours < 0.00001));
         }
     }
 }

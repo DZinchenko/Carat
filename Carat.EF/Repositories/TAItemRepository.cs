@@ -50,21 +50,22 @@ namespace Carat.EF.Repositories
             }
         }
 
-        public List<TAItem> GetAllTAItems(string educType, string educForm, uint semestr, string educlevel)
+        public List<TAItem> GetAllTAItems(int workId, string educType, string educForm, uint semestr, string educlevel)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
                 return ctx.TAItems.Where(b => b.EducType == educType
                                                    && b.EducForm == educForm
                                                    && b.Semestr == semestr
-                                                   && b.EducLevel == educlevel).ToList();
+                                                   && b.EducLevel == educlevel
+                                                   && b.WorkId == workId).ToList();
             }
         }
 
-        public List<TAItem> GetAllTAItems(string educType, string educForm, uint course, uint semestr, string educlevel)
+        public List<TAItem> GetAllTAItems(int workId, string educType, string educForm, uint course, uint semestr, string educlevel)
         {
             if (course == 0)
-                return GetAllTAItems(educType, educForm, semestr, educlevel);
+                return GetAllTAItems(workId, educType, educForm, semestr, educlevel);
 
             using (var ctx = new CaratDbContext(m_dbPath))
             {
@@ -72,7 +73,8 @@ namespace Carat.EF.Repositories
                                                    && b.EducForm == educForm
                                                    && b.Course == course
                                                    && b.Semestr == semestr
-                                                   && b.EducLevel == educlevel).ToList();
+                                                   && b.EducLevel == educlevel
+                                                   && b.WorkId == workId).ToList();
             }
         }
 

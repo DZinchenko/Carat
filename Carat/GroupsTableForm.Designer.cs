@@ -73,6 +73,7 @@ namespace Carat
             this.dataGridViewGroups.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGroups_CellValueChanged);
             this.dataGridViewGroups.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewGroups_DataError);
             this.dataGridViewGroups.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewGroups_RowsRemoved);
+            this.dataGridViewGroups.SelectionChanged += new System.EventHandler(this.dataGridViewGroups_SelectionChanged);
             // 
             // GroupCourse
             // 
@@ -110,7 +111,7 @@ namespace Carat
             "Вечірня"});
             this.GroupEduForm.Name = "GroupEduForm";
             this.GroupEduForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GroupEduForm.Width = 106;
+            this.GroupEduForm.Width = 95;
             // 
             // GroupsEducLevel
             // 
@@ -124,7 +125,7 @@ namespace Carat
             "PhD"});
             this.GroupsEducLevel.Name = "GroupsEducLevel";
             this.GroupsEducLevel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GroupsEducLevel.Width = 103;
+            this.GroupsEducLevel.Width = 93;
             // 
             // GroupBudj_cnt
             // 

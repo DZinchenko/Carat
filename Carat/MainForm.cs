@@ -17,6 +17,7 @@ namespace Carat
     {
         private string m_dbName = Directory.GetCurrentDirectory() + "\\Carat.db";
         private uint radioButtonNotificationCounter = 0;
+        private object[] m_coursesValues = new object[] {"1", "2", "3", "4"};
 
         public Form subjectsForm = null;
         public Form groupsForm = null;
@@ -36,6 +37,7 @@ namespace Carat
             comboBoxEducForm.SelectedIndex = 0;
             comboBoxCourse.SelectedIndex = 0;
             comboBoxEducLevel.SelectedIndex = 0;
+
             radioButtonFirst.Checked = true;
             radioButtonAll.Enabled = false;
 
@@ -425,7 +427,8 @@ namespace Carat
                                                     getCourseFilter(), 
                                                     getSemesterFilter(), 
                                                     getEducLevelFilter(),
-                                                    getIsEmptyWorks());
+                                                    getIsEmptyWorks(),
+                                                    m_coursesValues);
 
                 openChildForm(curriculumForm);
             }
@@ -503,6 +506,29 @@ namespace Carat
 
         private void comboBoxEducLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int selectedIndex ;
+
+            if (comboBoxEducLevel.SelectedIndex == 2)
+            {
+                selectedIndex = comboBoxCourse.SelectedIndex > 2 ? 0 : comboBoxCourse.SelectedIndex;
+                comboBoxCourse.Items.Clear();
+                m_coursesValues = new object[] { "1", "2" };
+            }
+            else 
+            {
+                selectedIndex = comboBoxCourse.SelectedIndex;
+                comboBoxCourse.Items.Clear();
+                m_coursesValues = new object[] { "1", "2", "3", "4" };
+            }
+            comboBoxCourse.Items.Add("<всі>");
+
+            foreach (var item in m_coursesValues)
+            {
+                comboBoxCourse.Items.Add(item);
+            }
+
+            comboBoxCourse.SelectedIndex = selectedIndex;
+
             SetIsFiltersValuesSelected();
             ReopenFiltersUsersForms();
         }

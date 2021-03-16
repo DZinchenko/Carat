@@ -15,53 +15,61 @@ namespace Carat.EF.Repositories
             m_dbPath = dbPath;
         }
 
-        public List<GroupsToTAItem> GetAllGroupsToTeachers()
+        public List<GroupsToTAItem> GetAllGroupsToTAItem()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
                 return ctx.GroupsToTeachers.ToList();
             }
         }
-        public GroupsToTAItem GetGroupsToTeacher(int groupsToTeacherId)
+        public List<GroupsToTAItem> GetGroupsToTAItem(int TAItemId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.GroupsToTeachers.Where(b => b.Id == groupsToTeacherId).FirstOrDefault();
+                return ctx.GroupsToTeachers.Where(b => b.TAItemID == TAItemId).ToList();
             }
         }
 
-        public void AddGroupsToTeacher(GroupsToTAItem groupsToTeacher)
+        public GroupsToTAItem GetGroupsToTAItem(int TAItemId, int groupId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Add(groupsToTeacher);
+                return ctx.GroupsToTeachers.Where(b => b.TAItemID == TAItemId && b.GroupId == groupId).FirstOrDefault();
+            }
+        }
+
+        public void AddGroupsToTAItem(GroupsToTAItem groupsToTAItem)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.Add(groupsToTAItem);
                 ctx.SaveChanges();
             }
         }
 
-        public void RemoveGroupsToTeacher(GroupsToTAItem groupsToTeacher)
+        public void RemoveGroupsToTAItem(GroupsToTAItem groupsToTAItem)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Remove(groupsToTeacher);
+                ctx.Remove(groupsToTAItem);
                 ctx.SaveChanges();
             }
         }
 
-        public void UpdateGroupsToTeacher(GroupsToTAItem groupsToTeacher)
+        public void UpdateGroupsToTAItem(GroupsToTAItem groupsToTAItem)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Update(groupsToTeacher);
+                ctx.Update(groupsToTAItem);
                 ctx.SaveChanges();
             }
         }
 
-        public void DeleteAllGroupsToTeachers()
+        public void DeleteAllGroupsToTAItem()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.RemoveRange(GetAllGroupsToTeachers());
+                ctx.RemoveRange(GetAllGroupsToTAItem());
                 ctx.SaveChanges();
             }
         }

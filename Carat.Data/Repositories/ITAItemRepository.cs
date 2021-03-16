@@ -7,8 +7,8 @@ namespace Carat.Data.Repositories
     {
         List<TAItem> GetAllTAItems();
         List<TAItem> GetTAItems(int workId);
-        List<TAItem> GetAllTAItems(string educType, string educForm, uint semestr, string educlevel);
-        List<TAItem> GetAllTAItems(string educType, string educForm, uint course, uint semestr, string educlevel);
+        List<TAItem> GetAllTAItems(int workId, string educType, string educForm, uint semestr, string educlevel);
+        List<TAItem> GetAllTAItems(int workId, string educType, string educForm, uint course, uint semestr, string educlevel);
         TAItem GetTAItem(int TAItemId);
         void AddTAItem(TAItem TAItem);
         void RemoveTAItem(TAItem TAItem);

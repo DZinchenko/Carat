@@ -28,6 +28,7 @@ namespace Carat
         private ITAItemRepository m_TAItemRepository = null;
 
         private bool isSelectionChanging = false;
+        private string m_dbPath;
 
         private double selectedFreeHours = 0;
         private int selectedWorkId = 0;
@@ -53,6 +54,7 @@ namespace Carat
                               bool isEmptyWorks)
         {
             InitializeComponent();
+            m_dbPath = dbPath;
 
             m_educType = educType;
             m_educForm = educForm;
@@ -161,7 +163,7 @@ namespace Carat
         {
             comboBoxTATeachers.Enabled = false;
 
-            if (!(dataGridViewTAWorks.SelectedCells.Count == 1))
+            if (!(dataGridViewTAWorks.SelectedCells.Count == 1 || (dataGridViewTAWorks.SelectedRows.Count == 1)))
             {
                 return;
             }
@@ -209,7 +211,17 @@ namespace Carat
             foreach (var item in taItems)
             {
                 dataGridViewTATeachers.Rows.Add(m_teacherRepository.GetTeacher(item.TeacherId)?.Name, item?.WorkHours, "");
-            }           
+
+                var groupsToTAItem = m_groupsToTeacherRepository.GetGroupsToTAItem(item.Id);
+                string buttonText = "";
+
+                foreach (var groupToTAItem in groupsToTAItem)
+                {
+                    buttonText += m_groupRepository.GetGroup(groupToTAItem.GroupId).Name + "; ";
+                }
+
+                dataGridViewTATeachers.Rows[dataGridViewTATeachers.Rows.Count - 1].Cells[2].Value = buttonText;
+            }
         }
 
         private void RemoveLastRowTAItems()
@@ -222,24 +234,6 @@ namespace Carat
             }
 
             dataGridViewTATeachers.Rows.Remove(dataGridViewTATeachers.Rows[index]);
-        }
-
-        private void comboBoxTATeachers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxTATeachers.SelectedIndex < 0)
-            {
-                return;
-            }
-
-            var teacher = m_teacherRepository.GetTeacherByName(comboBoxTATeachers.SelectedItem.ToString());
-
-            if (teacher != null)
-            {
-                var dgvIndex = dataGridViewTATeachers.Rows.Count;
-
-                dataGridViewTATeachers.Rows.Add();
-                dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, 0, "");
-            }
         }
 
         private void RemoveLastTAItem()
@@ -319,9 +313,9 @@ namespace Carat
 
         private void SyncData()
         {
-            var TAItems = m_TAItemRepository.GetAllTAItems(m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
+            var TAItems = m_TAItemRepository.GetAllTAItems(selectedWorkId, m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
 
-            for (int i = 0; i < TAItems.Count; ++i)
+            for (int i = 0; i < dataGridViewTATeachers.Rows.Count; ++i)
             {
                 dataGridViewTATeachers.Rows[i].SetValues(
                     m_teacherRepository.GetTeacher(TAItems[i].TeacherId)?.Name, TAItems[i].WorkHours);
@@ -364,6 +358,7 @@ namespace Carat
                         {
                             var teacher = m_teacherRepository.GetTeacherByName(
                                 dataGridViewTATeachers[e.ColumnIndex, e.RowIndex]?.Value?.ToString()?.Trim());
+                            var work = m_workRepository.GetWork(item.WorkId);
 
                             if (teacher == null)
                                 throw new Exception();
@@ -421,7 +416,7 @@ namespace Carat
 
         private void dataGridViewTATeachers_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            var items = m_TAItemRepository.GetAllTAItems(m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
+            var items = m_TAItemRepository.GetAllTAItems(selectedWorkId, m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
 
             if (e.RowIndex < 0)
             {
@@ -437,10 +432,65 @@ namespace Carat
             {
                 for (int i = 0; i < e.RowCount; ++i)
                 {
-                    m_TAItemRepository.RemoveTAItem(items[i + e.RowIndex]);
+                    m_TAItemRepository.RemoveTAItem(items[i]);
                 }
 
                 SyncHours(selectedWorkId);
+            }
+        }
+
+        private void comboBoxTATeachers_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (comboBoxTATeachers.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            var teacher = m_teacherRepository.GetTeacherByName(comboBoxTATeachers.SelectedItem.ToString());
+
+            if (teacher != null)
+            {
+                var dgvIndex = dataGridViewTATeachers.Rows.Count;
+
+                dataGridViewTATeachers.Rows.Add();
+                dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, dataGridViewTAWorks.Rows[selectedWorkIndex].Cells[1].Value.ToString(), "");
+            }
+
+            dataGridViewTATeachers.Focus();
+        }
+
+        private void dataGridViewTATeachers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                var but = senderGrid.Columns[e.ColumnIndex] as DataGridViewButtonColumn;
+                but.Text = "Lol";
+                but.Name = "Lol";
+                but.Tag = "Lol";
+                but.ToolTipText = "Lol";
+            }
+        }
+
+        private void dataGridViewTATeachers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var TAItem = m_TAItemRepository.GetTAItems(selectedWorkId)[e.RowIndex];
+
+            if (e.ColumnIndex == 2)
+            {
+                var form = new SelectGroups(TAItem, m_dbPath);
+                form.ShowDialog();
+                
+                var groupsToTAItem = m_groupsToTeacherRepository.GetGroupsToTAItem(TAItem.Id);
+                string buttonText = "";
+
+                foreach (var groupToTAItem in groupsToTAItem)
+                {
+                    buttonText += m_groupRepository.GetGroup(groupToTAItem.GroupId).Name + "; ";
+                }
+
+                dataGridViewTATeachers.Rows[e.RowIndex].Cells[2].Value = buttonText;
             }
         }
     }

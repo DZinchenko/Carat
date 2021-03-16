@@ -7,6 +7,7 @@ namespace Carat.Data.Repositories
     {
         List<Group> GetAllGroups();
         Group GetGroup(int groupId);
+        List<Group> GetGroups(uint course, string educForm, string educLevel);
         void AddGroup(Group group);
         void RemoveGroup(Group group);
         void UpdateGroup(Group group);
