@@ -23,11 +23,21 @@ namespace Carat.EF.Repositories
             }
         }
 
-        public List<Work> GetWorks(int curriculumItemId)
+        public List<Work> GetWorks(int curriculumItemId, bool withoutZeroHours)
         {
-            using (var ctx = new CaratDbContext(m_dbPath))
+            if (withoutZeroHours)
             {
-                return ctx.Works.Where(b => b.CurriculumItemId == curriculumItemId).ToList();
+                using (var ctx = new CaratDbContext(m_dbPath))
+                {
+                    return ctx.Works.Where(b => b.CurriculumItemId == curriculumItemId && b.TotalHours > 0.00001).ToList();
+                }
+            }
+            else
+            {
+                using (var ctx = new CaratDbContext(m_dbPath))
+                {
+                    return ctx.Works.Where(b => b.CurriculumItemId == curriculumItemId).ToList();
+                }
             }
         }
 
@@ -44,6 +54,15 @@ namespace Carat.EF.Repositories
             using (var ctx = new CaratDbContext(m_dbPath))
             {
                 ctx.Add(work);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void AddWorks(List<Work> works)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.AddRange(works);
                 ctx.SaveChanges();
             }
         }

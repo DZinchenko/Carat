@@ -21,6 +21,7 @@ namespace Carat
         private ISubjectRepository m_subjectRepository;
         private IWorkTypeRepository m_workTypeRepository;
         private IWorkRepository m_workRepository;
+
         private MainForm m_parentForm = null;
         private const string IncorrectDataMessage = "Некоректні дані!";
         private bool isSelectionChanging = false;
@@ -29,6 +30,7 @@ namespace Carat
         private uint m_course;
         private uint m_semestr;
         private string m_educLevel;
+        private bool m_isEmptyWorks;
 
         public CurriculumForm(MainForm parentForm,
                               string dbName,
@@ -36,7 +38,8 @@ namespace Carat
                               string educForm,
                               uint course,
                               uint semestr,
-                              string educLevel)
+                              string educLevel,
+                              bool isEmptyWorks)
         {
             InitializeComponent();
             m_parentForm = parentForm;
@@ -46,6 +49,7 @@ namespace Carat
             m_course = course;
             m_semestr = semestr;
             m_educLevel = educLevel;
+            m_isEmptyWorks = isEmptyWorks;
 
             EnableListBoxes();
 
@@ -202,6 +206,8 @@ namespace Carat
 
                 m_curriculumItemRepository.AddCurriculumItem(curriculumItem);
 
+                var subjectWorks = new List<Work>();
+
                 foreach (var workType in m_workTypeRepository.GetAllWorkTypes())
                 {
                     var work = new Work();
@@ -211,19 +217,24 @@ namespace Carat
                     work.CurriculumItemId = m_curriculumItemRepository.GetCurriculumItem(m_subjectRepository.GetSubject(curriculumItem.SubjectId).Id, m_educType, m_educForm, course, m_semestr, m_educLevel).Id;
                     work.TotalHours = 0;
 
-                    m_workRepository.AddWork(work);
+                    subjectWorks.Add(work);
                 }
+
+                m_workRepository.AddWorks(subjectWorks);
+
+                dataGridViewCurriculumSubjects.ClearSelection();
+                dataGridViewCurriculumSubjects.Rows[dataGridViewCurriculumSubjects.Rows.Count - 1].Selected = true;
             }
         }
 
-        private bool isValidSubject(string name, string course, DataGridView dgv)
+        private bool isValidSubject(string name, uint course, DataGridView dgv)
         {
             int duplicatesCounter = 0;
 
             for (int i = 0; i < dgv.Rows.Count; ++i)
             {
                 if ((dgv[0, i].Value?.ToString().ToLower() == name.ToLower()) 
-                    && dgv[1, i].Value?.ToString().ToLower() == course)
+                    && dgv[1, i].Value?.ToString().ToLower() == course.ToString())
                 {
                     ++duplicatesCounter;
                 }
@@ -247,7 +258,7 @@ namespace Carat
 
                 if (isNewObject)
                 {
-                    if (!isValidSubject(name, listBoxCourse.SelectedItem.ToString(), dataGridViewCurriculumSubjects))
+                    if (!isValidSubject(name, GetCourse(), dataGridViewCurriculumSubjects))
                     {
                         MessageBox.Show(IncorrectDataMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
@@ -331,7 +342,7 @@ namespace Carat
 
         private void dataGridViewCurriculumSubjects_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewCurriculumSubjects.SelectedCells.Count == 1)
+            if (dataGridViewCurriculumSubjects.SelectedCells.Count == 1 || dataGridViewCurriculumSubjects.SelectedRows.Count == 1)
             {
                 var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
@@ -350,7 +361,7 @@ namespace Carat
                 }
 
                 var curriculumItemId = curriculumItems[rowIndex].Id;
-                var curriculumItemWorks = m_workRepository.GetWorks(curriculumItemId);
+                var curriculumItemWorks = m_workRepository.GetWorks(curriculumItemId, m_isEmptyWorks);
 
                 isSelectionChanging = true;
                 for (int i = 0, limit = dataGridViewCurriculumWorkTypes.RowCount; i < limit; ++i)
@@ -395,7 +406,7 @@ namespace Carat
                 return;
             }
 
-            var curriculumItemWorks = m_workRepository.GetWorks(getCurrentCurriculumId());
+            var curriculumItemWorks = m_workRepository.GetWorks(getCurrentCurriculumId(), m_isEmptyWorks);
 
             if (e.RowIndex < curriculumItemWorks.Count)
             {
@@ -444,7 +455,7 @@ namespace Carat
 
         private void SyncDataCurriculumWorks()
         {
-            var works = m_workRepository.GetWorks(getCurrentCurriculumId());
+            var works = m_workRepository.GetWorks(getCurrentCurriculumId(), m_isEmptyWorks);
 
             if (works.Count != dataGridViewCurriculumWorkTypes.Rows.Count)
             {
@@ -515,7 +526,7 @@ namespace Carat
         {
             if (!isSelectionChanging)
             {
-                var works = m_workRepository.GetWorks(getCurrentCurriculumId());
+                var works = m_workRepository.GetWorks(getCurrentCurriculumId(), m_isEmptyWorks);
 
                 if (e.RowIndex < 0)
                 {

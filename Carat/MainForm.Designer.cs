@@ -48,7 +48,6 @@
             this.comboBoxEducLevel = new System.Windows.Forms.ComboBox();
             this.labelEducLevel = new System.Windows.Forms.Label();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.comboBoxSemestr = new System.Windows.Forms.ComboBox();
             this.labelSemestr = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -82,6 +81,13 @@
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
+            this.radioButtonFirst = new System.Windows.Forms.RadioButton();
+            this.radioButtonSecond = new System.Windows.Forms.RadioButton();
+            this.radioButtonAll = new System.Windows.Forms.RadioButton();
+            this.panelSemestr = new System.Windows.Forms.Panel();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.checkBoxEmptyWorks = new System.Windows.Forms.CheckBox();
+            this.labelIsEmptyWorks = new System.Windows.Forms.Label();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
@@ -97,6 +103,8 @@
             this.panelReportSubmenu.SuspendLayout();
             this.panelSectionSubmenu.SuspendLayout();
             this.panelTablesSubmenu.SuspendLayout();
+            this.panelSemestr.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.SuspendLayout();
             // 
             // panelOptions
@@ -166,6 +174,7 @@
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(240, 22);
             this.toolStripMenuItem3.Text = "Зберегти резервну копію БД...";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -222,7 +231,7 @@
             // workTypesToolStripMenuItem
             // 
             this.workTypesToolStripMenuItem.Name = "workTypesToolStripMenuItem";
-            this.workTypesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.workTypesToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.workTypesToolStripMenuItem.Text = "Види робіт";
             this.workTypesToolStripMenuItem.Click += new System.EventHandler(this.workTypesToolStripMenuItem_Click);
             // 
@@ -244,11 +253,14 @@
             // 
             this.panelTools.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
             this.panelTools.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTools.Controls.Add(this.labelIsEmptyWorks);
+            this.panelTools.Controls.Add(this.checkBoxEmptyWorks);
+            this.panelTools.Controls.Add(this.pictureBox7);
+            this.panelTools.Controls.Add(this.panelSemestr);
             this.panelTools.Controls.Add(this.comboBoxEducLevel);
+            this.panelTools.Controls.Add(this.labelSemestr);
             this.panelTools.Controls.Add(this.labelEducLevel);
             this.panelTools.Controls.Add(this.pictureBox6);
-            this.panelTools.Controls.Add(this.comboBoxSemestr);
-            this.panelTools.Controls.Add(this.labelSemestr);
             this.panelTools.Controls.Add(this.pictureBox4);
             this.panelTools.Controls.Add(this.pictureBox3);
             this.panelTools.Controls.Add(this.labelCourse);
@@ -280,7 +292,7 @@
             "Бакалавр",
             "Магістр",
             "PhD"});
-            this.comboBoxEducLevel.Location = new System.Drawing.Point(834, 6);
+            this.comboBoxEducLevel.Location = new System.Drawing.Point(559, 6);
             this.comboBoxEducLevel.Name = "comboBoxEducLevel";
             this.comboBoxEducLevel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.comboBoxEducLevel.Size = new System.Drawing.Size(82, 23);
@@ -292,7 +304,7 @@
             // 
             this.labelEducLevel.AutoSize = true;
             this.labelEducLevel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelEducLevel.Location = new System.Drawing.Point(717, 6);
+            this.labelEducLevel.Location = new System.Drawing.Point(442, 6);
             this.labelEducLevel.Name = "labelEducLevel";
             this.labelEducLevel.Size = new System.Drawing.Size(116, 19);
             this.labelEducLevel.TabIndex = 11;
@@ -301,38 +313,17 @@
             // pictureBox6
             // 
             this.pictureBox6.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox6.Location = new System.Drawing.Point(693, 4);
+            this.pictureBox6.Location = new System.Drawing.Point(418, 4);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(27, 26);
             this.pictureBox6.TabIndex = 10;
             this.pictureBox6.TabStop = false;
             // 
-            // comboBoxSemestr
-            // 
-            this.comboBoxSemestr.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.comboBoxSemestr.BackColor = System.Drawing.Color.White;
-            this.comboBoxSemestr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSemestr.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.comboBoxSemestr.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxSemestr.FormattingEnabled = true;
-            this.comboBoxSemestr.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.comboBoxSemestr.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.comboBoxSemestr.Location = new System.Drawing.Point(632, 6);
-            this.comboBoxSemestr.Name = "comboBoxSemestr";
-            this.comboBoxSemestr.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.comboBoxSemestr.Size = new System.Drawing.Size(55, 23);
-            this.comboBoxSemestr.TabIndex = 8;
-            this.comboBoxSemestr.Tag = "";
-            this.comboBoxSemestr.SelectedIndexChanged += new System.EventHandler(this.comboBoxSemestr_SelectedIndexChanged);
-            this.comboBoxSemestr.DropDownClosed += new System.EventHandler(this.comboBoxSemestr_DropDownClosed);
-            // 
             // labelSemestr
             // 
             this.labelSemestr.AutoSize = true;
             this.labelSemestr.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSemestr.Location = new System.Drawing.Point(568, 6);
+            this.labelSemestr.Location = new System.Drawing.Point(798, 6);
             this.labelSemestr.Name = "labelSemestr";
             this.labelSemestr.Size = new System.Drawing.Size(65, 19);
             this.labelSemestr.TabIndex = 9;
@@ -341,7 +332,7 @@
             // pictureBox4
             // 
             this.pictureBox4.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox4.Location = new System.Drawing.Point(544, 4);
+            this.pictureBox4.Location = new System.Drawing.Point(774, 4);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(27, 26);
             this.pictureBox4.TabIndex = 6;
@@ -350,7 +341,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox3.Location = new System.Drawing.Point(418, 4);
+            this.pictureBox3.Location = new System.Drawing.Point(647, 4);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(27, 26);
             this.pictureBox3.TabIndex = 3;
@@ -360,7 +351,7 @@
             // 
             this.labelCourse.AutoSize = true;
             this.labelCourse.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCourse.Location = new System.Drawing.Point(441, 6);
+            this.labelCourse.Location = new System.Drawing.Point(671, 6);
             this.labelCourse.Name = "labelCourse";
             this.labelCourse.Size = new System.Drawing.Size(41, 19);
             this.labelCourse.TabIndex = 8;
@@ -390,7 +381,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxCourse.Location = new System.Drawing.Point(483, 6);
+            this.comboBoxCourse.Location = new System.Drawing.Point(713, 6);
             this.comboBoxCourse.Name = "comboBoxCourse";
             this.comboBoxCourse.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.comboBoxCourse.Size = new System.Drawing.Size(55, 23);
@@ -794,6 +785,81 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
+            // radioButtonFirst
+            // 
+            this.radioButtonFirst.AutoSize = true;
+            this.radioButtonFirst.Location = new System.Drawing.Point(4, 3);
+            this.radioButtonFirst.Name = "radioButtonFirst";
+            this.radioButtonFirst.Size = new System.Drawing.Size(31, 19);
+            this.radioButtonFirst.TabIndex = 0;
+            this.radioButtonFirst.TabStop = true;
+            this.radioButtonFirst.Text = "1";
+            this.radioButtonFirst.UseVisualStyleBackColor = true;
+            this.radioButtonFirst.CheckedChanged += new System.EventHandler(this.radioButtonFirst_CheckedChanged);
+            // 
+            // radioButtonSecond
+            // 
+            this.radioButtonSecond.AutoSize = true;
+            this.radioButtonSecond.Location = new System.Drawing.Point(36, 3);
+            this.radioButtonSecond.Name = "radioButtonSecond";
+            this.radioButtonSecond.Size = new System.Drawing.Size(31, 19);
+            this.radioButtonSecond.TabIndex = 1;
+            this.radioButtonSecond.TabStop = true;
+            this.radioButtonSecond.Text = "2";
+            this.radioButtonSecond.UseVisualStyleBackColor = true;
+            this.radioButtonSecond.CheckedChanged += new System.EventHandler(this.radioButtonSecond_CheckedChanged);
+            // 
+            // radioButtonAll
+            // 
+            this.radioButtonAll.AutoSize = true;
+            this.radioButtonAll.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonAll.Location = new System.Drawing.Point(68, 3);
+            this.radioButtonAll.Name = "radioButtonAll";
+            this.radioButtonAll.Size = new System.Drawing.Size(32, 19);
+            this.radioButtonAll.TabIndex = 2;
+            this.radioButtonAll.TabStop = true;
+            this.radioButtonAll.Text = "Σ";
+            this.radioButtonAll.UseVisualStyleBackColor = true;
+            this.radioButtonAll.CheckedChanged += new System.EventHandler(this.radioButtonAll_CheckedChanged);
+            // 
+            // panelSemestr
+            // 
+            this.panelSemestr.Controls.Add(this.radioButtonAll);
+            this.panelSemestr.Controls.Add(this.radioButtonSecond);
+            this.panelSemestr.Controls.Add(this.radioButtonFirst);
+            this.panelSemestr.Location = new System.Drawing.Point(859, 5);
+            this.panelSemestr.Name = "panelSemestr";
+            this.panelSemestr.Size = new System.Drawing.Size(100, 24);
+            this.panelSemestr.TabIndex = 14;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox7.Location = new System.Drawing.Point(964, 4);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox7.TabIndex = 15;
+            this.pictureBox7.TabStop = false;
+            // 
+            // checkBoxEmptyWorks
+            // 
+            this.checkBoxEmptyWorks.AutoSize = true;
+            this.checkBoxEmptyWorks.Location = new System.Drawing.Point(1043, 11);
+            this.checkBoxEmptyWorks.Name = "checkBoxEmptyWorks";
+            this.checkBoxEmptyWorks.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEmptyWorks.TabIndex = 16;
+            this.checkBoxEmptyWorks.UseVisualStyleBackColor = true;
+            this.checkBoxEmptyWorks.CheckedChanged += new System.EventHandler(this.checkBoxEmptyWorks_CheckedChanged);
+            // 
+            // labelIsEmptyWorks
+            // 
+            this.labelIsEmptyWorks.AutoSize = true;
+            this.labelIsEmptyWorks.Location = new System.Drawing.Point(990, 10);
+            this.labelIsEmptyWorks.Name = "labelIsEmptyWorks";
+            this.labelIsEmptyWorks.Size = new System.Drawing.Size(51, 15);
+            this.labelIsEmptyWorks.TabIndex = 2;
+            this.labelIsEmptyWorks.Text = "П.П.В.Р.";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -834,6 +900,9 @@
             this.panelReportSubmenu.ResumeLayout(false);
             this.panelSectionSubmenu.ResumeLayout(false);
             this.panelTablesSubmenu.ResumeLayout(false);
+            this.panelSemestr.ResumeLayout(false);
+            this.panelSemestr.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -881,7 +950,6 @@
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Label labelCourse;
         private System.Windows.Forms.ComboBox comboBoxCourse;
-        private System.Windows.Forms.ComboBox comboBoxSemestr;
         private System.Windows.Forms.Label labelSemestr;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label labelCarat;
@@ -892,6 +960,13 @@
         private System.Windows.Forms.Label labelEducLevel;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.ToolStripMenuItem workTypesToolStripMenuItem;
+        private System.Windows.Forms.RadioButton radioButtonAll;
+        private System.Windows.Forms.RadioButton radioButtonSecond;
+        private System.Windows.Forms.RadioButton radioButtonFirst;
+        private System.Windows.Forms.Panel panelSemestr;
+        private System.Windows.Forms.CheckBox checkBoxEmptyWorks;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.Label labelIsEmptyWorks;
     }
 }
 

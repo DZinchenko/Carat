@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,8 @@ namespace Carat
 {
     public partial class MainForm : Form
     {
-        private string m_dbName = "Carat.db";
+        private string m_dbName = Directory.GetCurrentDirectory() + "\\Carat.db";
+        private uint radioButtonNotificationCounter = 0;
 
         public Form subjectsForm = null;
         public Form groupsForm = null;
@@ -33,8 +35,9 @@ namespace Carat
             comboBoxEducType.SelectedIndex = 0;
             comboBoxEducForm.SelectedIndex = 0;
             comboBoxCourse.SelectedIndex = 0;
-            comboBoxSemestr.SelectedIndex = 0;
             comboBoxEducLevel.SelectedIndex = 0;
+            radioButtonFirst.Checked = true;
+            radioButtonAll.Enabled = false;
 
             dataBaseStatelabel.Text = m_dbName;
         }
@@ -111,9 +114,25 @@ namespace Carat
             return comboBoxEducLevel.SelectedItem.ToString();
         }
 
+        private bool getIsEmptyWorks()
+        {
+            return checkBoxEmptyWorks.Checked;
+        }
+
         private uint getSemesterFilter()
         {
-            return Convert.ToUInt32(comboBoxSemestr.SelectedItem.ToString());
+            uint result = 0;
+
+            if (radioButtonFirst.Checked)
+            {
+                result = 1;
+            }
+            else if (radioButtonSecond.Checked)
+            {
+                result = 2;
+            }
+
+            return result;
         }
 
         private uint getCourseFilter()
@@ -405,7 +424,8 @@ namespace Carat
                                                     getEducFormFilter(), 
                                                     getCourseFilter(), 
                                                     getSemesterFilter(), 
-                                                    getEducLevelFilter());
+                                                    getEducLevelFilter(),
+                                                    getIsEmptyWorks());
 
                 openChildForm(curriculumForm);
             }
@@ -432,7 +452,8 @@ namespace Carat
                                                     getEducFormFilter(),
                                                     getCourseFilter(),
                                                     getSemesterFilter(),
-                                                    getEducLevelFilter());
+                                                    getEducLevelFilter(),
+                                                    getIsEmptyWorks());
 
                 openChildForm(TAForm);
             }
@@ -521,6 +542,67 @@ namespace Carat
         private void baseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             baseToolStripMenuItem.ForeColor = Color.Black;
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            var filePath = string.Empty;
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.InitialDirectory = "c:\\";
+                saveFileDialog.Filter = "Data bases|*.db";
+                saveFileDialog.FilterIndex = 2;
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    File.Copy(m_dbName,saveFileDialog.FileName);
+                }
+            }
+        }
+
+        private void radioButtonSecond_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonNotificationCounter == 0)
+            {
+                ReopenFiltersUsersForms();
+                ++radioButtonNotificationCounter;
+            }
+            else {
+                radioButtonNotificationCounter = 0;
+            }
+        }
+
+        private void radioButtonFirst_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonNotificationCounter == 0)
+            {
+                ReopenFiltersUsersForms();
+                ++radioButtonNotificationCounter;
+            }
+            else
+            {
+                radioButtonNotificationCounter = 0;
+            }
+        }
+
+        private void radioButtonAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonNotificationCounter == 0)
+            {
+                ReopenFiltersUsersForms();
+                ++radioButtonNotificationCounter;
+            }
+            else
+            {
+                radioButtonNotificationCounter = 0;
+            }
+        }
+
+        private void checkBoxEmptyWorks_CheckedChanged(object sender, EventArgs e)
+        {
+            ReopenFiltersUsersForms();
         }
     }
 }

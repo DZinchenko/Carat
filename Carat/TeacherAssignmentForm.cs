@@ -39,6 +39,7 @@ namespace Carat
         private uint m_course;
         private uint m_semestr;
         private string m_educLevel;
+        private bool m_isEmptyWorks;
 
         const string IncorrectDataMessage = "Некоректні дані";
 
@@ -48,7 +49,8 @@ namespace Carat
                               string educForm,
                               uint course,
                               uint semestr,
-                              string educLevel)
+                              string educLevel,
+                              bool isEmptyWorks)
         {
             InitializeComponent();
 
@@ -57,6 +59,7 @@ namespace Carat
             m_course = course;
             m_semestr = semestr;
             m_educLevel = educLevel;
+            m_isEmptyWorks = isEmptyWorks;
 
             comboBoxTATeachers.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTATeachers.Enabled = false;
@@ -138,7 +141,7 @@ namespace Carat
                 RemoveLastRowTAWorks();
             }
 
-            var works = m_workRepository.GetWorks(curriculumItemId);
+            var works = m_workRepository.GetWorks(curriculumItemId, m_isEmptyWorks);
 
             foreach (var work in works)
             {
@@ -164,7 +167,7 @@ namespace Carat
             }
 
             var rowIndex = dataGridViewTAWorks.SelectedCells[0].RowIndex;
-            var works = m_workRepository.GetWorks(selectedCurriculumSubjectId);
+            var works = m_workRepository.GetWorks(selectedCurriculumSubjectId, m_isEmptyWorks);
 
             if (rowIndex >= works.Count)
             {
