@@ -241,27 +241,7 @@ namespace Carat
 
         private void dataGridViewGroups_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewGroups.SelectedRows.Count == 1 || dataGridViewGroups.SelectedCells.Count == 1)
-            {
-                var rowIndex = dataGridViewGroups.SelectedCells[0].RowIndex;
-                var groups = m_groupRepository.GetAllGroups();
-
-                if (rowIndex < 0 || rowIndex >= groups.Count)
-                {
-                    return;
-                }
-
-                if (dataGridViewGroups.Rows[rowIndex].Cells[3].Value.ToString() == "Магістр")
-                {
-                    //GroupCourse.Items.Clear();
-                    //GroupCourse.Items.AddRange(new object[]{"1","2"});
-                }
-                else 
-                {
-                    //GroupCourse.Items.Clear();
-                    //GroupCourse.Items.AddRange(new object[] { "1", "2", "3", "4" });
-                }
-            }
+            
         }
     }
 }
