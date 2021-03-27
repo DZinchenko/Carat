@@ -93,6 +93,16 @@ namespace Carat.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_импорт_xls_24_norm {
+            get {
+                object obj = ResourceManager.GetObject("icons8-импорт-xls-24-norm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_круг_16 {
             get {
                 object obj = ResourceManager.GetObject("icons8-круг-16", resourceCulture);

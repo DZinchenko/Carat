@@ -35,30 +35,36 @@ namespace Carat
             this.dataGridViewSubjects = new System.Windows.Forms.DataGridView();
             this.SubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonImportSubjects = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSubjects)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonImportSubjects);
             this.panel1.Controls.Add(this.buttonExportSubjects);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(899, 27);
+            this.panel1.Size = new System.Drawing.Size(899, 26);
             this.panel1.TabIndex = 1;
             // 
             // buttonExportSubjects
             // 
             this.buttonExportSubjects.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExportSubjects.Dock = System.Windows.Forms.DockStyle.Left;
             this.buttonExportSubjects.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonExportSubjects.FlatAppearance.BorderSize = 0;
+            this.buttonExportSubjects.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.buttonExportSubjects.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.buttonExportSubjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExportSubjects.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonExportSubjects.Image = global::Carat.Properties.Resources.icons8_экспорт_xls_24;
             this.buttonExportSubjects.Location = new System.Drawing.Point(0, 0);
             this.buttonExportSubjects.Name = "buttonExportSubjects";
-            this.buttonExportSubjects.Size = new System.Drawing.Size(52, 27);
+            this.buttonExportSubjects.Size = new System.Drawing.Size(24, 26);
             this.buttonExportSubjects.TabIndex = 1;
-            this.buttonExportSubjects.Text = "Import";
             this.buttonExportSubjects.UseVisualStyleBackColor = false;
             this.buttonExportSubjects.Click += new System.EventHandler(this.buttonExportSubjects_Click);
             // 
@@ -72,11 +78,11 @@ namespace Carat
             this.SubjectName,
             this.Notes});
             this.dataGridViewSubjects.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewSubjects.Location = new System.Drawing.Point(0, 27);
+            this.dataGridViewSubjects.Location = new System.Drawing.Point(0, 26);
             this.dataGridViewSubjects.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridViewSubjects.Name = "dataGridViewSubjects";
             this.dataGridViewSubjects.RowHeadersWidth = 51;
-            this.dataGridViewSubjects.Size = new System.Drawing.Size(899, 492);
+            this.dataGridViewSubjects.Size = new System.Drawing.Size(899, 493);
             this.dataGridViewSubjects.TabIndex = 2;
             this.dataGridViewSubjects.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSubjects_CellValueChanged);
             this.dataGridViewSubjects.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewSubjects_RowsRemoved);
@@ -98,6 +104,23 @@ namespace Carat
             this.Notes.MinimumWidth = 6;
             this.Notes.Name = "Notes";
             this.Notes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // buttonImportSubjects
+            // 
+            this.buttonImportSubjects.BackColor = System.Drawing.Color.Transparent;
+            this.buttonImportSubjects.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonImportSubjects.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonImportSubjects.FlatAppearance.BorderSize = 0;
+            this.buttonImportSubjects.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.buttonImportSubjects.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.buttonImportSubjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonImportSubjects.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonImportSubjects.Image = global::Carat.Properties.Resources.icons8_импорт_xls_24_norm;
+            this.buttonImportSubjects.Location = new System.Drawing.Point(24, 0);
+            this.buttonImportSubjects.Name = "buttonImportSubjects";
+            this.buttonImportSubjects.Size = new System.Drawing.Size(24, 26);
+            this.buttonImportSubjects.TabIndex = 2;
+            this.buttonImportSubjects.UseVisualStyleBackColor = false;
             // 
             // SubjectsTableForm
             // 
@@ -128,5 +151,6 @@ namespace Carat
         private System.Windows.Forms.DataGridViewTextBoxColumn SubjectName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Notes;
         private System.Windows.Forms.Button buttonExportSubjects;
+        private System.Windows.Forms.Button buttonImportSubjects;
     }
 }
