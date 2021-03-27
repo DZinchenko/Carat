@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 using Carat.Data.Repositories;
 using Carat.Interfaces;
 using Carat.Data.Entities;
 using Carat.EF.Repositories;
+using NPOI.XSSF.UserModel;
+using NPOI.HSSF.UserModel;
 
 namespace Carat
 {
@@ -69,44 +72,55 @@ namespace Carat
 
         private void dataGridViewSubjects_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            // Check that repository with data is available
             if (m_subjectRepository == null)
             {
                 return;
             }
 
+            // Getting all data from DB
             var subjects = m_subjectRepository.GetAllSubjects();
             var subject = new Subject();
 
+            // Check that changed cell index is in data range 
             if (e.RowIndex < 0)
             {
                 return;
             }
 
+            // Getting data to object from dataGridView
             subject.Name = dataGridViewSubjects[0, e.RowIndex].Value?.ToString()?.Trim(); ;
             subject.Notes = dataGridViewSubjects[1, e.RowIndex].Value?.ToString();
 
+            // Check that changed row is modified or new created 
             if (e.RowIndex < subjects.Count)
             {
                 subject.Id = subjects[e.RowIndex].Id;
 
+                // Call isValidName function wich checks that changed data is valid
                 if (!isValidName(subject.Name))
                 {
+                    // Throw user readable error message and sync dataGridView data with DB data
                     MessageBox.Show(IncorrectNameMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     SyncData();
                     return;
                 }
 
+                // Save changed data to DB
                 m_subjectRepository.UpdateSubject(subject);
             }
-            else 
+            else
             {
+                // Call isValidName function wich checks that changed data is valid
                 if (!isValidName(subject.Name))
                 {
+                    // Throw user readable error message and remove added row
                     MessageBox.Show(IncorrectNameMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     RemoveLastRow();
                     return;
                 }
 
+                // Add to DB new data
                 m_subjectRepository.AddSubject(subject);
             }
         }
@@ -127,7 +141,7 @@ namespace Carat
 
             for (int i = 0; i < e.RowCount; ++i)
             {
-                m_subjectRepository.RemoveSubject(subjects[i+e.RowIndex]);
+                m_subjectRepository.RemoveSubject(subjects[i + e.RowIndex]);
             }
         }
 
@@ -149,6 +163,47 @@ namespace Carat
             }
 
             return duplicatesCounter > 1 ? false : true;
+        }
+
+        private void buttonExportSubjects_Click(object sender, EventArgs e)
+        {
+            var filePath = string.Empty;
+
+            using (SaveFileDialog openFileDialog = new SaveFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "Excel Files|*.xlsx";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var workbook = new XSSFWorkbook();
+                    var sheet = workbook.CreateSheet("Дисципліни");
+                    var row = sheet.CreateRow(0);
+
+                    row.CreateCell(0).SetCellValue("Назва");
+                    row.CreateCell(1).SetCellValue("Примітки");
+
+                    var allSubjects = m_subjectRepository.GetAllSubjects();
+
+                    for (int i = 0, rowIndex = 1; i < allSubjects.Count; ++i, ++rowIndex)
+                    {
+                        var dataRow = sheet.CreateRow(rowIndex);
+
+                        dataRow.CreateCell(0).SetCellValue(allSubjects[i].Name);
+                        dataRow.CreateCell(1).SetCellValue(allSubjects[i].Notes);
+                    }
+
+                    sheet.AutoSizeColumn(0);
+                    sheet.AutoSizeColumn(1);
+
+                    using (var fileData = new FileStream(openFileDialog.FileName, FileMode.Create))
+                    {
+                        workbook.Write(fileData);
+                    }
+                }
+            }
         }
     }
 }

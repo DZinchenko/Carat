@@ -160,6 +160,7 @@ namespace Carat
             // dataGridViewCurriculumWorkTypes
             // 
             this.dataGridViewCurriculumWorkTypes.AllowUserToAddRows = false;
+            this.dataGridViewCurriculumWorkTypes.AllowUserToDeleteRows = false;
             this.dataGridViewCurriculumWorkTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCurriculumWorkTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CurriculumWorkType,

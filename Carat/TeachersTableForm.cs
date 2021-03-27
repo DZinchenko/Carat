@@ -166,7 +166,14 @@ namespace Carat
                         }
                     case 1:
                         {
-                            teacher.StaffUnit = Convert.ToUInt32(dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString());
+                            var staffUnit = Convert.ToDouble(dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString());
+
+                            if (Tools.isLessThanZero(staffUnit))
+                            {
+                                throw new Exception();
+                            }
+
+                            teacher.StaffUnit = staffUnit;
                             break;
                         }
                     case 2:

@@ -308,6 +308,12 @@
   <ItemGroup>
     <None Include="Resources\preciousstone_105028.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-экспорт-xls-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-экспорт-xls-24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
