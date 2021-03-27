@@ -37,8 +37,8 @@ namespace Carat
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GroupsTableForm));
             this.dataGridViewGroups = new System.Windows.Forms.DataGridView();
-            this.GroupCourse = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GroupCourse = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupEduForm = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupsEducLevel = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBudj_cnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,8 +55,8 @@ namespace Carat
             this.dataGridViewGroups.AllowUserToResizeRows = false;
             this.dataGridViewGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewGroups.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.GroupCourse,
             this.GroupName,
+            this.GroupCourse,
             this.GroupEduForm,
             this.GroupsEducLevel,
             this.GroupBudj_cnt,
@@ -73,7 +73,14 @@ namespace Carat
             this.dataGridViewGroups.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGroups_CellValueChanged);
             this.dataGridViewGroups.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewGroups_DataError);
             this.dataGridViewGroups.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewGroups_RowsRemoved);
-            this.dataGridViewGroups.SelectionChanged += new System.EventHandler(this.dataGridViewGroups_SelectionChanged);
+            // 
+            // GroupName
+            // 
+            this.GroupName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.GroupName.HeaderText = "Назва";
+            this.GroupName.MinimumWidth = 6;
+            this.GroupName.Name = "GroupName";
+            this.GroupName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // GroupCourse
             // 
@@ -90,14 +97,6 @@ namespace Carat
             this.GroupCourse.Name = "GroupCourse";
             this.GroupCourse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.GroupCourse.Width = 39;
-            // 
-            // GroupName
-            // 
-            this.GroupName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.GroupName.HeaderText = "Назва";
-            this.GroupName.MinimumWidth = 6;
-            this.GroupName.Name = "GroupName";
-            this.GroupName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // GroupEduForm
             // 
@@ -197,8 +196,8 @@ namespace Carat
 
         #endregion
         private System.Windows.Forms.DataGridView dataGridViewGroups;
-        private System.Windows.Forms.DataGridViewComboBoxColumn GroupCourse;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn GroupCourse;
         private System.Windows.Forms.DataGridViewComboBoxColumn GroupEduForm;
         private System.Windows.Forms.DataGridViewComboBoxColumn GroupsEducLevel;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupBudj_cnt;

@@ -36,8 +36,8 @@ namespace Carat
             foreach (var group in groups)
             {
                 dataGridViewGroups.Rows.Add(
-                    group.Course,
-                    group.Name, 
+                    group.Name,
+                    group.Course.ToString(),
                     group.EducForm,
                     group.EducLevel,
                     group.BudgetNumber, 
@@ -54,8 +54,8 @@ namespace Carat
             for (int i = 0; i < groups.Count; ++i)
             {
                 dataGridViewGroups.Rows[i].SetValues(
-                    groups[i].Course,
                     groups[i].Name,
+                    groups[i].Course.ToString(),
                     groups[i].EducForm,
                     groups[i].EducLevel,
                     groups[i].BudgetNumber,
@@ -165,7 +165,7 @@ namespace Carat
         private bool UpdateData(Group group, DataGridViewCellEventArgs e, bool isNewObject)
         {
             try {
-                var name = dataGridViewGroups[1, e.RowIndex].Value?.ToString()?.Trim();
+                var name = dataGridViewGroups[0, e.RowIndex].Value?.ToString()?.Trim();
 
                 if (!isValidName(name))
                 {
@@ -183,12 +183,12 @@ namespace Carat
                 {
                     case 0:
                         {
-                            group.Course = Convert.ToUInt32(dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim());
+                            group.Name = dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString().Trim();
                             break;
                         }
                     case 1:
                         {
-                            group.Name = dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString().Trim();
+                            group.Course = Convert.ToUInt32(dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim());
                             break;
                         }
                     case 2:
@@ -237,11 +237,6 @@ namespace Carat
         private void dataGridViewGroups_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.Cancel = true;
-        }
-
-        private void dataGridViewGroups_SelectionChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 }
