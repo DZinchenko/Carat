@@ -86,7 +86,7 @@ namespace Carat
             this.TeacherStake.HeaderText = "Кіл-ть штат. один.";
             this.TeacherStake.Name = "TeacherStake";
             this.TeacherStake.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TeacherStake.Width = 112;
+            this.TeacherStake.Width = 101;
             // 
             // TeacherPosition
             // 
@@ -144,7 +144,6 @@ namespace Carat
             "Сумісник"});
             this.TeachersOccupForm.Name = "TeachersOccupForm";
             this.TeachersOccupForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TeachersOccupForm.Width = 111;
             // 
             // TeacherNotes
             // 
@@ -163,7 +162,7 @@ namespace Carat
             this.Controls.Add(this.dataGridViewTeachers);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(700, 301);
+            this.MinimumSize = new System.Drawing.Size(700, 186);
             this.Name = "TeachersTableForm";
             this.Text = "Викладачі";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TeachersTableForm_FormClosed);

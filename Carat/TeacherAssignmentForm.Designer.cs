@@ -210,7 +210,7 @@ namespace Carat
             this.Controls.Add(this.panelTeacherAssignmentBottom);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(700, 301);
+            this.MinimumSize = new System.Drawing.Size(700, 186);
             this.Name = "TeacherAssignmentForm";
             this.Text = "Навантаження";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TeacherAssignment_FormClosed);

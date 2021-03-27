@@ -24,6 +24,15 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public void AddSubjects(List<Subject> subjects)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.AddRange(subjects);
+                ctx.SaveChanges();
+            }
+        }
+
         public void RemoveSubject(Subject subject)
         {
             using (var ctx = new CaratDbContext(m_dbPath))

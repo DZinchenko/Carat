@@ -18,6 +18,7 @@ namespace Carat
         private string m_dbName = Directory.GetCurrentDirectory() + "\\Carat.db";
         private uint radioButtonNotificationCounter = 0;
         private object[] m_coursesValues = new object[] {"1", "2", "3", "4"};
+        private uint selectedWindowsStyle = 0;
 
         public Form subjectsForm = null;
         public Form groupsForm = null;
@@ -383,25 +384,40 @@ namespace Carat
             }
         }
 
+        private void UpdateWindows()
+        {
+            switch (selectedWindowsStyle)
+            {
+                case 0:
+                case 1:
+                    if (subjectsForm != null)
+                        subjectsForm.Size = panelWorkspace.Size;
+
+                    if (groupsForm != null)
+                        groupsForm.Size = panelWorkspace.Size;
+
+                    if (teachersForm != null)
+                        teachersForm.Size = panelWorkspace.Size;
+
+                    if (workTypesForm != null)
+                        workTypesForm.Size = panelWorkspace.Size;
+
+                    if (curriculumForm != null)
+                        curriculumForm.Size = panelWorkspace.Size;
+
+                    if (TAForm != null)
+                        TAForm.Size = panelWorkspace.Size;
+
+                    break;
+                case 2:
+                    ApplyShinglesMode();
+                    break;
+            }
+        }
+
         private void panelWorkspace_SizeChanged(object sender, EventArgs e)
         {
-            if (subjectsForm != null)
-                subjectsForm.Size = panelWorkspace.Size;
-
-            if (groupsForm != null)
-                groupsForm.Size = panelWorkspace.Size;
-
-            if (teachersForm != null)
-                teachersForm.Size = panelWorkspace.Size;
-
-            if (workTypesForm != null)
-                workTypesForm.Size = panelWorkspace.Size;
-
-            if (curriculumForm != null)
-                curriculumForm.Size = panelWorkspace.Size;
-
-            if (TAForm != null)
-                TAForm.Size = panelWorkspace.Size;
+            UpdateWindows();
         }
 
         private void buttonWorkTypes_Click(object sender, EventArgs e)
@@ -637,6 +653,96 @@ namespace Carat
                 var tempTAForm = TAForm as TeacherAssignmentForm;
                 tempTAForm.UpdateWorks(getIsEmptyWorks());
             }
+        }
+
+        private void windowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            windowToolStripMenuItem.ForeColor = Color.Black;
+        }
+
+        private void windowToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
+        {
+            windowToolStripMenuItem.ForeColor = Color.White;
+        }
+
+        private void windowToolStripMenuItem_MouseEnter(object sender, EventArgs e)
+        {
+            windowToolStripMenuItem.ForeColor = Color.Black;
+        }
+
+        private void windowToolStripMenuItem_MouseLeave(object sender, EventArgs e)
+        {
+            if (!windowToolStripMenuItem.Pressed)
+                windowToolStripMenuItem.ForeColor = Color.White;
+        }
+
+        private void closeAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            selectedWindowsStyle = 0;
+
+            subjectsForm?.Close();
+            groupsForm?.Close();
+            teachersForm?.Close();
+            workTypesForm?.Close();
+            curriculumForm?.Close();
+            TAForm?.Close();
+        }
+
+        private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            selectedWindowsStyle = 1;
+            UpdateWindows();
+        }
+
+        private void ApplyShinglesMode()
+        {
+            List<Form> openedForms = new List<Form>();
+            selectedWindowsStyle = 2;
+
+            if (subjectsForm != null)
+            {
+                openedForms.Add(subjectsForm);
+            }
+            if (groupsForm != null)
+            {
+                openedForms.Add(groupsForm);
+            }
+            if (teachersForm != null)
+            {
+                openedForms.Add(teachersForm);
+            }
+            if (curriculumForm != null)
+            {
+                openedForms.Add(curriculumForm);
+            }
+            if (TAForm != null)
+            {
+                openedForms.Add(TAForm);
+            }
+            if (workTypesForm != null)
+            {
+                openedForms.Add(workTypesForm);
+            }
+
+            if (openedForms.Count <= 0)
+            {
+                return;
+            }
+
+            int formHeight = panelWorkspace.Height / openedForms.Count;
+
+            foreach (var form in openedForms)
+            {
+                form.Height = formHeight;
+                form.Dock = DockStyle.Top;
+            }
+        }
+
+        private void shinglesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            selectedWindowsStyle = 2;
+            //shinglesToolStripMenuItem.CheckOnClick = true;
+            UpdateWindows();
         }
     }
 }

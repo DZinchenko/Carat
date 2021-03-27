@@ -139,7 +139,7 @@ namespace Carat
                 return;
             }
 
-            for (int i = 0; i < e.RowCount; ++i)
+            for (int i = 0; i < subjects.Count; ++i)
             {
                 m_subjectRepository.RemoveSubject(subjects[i + e.RowIndex]);
             }
@@ -169,14 +169,14 @@ namespace Carat
         {
             var filePath = string.Empty;
 
-            using (SaveFileDialog openFileDialog = new SaveFileDialog())
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "Excel Files|*.xlsx";
-                openFileDialog.FilterIndex = 2;
-                openFileDialog.RestoreDirectory = true;
+                saveFileDialog.InitialDirectory = "c:\\";
+                saveFileDialog.Filter = "Excel Files|*.xlsx";
+                saveFileDialog.FilterIndex = 2;
+                saveFileDialog.RestoreDirectory = true;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     var workbook = new XSSFWorkbook();
                     var sheet = workbook.CreateSheet("Дисципліни");
@@ -198,10 +198,49 @@ namespace Carat
                     sheet.AutoSizeColumn(0);
                     sheet.AutoSizeColumn(1);
 
-                    using (var fileData = new FileStream(openFileDialog.FileName, FileMode.Create))
+                    using (var fileData = new FileStream(saveFileDialog.FileName, FileMode.Create))
                     {
                         workbook.Write(fileData);
                     }
+                }
+            }
+        }
+
+        private void buttonImportSubjects_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "Excel Files|*.xlsx";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var workbook = new XSSFWorkbook(openFileDialog.FileName);
+                    var sheet = workbook.GetSheet("Дисципліни");
+                    var subjects = new List<Subject>();
+
+                    if (sheet == null)
+                    {
+                        return;
+                    }
+
+                    dataGridViewSubjects.Rows.Clear();
+
+                    for (int i = 1; i < sheet.LastRowNum; ++i)
+                    {
+                        var row = sheet.GetRow(i);
+                        var subject = new Subject();
+
+                        subject.Name = row.GetCell(0)?.ToString();
+                        subject.Notes = row.GetCell(1)?.ToString();
+                        subjects.Add(subject);
+                    }
+
+                    m_subjectRepository.AddSubjects(subjects);
+
+                    LoadData();
                 }
             }
         }

@@ -185,7 +185,7 @@ namespace Carat
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MinimumSize = new System.Drawing.Size(700, 301);
+            this.MinimumSize = new System.Drawing.Size(700, 186);
             this.Name = "GroupsTableForm";
             this.Text = "Групи";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GroupsTableForm_FormClosed);

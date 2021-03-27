@@ -83,7 +83,7 @@ namespace Carat
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
-            this.MinimumSize = new System.Drawing.Size(350, 301);
+            this.MinimumSize = new System.Drawing.Size(350, 279);
             this.Name = "WorkTypesTableForm";
             this.Text = "Види робіт";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WorkTypesTableForm_FormClosed);

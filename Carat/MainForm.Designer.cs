@@ -43,12 +43,22 @@
             this.baseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.workTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shinglesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTools = new System.Windows.Forms.Panel();
+            this.labelIsEmptyWorks = new System.Windows.Forms.Label();
+            this.checkBoxEmptyWorks = new System.Windows.Forms.CheckBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.panelSemestr = new System.Windows.Forms.Panel();
+            this.radioButtonAll = new System.Windows.Forms.RadioButton();
+            this.radioButtonSecond = new System.Windows.Forms.RadioButton();
+            this.radioButtonFirst = new System.Windows.Forms.RadioButton();
             this.comboBoxEducLevel = new System.Windows.Forms.ComboBox();
+            this.labelSemestr = new System.Windows.Forms.Label();
             this.labelEducLevel = new System.Windows.Forms.Label();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.labelSemestr = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.labelCourse = new System.Windows.Forms.Label();
@@ -81,16 +91,11 @@
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
-            this.radioButtonFirst = new System.Windows.Forms.RadioButton();
-            this.radioButtonSecond = new System.Windows.Forms.RadioButton();
-            this.radioButtonAll = new System.Windows.Forms.RadioButton();
-            this.panelSemestr = new System.Windows.Forms.Panel();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.checkBoxEmptyWorks = new System.Windows.Forms.CheckBox();
-            this.labelIsEmptyWorks = new System.Windows.Forms.Label();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            this.panelSemestr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -103,8 +108,6 @@
             this.panelReportSubmenu.SuspendLayout();
             this.panelSectionSubmenu.SuspendLayout();
             this.panelTablesSubmenu.SuspendLayout();
-            this.panelSemestr.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.SuspendLayout();
             // 
             // panelOptions
@@ -237,10 +240,40 @@
             // 
             // windowToolStripMenuItem
             // 
+            this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cascadeToolStripMenuItem,
+            this.shinglesToolStripMenuItem,
+            this.closeAllToolStripMenuItem});
             this.windowToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
             this.windowToolStripMenuItem.Size = new System.Drawing.Size(51, 21);
             this.windowToolStripMenuItem.Text = "Вікна ";
+            this.windowToolStripMenuItem.DropDownClosed += new System.EventHandler(this.windowToolStripMenuItem_DropDownClosed);
+            this.windowToolStripMenuItem.Click += new System.EventHandler(this.windowToolStripMenuItem_Click);
+            this.windowToolStripMenuItem.MouseEnter += new System.EventHandler(this.windowToolStripMenuItem_MouseEnter);
+            this.windowToolStripMenuItem.MouseLeave += new System.EventHandler(this.windowToolStripMenuItem_MouseLeave);
+            // 
+            // cascadeToolStripMenuItem
+            // 
+            this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cascadeToolStripMenuItem.Text = "Каскадом";
+            this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
+            // 
+            // shinglesToolStripMenuItem
+            // 
+            this.shinglesToolStripMenuItem.CheckOnClick = true;
+            this.shinglesToolStripMenuItem.Name = "shinglesToolStripMenuItem";
+            this.shinglesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.shinglesToolStripMenuItem.Text = "Черепицею";
+            this.shinglesToolStripMenuItem.Click += new System.EventHandler(this.shinglesToolStripMenuItem_Click);
+            // 
+            // closeAllToolStripMenuItem
+            // 
+            this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
+            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeAllToolStripMenuItem.Text = "Закрити всі";
+            this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.closeAllToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -278,6 +311,81 @@
             this.panelTools.Size = new System.Drawing.Size(1090, 35);
             this.panelTools.TabIndex = 1;
             // 
+            // labelIsEmptyWorks
+            // 
+            this.labelIsEmptyWorks.AutoSize = true;
+            this.labelIsEmptyWorks.Location = new System.Drawing.Point(990, 10);
+            this.labelIsEmptyWorks.Name = "labelIsEmptyWorks";
+            this.labelIsEmptyWorks.Size = new System.Drawing.Size(51, 15);
+            this.labelIsEmptyWorks.TabIndex = 2;
+            this.labelIsEmptyWorks.Text = "П.П.В.Р.";
+            // 
+            // checkBoxEmptyWorks
+            // 
+            this.checkBoxEmptyWorks.AutoSize = true;
+            this.checkBoxEmptyWorks.Location = new System.Drawing.Point(1043, 11);
+            this.checkBoxEmptyWorks.Name = "checkBoxEmptyWorks";
+            this.checkBoxEmptyWorks.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEmptyWorks.TabIndex = 16;
+            this.checkBoxEmptyWorks.UseVisualStyleBackColor = true;
+            this.checkBoxEmptyWorks.CheckedChanged += new System.EventHandler(this.checkBoxEmptyWorks_CheckedChanged);
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox7.Location = new System.Drawing.Point(964, 4);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox7.TabIndex = 15;
+            this.pictureBox7.TabStop = false;
+            // 
+            // panelSemestr
+            // 
+            this.panelSemestr.Controls.Add(this.radioButtonAll);
+            this.panelSemestr.Controls.Add(this.radioButtonSecond);
+            this.panelSemestr.Controls.Add(this.radioButtonFirst);
+            this.panelSemestr.Location = new System.Drawing.Point(859, 5);
+            this.panelSemestr.Name = "panelSemestr";
+            this.panelSemestr.Size = new System.Drawing.Size(100, 24);
+            this.panelSemestr.TabIndex = 14;
+            // 
+            // radioButtonAll
+            // 
+            this.radioButtonAll.AutoSize = true;
+            this.radioButtonAll.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonAll.Location = new System.Drawing.Point(68, 3);
+            this.radioButtonAll.Name = "radioButtonAll";
+            this.radioButtonAll.Size = new System.Drawing.Size(32, 19);
+            this.radioButtonAll.TabIndex = 2;
+            this.radioButtonAll.TabStop = true;
+            this.radioButtonAll.Text = "Σ";
+            this.radioButtonAll.UseVisualStyleBackColor = true;
+            this.radioButtonAll.CheckedChanged += new System.EventHandler(this.radioButtonAll_CheckedChanged);
+            // 
+            // radioButtonSecond
+            // 
+            this.radioButtonSecond.AutoSize = true;
+            this.radioButtonSecond.Location = new System.Drawing.Point(36, 3);
+            this.radioButtonSecond.Name = "radioButtonSecond";
+            this.radioButtonSecond.Size = new System.Drawing.Size(31, 19);
+            this.radioButtonSecond.TabIndex = 1;
+            this.radioButtonSecond.TabStop = true;
+            this.radioButtonSecond.Text = "2";
+            this.radioButtonSecond.UseVisualStyleBackColor = true;
+            this.radioButtonSecond.CheckedChanged += new System.EventHandler(this.radioButtonSecond_CheckedChanged);
+            // 
+            // radioButtonFirst
+            // 
+            this.radioButtonFirst.AutoSize = true;
+            this.radioButtonFirst.Location = new System.Drawing.Point(4, 3);
+            this.radioButtonFirst.Name = "radioButtonFirst";
+            this.radioButtonFirst.Size = new System.Drawing.Size(31, 19);
+            this.radioButtonFirst.TabIndex = 0;
+            this.radioButtonFirst.TabStop = true;
+            this.radioButtonFirst.Text = "1";
+            this.radioButtonFirst.UseVisualStyleBackColor = true;
+            this.radioButtonFirst.CheckedChanged += new System.EventHandler(this.radioButtonFirst_CheckedChanged);
+            // 
             // comboBoxEducLevel
             // 
             this.comboBoxEducLevel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
@@ -300,6 +408,16 @@
             this.comboBoxEducLevel.Tag = "";
             this.comboBoxEducLevel.SelectedIndexChanged += new System.EventHandler(this.comboBoxEducLevel_SelectedIndexChanged);
             // 
+            // labelSemestr
+            // 
+            this.labelSemestr.AutoSize = true;
+            this.labelSemestr.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelSemestr.Location = new System.Drawing.Point(798, 6);
+            this.labelSemestr.Name = "labelSemestr";
+            this.labelSemestr.Size = new System.Drawing.Size(65, 19);
+            this.labelSemestr.TabIndex = 9;
+            this.labelSemestr.Text = "Семестр:";
+            // 
             // labelEducLevel
             // 
             this.labelEducLevel.AutoSize = true;
@@ -318,16 +436,6 @@
             this.pictureBox6.Size = new System.Drawing.Size(27, 26);
             this.pictureBox6.TabIndex = 10;
             this.pictureBox6.TabStop = false;
-            // 
-            // labelSemestr
-            // 
-            this.labelSemestr.AutoSize = true;
-            this.labelSemestr.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSemestr.Location = new System.Drawing.Point(798, 6);
-            this.labelSemestr.Name = "labelSemestr";
-            this.labelSemestr.Size = new System.Drawing.Size(65, 19);
-            this.labelSemestr.TabIndex = 9;
-            this.labelSemestr.Text = "Семестр:";
             // 
             // pictureBox4
             // 
@@ -785,81 +893,6 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
-            // radioButtonFirst
-            // 
-            this.radioButtonFirst.AutoSize = true;
-            this.radioButtonFirst.Location = new System.Drawing.Point(4, 3);
-            this.radioButtonFirst.Name = "radioButtonFirst";
-            this.radioButtonFirst.Size = new System.Drawing.Size(31, 19);
-            this.radioButtonFirst.TabIndex = 0;
-            this.radioButtonFirst.TabStop = true;
-            this.radioButtonFirst.Text = "1";
-            this.radioButtonFirst.UseVisualStyleBackColor = true;
-            this.radioButtonFirst.CheckedChanged += new System.EventHandler(this.radioButtonFirst_CheckedChanged);
-            // 
-            // radioButtonSecond
-            // 
-            this.radioButtonSecond.AutoSize = true;
-            this.radioButtonSecond.Location = new System.Drawing.Point(36, 3);
-            this.radioButtonSecond.Name = "radioButtonSecond";
-            this.radioButtonSecond.Size = new System.Drawing.Size(31, 19);
-            this.radioButtonSecond.TabIndex = 1;
-            this.radioButtonSecond.TabStop = true;
-            this.radioButtonSecond.Text = "2";
-            this.radioButtonSecond.UseVisualStyleBackColor = true;
-            this.radioButtonSecond.CheckedChanged += new System.EventHandler(this.radioButtonSecond_CheckedChanged);
-            // 
-            // radioButtonAll
-            // 
-            this.radioButtonAll.AutoSize = true;
-            this.radioButtonAll.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButtonAll.Location = new System.Drawing.Point(68, 3);
-            this.radioButtonAll.Name = "radioButtonAll";
-            this.radioButtonAll.Size = new System.Drawing.Size(32, 19);
-            this.radioButtonAll.TabIndex = 2;
-            this.radioButtonAll.TabStop = true;
-            this.radioButtonAll.Text = "Σ";
-            this.radioButtonAll.UseVisualStyleBackColor = true;
-            this.radioButtonAll.CheckedChanged += new System.EventHandler(this.radioButtonAll_CheckedChanged);
-            // 
-            // panelSemestr
-            // 
-            this.panelSemestr.Controls.Add(this.radioButtonAll);
-            this.panelSemestr.Controls.Add(this.radioButtonSecond);
-            this.panelSemestr.Controls.Add(this.radioButtonFirst);
-            this.panelSemestr.Location = new System.Drawing.Point(859, 5);
-            this.panelSemestr.Name = "panelSemestr";
-            this.panelSemestr.Size = new System.Drawing.Size(100, 24);
-            this.panelSemestr.TabIndex = 14;
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox7.Location = new System.Drawing.Point(964, 4);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox7.TabIndex = 15;
-            this.pictureBox7.TabStop = false;
-            // 
-            // checkBoxEmptyWorks
-            // 
-            this.checkBoxEmptyWorks.AutoSize = true;
-            this.checkBoxEmptyWorks.Location = new System.Drawing.Point(1043, 11);
-            this.checkBoxEmptyWorks.Name = "checkBoxEmptyWorks";
-            this.checkBoxEmptyWorks.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxEmptyWorks.TabIndex = 16;
-            this.checkBoxEmptyWorks.UseVisualStyleBackColor = true;
-            this.checkBoxEmptyWorks.CheckedChanged += new System.EventHandler(this.checkBoxEmptyWorks_CheckedChanged);
-            // 
-            // labelIsEmptyWorks
-            // 
-            this.labelIsEmptyWorks.AutoSize = true;
-            this.labelIsEmptyWorks.Location = new System.Drawing.Point(990, 10);
-            this.labelIsEmptyWorks.Name = "labelIsEmptyWorks";
-            this.labelIsEmptyWorks.Size = new System.Drawing.Size(51, 15);
-            this.labelIsEmptyWorks.TabIndex = 2;
-            this.labelIsEmptyWorks.Text = "П.П.В.Р.";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -886,6 +919,9 @@
             this.menuStripOptions.PerformLayout();
             this.panelTools.ResumeLayout(false);
             this.panelTools.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            this.panelSemestr.ResumeLayout(false);
+            this.panelSemestr.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -900,9 +936,6 @@
             this.panelReportSubmenu.ResumeLayout(false);
             this.panelSectionSubmenu.ResumeLayout(false);
             this.panelTablesSubmenu.ResumeLayout(false);
-            this.panelSemestr.ResumeLayout(false);
-            this.panelSemestr.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -967,6 +1000,9 @@
         private System.Windows.Forms.CheckBox checkBoxEmptyWorks;
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.Label labelIsEmptyWorks;
+        private System.Windows.Forms.ToolStripMenuItem cascadeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem shinglesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeAllToolStripMenuItem;
     }
 }
 

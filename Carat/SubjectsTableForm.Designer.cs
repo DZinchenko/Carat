@@ -31,11 +31,11 @@ namespace Carat
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubjectsTableForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonImportSubjects = new System.Windows.Forms.Button();
             this.buttonExportSubjects = new System.Windows.Forms.Button();
             this.dataGridViewSubjects = new System.Windows.Forms.DataGridView();
             this.SubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonImportSubjects = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSubjects)).BeginInit();
             this.SuspendLayout();
@@ -49,6 +49,24 @@ namespace Carat
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(899, 26);
             this.panel1.TabIndex = 1;
+            // 
+            // buttonImportSubjects
+            // 
+            this.buttonImportSubjects.BackColor = System.Drawing.Color.Transparent;
+            this.buttonImportSubjects.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonImportSubjects.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonImportSubjects.FlatAppearance.BorderSize = 0;
+            this.buttonImportSubjects.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.buttonImportSubjects.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.buttonImportSubjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonImportSubjects.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonImportSubjects.Image = global::Carat.Properties.Resources.icons8_импорт_xls_24_norm;
+            this.buttonImportSubjects.Location = new System.Drawing.Point(24, 0);
+            this.buttonImportSubjects.Name = "buttonImportSubjects";
+            this.buttonImportSubjects.Size = new System.Drawing.Size(24, 26);
+            this.buttonImportSubjects.TabIndex = 2;
+            this.buttonImportSubjects.UseVisualStyleBackColor = false;
+            this.buttonImportSubjects.Click += new System.EventHandler(this.buttonImportSubjects_Click);
             // 
             // buttonExportSubjects
             // 
@@ -105,23 +123,6 @@ namespace Carat
             this.Notes.Name = "Notes";
             this.Notes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // buttonImportSubjects
-            // 
-            this.buttonImportSubjects.BackColor = System.Drawing.Color.Transparent;
-            this.buttonImportSubjects.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonImportSubjects.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonImportSubjects.FlatAppearance.BorderSize = 0;
-            this.buttonImportSubjects.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
-            this.buttonImportSubjects.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.buttonImportSubjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonImportSubjects.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonImportSubjects.Image = global::Carat.Properties.Resources.icons8_импорт_xls_24_norm;
-            this.buttonImportSubjects.Location = new System.Drawing.Point(24, 0);
-            this.buttonImportSubjects.Name = "buttonImportSubjects";
-            this.buttonImportSubjects.Size = new System.Drawing.Size(24, 26);
-            this.buttonImportSubjects.TabIndex = 2;
-            this.buttonImportSubjects.UseVisualStyleBackColor = false;
-            // 
             // SubjectsTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -134,7 +135,7 @@ namespace Carat
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.MinimumSize = new System.Drawing.Size(350, 301);
+            this.MinimumSize = new System.Drawing.Size(350, 186);
             this.Name = "SubjectsTableForm";
             this.Text = "Дисципліни";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SubjectsTableForm_FormClosed);
