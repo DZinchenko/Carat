@@ -12,6 +12,7 @@ using Carat.Data.Repositories;
 using Carat.Interfaces;
 using Carat.Data.Entities;
 using Carat.EF.Repositories;
+using NPOI.XSSF.UserModel;
 
 namespace Carat
 {
@@ -141,7 +142,7 @@ namespace Carat
 
         private void listBoxSubjects_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            int index = this.listBoxSubjects.IndexFromPoint(e.Location);
+            int index = listBoxSubjects.IndexFromPoint(e.Location);
 
             if (index != ListBox.NoMatches)
             {
@@ -227,8 +228,9 @@ namespace Carat
                 m_curriculumItemRepository.AddCurriculumItem(curriculumItem);
 
                 var subjectWorks = new List<Work>();
+                var workTypes = m_workTypeRepository.GetAllWorkTypes();
 
-                foreach (var workType in m_workTypeRepository.GetAllWorkTypes())
+                foreach (var workType in workTypes)
                 {
                     var work = new Work();
                     var course = m_course == 0 ? Convert.ToUInt32(listBoxCourse.SelectedItem.ToString()) : m_course;
@@ -572,6 +574,110 @@ namespace Carat
             var works = m_workRepository.GetWorks(curriculumItem.Id, false);
 
             e.Cancel = !(works.All(work => work.TotalHours < 0.00001));
+        }
+
+        private void buttonImportCurriculum_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.InitialDirectory = "c:\\";
+                    openFileDialog.Filter = "Excel Files|*.xlsx";
+                    openFileDialog.FilterIndex = 2;
+                    openFileDialog.RestoreDirectory = true;
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        var workbook = new XSSFWorkbook(openFileDialog.FileName);
+                        var sheet = workbook.GetSheet("Лист1");
+                        var curriculumItems = new List<CurriculumItem>();
+
+                        if (sheet == null)
+                        {
+                            return;
+                        }
+
+                        m_curriculumItemRepository.DeleteAllCurriculumItems();
+                        m_subjectRepository.DeleteAllSubjects();
+                        m_workRepository.DeleteAllWorks();
+
+                        for (int i = 13; i < 44; ++i)
+                        {
+                            var row = sheet.GetRow(i);
+                            var cellText = row.GetCell(1).ToString();
+                            var subjectName = Tools.GetSubjectNameFromCell(cellText);
+                            var course = Tools.GetCurriculumItemCourse(cellText);
+                            var hours = Tools.GetCurriculumItemHours(cellText);
+                            var subject = new Subject();
+                            var curriculumItem = new CurriculumItem();
+
+                            subject.Name = subjectName;
+                            m_subjectRepository.AddSubject(subject);
+
+                            var savedSubject = m_subjectRepository.GetSubject(subjectName);
+                            curriculumItem.Course = course;
+                            curriculumItem.EducForm = "Денна";
+                            curriculumItem.EducLevel = "Бакалавр";
+                            curriculumItem.EducType = "Бюджет";
+                            curriculumItem.Semestr = 1;
+                            curriculumItem.SubjectHours = hours;
+                            curriculumItem.SubjectId = savedSubject.Id;
+
+                            m_curriculumItemRepository.AddCurriculumItem(curriculumItem);
+                            var workTypes = m_workTypeRepository.GetAllWorkTypes();
+                            var curriculumId = m_curriculumItemRepository.GetCurriculumItem(
+                                curriculumItem.SubjectId,
+                                curriculumItem.EducType,
+                                curriculumItem.EducForm,
+                                course,
+                                curriculumItem.Semestr,
+                                curriculumItem.EducLevel).Id;
+                            var subjectWorks = new List<Work>();
+
+                            foreach (var workType in workTypes)
+                            {
+                                var work = new Work();
+
+                                work.WorkTypeId = workType.Id;
+                                work.CurriculumItemId = curriculumId;
+                                work.TotalHours = 0;
+
+                                subjectWorks.Add(work);
+                            }
+
+                            for (int worksStartIt = 24, worksEndItworksIt = 36, worksIt = worksStartIt; worksIt <= worksEndItworksIt; ++worksIt)
+                            {
+                                var workCellText = row.GetCell(worksIt)?.ToString();
+                                double workHours = 0;
+                                if (workCellText == null)
+                                {
+                                    continue;
+                                }
+
+                                try
+                                {
+                                    workHours = row.GetCell(worksIt).NumericCellValue;
+                                }
+                                catch (Exception)
+                                {
+                                    continue;
+                                }
+
+                                subjectWorks[worksIt - worksStartIt].TotalHours = workHours;
+                            }
+
+                            m_workRepository.AddWorks(subjectWorks);
+                        }
+
+                        LoadData();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -36,7 +36,9 @@ namespace Carat.EF.Repositories
             {
                 using (var ctx = new CaratDbContext(m_dbPath))
                 {
-                    return ctx.Works.Where(b => b.CurriculumItemId == curriculumItemId).ToList();
+                    var works = ctx.Works.Where(b => b.CurriculumItemId == curriculumItemId).ToList();
+                    works.Sort((emp1, emp2) => emp1.WorkTypeId.CompareTo(emp2.WorkTypeId));
+                    return works;
                 }
             }
         }

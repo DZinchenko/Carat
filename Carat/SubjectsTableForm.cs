@@ -14,7 +14,6 @@ using Carat.Interfaces;
 using Carat.Data.Entities;
 using Carat.EF.Repositories;
 using NPOI.XSSF.UserModel;
-using NPOI.HSSF.UserModel;
 
 namespace Carat
 {

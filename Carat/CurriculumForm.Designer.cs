@@ -45,16 +45,21 @@ namespace Carat
             this.CurriculumWorkType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CurriculumWorkTypesHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listBoxWorkTypes = new System.Windows.Forms.ListBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonImportCurriculum = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panelCurriculumRight.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurriculumSubjects)).BeginInit();
             this.panelCurriculumLeftButtom.SuspendLayout();
             this.panelCurriculumLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurriculumWorkTypes)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelCurriculumRight
             // 
             this.panelCurriculumRight.Controls.Add(this.dataGridViewCurriculumSubjects);
+            this.panelCurriculumRight.Controls.Add(this.panel1);
             this.panelCurriculumRight.Controls.Add(this.panelCurriculumLeftButtom);
             this.panelCurriculumRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCurriculumRight.Location = new System.Drawing.Point(0, 0);
@@ -73,10 +78,10 @@ namespace Carat
             this.CurriculumSubjectHours});
             this.dataGridViewCurriculumSubjects.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewCurriculumSubjects.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
-            this.dataGridViewCurriculumSubjects.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewCurriculumSubjects.Location = new System.Drawing.Point(0, 26);
             this.dataGridViewCurriculumSubjects.Name = "dataGridViewCurriculumSubjects";
             this.dataGridViewCurriculumSubjects.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridViewCurriculumSubjects.Size = new System.Drawing.Size(529, 410);
+            this.dataGridViewCurriculumSubjects.Size = new System.Drawing.Size(529, 384);
             this.dataGridViewCurriculumSubjects.TabIndex = 5;
             this.dataGridViewCurriculumSubjects.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCurriculumSubjects_CellValueChanged);
             this.dataGridViewCurriculumSubjects.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewCurriculumSubjects_DataError);
@@ -150,6 +155,7 @@ namespace Carat
             // panelCurriculumLeft
             // 
             this.panelCurriculumLeft.Controls.Add(this.dataGridViewCurriculumWorkTypes);
+            this.panelCurriculumLeft.Controls.Add(this.panel2);
             this.panelCurriculumLeft.Controls.Add(this.listBoxWorkTypes);
             this.panelCurriculumLeft.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelCurriculumLeft.Location = new System.Drawing.Point(529, 0);
@@ -167,9 +173,9 @@ namespace Carat
             this.CurriculumWorkTypesHours});
             this.dataGridViewCurriculumWorkTypes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewCurriculumWorkTypes.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
-            this.dataGridViewCurriculumWorkTypes.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewCurriculumWorkTypes.Location = new System.Drawing.Point(0, 26);
             this.dataGridViewCurriculumWorkTypes.Name = "dataGridViewCurriculumWorkTypes";
-            this.dataGridViewCurriculumWorkTypes.Size = new System.Drawing.Size(370, 410);
+            this.dataGridViewCurriculumWorkTypes.Size = new System.Drawing.Size(370, 384);
             this.dataGridViewCurriculumWorkTypes.TabIndex = 1;
             this.dataGridViewCurriculumWorkTypes.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCurriculumWorkTypes_CellValueChanged);
             this.dataGridViewCurriculumWorkTypes.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewCurriculumWorkTypes_RowsRemoved);
@@ -203,6 +209,41 @@ namespace Carat
             this.listBoxWorkTypes.TabIndex = 0;
             this.listBoxWorkTypes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxWorkTypes_MouseDoubleClick);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.buttonImportCurriculum);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(529, 26);
+            this.panel1.TabIndex = 6;
+            // 
+            // buttonImportCurriculum
+            // 
+            this.buttonImportCurriculum.BackColor = System.Drawing.Color.Transparent;
+            this.buttonImportCurriculum.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonImportCurriculum.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonImportCurriculum.FlatAppearance.BorderSize = 0;
+            this.buttonImportCurriculum.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.buttonImportCurriculum.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.buttonImportCurriculum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonImportCurriculum.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonImportCurriculum.Image = global::Carat.Properties.Resources.icons8_импорт_xls_24_norm;
+            this.buttonImportCurriculum.Location = new System.Drawing.Point(0, 0);
+            this.buttonImportCurriculum.Name = "buttonImportCurriculum";
+            this.buttonImportCurriculum.Size = new System.Drawing.Size(24, 26);
+            this.buttonImportCurriculum.TabIndex = 3;
+            this.buttonImportCurriculum.UseVisualStyleBackColor = false;
+            this.buttonImportCurriculum.Click += new System.EventHandler(this.buttonImportCurriculum_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(370, 26);
+            this.panel2.TabIndex = 2;
+            // 
             // CurriculumForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -222,6 +263,7 @@ namespace Carat
             this.panelCurriculumLeftButtom.ResumeLayout(false);
             this.panelCurriculumLeft.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurriculumWorkTypes)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -240,5 +282,8 @@ namespace Carat
         private System.Windows.Forms.DataGridViewTextBoxColumn CurriculumSubjectHours;
         private System.Windows.Forms.DataGridViewTextBoxColumn CurriculumWorkType;
         private System.Windows.Forms.DataGridViewTextBoxColumn CurriculumWorkTypesHours;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button buttonImportCurriculum;
+        private System.Windows.Forms.Panel panel2;
     }
 }
