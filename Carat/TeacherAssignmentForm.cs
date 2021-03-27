@@ -77,6 +77,18 @@ namespace Carat
             m_TAItemRepository = new TAItemRepository(dbPath);
         }
 
+        public void UpdateWorks(bool isEmptyWorks)
+        {
+            m_isEmptyWorks = isEmptyWorks;
+
+            if (dataGridViewTASubjects.SelectedCells.Count > 0)
+            {
+                var selectedRowIndex = dataGridViewTASubjects.SelectedCells[0].RowIndex;
+                dataGridViewTASubjects.Rows[selectedRowIndex].Selected = false;
+                dataGridViewTASubjects.Rows[selectedRowIndex].Selected = true;
+            }
+        }
+
         public void LoadData()
         {
             var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);

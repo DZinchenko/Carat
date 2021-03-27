@@ -90,6 +90,18 @@ namespace Carat
             return (listBoxCourse.Visible && listBoxCourse.Enabled) ? Convert.ToUInt32(listBoxCourse.SelectedItem.ToString()) : m_course; ;
         }
 
+        public void UpdateWorks(bool isEmptyWorks)
+        {
+            m_isEmptyWorks = isEmptyWorks;
+
+            if (dataGridViewCurriculumSubjects.SelectedCells.Count > 0)
+            {
+                var selectedRowIndex = dataGridViewCurriculumSubjects.SelectedCells[0].RowIndex;
+                dataGridViewCurriculumSubjects.Rows[selectedRowIndex].Selected = false;
+                dataGridViewCurriculumSubjects.Rows[selectedRowIndex].Selected = true;
+            }
+        }
+
         public void LoadData()
         {
             var workTypes = m_workTypeRepository.GetAllWorkTypes();

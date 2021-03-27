@@ -628,7 +628,15 @@ namespace Carat
 
         private void checkBoxEmptyWorks_CheckedChanged(object sender, EventArgs e)
         {
-            ReopenFiltersUsersForms();
+            if (curriculumForm != null)
+            {
+                var tempCurrForm = curriculumForm as CurriculumForm;
+                tempCurrForm.UpdateWorks(getIsEmptyWorks());
+            } else if (TAForm != null)
+            {
+                var tempTAForm = TAForm as TeacherAssignmentForm;
+                tempTAForm.UpdateWorks(getIsEmptyWorks());
+            }
         }
     }
 }
