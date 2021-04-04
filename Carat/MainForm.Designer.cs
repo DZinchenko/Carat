@@ -71,6 +71,9 @@
             this.comboBoxEducType = new System.Windows.Forms.ComboBox();
             this.buttonHidePanel = new System.Windows.Forms.Button();
             this.panelFooter = new System.Windows.Forms.Panel();
+            this.panelProgress = new System.Windows.Forms.Panel();
+            this.labelProgress = new System.Windows.Forms.Label();
+            this.workProgressBar = new System.Windows.Forms.ProgressBar();
             this.dataBaseStateHelpLabel = new System.Windows.Forms.Label();
             this.dataBaseStatelabel = new System.Windows.Forms.Label();
             this.panelWorkspace = new System.Windows.Forms.Panel();
@@ -102,6 +105,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelFooter.SuspendLayout();
+            this.panelProgress.SuspendLayout();
             this.panelWorkspace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panelLeftMain.SuspendLayout();
@@ -256,7 +260,7 @@
             // cascadeToolStripMenuItem
             // 
             this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.cascadeToolStripMenuItem.Text = "Каскадом";
             this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
             // 
@@ -264,14 +268,14 @@
             // 
             this.shinglesToolStripMenuItem.CheckOnClick = true;
             this.shinglesToolStripMenuItem.Name = "shinglesToolStripMenuItem";
-            this.shinglesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.shinglesToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.shinglesToolStripMenuItem.Text = "Черепицею";
             this.shinglesToolStripMenuItem.Click += new System.EventHandler(this.shinglesToolStripMenuItem_Click);
             // 
             // closeAllToolStripMenuItem
             // 
             this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.closeAllToolStripMenuItem.Text = "Закрити всі";
             this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.closeAllToolStripMenuItem_Click);
             // 
@@ -587,6 +591,7 @@
             // 
             this.panelFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
             this.panelFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelFooter.Controls.Add(this.panelProgress);
             this.panelFooter.Controls.Add(this.dataBaseStateHelpLabel);
             this.panelFooter.Controls.Add(this.dataBaseStatelabel);
             this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -594,6 +599,33 @@
             this.panelFooter.Name = "panelFooter";
             this.panelFooter.Size = new System.Drawing.Size(915, 29);
             this.panelFooter.TabIndex = 3;
+            // 
+            // panelProgress
+            // 
+            this.panelProgress.Controls.Add(this.labelProgress);
+            this.panelProgress.Controls.Add(this.workProgressBar);
+            this.panelProgress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelProgress.Location = new System.Drawing.Point(0, 0);
+            this.panelProgress.Name = "panelProgress";
+            this.panelProgress.Size = new System.Drawing.Size(913, 27);
+            this.panelProgress.TabIndex = 2;
+            this.panelProgress.Visible = false;
+            // 
+            // labelProgress
+            // 
+            this.labelProgress.AutoSize = true;
+            this.labelProgress.Location = new System.Drawing.Point(327, 6);
+            this.labelProgress.Name = "labelProgress";
+            this.labelProgress.Size = new System.Drawing.Size(118, 15);
+            this.labelProgress.TabIndex = 3;
+            this.labelProgress.Text = "Some progress name";
+            // 
+            // workProgressBar
+            // 
+            this.workProgressBar.Location = new System.Drawing.Point(3, 2);
+            this.workProgressBar.Name = "workProgressBar";
+            this.workProgressBar.Size = new System.Drawing.Size(318, 23);
+            this.workProgressBar.TabIndex = 2;
             // 
             // dataBaseStateHelpLabel
             // 
@@ -929,6 +961,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelFooter.ResumeLayout(false);
             this.panelFooter.PerformLayout();
+            this.panelProgress.ResumeLayout(false);
+            this.panelProgress.PerformLayout();
             this.panelWorkspace.ResumeLayout(false);
             this.panelWorkspace.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
@@ -1003,6 +1037,9 @@
         private System.Windows.Forms.ToolStripMenuItem cascadeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem shinglesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeAllToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar workProgressBar;
+        private System.Windows.Forms.Panel panelProgress;
+        private System.Windows.Forms.Label labelProgress;
     }
 }
 

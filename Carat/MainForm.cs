@@ -45,6 +45,27 @@ namespace Carat
             dataBaseStatelabel.Text = m_dbName;
         }
 
+        public void ShowProgress(int interval, string text)
+        {
+            workProgressBar.Value = 0;
+            labelProgress.Text = text;
+            workProgressBar.Maximum = interval;
+            panelProgress.Visible = true;
+            labelProgress.Visible = false;
+            labelProgress.Visible = true;
+            panelProgress.Show();
+        }
+
+        public void HideProgress()
+        {
+            panelProgress.Visible = false;
+        }
+
+        public void IncrementProgress()
+        {
+            workProgressBar.Increment(1);
+        }
+
         public void SetButtonState()
         {
             if (subjectsForm == null)

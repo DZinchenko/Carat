@@ -58,18 +58,20 @@ namespace Carat
             return Convert.ToUInt32(courseInString.ToString());
         }
 
-        static public uint GetCurriculumItemHours(string cellText)
+        static public string GetEducLevel(string cellText)
         {
-            if (cellText == null)
-            {
-                throw new Exception("Invalid cell text!");
-            }
+            string result = "";
 
-            var reg = new Regex(@";\W[0-9]{0,} год\.;\W");
-            var courseInString = reg.Match(cellText).Groups[0].Value.ToString();
-            var temp = courseInString.Substring(4, courseInString.IndexOf('г') - 5);
+            if (cellText == "Бакалаври")
+                result = "Бакалаври";
 
-            return Convert.ToUInt32(temp);
+            if (cellText == "Магістри")
+                result = "Магістр";
+
+            if (cellText == "Доктори філософії")
+                result = "PhD";
+
+            return result;
         }
     }
 }

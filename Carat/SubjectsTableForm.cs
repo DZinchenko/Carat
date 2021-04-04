@@ -217,7 +217,7 @@ namespace Carat
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     var workbook = new XSSFWorkbook(openFileDialog.FileName);
-                    var sheet = workbook.GetSheet("Дисципліни");
+                    var sheet = workbook[0];
                     var subjects = new List<Subject>();
 
                     if (sheet == null)

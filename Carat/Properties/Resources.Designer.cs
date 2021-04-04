@@ -63,6 +63,26 @@ namespace Carat.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap busyIndicator {
+            get {
+                object obj = ResourceManager.GetObject("busyIndicator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap busyIndicator3 {
+            get {
+                object obj = ResourceManager.GetObject("busyIndicator3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_вертикальная_линия_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-вертикальная-линия-24", resourceCulture);
@@ -136,6 +156,16 @@ namespace Carat.Properties {
         internal static System.Drawing.Bitmap icons8_экспорт_xls_32 {
             get {
                 object obj = ResourceManager.GetObject("icons8-экспорт-xls-32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap loading_buffering {
+            get {
+                object obj = ResourceManager.GetObject("loading-buffering", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
