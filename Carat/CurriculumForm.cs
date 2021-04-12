@@ -576,7 +576,7 @@ namespace Carat
             e.Cancel = !(works.All(work => work.TotalHours < 0.00001));
         }
 
-        private void readFirstPage(NPOI.SS.UserModel.ISheet sheet, uint semestr, int startRowIt, int endRowIter)
+        private void ReadFirstPage(NPOI.SS.UserModel.ISheet sheet, uint semestr, int startRowIt, int endRowIter)
         {
             var educLevel = "Бакалавр";
             var educForm = "Денна";
@@ -596,10 +596,19 @@ namespace Carat
                 }
 
                 var subjectName = Tools.GetSubjectNameFromCell(cellText);
+                var subject = m_subjectRepository.GetSubject(subjectName);
+
+                if (subject == null)
+                {
+                    subject = new Subject();
+                    subject.Name = subjectName;
+                    m_subjectRepository.AddSubject(subject);
+                    subject = m_subjectRepository.GetSubject(subjectName);
+                }
+
                 var course = Tools.GetCurriculumItemCourse(cellText);
                 var hoursInCell = Convert.ToDouble(row.GetCell(2).ToString());
                 var isExam = row.GetCell(7)?.ToString();
-                var subject = new Subject();
                 var curriculumItem = new CurriculumItem();
 
                 if (isExam == "1")
@@ -607,17 +616,13 @@ namespace Carat
                     hoursInCell += 30;
                 }
 
-                subject.Name = subjectName;
-                m_subjectRepository.AddSubject(subject);
-
-                var savedSubject = m_subjectRepository.GetSubject(subjectName);
                 curriculumItem.Course = course;
                 curriculumItem.EducForm = educForm;
                 curriculumItem.EducLevel = educLevel;
                 curriculumItem.EducType = educType;
                 curriculumItem.Semestr = semestr;
                 curriculumItem.SubjectHours = hoursInCell;
-                curriculumItem.SubjectId = savedSubject.Id;
+                curriculumItem.SubjectId = subject.Id;
 
                 m_curriculumItemRepository.AddCurriculumItem(curriculumItem);
                 var workTypes = m_workTypeRepository.GetAllWorkTypes();
@@ -641,7 +646,7 @@ namespace Carat
                     subjectWorks.Add(work);
                 }
 
-                for (int worksStartIt = 24, worksEndItworksIt = 36, worksIt = worksStartIt; worksIt <= worksEndItworksIt; ++worksIt)
+                for (int worksStartIt = 25, worksEndItworksIt = 37, worksIt = worksStartIt; worksIt <= worksEndItworksIt; ++worksIt)
                 {
                     var workCellText = row.GetCell(worksIt)?.ToString();
                     double workHours;
@@ -667,7 +672,7 @@ namespace Carat
             }
         }
 
-        private void LoadCurriculumFromExcel()
+        private void LoadCurriculumFromExcel(int firstSemestrStart, int firstSemestrEnd, int secondSemestrStart, int secondSemestrEnd)
         {
             try
             {
@@ -681,10 +686,11 @@ namespace Carat
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         var workbook = new XSSFWorkbook(openFileDialog.FileName);
-                        var sheet = workbook[0];
+                        var sheet1 = workbook[0];
+                        var sheet2 = workbook[1];
                         var curriculumItems = new List<CurriculumItem>();
 
-                        if (sheet == null)
+                        if (sheet1 == null || sheet2 == null)
                         {
                             return;
                         }
@@ -692,9 +698,10 @@ namespace Carat
                         m_curriculumItemRepository.DeleteAllCurriculumItems();
                         m_subjectRepository.DeleteAllSubjects();
                         m_workRepository.DeleteAllWorks();
-                      
-                        readFirstPage(sheet, 1, 13, 57);
-                        readFirstPage(sheet, 2, 60, 102);                       
+
+                        ReadFirstPage(sheet1, 1, firstSemestrStart, firstSemestrEnd);
+                        ReadFirstPage(sheet1, 2, secondSemestrStart, secondSemestrEnd);
+                        ReadSecondPage(sheet2);
 
                         LoadData();
                     }
@@ -707,12 +714,344 @@ namespace Carat
         
         }
 
+        private void SecondPageOneRowSubjects(double hours, 
+                                              string subjectName, 
+                                              int workTypeIndex, 
+                                              string educForm, 
+                                              string educType, 
+                                              string educLevel, 
+                                              uint semestr, 
+                                              uint course)
+        {
+            var subject = m_subjectRepository.GetSubject(subjectName);
+
+            if (subject == null)
+            {
+                subject = new Subject();
+                subject.Name = subjectName;
+                m_subjectRepository.AddSubject(subject);
+                subject = m_subjectRepository.GetSubject(subjectName);
+            }
+
+            CurriculumItem curriculumItem = m_curriculumItemRepository.GetCurriculumItem(
+                subject.Id,
+                educType,
+                educForm,
+                course,
+                semestr,
+                educLevel);
+
+            if (curriculumItem == null)
+            {
+                curriculumItem = new CurriculumItem();
+
+                curriculumItem.Course = course;
+                curriculumItem.EducForm = educForm;
+                curriculumItem.EducLevel = educLevel;
+                curriculumItem.EducType = educType;
+                curriculumItem.Semestr = semestr;
+                curriculumItem.SubjectHours = hours;
+                curriculumItem.SubjectId = subject.Id;
+
+                m_curriculumItemRepository.AddCurriculumItem(curriculumItem);
+            }
+
+            var curriculumId = m_curriculumItemRepository.GetCurriculumItem(
+                curriculumItem.SubjectId,
+                curriculumItem.EducType,
+                curriculumItem.EducForm,
+                course,
+                curriculumItem.Semestr,
+                curriculumItem.EducLevel).Id;
+
+            var workTypes = m_workTypeRepository.GetAllWorkTypes();
+            var subjectWorks = new List<Work>();
+
+            foreach (var workType in workTypes)
+            {
+                var work = new Work();
+
+                work.WorkTypeId = workType.Id;
+                work.CurriculumItemId = curriculumId;
+                work.TotalHours = 0;
+
+                subjectWorks.Add(work);
+            }
+
+            subjectWorks[workTypeIndex].TotalHours = hours;
+
+            m_workRepository.AddWorks(subjectWorks);
+        }
+
+        private void AddCurriculumItemSecondPage(uint course, 
+                                                 string educForm, 
+                                                 string educLevel, 
+                                                 string educType, 
+                                                 uint semestr, 
+                                                 double hours, 
+                                                 int subjectId,
+                                                 int workTypeIndex)
+        {
+            CurriculumItem curriculumItem = m_curriculumItemRepository.GetCurriculumItem(
+                subjectId,
+                educType,
+                educForm,
+                course,
+                semestr,
+                educLevel);
+
+            if (curriculumItem == null)
+            {
+                curriculumItem = new CurriculumItem();
+
+                curriculumItem.Course = course;
+                curriculumItem.EducForm = educForm;
+                curriculumItem.EducLevel = educLevel;
+                curriculumItem.EducType = educType;
+                curriculumItem.Semestr = semestr;
+                curriculumItem.SubjectHours = hours;
+                curriculumItem.SubjectId = subjectId;
+
+                m_curriculumItemRepository.AddCurriculumItem(curriculumItem);
+            }
+
+            var curriculumId = m_curriculumItemRepository.GetCurriculumItem(
+                curriculumItem.SubjectId,
+                curriculumItem.EducType,
+                curriculumItem.EducForm,
+                course,
+                curriculumItem.Semestr,
+                curriculumItem.EducLevel).Id;
+
+            List<WorkType> workTypes = m_workTypeRepository.GetAllWorkTypes();
+            List<Work> subjectWorks = m_workRepository.GetWorks(curriculumId, false);
+
+            if (subjectWorks.Count == 0)
+            {
+                subjectWorks = new List<Work>();
+
+                foreach (var workType in workTypes)
+                {
+                    var work = new Work();
+
+                    work.WorkTypeId = workType.Id;
+                    work.CurriculumItemId = curriculumId;
+                    work.TotalHours = 0;
+
+                    subjectWorks.Add(work);
+                }
+
+                subjectWorks[workTypeIndex].TotalHours = hours;
+
+                m_workRepository.AddWorks(subjectWorks);
+            }
+            else 
+            {
+                subjectWorks[workTypeIndex].TotalHours = hours;
+
+                m_workRepository.UpdateWork(subjectWorks[workTypeIndex]);
+            }
+        }
+
+        private void SecondPageSeveralRowsSubjects(NPOI.SS.UserModel.ISheet sheet,
+                                                   string educForm,
+                                                   string educType)
+        {
+            var subjectName = "Бакалаврський проект";
+            var educLevel = "Бакалавр";
+            uint course = 4;
+            var subject = m_subjectRepository.GetSubject(subjectName);
+
+            if (subject == null)
+            {
+                subject = new Subject();
+                subject.Name = subjectName;
+                m_subjectRepository.AddSubject(subject);
+                subject = m_subjectRepository.GetSubject(subjectName);
+            }
+
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(7).GetCell(12).NumericCellValue, subject.Id, 14);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(7).GetCell(17).NumericCellValue, subject.Id, 14);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(11).GetCell(12).NumericCellValue, subject.Id, 15);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(11).GetCell(17).NumericCellValue, subject.Id, 15);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(14).GetCell(12).NumericCellValue, subject.Id, 18);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(14).GetCell(17).NumericCellValue, subject.Id, 18);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(17).GetCell(12).NumericCellValue, subject.Id, 24);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(17).GetCell(17).NumericCellValue, subject.Id, 24);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(20).GetCell(12).NumericCellValue, subject.Id, 21);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(20).GetCell(17).NumericCellValue, subject.Id, 21);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(23).GetCell(12).NumericCellValue, subject.Id, 27);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(23).GetCell(17).NumericCellValue, subject.Id, 27);
+
+            subjectName = "Магістерська дисертація ОПП";
+            educLevel = "Магістр";
+            course = 2;
+            subject = m_subjectRepository.GetSubject(subjectName);
+
+            if (subject == null)
+            {
+                subject = new Subject();
+                subject.Name = subjectName;
+                m_subjectRepository.AddSubject(subject);
+                subject = m_subjectRepository.GetSubject(subjectName);
+            }
+
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(8).GetCell(12).NumericCellValue, subject.Id, 14);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(8).GetCell(17).NumericCellValue, subject.Id, 14);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(12).GetCell(12).NumericCellValue, subject.Id, 16);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(12).GetCell(17).NumericCellValue, subject.Id, 16);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(15).GetCell(12).NumericCellValue, subject.Id, 19);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(15).GetCell(17).NumericCellValue, subject.Id, 19);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(18).GetCell(12).NumericCellValue, subject.Id, 25);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(18).GetCell(17).NumericCellValue, subject.Id, 25);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(21).GetCell(12).NumericCellValue, subject.Id, 22);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(21).GetCell(17).NumericCellValue, subject.Id, 22);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(26).GetCell(12).NumericCellValue, subject.Id, 30);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(26).GetCell(17).NumericCellValue, subject.Id, 30);
+
+            subjectName = "Магістерська дисертація ОНП";
+            educLevel = "Магістр";
+            course = 2;
+            subject = m_subjectRepository.GetSubject(subjectName);
+
+            if (subject == null)
+            {
+                subject = new Subject();
+                subject.Name = subjectName;
+                m_subjectRepository.AddSubject(subject);
+                subject = m_subjectRepository.GetSubject(subjectName);
+            }
+
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(9).GetCell(12).NumericCellValue, subject.Id, 14);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(9).GetCell(17).NumericCellValue, subject.Id, 14);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(13).GetCell(12).NumericCellValue, subject.Id, 17);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(13).GetCell(17).NumericCellValue, subject.Id, 17);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(16).GetCell(12).NumericCellValue, subject.Id, 20);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(16).GetCell(17).NumericCellValue, subject.Id, 20);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(19).GetCell(12).NumericCellValue, subject.Id, 26);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(19).GetCell(17).NumericCellValue, subject.Id, 26);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(22).GetCell(12).NumericCellValue, subject.Id, 23);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(22).GetCell(17).NumericCellValue, subject.Id, 23);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(29).GetCell(12).NumericCellValue, subject.Id, 32);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(29).GetCell(17).NumericCellValue, subject.Id, 32);
+        }
+
+        private void ReadSecondPage(NPOI.SS.UserModel.ISheet sheet)
+        {
+            var educForm = "Денна";
+            var educType = "Бюджет";
+
+            var aspirantRow = sheet.GetRow(36);
+            var firstSemestrCellIndex = 12;
+            var secondSemestrCellIndex = 17;
+            var firstSemestrAspirantsCellText = aspirantRow.GetCell(firstSemestrCellIndex).ToString();
+            var secondSemestrCellText = aspirantRow.GetCell(secondSemestrCellIndex).ToString();
+
+            if (firstSemestrAspirantsCellText != null)
+            {
+                SecondPageOneRowSubjects(
+                    aspirantRow.GetCell(firstSemestrCellIndex).NumericCellValue, "Аспіранти", 32, educForm, educType, "PhD", 1, 1);
+            }
+
+            if (secondSemestrCellText != null)
+            {
+                SecondPageOneRowSubjects(
+                    aspirantRow.GetCell(secondSemestrCellIndex).NumericCellValue, "Аспіранти", 32, educForm, educType, "PhD", 2, 1);
+            }
+
+            for (int i = 0; i < 2; ++i)
+            {
+                var magisterRow = sheet.GetRow(5 + i);
+                var firstSemestrMagistersCellText = aspirantRow.GetCell(8).ToString();
+                var secondSemestrMagistersCellText = aspirantRow.GetCell(13).ToString();
+
+                if (firstSemestrMagistersCellText != null)
+                {
+                    SecondPageOneRowSubjects(
+                        magisterRow.GetCell(firstSemestrCellIndex).NumericCellValue,
+                        "Науково-дослідна робота за темою магістерської дисертації - 1. Основи наукових досліджень",
+                        13,
+                        educForm, educType,
+                        "Магістр",
+                        1,
+                        Convert.ToUInt32(1 + i));
+                }
+
+                if (secondSemestrMagistersCellText != null)
+                {
+                    SecondPageOneRowSubjects(
+                        magisterRow.GetCell(secondSemestrCellIndex).NumericCellValue,
+                        "Науково-дослідна робота за темою магістерської дисертації - 1. Основи наукових досліджень",
+                        13,
+                        educForm, educType,
+                        "Магістр",
+                        2,
+                        Convert.ToUInt32(1 + i));
+                }
+
+                SecondPageSeveralRowsSubjects(sheet, educForm, educType);
+            }
+        }
+
         private void buttonImportCurriculum_Click(object sender, EventArgs e)
         {
-            m_parentForm.Enabled = false;
-            m_parentForm.ShowProgress(86, "Curriculum loading...");
+            var selectRowsForm = new SelectCurriculumRows();
+            selectRowsForm.ShowDialog();
 
-            LoadCurriculumFromExcel();
+            if (selectRowsForm.DialogResult != DialogResult.OK)
+            {
+                return;
+            }
+
+            var values = selectRowsForm.getValues();
+            var progress = (values.firstSemestrEnd - values.firstSemestrStart) + (values.secondSemestrEnd - values.secondSemestrStart);
+
+            if (values.firstSemestrEnd <= values.firstSemestrStart || values.secondSemestrEnd <= values.secondSemestrStart || progress <= 0)
+                return;
+
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(progress, "Curriculum loading...");
+
+            LoadCurriculumFromExcel(values.firstSemestrStart, 
+                                    values.firstSemestrEnd, 
+                                    values.secondSemestrStart, 
+                                    values.secondSemestrEnd);
 
             m_parentForm.HideProgress();
             m_parentForm.Enabled = true;

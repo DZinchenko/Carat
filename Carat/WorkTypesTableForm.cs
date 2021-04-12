@@ -53,7 +53,7 @@ namespace Carat
             if (workTypes.Count > 0)
                 return;
 
-            for (int i = 0; i < 37; ++i)
+            for (int i = 0; i < 38; ++i)
             {
                 dataGridViewWorkTypes.Rows.Add();
             }
@@ -74,28 +74,29 @@ namespace Carat
 
             dataGridViewWorkTypes.Rows[13].SetValues("Індивід заняття з магістрами", 10);
             dataGridViewWorkTypes.Rows[14].SetValues("Керівництво практиками", 8);
-            dataGridViewWorkTypes.Rows[15].SetValues("Керівниц.атестац.роб.(спеціалістів)", 21);
-            dataGridViewWorkTypes.Rows[16].SetValues("Керівниц.атестац.роб.(магістрів)", 34);
-            dataGridViewWorkTypes.Rows[17].SetValues("Консульт.атестац.роб.(бакалаврів)", 1);
-            dataGridViewWorkTypes.Rows[18].SetValues("Консульт.атестац.роб.(спеціалістів)", 1);
-            dataGridViewWorkTypes.Rows[19].SetValues("Консульт.атестац.роб.(магістрів)", 1);
-            dataGridViewWorkTypes.Rows[20].SetValues("Консульт.по держ.екзамену (бакалаврів)", 0);
-            dataGridViewWorkTypes.Rows[21].SetValues("Консульт.по держ.екзамену (спеціалістів)", 0);
-            dataGridViewWorkTypes.Rows[22].SetValues("Консульт.по держ.екзамену (магістрів)", 0);
+            dataGridViewWorkTypes.Rows[15].SetValues("Керівниц.атестац.роб.(бакалаврів)", 0);
+            dataGridViewWorkTypes.Rows[16].SetValues("Керівниц.атестац.роб.(спеціалістів)", 21);
+            dataGridViewWorkTypes.Rows[17].SetValues("Керівниц.атестац.роб.(магістрів)", 34);
+            dataGridViewWorkTypes.Rows[18].SetValues("Консульт.атестац.роб.(бакалаврів)", 1);
+            dataGridViewWorkTypes.Rows[19].SetValues("Консульт.атестац.роб.(спеціалістів)", 1);
+            dataGridViewWorkTypes.Rows[20].SetValues("Консульт.атестац.роб.(магістрів)", 1);
+            dataGridViewWorkTypes.Rows[21].SetValues("Консульт.по держ.екзамену (бакалаврів)", 0);
+            dataGridViewWorkTypes.Rows[22].SetValues("Консульт.по держ.екзамену (спеціалістів)", 0);
+            dataGridViewWorkTypes.Rows[23].SetValues("Консульт.по держ.екзамену (магістрів)", 0);
 
-            dataGridViewWorkTypes.Rows[23].SetValues("Рецензув.атестац.роб.(бакалаврів)", 2);
-            dataGridViewWorkTypes.Rows[24].SetValues("Рецензув.атестац.роб.(спеціалістів)", 3);
-            dataGridViewWorkTypes.Rows[25].SetValues("Рецензув.атестац.роб.(магістрів)", 4);
-            dataGridViewWorkTypes.Rows[26].SetValues("Робота в ДЕК (захист дипл., бакалаври)", 0);
-            dataGridViewWorkTypes.Rows[27].SetValues("Робота в ДЕК (екзам.усний, бакалаври)", 0);
-            dataGridViewWorkTypes.Rows[28].SetValues("Робота в ДЕК (екз.письмов., бакалаври)", 0);
-            dataGridViewWorkTypes.Rows[29].SetValues("Робота в ДЕК (захист дипл., спеціалісти)", 0);
-            dataGridViewWorkTypes.Rows[30].SetValues("Робота в ДЕК (екзамен, спеціалісти)", 0);
-            dataGridViewWorkTypes.Rows[31].SetValues("Робота в ДЕК (магістрів)", 0);
-            dataGridViewWorkTypes.Rows[32].SetValues("Керівництво (аспірантами)", 0);
-            dataGridViewWorkTypes.Rows[33].SetValues("Керівництво (здобувач., стаж.)", 0);
-            dataGridViewWorkTypes.Rows[34].SetValues("Заняття з аспірантами", 0);
-            dataGridViewWorkTypes.Rows[35].SetValues("Консульт.докторантів", 0);
+            dataGridViewWorkTypes.Rows[24].SetValues("Рецензув.атестац.роб.(бакалаврів)", 2);
+            dataGridViewWorkTypes.Rows[25].SetValues("Рецензув.атестац.роб.(спеціалістів)", 3);
+            dataGridViewWorkTypes.Rows[26].SetValues("Рецензув.атестац.роб.(магістрів)", 4);
+            dataGridViewWorkTypes.Rows[27].SetValues("Робота в ДЕК (захист дипл., бакалаври)", 0);
+            dataGridViewWorkTypes.Rows[28].SetValues("Робота в ДЕК (екзам.усний, бакалаври)", 0);
+            dataGridViewWorkTypes.Rows[29].SetValues("Робота в ДЕК (екз.письмов., бакалаври)", 0);
+            dataGridViewWorkTypes.Rows[30].SetValues("Робота в ДЕК (захист дипл., спеціалісти)", 0);
+            dataGridViewWorkTypes.Rows[31].SetValues("Робота в ДЕК (екзамен, спеціалісти)", 0);
+            dataGridViewWorkTypes.Rows[32].SetValues("Робота в ДЕК (магістрів)", 0);
+            dataGridViewWorkTypes.Rows[33].SetValues("Керівництво (аспірантами)", 0);
+            dataGridViewWorkTypes.Rows[34].SetValues("Керівництво (здобувач., стаж.)", 0);
+            dataGridViewWorkTypes.Rows[35].SetValues("Заняття з аспірантами", 0);
+            dataGridViewWorkTypes.Rows[36].SetValues("Консульт.докторантів", 0);
         }
 
         private void WorkTypesTableForm_FormClosed(object sender, FormClosedEventArgs e)
