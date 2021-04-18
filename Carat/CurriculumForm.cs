@@ -711,7 +711,6 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
-        
         }
 
         private void SecondPageOneRowSubjects(double hours, 
@@ -809,7 +808,7 @@ namespace Carat
                 curriculumItem.EducLevel = educLevel;
                 curriculumItem.EducType = educType;
                 curriculumItem.Semestr = semestr;
-                curriculumItem.SubjectHours = hours;
+                curriculumItem.SubjectHours = 0;
                 curriculumItem.SubjectId = subjectId;
 
                 m_curriculumItemRepository.AddCurriculumItem(curriculumItem);

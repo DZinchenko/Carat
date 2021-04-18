@@ -26,6 +26,7 @@ namespace Carat
         public Form workTypesForm = null;
         public Form curriculumForm = null;
         public Form TAForm = null;
+        public Form excelReportsForm = null;
         public bool IsFiltersValuesSelected = false;
         public bool IsRequiredFiltersValuesSelected = false;
 
@@ -82,6 +83,9 @@ namespace Carat
 
             if (TAForm == null)
                 buttonTA.Image = Properties.Resources.icons8_круг_16;
+
+            if (excelReportsForm == null)
+                buttonExcelReports.Image = Properties.Resources.icons8_круг_16;
         }
 
         private void InitializeSubmenu()
@@ -103,6 +107,7 @@ namespace Carat
                 teachersForm?.Close();
                 workTypesForm?.Close();
                 curriculumForm?.Close();
+                excelReportsForm?.Close();
                 TAForm?.Close();
 
                 subjectsForm = null;
@@ -110,6 +115,7 @@ namespace Carat
                 teachersForm = null;
                 workTypesForm = null;
                 curriculumForm = null;
+                excelReportsForm = null;
                 TAForm = null;
             }
         }
@@ -238,6 +244,7 @@ namespace Carat
         {
             curriculumForm?.Close();
             TAForm?.Close();
+            excelReportsForm?.Close();
 
             if (subjectsForm == null)
             {
@@ -304,6 +311,7 @@ namespace Carat
         {
             curriculumForm?.Close();
             TAForm?.Close();
+            excelReportsForm?.Close();
 
             if (groupsForm == null)
             {
@@ -321,6 +329,7 @@ namespace Carat
         {
             curriculumForm?.Close();
             TAForm?.Close();
+            excelReportsForm?.Close();
 
             if (teachersForm == null)
             {
@@ -429,6 +438,9 @@ namespace Carat
                     if (TAForm != null)
                         TAForm.Size = panelWorkspace.Size;
 
+                    if (excelReportsForm != null)
+                        excelReportsForm.Size = panelWorkspace.Size;
+
                     break;
                 case 2:
                     ApplyShinglesMode();
@@ -452,6 +464,7 @@ namespace Carat
             groupsForm?.Close();
             teachersForm?.Close();
             workTypesForm?.Close();
+            excelReportsForm?.Close();
             TAForm?.Close();
 
             if (curriculumForm == null)
@@ -482,6 +495,7 @@ namespace Carat
             teachersForm?.Close();
             workTypesForm?.Close();
             curriculumForm?.Close();
+            excelReportsForm?.Close();
 
             if (TAForm == null)
             {
@@ -510,10 +524,17 @@ namespace Carat
                 curriculumForm.Close();
                 buttonCurriculum.PerformClick();
             }
+
             if (TAForm != null)
             {
                 TAForm.Close();
                 buttonTA.PerformClick();
+            }
+
+            if (excelReportsForm != null)
+            {
+                excelReportsForm.Close();
+                buttonExcelReports.PerformClick();
             }
         }
 
@@ -574,6 +595,7 @@ namespace Carat
         {
             curriculumForm?.Close();
             TAForm?.Close();
+            excelReportsForm?.Close();
 
             if (workTypesForm == null)
             {
@@ -706,6 +728,7 @@ namespace Carat
             teachersForm?.Close();
             workTypesForm?.Close();
             curriculumForm?.Close();
+            excelReportsForm?.Close();
             TAForm?.Close();
         }
 
@@ -744,6 +767,10 @@ namespace Carat
             {
                 openedForms.Add(workTypesForm);
             }
+            if (excelReportsForm != null)
+            {
+                openedForms.Add(excelReportsForm);
+            }
 
             if (openedForms.Count <= 0)
             {
@@ -764,6 +791,34 @@ namespace Carat
             selectedWindowsStyle = 2;
             //shinglesToolStripMenuItem.CheckOnClick = true;
             UpdateWindows();
+        }
+
+        private void buttonExcelReports_Click(object sender, EventArgs e)
+        {
+            subjectsForm?.Close();
+            groupsForm?.Close();
+            teachersForm?.Close();
+            workTypesForm?.Close();
+            curriculumForm?.Close();
+            TAForm?.Close();
+
+            if (excelReportsForm == null)
+            {
+                buttonExcelReports.Image = Properties.Resources.icons8_заполненный_круг_16;
+                excelReportsForm = new ExcelReportsForm(this, 
+                                                        m_dbName, 
+                                                        getEducTypeFilter(), 
+                                                        getEducFormFilter(),
+                                                        getEducLevelFilter(),
+                                                        getCourseFilter(),
+                                                        getSemesterFilter());
+
+                openChildForm(excelReportsForm);
+            }
+            else
+            {
+                excelReportsForm.BringToFront();
+            }
         }
     }
 }

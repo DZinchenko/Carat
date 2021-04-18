@@ -50,7 +50,6 @@
             this.panelTools = new System.Windows.Forms.Panel();
             this.labelIsEmptyWorks = new System.Windows.Forms.Label();
             this.checkBoxEmptyWorks = new System.Windows.Forms.CheckBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.panelSemestr = new System.Windows.Forms.Panel();
             this.radioButtonAll = new System.Windows.Forms.RadioButton();
             this.radioButtonSecond = new System.Windows.Forms.RadioButton();
@@ -58,18 +57,12 @@
             this.comboBoxEducLevel = new System.Windows.Forms.ComboBox();
             this.labelSemestr = new System.Windows.Forms.Label();
             this.labelEducLevel = new System.Windows.Forms.Label();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.labelCourse = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.comboBoxCourse = new System.Windows.Forms.ComboBox();
             this.labelEducForm = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.comboBoxEducForm = new System.Windows.Forms.ComboBox();
             this.labelEducType = new System.Windows.Forms.Label();
             this.comboBoxEducType = new System.Windows.Forms.ComboBox();
-            this.buttonHidePanel = new System.Windows.Forms.Button();
             this.panelFooter = new System.Windows.Forms.Panel();
             this.panelProgress = new System.Windows.Forms.Panel();
             this.labelProgress = new System.Windows.Forms.Label();
@@ -78,40 +71,47 @@
             this.dataBaseStatelabel = new System.Windows.Forms.Label();
             this.panelWorkspace = new System.Windows.Forms.Panel();
             this.labelCarat = new System.Windows.Forms.Label();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.panelLeftMain = new System.Windows.Forms.Panel();
             this.panelReportSubmenu = new System.Windows.Forms.Panel();
+            this.panelSectionSubmenu = new System.Windows.Forms.Panel();
+            this.panelTablesSubmenu = new System.Windows.Forms.Panel();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.buttonExcelReports = new System.Windows.Forms.Button();
             this.buttonReport = new System.Windows.Forms.Button();
-            this.panelSectionSubmenu = new System.Windows.Forms.Panel();
             this.buttonTA = new System.Windows.Forms.Button();
             this.buttonCurriculum = new System.Windows.Forms.Button();
             this.buttonSection = new System.Windows.Forms.Button();
-            this.panelTablesSubmenu = new System.Windows.Forms.Panel();
             this.buttonTeachers = new System.Windows.Forms.Button();
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonHidePanel = new System.Windows.Forms.Button();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.panelSemestr.SuspendLayout();
+            this.panelFooter.SuspendLayout();
+            this.panelProgress.SuspendLayout();
+            this.panelWorkspace.SuspendLayout();
+            this.panelLeftMain.SuspendLayout();
+            this.panelReportSubmenu.SuspendLayout();
+            this.panelSectionSubmenu.SuspendLayout();
+            this.panelTablesSubmenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panelFooter.SuspendLayout();
-            this.panelProgress.SuspendLayout();
-            this.panelWorkspace.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            this.panelLeftMain.SuspendLayout();
-            this.panelReportSubmenu.SuspendLayout();
-            this.panelSectionSubmenu.SuspendLayout();
-            this.panelTablesSubmenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelOptions
@@ -334,15 +334,6 @@
             this.checkBoxEmptyWorks.UseVisualStyleBackColor = true;
             this.checkBoxEmptyWorks.CheckedChanged += new System.EventHandler(this.checkBoxEmptyWorks_CheckedChanged);
             // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox7.Location = new System.Drawing.Point(964, 4);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox7.TabIndex = 15;
-            this.pictureBox7.TabStop = false;
-            // 
             // panelSemestr
             // 
             this.panelSemestr.Controls.Add(this.radioButtonAll);
@@ -432,33 +423,6 @@
             this.labelEducLevel.TabIndex = 11;
             this.labelEducLevel.Text = "Рівень навчання:";
             // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox6.Location = new System.Drawing.Point(418, 4);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox6.TabIndex = 10;
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox4.Location = new System.Drawing.Point(774, 4);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox4.TabIndex = 6;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox3.Location = new System.Drawing.Point(647, 4);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            // 
             // labelCourse
             // 
             this.labelCourse.AutoSize = true;
@@ -468,15 +432,6 @@
             this.labelCourse.Size = new System.Drawing.Size(41, 19);
             this.labelCourse.TabIndex = 8;
             this.labelCourse.Text = "Курс:";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox2.Location = new System.Drawing.Point(253, 4);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
             // 
             // comboBoxCourse
             // 
@@ -511,15 +466,6 @@
             this.labelEducForm.Size = new System.Drawing.Size(55, 19);
             this.labelEducForm.TabIndex = 5;
             this.labelEducForm.Text = "Форма:";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
-            this.pictureBox1.Location = new System.Drawing.Point(42, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(27, 26);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // comboBoxEducForm
             // 
@@ -573,19 +519,6 @@
             this.comboBoxEducType.Tag = "";
             this.comboBoxEducType.SelectedIndexChanged += new System.EventHandler(this.comboBoxEducType_SelectedIndexChanged);
             this.comboBoxEducType.DropDownClosed += new System.EventHandler(this.comboBoxEducType_DropDownClosed);
-            // 
-            // buttonHidePanel
-            // 
-            this.buttonHidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
-            this.buttonHidePanel.FlatAppearance.BorderSize = 0;
-            this.buttonHidePanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHidePanel.Image = global::Carat.Properties.Resources.icons8_открыть_панель_32;
-            this.buttonHidePanel.Location = new System.Drawing.Point(3, 2);
-            this.buttonHidePanel.Name = "buttonHidePanel";
-            this.buttonHidePanel.Size = new System.Drawing.Size(33, 27);
-            this.buttonHidePanel.TabIndex = 0;
-            this.buttonHidePanel.UseVisualStyleBackColor = false;
-            this.buttonHidePanel.Click += new System.EventHandler(this.buttonHidePanel_Click);
             // 
             // panelFooter
             // 
@@ -668,16 +601,6 @@
             this.labelCarat.TabIndex = 1;
             this.labelCarat.Text = "Carat";
             // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox5.Image = global::Carat.Properties.Resources.preciousstone_105028;
-            this.pictureBox5.Location = new System.Drawing.Point(337, 73);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(255, 222);
-            this.pictureBox5.TabIndex = 0;
-            this.pictureBox5.TabStop = false;
-            // 
             // panelLeftMain
             // 
             this.panelLeftMain.AutoScroll = true;
@@ -699,12 +622,43 @@
             // 
             this.panelReportSubmenu.Controls.Add(this.button8);
             this.panelReportSubmenu.Controls.Add(this.button9);
-            this.panelReportSubmenu.Controls.Add(this.button10);
+            this.panelReportSubmenu.Controls.Add(this.buttonExcelReports);
             this.panelReportSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelReportSubmenu.Location = new System.Drawing.Point(0, 325);
             this.panelReportSubmenu.Name = "panelReportSubmenu";
             this.panelReportSubmenu.Size = new System.Drawing.Size(173, 105);
             this.panelReportSubmenu.TabIndex = 6;
+            // 
+            // panelSectionSubmenu
+            // 
+            this.panelSectionSubmenu.Controls.Add(this.buttonTA);
+            this.panelSectionSubmenu.Controls.Add(this.buttonCurriculum);
+            this.panelSectionSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSectionSubmenu.Location = new System.Drawing.Point(0, 205);
+            this.panelSectionSubmenu.Name = "panelSectionSubmenu";
+            this.panelSectionSubmenu.Size = new System.Drawing.Size(173, 70);
+            this.panelSectionSubmenu.TabIndex = 4;
+            // 
+            // panelTablesSubmenu
+            // 
+            this.panelTablesSubmenu.Controls.Add(this.buttonTeachers);
+            this.panelTablesSubmenu.Controls.Add(this.buttonGroups);
+            this.panelTablesSubmenu.Controls.Add(this.buttonSubjects);
+            this.panelTablesSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTablesSubmenu.Location = new System.Drawing.Point(0, 50);
+            this.panelTablesSubmenu.Name = "panelTablesSubmenu";
+            this.panelTablesSubmenu.Size = new System.Drawing.Size(173, 105);
+            this.panelTablesSubmenu.TabIndex = 2;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox5.Image = global::Carat.Properties.Resources.preciousstone_105028;
+            this.pictureBox5.Location = new System.Drawing.Point(337, 73);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(255, 222);
+            this.pictureBox5.TabIndex = 0;
+            this.pictureBox5.TabStop = false;
             // 
             // button8
             // 
@@ -740,22 +694,23 @@
             this.button9.Text = "Звіти";
             this.button9.UseVisualStyleBackColor = false;
             // 
-            // button10
+            // buttonExcelReports
             // 
-            this.button10.AutoEllipsis = true;
-            this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
-            this.button10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button10.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.ForeColor = System.Drawing.Color.Black;
-            this.button10.Image = ((System.Drawing.Image)(resources.GetObject("button10.Image")));
-            this.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button10.Location = new System.Drawing.Point(0, 0);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(173, 35);
-            this.button10.TabIndex = 2;
-            this.button10.Text = "Звіти";
-            this.button10.UseVisualStyleBackColor = false;
+            this.buttonExcelReports.AutoEllipsis = true;
+            this.buttonExcelReports.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(226)))), ((int)(((byte)(210)))));
+            this.buttonExcelReports.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonExcelReports.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonExcelReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExcelReports.ForeColor = System.Drawing.Color.Black;
+            this.buttonExcelReports.Image = ((System.Drawing.Image)(resources.GetObject("buttonExcelReports.Image")));
+            this.buttonExcelReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonExcelReports.Location = new System.Drawing.Point(0, 0);
+            this.buttonExcelReports.Name = "buttonExcelReports";
+            this.buttonExcelReports.Size = new System.Drawing.Size(173, 35);
+            this.buttonExcelReports.TabIndex = 2;
+            this.buttonExcelReports.Text = "Excel звіти";
+            this.buttonExcelReports.UseVisualStyleBackColor = false;
+            this.buttonExcelReports.Click += new System.EventHandler(this.buttonExcelReports_Click);
             // 
             // buttonReport
             // 
@@ -775,16 +730,6 @@
             this.buttonReport.Text = "Звіти";
             this.buttonReport.UseVisualStyleBackColor = false;
             this.buttonReport.Click += new System.EventHandler(this.buttonReport_Click);
-            // 
-            // panelSectionSubmenu
-            // 
-            this.panelSectionSubmenu.Controls.Add(this.buttonTA);
-            this.panelSectionSubmenu.Controls.Add(this.buttonCurriculum);
-            this.panelSectionSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSectionSubmenu.Location = new System.Drawing.Point(0, 205);
-            this.panelSectionSubmenu.Name = "panelSectionSubmenu";
-            this.panelSectionSubmenu.Size = new System.Drawing.Size(173, 70);
-            this.panelSectionSubmenu.TabIndex = 4;
             // 
             // buttonTA
             // 
@@ -840,17 +785,6 @@
             this.buttonSection.Text = "Розподіл";
             this.buttonSection.UseVisualStyleBackColor = false;
             this.buttonSection.Click += new System.EventHandler(this.buttonSection_Click);
-            // 
-            // panelTablesSubmenu
-            // 
-            this.panelTablesSubmenu.Controls.Add(this.buttonTeachers);
-            this.panelTablesSubmenu.Controls.Add(this.buttonGroups);
-            this.panelTablesSubmenu.Controls.Add(this.buttonSubjects);
-            this.panelTablesSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTablesSubmenu.Location = new System.Drawing.Point(0, 50);
-            this.panelTablesSubmenu.Name = "panelTablesSubmenu";
-            this.panelTablesSubmenu.Size = new System.Drawing.Size(173, 105);
-            this.panelTablesSubmenu.TabIndex = 2;
             // 
             // buttonTeachers
             // 
@@ -925,6 +859,73 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox7.Location = new System.Drawing.Point(964, 4);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox7.TabIndex = 15;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox6.Location = new System.Drawing.Point(418, 4);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox6.TabIndex = 10;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox4.Location = new System.Drawing.Point(774, 4);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox4.TabIndex = 6;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox3.Location = new System.Drawing.Point(647, 4);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox2.Location = new System.Drawing.Point(253, 4);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Carat.Properties.Resources.icons8_вертикальная_линия_24;
+            this.pictureBox1.Location = new System.Drawing.Point(42, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // buttonHidePanel
+            // 
+            this.buttonHidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(188)))), ((int)(((byte)(149)))));
+            this.buttonHidePanel.FlatAppearance.BorderSize = 0;
+            this.buttonHidePanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHidePanel.Image = global::Carat.Properties.Resources.icons8_открыть_панель_32;
+            this.buttonHidePanel.Location = new System.Drawing.Point(3, 2);
+            this.buttonHidePanel.Name = "buttonHidePanel";
+            this.buttonHidePanel.Size = new System.Drawing.Size(33, 27);
+            this.buttonHidePanel.TabIndex = 0;
+            this.buttonHidePanel.UseVisualStyleBackColor = false;
+            this.buttonHidePanel.Click += new System.EventHandler(this.buttonHidePanel_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -951,25 +952,25 @@
             this.menuStripOptions.PerformLayout();
             this.panelTools.ResumeLayout(false);
             this.panelTools.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.panelSemestr.ResumeLayout(false);
             this.panelSemestr.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelFooter.ResumeLayout(false);
             this.panelFooter.PerformLayout();
             this.panelProgress.ResumeLayout(false);
             this.panelProgress.PerformLayout();
             this.panelWorkspace.ResumeLayout(false);
             this.panelWorkspace.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panelLeftMain.ResumeLayout(false);
             this.panelReportSubmenu.ResumeLayout(false);
             this.panelSectionSubmenu.ResumeLayout(false);
             this.panelTablesSubmenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -998,7 +999,7 @@
         private System.Windows.Forms.Button buttonSubjects;
         private System.Windows.Forms.Panel panelReportSubmenu;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button buttonExcelReports;
         private System.Windows.Forms.Button buttonReport;
         private System.Windows.Forms.Panel panelSectionSubmenu;
         private System.Windows.Forms.Button buttonTA;
