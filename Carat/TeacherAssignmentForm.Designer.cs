@@ -51,6 +51,7 @@ namespace Carat
             this.TAWorkFreeHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelGroups = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.sqliteCommand1 = new Microsoft.Data.Sqlite.SqliteCommand();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTATeachers)).BeginInit();
             this.panelTeacherAssignmentTop.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -76,6 +77,7 @@ namespace Carat
             this.dataGridViewTATeachers.Name = "dataGridViewTATeachers";
             this.dataGridViewTATeachers.Size = new System.Drawing.Size(543, 162);
             this.dataGridViewTATeachers.TabIndex = 1;
+            this.dataGridViewTATeachers.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTATeachers_CellMouseClick);
             this.dataGridViewTATeachers.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTATeachers_CellValueChanged);
             this.dataGridViewTATeachers.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewTATeachers_RowsRemoved);
             this.dataGridViewTATeachers.SelectionChanged += new System.EventHandler(this.dataGridViewTATeachers_SelectionChanged);
@@ -265,6 +267,14 @@ namespace Carat
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // sqliteCommand1
+            // 
+            this.sqliteCommand1.CommandText = null;
+            this.sqliteCommand1.CommandTimeout = 30;
+            this.sqliteCommand1.Connection = null;
+            this.sqliteCommand1.Transaction = null;
+            this.sqliteCommand1.UpdatedRowSource = System.Data.UpdateRowSource.None;
+            // 
             // TeacherAssignmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -314,5 +324,6 @@ namespace Carat
         private System.Windows.Forms.Panel panelGroups;
         private System.Windows.Forms.DataGridViewTextBoxColumn TATeacher;
         private System.Windows.Forms.DataGridViewTextBoxColumn TATeacherHours;
+        private Microsoft.Data.Sqlite.SqliteCommand sqliteCommand1;
     }
 }

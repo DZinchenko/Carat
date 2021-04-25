@@ -30,6 +30,7 @@ namespace Carat
 
         private bool isSelectionChanging = false;
         private string m_dbPath;
+        private List<int> m_groupsCopyBuffer = new List<int>();
 
         private double selectedFreeHours = 0;
         private int selectedWorkId = 0;
@@ -131,6 +132,8 @@ namespace Carat
             {
                 return;
             }
+
+            m_groupsCopyBuffer.Clear();
 
             selectedCurriculumSubjectId = curriculumItems[rowIndex].Id;
 
@@ -492,6 +495,59 @@ namespace Carat
             panelGroups.Tag = m_selectGroupsForm;
             m_selectGroupsForm.BringToFront();
             m_selectGroupsForm.Show();
+        }
+
+        private void dataGridViewTATeachers_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var taItems = m_TAItemRepository.GetTAItems(selectedWorkId);
+
+            if (e.RowIndex >= taItems.Count)
+            {
+                return;
+            }
+
+            var TAItem = taItems[e.RowIndex];
+            var groupsToTAItem = m_groupsToTeacherRepository.GetGroupsToTAItem(TAItem.Id);
+
+            if (e.Button == MouseButtons.Middle)
+            {
+                m_groupsCopyBuffer.Clear();
+
+                foreach (var el in groupsToTAItem)
+                {
+                    m_groupsCopyBuffer.Add(el.GroupId);
+                }
+
+                dataGridViewTATeachers.ClearSelection();
+                dataGridViewTATeachers.Rows[e.RowIndex].Selected = true;
+
+                MessageBox.Show("Групи скопійовані");
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (m_groupsCopyBuffer.Count == 0)
+                {
+                    return;
+                }
+
+                foreach (var el in groupsToTAItem)
+                {
+                    m_groupsToTeacherRepository.RemoveGroupsToTAItem(el);
+                }
+
+                foreach (var el in m_groupsCopyBuffer)
+                {
+                    var newGroup = new GroupsToTAItem();
+                    newGroup.GroupId = el;
+                    newGroup.TAItemID = TAItem.Id;
+                    m_groupsToTeacherRepository.AddGroupsToTAItem(newGroup);
+                }
+
+                dataGridViewTATeachers.ClearSelection();
+                dataGridViewTATeachers.Rows[e.RowIndex].Selected = true;
+
+                MessageBox.Show("Групи замінені");
+            }
         }
     }
 }
