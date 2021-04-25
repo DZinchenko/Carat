@@ -31,36 +31,38 @@ namespace Carat
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeacherAssignmentForm));
-            this.panelTeacherAssignmentBottom = new System.Windows.Forms.Panel();
             this.dataGridViewTATeachers = new System.Windows.Forms.DataGridView();
             this.TATeacher = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TATeacherHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TATeacherGroups = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboBoxTATeachers = new System.Windows.Forms.ComboBox();
             this.panelTeacherAssignmentTop = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
             this.dataGridViewTASubjects = new System.Windows.Forms.DataGridView();
             this.TASubjects = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TASubjectCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.dataGridViewTAWorks = new System.Windows.Forms.DataGridView();
             this.TAWork = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TAWorkFreeHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panelGroups = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.panelTeacherAssignmentBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTATeachers)).BeginInit();
             this.panelTeacherAssignmentTop.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTASubjects)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTAWorks)).BeginInit();
             this.SuspendLayout();
-            // 
-            // panelTeacherAssignmentBottom
-            // 
-            this.panelTeacherAssignmentBottom.Controls.Add(this.dataGridViewTATeachers);
-            this.panelTeacherAssignmentBottom.Controls.Add(this.comboBoxTATeachers);
-            this.panelTeacherAssignmentBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelTeacherAssignmentBottom.Location = new System.Drawing.Point(0, 363);
-            this.panelTeacherAssignmentBottom.Name = "panelTeacherAssignmentBottom";
-            this.panelTeacherAssignmentBottom.Size = new System.Drawing.Size(899, 156);
-            this.panelTeacherAssignmentBottom.TabIndex = 0;
             // 
             // dataGridViewTATeachers
             // 
@@ -68,17 +70,15 @@ namespace Carat
             this.dataGridViewTATeachers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTATeachers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TATeacher,
-            this.TATeacherHours,
-            this.TATeacherGroups});
+            this.TATeacherHours});
             this.dataGridViewTATeachers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewTATeachers.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewTATeachers.Name = "dataGridViewTATeachers";
-            this.dataGridViewTATeachers.Size = new System.Drawing.Size(899, 133);
+            this.dataGridViewTATeachers.Size = new System.Drawing.Size(543, 162);
             this.dataGridViewTATeachers.TabIndex = 1;
-            this.dataGridViewTATeachers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTATeachers_CellContentClick);
-            this.dataGridViewTATeachers.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTATeachers_CellDoubleClick);
             this.dataGridViewTATeachers.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTATeachers_CellValueChanged);
             this.dataGridViewTATeachers.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewTATeachers_RowsRemoved);
+            this.dataGridViewTATeachers.SelectionChanged += new System.EventHandler(this.dataGridViewTATeachers_SelectionChanged);
             // 
             // TATeacher
             // 
@@ -96,35 +96,45 @@ namespace Carat
             this.TATeacherHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.TATeacherHours.Width = 53;
             // 
-            // TATeacherGroups
-            // 
-            this.TATeacherGroups.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.TATeacherGroups.HeaderText = "Групи";
-            this.TATeacherGroups.Name = "TATeacherGroups";
-            this.TATeacherGroups.ReadOnly = true;
-            this.TATeacherGroups.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TATeacherGroups.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // comboBoxTATeachers
             // 
-            this.comboBoxTATeachers.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.comboBoxTATeachers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxTATeachers.FormattingEnabled = true;
-            this.comboBoxTATeachers.Location = new System.Drawing.Point(0, 133);
+            this.comboBoxTATeachers.Location = new System.Drawing.Point(0, 0);
             this.comboBoxTATeachers.Name = "comboBoxTATeachers";
-            this.comboBoxTATeachers.Size = new System.Drawing.Size(899, 23);
+            this.comboBoxTATeachers.Size = new System.Drawing.Size(543, 23);
             this.comboBoxTATeachers.TabIndex = 0;
             this.comboBoxTATeachers.Text = "Викладачі";
             this.comboBoxTATeachers.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTATeachers_SelectionChangeCommitted);
             // 
             // panelTeacherAssignmentTop
             // 
-            this.panelTeacherAssignmentTop.Controls.Add(this.dataGridViewTASubjects);
-            this.panelTeacherAssignmentTop.Controls.Add(this.dataGridViewTAWorks);
+            this.panelTeacherAssignmentTop.Controls.Add(this.panel3);
+            this.panelTeacherAssignmentTop.Controls.Add(this.panel2);
             this.panelTeacherAssignmentTop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTeacherAssignmentTop.Location = new System.Drawing.Point(0, 0);
             this.panelTeacherAssignmentTop.Name = "panelTeacherAssignmentTop";
-            this.panelTeacherAssignmentTop.Size = new System.Drawing.Size(899, 363);
+            this.panelTeacherAssignmentTop.Size = new System.Drawing.Size(899, 519);
             this.panelTeacherAssignmentTop.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.panel6);
+            this.panel3.Controls.Add(this.panel1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(543, 519);
+            this.panel3.TabIndex = 4;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.dataGridViewTASubjects);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(543, 334);
+            this.panel6.TabIndex = 3;
             // 
             // dataGridViewTASubjects
             // 
@@ -141,7 +151,7 @@ namespace Carat
             this.dataGridViewTASubjects.Name = "dataGridViewTASubjects";
             this.dataGridViewTASubjects.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewTASubjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTASubjects.Size = new System.Drawing.Size(582, 363);
+            this.dataGridViewTASubjects.Size = new System.Drawing.Size(543, 334);
             this.dataGridViewTASubjects.TabIndex = 1;
             this.dataGridViewTASubjects.SelectionChanged += new System.EventHandler(this.dataGridViewTASubjects_SelectionChanged);
             // 
@@ -162,6 +172,53 @@ namespace Carat
             this.TASubjectCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.TASubjectCourse.Width = 39;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.panel8);
+            this.panel1.Controls.Add(this.panel7);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 334);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(543, 185);
+            this.panel1.TabIndex = 2;
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.dataGridViewTATeachers);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel8.Location = new System.Drawing.Point(0, 0);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(543, 162);
+            this.panel8.TabIndex = 3;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.comboBoxTATeachers);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel7.Location = new System.Drawing.Point(0, 162);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(543, 23);
+            this.panel7.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.panel5);
+            this.panel2.Controls.Add(this.panelGroups);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(543, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(356, 519);
+            this.panel2.TabIndex = 3;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.dataGridViewTAWorks);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(356, 334);
+            this.panel5.TabIndex = 1;
+            // 
             // dataGridViewTAWorks
             // 
             this.dataGridViewTAWorks.AllowUserToAddRows = false;
@@ -171,10 +228,10 @@ namespace Carat
             this.dataGridViewTAWorks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TAWork,
             this.TAWorkFreeHours});
-            this.dataGridViewTAWorks.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dataGridViewTAWorks.Location = new System.Drawing.Point(582, 0);
+            this.dataGridViewTAWorks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewTAWorks.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewTAWorks.Name = "dataGridViewTAWorks";
-            this.dataGridViewTAWorks.Size = new System.Drawing.Size(317, 363);
+            this.dataGridViewTAWorks.Size = new System.Drawing.Size(356, 334);
             this.dataGridViewTAWorks.TabIndex = 0;
             this.dataGridViewTAWorks.SelectionChanged += new System.EventHandler(this.dataGridViewTAWorks_SelectionChanged);
             // 
@@ -195,6 +252,14 @@ namespace Carat
             this.TAWorkFreeHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.TAWorkFreeHours.Width = 50;
             // 
+            // panelGroups
+            // 
+            this.panelGroups.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelGroups.Location = new System.Drawing.Point(0, 334);
+            this.panelGroups.Name = "panelGroups";
+            this.panelGroups.Size = new System.Drawing.Size(356, 185);
+            this.panelGroups.TabIndex = 0;
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -207,25 +272,28 @@ namespace Carat
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(899, 519);
             this.Controls.Add(this.panelTeacherAssignmentTop);
-            this.Controls.Add(this.panelTeacherAssignmentBottom);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 186);
             this.Name = "TeacherAssignmentForm";
             this.Text = "Навантаження";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TeacherAssignment_FormClosed);
-            this.panelTeacherAssignmentBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTATeachers)).EndInit();
             this.panelTeacherAssignmentTop.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTASubjects)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTAWorks)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelTeacherAssignmentBottom;
         private System.Windows.Forms.Panel panelTeacherAssignmentTop;
         private System.Windows.Forms.DataGridView dataGridViewTATeachers;
         private System.Windows.Forms.ComboBox comboBoxTATeachers;
@@ -236,8 +304,15 @@ namespace Carat
         private System.Windows.Forms.DataGridViewTextBoxColumn TAWork;
         private System.Windows.Forms.DataGridViewTextBoxColumn TAWorkFreeHours;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panelGroups;
         private System.Windows.Forms.DataGridViewTextBoxColumn TATeacher;
         private System.Windows.Forms.DataGridViewTextBoxColumn TATeacherHours;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TATeacherGroups;
     }
 }

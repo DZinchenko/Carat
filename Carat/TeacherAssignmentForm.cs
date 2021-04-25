@@ -18,6 +18,7 @@ namespace Carat
     public partial class TeacherAssignmentForm : Form, IDataUserForm
     {
         private MainForm m_parentForm = null;
+        private SelectGroups m_selectGroupsForm = null;
         private ISubjectRepository m_subjectRepository = null;
         private IGroupRepository m_groupRepository = null;
         private ICurriculumItemRepository m_curriculumItemRepository = null;
@@ -199,7 +200,7 @@ namespace Carat
             {
                 return;
             }
-            
+
             selectedWorkId = works[rowIndex].Id;
             selectedWorkIndex = rowIndex;
             selectedFreeHours = dFreeHours;
@@ -223,16 +224,6 @@ namespace Carat
             foreach (var item in taItems)
             {
                 dataGridViewTATeachers.Rows.Add(m_teacherRepository.GetTeacher(item.TeacherId)?.Name, item?.WorkHours, "");
-
-                var groupsToTAItem = m_groupsToTeacherRepository.GetGroupsToTAItem(item.Id);
-                string buttonText = "";
-
-                foreach (var groupToTAItem in groupsToTAItem)
-                {
-                    buttonText += m_groupRepository.GetGroup(groupToTAItem.GroupId).Name + "; ";
-                }
-
-                dataGridViewTATeachers.Rows[dataGridViewTATeachers.Rows.Count - 1].Cells[2].Value = buttonText;
             }
         }
 
@@ -471,39 +462,36 @@ namespace Carat
             dataGridViewTATeachers.Focus();
         }
 
-        private void dataGridViewTATeachers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewTATeachers_SelectionChanged(object sender, EventArgs e)
         {
-            var senderGrid = (DataGridView)sender;
+            if (m_selectGroupsForm != null)
+                m_selectGroupsForm.Visible = false;
+            m_selectGroupsForm = null;
+            m_selectGroupsForm?.Close();
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            if (!(dataGridViewTATeachers.SelectedCells.Count == 1 || (dataGridViewTATeachers.SelectedRows.Count == 1)))
             {
-                var but = senderGrid.Columns[e.ColumnIndex] as DataGridViewButtonColumn;
-                but.Text = "Lol";
-                but.Name = "Lol";
-                but.Tag = "Lol";
-                but.ToolTipText = "Lol";
+                return;
             }
-        }
 
-        private void dataGridViewTATeachers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var TAItem = m_TAItemRepository.GetTAItems(selectedWorkId)[e.RowIndex];
+            var rowIndex = dataGridViewTATeachers.SelectedCells[0].RowIndex;
+            var taItems = m_TAItemRepository.GetTAItems(selectedWorkId);
 
-            if (e.ColumnIndex == 2)
+            if (rowIndex >= taItems.Count)
             {
-                var form = new SelectGroups(TAItem, m_dbPath);
-                form.ShowDialog();
-                
-                var groupsToTAItem = m_groupsToTeacherRepository.GetGroupsToTAItem(TAItem.Id);
-                string buttonText = "";
-
-                foreach (var groupToTAItem in groupsToTAItem)
-                {
-                    buttonText += m_groupRepository.GetGroup(groupToTAItem.GroupId).Name + "; ";
-                }
-
-                dataGridViewTATeachers.Rows[e.RowIndex].Cells[2].Value = buttonText;
+                return;
             }
+
+            var TAItem = taItems[rowIndex];
+            m_selectGroupsForm = new SelectGroups(TAItem, m_dbPath);
+
+            m_selectGroupsForm.TopLevel = false;
+            m_selectGroupsForm.Size = panelGroups.Size;
+
+            panelGroups.Controls.Add(m_selectGroupsForm);
+            panelGroups.Tag = m_selectGroupsForm;
+            m_selectGroupsForm.BringToFront();
+            m_selectGroupsForm.Show();
         }
     }
 }
