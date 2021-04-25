@@ -39,6 +39,10 @@ namespace Carat
             this.numericUpDownStart2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownEnd2 = new System.Windows.Forms.NumericUpDown();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBoxEducType = new System.Windows.Forms.ComboBox();
+            this.comboBoxEducForm = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEnd1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStart2)).BeginInit();
@@ -151,20 +155,65 @@ namespace Carat
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(15, 119);
+            this.buttonOK.Location = new System.Drawing.Point(15, 186);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(185, 23);
+            this.buttonOK.Size = new System.Drawing.Size(222, 23);
             this.buttonOK.TabIndex = 12;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 154);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(103, 15);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Форма навчання:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 125);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(85, 15);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Вид навчання:";
+            // 
+            // comboBoxEducType
+            // 
+            this.comboBoxEducType.FormattingEnabled = true;
+            this.comboBoxEducType.Items.AddRange(new object[] {
+            "Бюджет",
+            "Контракт"});
+            this.comboBoxEducType.Location = new System.Drawing.Point(117, 119);
+            this.comboBoxEducType.Name = "comboBoxEducType";
+            this.comboBoxEducType.Size = new System.Drawing.Size(120, 23);
+            this.comboBoxEducType.TabIndex = 15;
+            // 
+            // comboBoxEducForm
+            // 
+            this.comboBoxEducForm.FormattingEnabled = true;
+            this.comboBoxEducForm.Items.AddRange(new object[] {
+            "Денна",
+            "Заочна",
+            "Вечірня"});
+            this.comboBoxEducForm.Location = new System.Drawing.Point(117, 148);
+            this.comboBoxEducForm.Name = "comboBoxEducForm";
+            this.comboBoxEducForm.Size = new System.Drawing.Size(120, 23);
+            this.comboBoxEducForm.TabIndex = 16;
             // 
             // SelectCurriculumRows
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(226, 150);
+            this.ClientSize = new System.Drawing.Size(251, 230);
+            this.Controls.Add(this.comboBoxEducForm);
+            this.Controls.Add(this.comboBoxEducType);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.numericUpDownEnd2);
             this.Controls.Add(this.numericUpDownStart2);
@@ -202,5 +251,9 @@ namespace Carat
         private System.Windows.Forms.NumericUpDown numericUpDownStart2;
         private System.Windows.Forms.NumericUpDown numericUpDownEnd2;
         private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBoxEducType;
+        private System.Windows.Forms.ComboBox comboBoxEducForm;
     }
 }

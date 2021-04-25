@@ -576,11 +576,14 @@ namespace Carat
             e.Cancel = !(works.All(work => work.TotalHours < 0.00001));
         }
 
-        private void ReadFirstPage(NPOI.SS.UserModel.ISheet sheet, uint semestr, int startRowIt, int endRowIter)
+        private void ReadFirstPage(NPOI.SS.UserModel.ISheet sheet, 
+                                   uint semestr, 
+                                   int startRowIt, 
+                                   int endRowIter, 
+                                   string educType, 
+                                   string educForm)
         {
             var educLevel = "Бакалавр";
-            var educForm = "Денна";
-            var educType = "Бюджет";
 
             for (int i = startRowIt; i < endRowIter; ++i)
             {
@@ -672,7 +675,12 @@ namespace Carat
             }
         }
 
-        private void LoadCurriculumFromExcel(int firstSemestrStart, int firstSemestrEnd, int secondSemestrStart, int secondSemestrEnd)
+        private void LoadCurriculumFromExcel(int firstSemestrStart, 
+                                             int firstSemestrEnd, 
+                                             int secondSemestrStart, 
+                                             int secondSemestrEnd,
+                                             string educType,
+                                             string educForm)
         {
             try
             {
@@ -699,9 +707,9 @@ namespace Carat
                         m_subjectRepository.DeleteAllSubjects();
                         m_workRepository.DeleteAllWorks();
 
-                        ReadFirstPage(sheet1, 1, firstSemestrStart, firstSemestrEnd);
-                        ReadFirstPage(sheet1, 2, secondSemestrStart, secondSemestrEnd);
-                        ReadSecondPage(sheet2);
+                        ReadFirstPage(sheet1, 1, firstSemestrStart, firstSemestrEnd, educType, educForm);
+                        ReadFirstPage(sheet1, 2, secondSemestrStart, secondSemestrEnd, educType, educForm);
+                        ReadSecondPage(sheet2, educType, educForm);
 
                         LoadData();
                     }
@@ -971,11 +979,8 @@ namespace Carat
                     course, educForm, educLevel, educType, 2, sheet.GetRow(29).GetCell(17).NumericCellValue, subject.Id, 32);
         }
 
-        private void ReadSecondPage(NPOI.SS.UserModel.ISheet sheet)
+        private void ReadSecondPage(NPOI.SS.UserModel.ISheet sheet, string educType, string educForm)
         {
-            var educForm = "Денна";
-            var educType = "Бюджет";
-
             var aspirantRow = sheet.GetRow(36);
             var firstSemestrCellIndex = 12;
             var secondSemestrCellIndex = 17;
@@ -1050,7 +1055,9 @@ namespace Carat
             LoadCurriculumFromExcel(values.firstSemestrStart, 
                                     values.firstSemestrEnd, 
                                     values.secondSemestrStart, 
-                                    values.secondSemestrEnd);
+                                    values.secondSemestrEnd, 
+                                    values.educType, 
+                                    values.educForm);
 
             m_parentForm.HideProgress();
             m_parentForm.Enabled = true;

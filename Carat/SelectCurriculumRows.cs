@@ -16,6 +16,8 @@ namespace Carat
         public int firstSemestrEnd;
         public int secondSemestrStart;
         public int secondSemestrEnd;
+        public string educType;
+        public string educForm;
     }
     public partial class SelectCurriculumRows : Form
     {
@@ -26,6 +28,8 @@ namespace Carat
             InitializeComponent();
 
             buttonOK.DialogResult = DialogResult.OK;
+            comboBoxEducForm.SelectedIndex = 0;
+            comboBoxEducType.SelectedIndex = 0;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -34,6 +38,8 @@ namespace Carat
             m_selectedRows.firstSemestrEnd = Convert.ToInt32(numericUpDownEnd1.Value);
             m_selectedRows.secondSemestrStart = Convert.ToInt32(numericUpDownStart2.Value);
             m_selectedRows.secondSemestrEnd = Convert.ToInt32(numericUpDownEnd2.Value);
+            m_selectedRows.educType = comboBoxEducType.SelectedItem.ToString();
+            m_selectedRows.educForm = comboBoxEducForm.SelectedItem.ToString();
         }
 
         public SelectedRows getValues()
