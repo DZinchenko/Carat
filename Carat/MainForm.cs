@@ -41,9 +41,20 @@ namespace Carat
             comboBoxEducLevel.SelectedIndex = 0;
 
             radioButtonFirst.Checked = true;
-            radioButtonAll.Enabled = false;
+            TurnOffAllSemesters();
 
             dataBaseStatelabel.Text = m_dbName;
+        }
+
+        public void TurnOffAllSemesters()
+        {
+            if (radioButtonAll.Checked)
+            {
+                radioButtonAll.Checked = false;
+                radioButtonFirst.Checked = true;
+            }
+
+            radioButtonAll.Enabled = false;
         }
 
         public void ShowProgress(int interval, string text)
@@ -242,6 +253,7 @@ namespace Carat
 
         private void buttonSubjects_Click(object sender, EventArgs e)
         {
+            TurnOffAllSemesters();
             curriculumForm?.Close();
             TAForm?.Close();
             excelReportsForm?.Close();
@@ -309,6 +321,7 @@ namespace Carat
 
         private void buttonGroups_Click(object sender, EventArgs e)
         {
+            TurnOffAllSemesters();
             curriculumForm?.Close();
             TAForm?.Close();
             excelReportsForm?.Close();
@@ -327,6 +340,7 @@ namespace Carat
 
         private void buttonTeachers_Click(object sender, EventArgs e)
         {
+            TurnOffAllSemesters();
             curriculumForm?.Close();
             TAForm?.Close();
             excelReportsForm?.Close();
@@ -460,6 +474,7 @@ namespace Carat
 
         private void buttonCurriculum_Click(object sender, EventArgs e)
         {
+            TurnOffAllSemesters();
             subjectsForm?.Close();
             groupsForm?.Close();
             teachersForm?.Close();
@@ -490,6 +505,7 @@ namespace Carat
 
         private void buttonTA_Click(object sender, EventArgs e)
         {
+            TurnOffAllSemesters();
             subjectsForm?.Close();
             groupsForm?.Close();
             teachersForm?.Close();
@@ -593,6 +609,7 @@ namespace Carat
 
         private void workTypesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            TurnOffAllSemesters();
             curriculumForm?.Close();
             TAForm?.Close();
             excelReportsForm?.Close();
@@ -802,6 +819,7 @@ namespace Carat
             curriculumForm?.Close();
             TAForm?.Close();
 
+            radioButtonAll.Enabled = true;
             if (excelReportsForm == null)
             {
                 buttonExcelReports.Image = Properties.Resources.icons8_заполненный_круг_16;

@@ -13,5 +13,6 @@ namespace Carat.Data.Repositories
         void RemoveWork(Work work);
         void UpdateWork(Work work);
         void DeleteAllWorks();
+        void DeleteWorks(List<Work> works);
     }
 }

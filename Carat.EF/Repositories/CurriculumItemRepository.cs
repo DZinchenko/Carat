@@ -44,6 +44,15 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public List<CurriculumItem> GetCurriculumItems(string educType, string educForm)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                   && b.EducForm == educForm).ToList();
+            }
+        }
+
         public List<CurriculumItem> GetAllCurriculumItems(string educType, string educForm, uint semestr, string educlevel)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
@@ -102,6 +111,15 @@ namespace Carat.EF.Repositories
             using (var ctx = new CaratDbContext(m_dbPath))
             {
                 ctx.RemoveRange(GetAllCurriculumItems());
+                ctx.SaveChanges();
+            }
+        }
+
+        public void DeleteCurriculumItems(List<CurriculumItem> items)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.RemoveRange(items);
                 ctx.SaveChanges();
             }
         }

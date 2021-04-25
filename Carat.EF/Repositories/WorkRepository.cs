@@ -95,5 +95,14 @@ namespace Carat.EF.Repositories
                 ctx.SaveChanges();
             }
         }
+
+        public void DeleteWorks(List<Work> works)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.RemoveRange(works);
+                ctx.SaveChanges();
+            }
+        }
     }
 }

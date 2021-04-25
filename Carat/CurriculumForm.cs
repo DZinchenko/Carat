@@ -703,9 +703,16 @@ namespace Carat
                             return;
                         }
 
-                        m_curriculumItemRepository.DeleteAllCurriculumItems();
-                        m_subjectRepository.DeleteAllSubjects();
-                        m_workRepository.DeleteAllWorks();
+                        var oldCurriculumItems = m_curriculumItemRepository.GetCurriculumItems(educType, educForm);
+                        var oldWorks = new List<Work>();
+
+                        foreach (var curItem in oldCurriculumItems)
+                        {
+                            oldWorks.AddRange(m_workRepository.GetWorks(curItem.Id, false));
+                        }
+
+                        m_curriculumItemRepository.DeleteCurriculumItems(oldCurriculumItems);
+                        m_workRepository.DeleteWorks(oldWorks);
 
                         ReadFirstPage(sheet1, 1, firstSemestrStart, firstSemestrEnd, educType, educForm);
                         ReadFirstPage(sheet1, 2, secondSemestrStart, secondSemestrEnd, educType, educForm);
