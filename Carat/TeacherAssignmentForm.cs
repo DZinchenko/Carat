@@ -103,7 +103,7 @@ namespace Carat
 
             foreach (var teacher in teachers)
             {
-                comboBoxTATeachers.Items.Add(teacher.Name);
+                comboBoxTATeachers.Items.Add(teacher.Name + " (розп. год. " + m_TAItemRepository.GetAssignedTeacherHours(teacher.Id).ToString() + ")");
             }
         }
 

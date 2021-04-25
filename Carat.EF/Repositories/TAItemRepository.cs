@@ -94,6 +94,22 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public double GetAssignedTeacherHours(int teacherId)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                var taItems = ctx.TAItems.Where(b => b.TeacherId == teacherId).ToList();
+                double result = 0;
+
+                foreach (var item in taItems)
+                {
+                    result += item.WorkHours;
+                }
+
+                return result;
+            }
+        }
+
         public void DeleteAllTAItems()
         {
             using (var ctx = new CaratDbContext(m_dbPath))
