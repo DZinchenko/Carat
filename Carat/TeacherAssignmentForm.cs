@@ -94,16 +94,24 @@ namespace Carat
         public void LoadData()
         {
             var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
-            var teachers = m_teacherRepository.GetAllTeachers();
 
             foreach (var item in curriculumItems)
             {
                 dataGridViewTASubjects.Rows.Add(m_subjectRepository.GetSubject(item.SubjectId)?.Name, item.Course);
             }
 
+            LoadTeachers();
+        }
+
+        private void LoadTeachers()
+        {
+            var teachers = m_teacherRepository.GetAllTeachers();
+
+            comboBoxTATeachers.Items.Clear();
+
             foreach (var teacher in teachers)
             {
-                comboBoxTATeachers.Items.Add(teacher.Name + " (розп. год. " + m_TAItemRepository.GetAssignedTeacherHours(teacher.Id).ToString() + ")");
+                comboBoxTATeachers.Items.Add(teacher.Name + " (розп. год. " + m_TAItemRepository.GetAssignedTeacherHours(teacher.Id).ToString(Tools.HoursAccuracy) + ")");
             }
         }
 
@@ -171,7 +179,7 @@ namespace Carat
                     sum += taItem.WorkHours;
                 }
 
-                dataGridViewTAWorks.Rows.Add(m_workTypeRepository.GetWorkType(work.WorkTypeId)?.Name?.ToString(), work.TotalHours - sum);
+                dataGridViewTAWorks.Rows.Add(m_workTypeRepository.GetWorkType(work.WorkTypeId)?.Name?.ToString(), (work.TotalHours - sum).ToString(Tools.HoursAccuracy));
             }
         }
 
@@ -226,20 +234,8 @@ namespace Carat
 
             foreach (var item in taItems)
             {
-                dataGridViewTATeachers.Rows.Add(m_teacherRepository.GetTeacher(item.TeacherId)?.Name, item?.WorkHours, "");
+                dataGridViewTATeachers.Rows.Add(m_teacherRepository.GetTeacher(item.TeacherId)?.Name, item?.WorkHours.ToString(Tools.HoursAccuracy), "");
             }
-        }
-
-        private void RemoveLastRowTAItems()
-        {
-            int index = dataGridViewTATeachers.Rows.Count - 2;
-
-            if (index < 0)
-            {
-                return;
-            }
-
-            dataGridViewTATeachers.Rows.Remove(dataGridViewTATeachers.Rows[index]);
         }
 
         private void RemoveLastTAItem()
@@ -324,7 +320,7 @@ namespace Carat
             for (int i = 0; i < dataGridViewTATeachers.Rows.Count; ++i)
             {
                 dataGridViewTATeachers.Rows[i].SetValues(
-                    m_teacherRepository.GetTeacher(TAItems[i].TeacherId)?.Name, TAItems[i].WorkHours);
+                    m_teacherRepository.GetTeacher(TAItems[i].TeacherId)?.Name, TAItems[i].WorkHours.ToString(Tools.HoursAccuracy));
             }
         }
 
@@ -338,7 +334,7 @@ namespace Carat
                 sum += item.WorkHours;
             }
 
-            dataGridViewTAWorks[1, selectedWorkIndex].Value = m_workRepository.GetWork(workId).TotalHours - sum;
+            dataGridViewTAWorks[1, selectedWorkIndex].Value = (m_workRepository.GetWork(workId).TotalHours - sum).ToString(Tools.HoursAccuracy);
         }
 
         private bool UpdateTAItem(TAItem item, DataGridViewCellEventArgs e, bool isNewObject)
@@ -396,7 +392,7 @@ namespace Carat
                                 throw new Exception();
                             }
 
-                            dataGridViewTAWorks[1, selectedWorkIndex].Value = work.TotalHours - sum;
+                            dataGridViewTAWorks[1, selectedWorkIndex].Value = (work.TotalHours - sum).ToString(Tools.HoursAccuracy);
 
                             item.WorkHours = workHours;
 
@@ -452,7 +448,10 @@ namespace Carat
                 return;
             }
 
-            var teacher = m_teacherRepository.GetTeacherByName(comboBoxTATeachers.SelectedItem.ToString());
+            var cbItem = comboBoxTATeachers.SelectedItem.ToString();
+            var teacherName = cbItem.Substring(0, cbItem.IndexOf('(') - 1);
+
+            var teacher = m_teacherRepository.GetTeacherByName(teacherName);
 
             if (teacher != null)
             {
@@ -462,6 +461,7 @@ namespace Carat
                 dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, dataGridViewTAWorks.Rows[selectedWorkIndex].Cells[1].Value.ToString(), "");
             }
 
+            LoadTeachers();
             dataGridViewTATeachers.Focus();
         }
 
@@ -491,6 +491,7 @@ namespace Carat
             m_selectGroupsForm.TopLevel = false;
             m_selectGroupsForm.Size = panelGroups.Size;
 
+            LoadTeachers();
             panelGroups.Controls.Add(m_selectGroupsForm);
             panelGroups.Tag = m_selectGroupsForm;
             m_selectGroupsForm.BringToFront();

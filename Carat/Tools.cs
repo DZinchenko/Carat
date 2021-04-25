@@ -10,7 +10,7 @@ namespace Carat
     public class Tools
     {
         static private double accuracy = 0.000001;
-        static public int Digits { get; } = 2;
+        static public string HoursAccuracy { get; } = "F2";
 
         static public string MessageBoxErrorTitle() {
             return "Data error";

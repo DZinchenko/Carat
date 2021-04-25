@@ -42,7 +42,7 @@ namespace Carat
 
             foreach (var work in workTypes)
             {
-                dataGridViewWorkTypes.Rows.Add(work.Name, work.StudentHours);
+                dataGridViewWorkTypes.Rows.Add(work.Name, work.StudentHours.ToString(Tools.HoursAccuracy));
             }
         }
 
@@ -111,7 +111,7 @@ namespace Carat
 
             for (int i = 0; i < workTypes.Count; ++i)
             {
-                dataGridViewWorkTypes.Rows[i].SetValues(workTypes[i].Name, workTypes[i].StudentHours);
+                dataGridViewWorkTypes.Rows[i].SetValues(workTypes[i].Name, workTypes[i].StudentHours.ToString(Tools.HoursAccuracy));
             }
         }
 

@@ -122,7 +122,7 @@ namespace Carat
             foreach (var curriculumItem in curriculumItems)
             {
                 dataGridViewCurriculumSubjects.Rows.Add(m_subjectRepository.GetSubject(
-                    curriculumItem.SubjectId)?.Name, curriculumItem?.Course, curriculumItem?.SubjectHours);
+                    curriculumItem.SubjectId)?.Name, curriculumItem?.Course, curriculumItem?.SubjectHours.ToString(Tools.HoursAccuracy));
             }
         }
 
@@ -162,7 +162,7 @@ namespace Carat
             for (int i = 0; i < curriculumItems.Count; ++i)
             {
                 dataGridViewCurriculumSubjects.Rows[i].SetValues(m_subjectRepository.GetSubject(
-                    curriculumItems[i].SubjectId)?.Name, curriculumItems[i]?.Course, curriculumItems[i]?.SubjectHours);
+                    curriculumItems[i].SubjectId)?.Name, curriculumItems[i]?.Course, curriculumItems[i]?.SubjectHours.ToString(Tools.HoursAccuracy));
             }
         }
 
@@ -395,7 +395,7 @@ namespace Carat
                 foreach (var work in curriculumItemWorks)
                 {
                     var workType = m_workTypeRepository.GetWorkType(work.WorkTypeId);
-                    dataGridViewCurriculumWorkTypes.Rows.Add(workType?.Name, work?.TotalHours);
+                    dataGridViewCurriculumWorkTypes.Rows.Add(workType?.Name, work?.TotalHours.ToString(Tools.HoursAccuracy));
                 }
 
                 listBoxWorkTypes.Enabled = true;
