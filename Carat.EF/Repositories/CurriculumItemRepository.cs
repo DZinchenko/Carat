@@ -57,10 +57,19 @@ namespace Carat.EF.Repositories
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                   && b.EducForm == educForm
-                                                   && b.Semestr == semestr
-                                                   && b.EducLevel == educlevel).ToList();
+                if (semestr != 0)
+                {
+                    return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                       && b.EducForm == educForm
+                                                       && b.Semestr == semestr
+                                                       && b.EducLevel == educlevel).ToList();
+                }
+                else 
+                {
+                    return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                       && b.EducForm == educForm
+                                       && b.EducLevel == educlevel).ToList();
+                }
             }
         }
 

@@ -64,6 +64,46 @@ namespace Carat
             return Path.Combine(path, fileName);
         }
 
+        private string GetSemesterString()
+        {
+            string result = "";
+
+            switch (m_semestr)
+            {
+                case 0:
+                    {
+                        result = "За два семестри";
+                        break;
+                    }
+                case 1:
+                    {
+                        result = "I семестр";
+                        break;
+                    }
+                case 2:
+                    {
+                        result = "II семестр";
+                        break;
+                    }
+                default:
+                    {
+                        throw new Exception("Semester cast error");
+                    }
+            }
+
+            return result;
+        }
+
+        private string GetTypeString()
+        {
+            return m_educType.ToLower();
+        }
+
+        private string GetFormString()
+        {
+            return m_educForm.ToLower() + " форма навчання";
+        }
+
         private void GenerateLoadBySubjects()
         {
             var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
@@ -86,6 +126,8 @@ namespace Carat
                 {
                     return;
                 }
+
+                sheet.GetRow(3).Cells[0].SetCellValue(GetSemesterString() + ", " + GetTypeString() + ", " + GetFormString());
 
                 for (int i = 0; i < curriculumItems.Count;)
                 {
@@ -136,6 +178,8 @@ namespace Carat
                     newRow.Cells[34].SetCellValue(curriculumWorks[34].TotalHours);
                     newRow.Cells[35].SetCellValue(curriculumWorks[35].TotalHours);
                     newRow.Cells[36].SetCellValue(curriculumWorks[36].TotalHours);
+
+                    newRow.Height = -1;
 
                     ++i;
 

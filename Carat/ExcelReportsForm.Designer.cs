@@ -30,8 +30,10 @@ namespace Carat
         private void InitializeComponent()
         {
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("за дисциплінами");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Навантаження кафедри", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("за викладачами (скорочений)");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Навантаження кафедри", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelReportsForm));
             this.treeViewExcelReports = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
@@ -43,15 +45,17 @@ namespace Carat
             this.treeViewExcelReports.Name = "treeViewExcelReports";
             treeNode1.Name = "NodeBySubjects";
             treeNode1.Text = "за дисциплінами";
-            treeNode2.Name = "NodeCafedra";
-            treeNode2.Text = "Навантаження кафедри";
+            treeNode2.Name = "NodeShortByTeachers";
+            treeNode2.Text = "за викладачами (скорочений)";
+            treeNode3.Name = "NodeCafedra";
+            treeNode3.Text = "Навантаження кафедри";
             this.treeViewExcelReports.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode3});
             this.treeViewExcelReports.Size = new System.Drawing.Size(899, 519);
             this.treeViewExcelReports.TabIndex = 0;
             this.treeViewExcelReports.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewExcelReports_NodeMouseDoubleClick);
             // 
-            // ExcelReports
+            // ExcelReportsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -60,7 +64,7 @@ namespace Carat
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 186);
-            this.Name = "ExcelReports";
+            this.Name = "ExcelReportsForm";
             this.Text = "Excel звіти";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ExcelReports_FormClosed);
             this.ResumeLayout(false);
