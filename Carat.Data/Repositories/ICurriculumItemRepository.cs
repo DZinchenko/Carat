@@ -12,6 +12,7 @@ namespace Carat.Data.Repositories
         List<CurriculumItem> GetAllCurriculumItems(string educType, string educForm, uint semestr, string educlevel);
         List<CurriculumItem> GetAllCurriculumItems(string educType, string educForm, uint course, uint semestr, string educlevel);
         List<CurriculumItem> GetCurriculumItems(string educType, string educForm);
+        List<CurriculumItem> GetCurriculumItems(string educType, string educForm, uint semestr);
         void AddCurriculumItem(CurriculumItem curriculumItem);
         void RemoveCurriculumItem(CurriculumItem curriculumItem);
         void UpdateCurriculumItem(CurriculumItem curriculumItem);

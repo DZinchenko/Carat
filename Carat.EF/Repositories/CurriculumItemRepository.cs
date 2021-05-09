@@ -57,36 +57,95 @@ namespace Carat.EF.Repositories
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                if (semestr != 0)
-                {
                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                        && b.EducForm == educForm
                                                        && b.Semestr == semestr
                                                        && b.EducLevel == educlevel).ToList();
-                }
-                else 
-                {
-                    return ctx.CurriculumItems.Where(b => b.EducType == educType
-                                       && b.EducForm == educForm
-                                       && b.EducLevel == educlevel).ToList();
-                }
             }
         }
 
         public List<CurriculumItem> GetAllCurriculumItems(string educType, string educForm, uint course, uint semestr, string educlevel)
         {
-            if (course == 0)
-                return GetAllCurriculumItems(educType, educForm, semestr, educlevel);
-
-            using (var ctx = new CaratDbContext(m_dbPath))
+            if (educForm == "<всі>")
             {
-                return ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                   && b.EducForm == educForm
-                                                   && b.Course == course
-                                                   && b.Semestr == semestr
-                                                   && b.EducLevel == educlevel).ToList();
+                if (course == 0)
+                {
+                    if (semestr == 0)
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                               && b.EducLevel == educlevel).ToList();
+                        }
+                    }
+                    else
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                               && b.EducLevel == educlevel
+                                                               && b.Semestr == semestr).ToList();
+                        }
+                    }
+                }
+                else
+                {
+                    using (var ctx = new CaratDbContext(m_dbPath))
+                    {
+                        return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                           && b.EducLevel == educlevel
+                                                           && b.Semestr == semestr
+                                                           && b.Course == course).ToList();
+                    }
+                }
+            }
+            else {
+                if (course == 0)
+                {
+                    if (semestr == 0)
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                               && b.EducLevel == educlevel
+                                                               && b.EducForm == educForm).ToList();
+                        }
+                    }
+                    else
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                               && b.EducLevel == educlevel
+                                                               && b.Semestr == semestr
+                                                               && b.EducForm == educForm).ToList();
+                        }
+                    }
+                }
+                else
+                {
+                    using (var ctx = new CaratDbContext(m_dbPath))
+                    {
+                        return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                           && b.EducLevel == educlevel
+                                                           && b.Semestr == semestr
+                                                           && b.Course == course
+                                                           && b.EducForm == educForm).ToList();
+                    }
+                }
             }
         }
+
+        public List<CurriculumItem> GetCurriculumItems(string educType, string educForm, uint semestr)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                    return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                       && b.EducForm == educForm
+                                                       && b.Semestr == semestr).ToList();
+            }
+        }
+        
 
         public void AddCurriculumItem(CurriculumItem curriculumItem)
         {

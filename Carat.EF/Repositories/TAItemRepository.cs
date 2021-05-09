@@ -110,6 +110,44 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public List<TAItem> GetTAItemsByTeacherId(int teacherId, uint semestr, string educType, string educForm)
+        {
+            if (educType == "<всі>")
+            {
+                using (var ctx = new CaratDbContext(m_dbPath))
+                {
+                    if (semestr != 0)
+                    {
+                        return ctx.TAItems.Where(b => b.TeacherId == teacherId
+                                           && b.EducForm == educForm
+                                           && b.Semestr == semestr).ToList();
+                    }
+                    else
+                    {
+                        return ctx.TAItems.Where(b => b.EducForm == educForm  && b.TeacherId == teacherId).ToList();
+                    }
+                }
+            }
+            else {
+                using (var ctx = new CaratDbContext(m_dbPath))
+                {
+                    if (semestr != 0)
+                    {
+                        return ctx.TAItems.Where(b => b.EducType == educType
+                                           && b.EducForm == educForm
+                                           && b.TeacherId == teacherId
+                                           && b.Semestr == semestr).ToList();
+                    }
+                    else
+                    {
+                        return ctx.TAItems.Where(b => b.EducType == educType
+                                           && b.EducForm == educForm
+                                           && b.TeacherId == teacherId).ToList();
+                    }
+                }
+            }    
+        }
+
         public void DeleteAllTAItems()
         {
             using (var ctx = new CaratDbContext(m_dbPath))

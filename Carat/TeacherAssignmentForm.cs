@@ -103,6 +103,29 @@ namespace Carat
             LoadTeachers();
         }
 
+        private double GetMaxTeacherHours(Teacher t)
+        {
+            if (t.Position == "асистент")
+            {
+                return 550;
+            }
+            else if (t.Position == "доцент")
+            {
+                return 450;
+            }
+            else if (t.Position == "професор")
+            {
+                return 400;
+            }
+            else if (t.Position == "ст. викладач")
+            {
+                return 550;
+            }
+            else {
+                return 300;
+            }
+        }
+
         private void LoadTeachers()
         {
             var teachers = m_teacherRepository.GetAllTeachers();
@@ -111,7 +134,9 @@ namespace Carat
 
             foreach (var teacher in teachers)
             {
-                comboBoxTATeachers.Items.Add(teacher.Name + " (розп. год. " + m_TAItemRepository.GetAssignedTeacherHours(teacher.Id).ToString(Tools.HoursAccuracy) + ")");
+                var maxHours = GetMaxTeacherHours(teacher);
+                //var minHours = 200;
+                comboBoxTATeachers.Items.Add(teacher.Name + " (розп. год. " + m_TAItemRepository.GetAssignedTeacherHours(teacher.Id).ToString(Tools.HoursAccuracy) + "/" + maxHours.ToString(Tools.HoursAccuracy) + ")");
             }
         }
 
@@ -291,6 +316,8 @@ namespace Carat
 
                 SyncHours(item.WorkId);
             }
+
+            LoadTeachers();
         }
 
         private bool isValidName(string name)
