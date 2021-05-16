@@ -121,7 +121,8 @@ namespace Carat
             {
                 return 550;
             }
-            else {
+            else
+            {
                 return 300;
             }
         }
@@ -134,9 +135,8 @@ namespace Carat
 
             foreach (var teacher in teachers)
             {
-                var maxHours = GetMaxTeacherHours(teacher);
-                //var minHours = 200;
-                comboBoxTATeachers.Items.Add(teacher.Name + " (розп. год. " + m_TAItemRepository.GetAssignedTeacherHours(teacher.Id).ToString(Tools.HoursAccuracy) + "/" + maxHours.ToString(Tools.HoursAccuracy) + ")");
+                var minHours = GetMaxTeacherHours(teacher);
+                comboBoxTATeachers.Items.Add(teacher.Name + " (розп. год. " + m_TAItemRepository.GetAssignedTeacherHours(teacher.Id).ToString(Tools.HoursAccuracy) + "/" + minHours.ToString(Tools.HoursAccuracy) + ")");
             }
         }
 
@@ -414,7 +414,7 @@ namespace Carat
                                 sum += Convert.ToDouble(dataGridViewTATeachers.Rows[i].Cells[1].Value.ToString());
                             }
 
-                            if (Tools.isLessThanZero(workHours) || Tools.isGreaterThan(sum, work.TotalHours))
+                            if (Tools.isLessThanZero(workHours) || Tools.isGreaterThan(sum, Math.Round(work.TotalHours, 2)))
                             {
                                 throw new Exception();
                             }
@@ -529,7 +529,7 @@ namespace Carat
         {
             var taItems = m_TAItemRepository.GetTAItems(selectedWorkId);
 
-            if (e.RowIndex >= taItems.Count)
+            if (e.RowIndex < 0 || e.RowIndex >= taItems.Count)
             {
                 return;
             }

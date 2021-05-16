@@ -126,6 +126,12 @@ namespace Carat
 
             curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
+            curriculumItems.RemoveAll(curriculumItem =>
+            {
+                var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, false);
+                return curriculumWorks.TrueForAll(work => { return Tools.isEqual(work.TotalHours, 0); });
+            });
+
             if (curriculumItems.Count == 0)
             {
                 MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -153,51 +159,21 @@ namespace Carat
                     var curriculumItem = curriculumItems[i];
                     var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, false);
 
-                    newRow.Cells[0].SetCellValue((i +1).ToString());
-                    newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name);
-                    newRow.Cells[2].SetCellValue(curriculumItem.Course);
-
-                    if (curriculumWorks.Count <= 0)
+                    if (
+                        curriculumWorks.Count <= 0)
                     {
                         ++i;
                         continue;
                     }
 
-                    newRow.Cells[3].SetCellValue(curriculumWorks[0].TotalHours);
-                    newRow.Cells[4].SetCellValue(curriculumWorks[1].TotalHours);
-                    newRow.Cells[5].SetCellValue(curriculumWorks[2].TotalHours);
-                    newRow.Cells[6].SetCellValue(curriculumWorks[4].TotalHours);
-                    newRow.Cells[7].SetCellValue(curriculumWorks[5].TotalHours);
-                    newRow.Cells[8].SetCellValue(curriculumWorks[6].TotalHours);
-                    newRow.Cells[9].SetCellValue(curriculumWorks[7].TotalHours);
-                    newRow.Cells[10].SetCellValue(curriculumWorks[8].TotalHours);
-                    newRow.Cells[11].SetCellValue(curriculumWorks[9].TotalHours);
-                    newRow.Cells[12].SetCellValue(curriculumWorks[10].TotalHours);
-                    newRow.Cells[13].SetCellValue(curriculumWorks[11].TotalHours);
-                    newRow.Cells[14].SetCellValue(curriculumWorks[12].TotalHours);
-                    //newRow.Cells[15].SetCellValue(curriculumWorks[3].TotalHours);
-                    newRow.Cells[16].SetCellValue(curriculumWorks[13].TotalHours);
-                    newRow.Cells[17].SetCellValue(curriculumWorks[3].TotalHours);
-                    newRow.Cells[18].SetCellValue(curriculumWorks[14].TotalHours);
-                    newRow.Cells[19].SetCellValue(curriculumWorks[15].TotalHours);
-                    newRow.Cells[20].SetCellValue(curriculumWorks[16].TotalHours);
-                    newRow.Cells[21].SetCellValue(curriculumWorks[17].TotalHours);
-                    newRow.Cells[22].SetCellValue(curriculumWorks[18].TotalHours);
-                    newRow.Cells[23].SetCellValue(curriculumWorks[19].TotalHours);
-                    newRow.Cells[24].SetCellValue(curriculumWorks[20].TotalHours);
-                    newRow.Cells[25].SetCellValue(curriculumWorks[24].TotalHours);
-                    newRow.Cells[26].SetCellValue(curriculumWorks[25].TotalHours);
-                    newRow.Cells[27].SetCellValue(curriculumWorks[26].TotalHours);
-                    newRow.Cells[28].SetCellValue(curriculumWorks[21].TotalHours);
-                    newRow.Cells[29].SetCellValue(curriculumWorks[22].TotalHours);
-                    newRow.Cells[30].SetCellValue(curriculumWorks[23].TotalHours);
-                    newRow.Cells[31].SetCellValue(curriculumWorks[27].TotalHours);
-                    newRow.Cells[32].SetCellValue(curriculumWorks[30].TotalHours);
-                    newRow.Cells[33].SetCellValue(curriculumWorks[32].TotalHours);
-                    newRow.Cells[34].SetCellValue(curriculumWorks[33].TotalHours);
-                    newRow.Cells[35].SetCellValue(curriculumWorks[34].TotalHours);
-                    newRow.Cells[36].SetCellValue(curriculumWorks[35].TotalHours);
-                    newRow.Cells[37].SetCellValue(curriculumWorks[36].TotalHours);
+                    newRow.Cells[0].SetCellValue((i + 1).ToString());
+                    newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name);
+                    newRow.Cells[2].SetCellValue(curriculumItem.Course);
+
+                    for (int cellIndex = 3, workTypeIndex = 0; cellIndex <= 37; ++cellIndex, ++workTypeIndex)
+                    {
+                        newRow.Cells[cellIndex].SetCellValue(curriculumWorks[workTypeIndex].TotalHours);
+                    }
 
                     newRow.Height = -1;
 

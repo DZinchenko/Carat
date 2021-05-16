@@ -34,9 +34,9 @@ namespace Carat
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            m_selectedRows.firstSemestrStart = Convert.ToInt32(numericUpDownStart1.Value);
+            m_selectedRows.firstSemestrStart = Convert.ToInt32(numericUpDownStart1.Value) - 1;
             m_selectedRows.firstSemestrEnd = Convert.ToInt32(numericUpDownEnd1.Value);
-            m_selectedRows.secondSemestrStart = Convert.ToInt32(numericUpDownStart2.Value);
+            m_selectedRows.secondSemestrStart = Convert.ToInt32(numericUpDownStart2.Value) - 1;
             m_selectedRows.secondSemestrEnd = Convert.ToInt32(numericUpDownEnd2.Value);
             m_selectedRows.educType = comboBoxEducType.SelectedItem.ToString();
             m_selectedRows.educForm = comboBoxEducForm.SelectedItem.ToString();

@@ -10,15 +10,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Carat.EF;
 using Carat.Interfaces;
+using Carat.Data.Entities;
+using Carat.Data.Repositories;
+using Carat.EF.Repositories;
 
 namespace Carat
 {
     public partial class MainForm : Form
     {
         private string m_dbName = Directory.GetCurrentDirectory() + "\\Carat.db";
+        private string m_lastModeDbName = Directory.GetCurrentDirectory() + "\\LastMode.db";
         private uint radioButtonNotificationCounter = 0;
         private object[] m_coursesValues = new object[] {"1", "2", "3", "4"};
         private uint selectedWindowsStyle = 0;
+        private ILastModeRepository m_lastModeRepository = null;
 
         public Form subjectsForm = null;
         public Form groupsForm = null;
@@ -44,6 +49,34 @@ namespace Carat
             TurnOffAllSemesters();
 
             dataBaseStatelabel.Text = m_dbName;
+
+            m_lastModeRepository = new LastModeRepository(m_lastModeDbName);
+            var lastMode = m_lastModeRepository.GetLastMode();
+            ApplyLastMode(lastMode);
+        }
+
+        private void ApplyLastMode(LastMode lastMode)
+        {
+            if (lastMode != null)
+            {
+                setEducFormFilter(lastMode.EducForm);
+                setEducLevelFilter(lastMode.EducLevel);
+                setEducTypeFilter(lastMode.EducType);
+                setCourseFilter(lastMode.Course);
+                UpdateDB(lastMode.DbPath);
+            }
+        }
+
+        private void SaveLastMode()
+        {
+            var lastMode = new LastMode();
+            lastMode.DbPath = m_dbName;
+            lastMode.EducForm = getEducFormFilter();
+            lastMode.EducLevel = getEducLevelFilter();
+            lastMode.EducType = getEducTypeFilter();
+            lastMode.Course = getCourseFilter();
+
+            m_lastModeRepository.UpdateLastMode(lastMode);
         }
 
         public void TurnOffAllSemesters()
@@ -138,6 +171,52 @@ namespace Carat
                                       && (comboBoxEducLevel.SelectedIndex != 0);
 
             IsFiltersValuesSelected = (comboBoxCourse.SelectedIndex != 0) && IsRequiredFiltersValuesSelected;
+        }
+
+        private void setEducTypeFilter(string educType)
+        {
+            foreach (var item in comboBoxEducType.Items)
+            {
+                if (item.ToString().Equals(educType))
+                {
+                    comboBoxEducType.SelectedItem = item;
+                }
+            }
+        }
+
+        private void setEducFormFilter(string educForm)
+        {
+            foreach (var item in comboBoxEducForm.Items)
+            {
+                if (item.ToString().Equals(educForm))
+                {
+                    comboBoxEducForm.SelectedItem = item;
+                }
+            }
+        }
+
+        private void setEducLevelFilter(string educLevel)
+        {
+            foreach (var item in comboBoxEducLevel.Items)
+            {
+                if (item.ToString().Equals(educLevel))
+                {
+                    comboBoxEducLevel.SelectedItem = item;
+                }
+            }
+        }
+
+        private void setCourseFilter(uint course)
+        {
+            string courseFilter = course.ToString();
+
+            foreach (var item in comboBoxCourse.Items)
+            {
+                if (item.ToString().Equals(courseFilter))
+                {
+                    comboBoxCourse.SelectedItem = item;
+                }
+            }
         }
 
         private string getEducTypeFilter()
@@ -393,6 +472,7 @@ namespace Carat
 
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            SaveLastMode();
         }
 
         private void openDB(FileDialog openFileDialog)
