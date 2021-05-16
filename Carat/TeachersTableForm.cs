@@ -20,7 +20,6 @@ namespace Carat
         ITeacherRepository m_teacherRepository = null;
         const string IncorrectNameMessage = "Некоректне ім'я викладача!";
         const string IncorrectDataMessage = "Некоректні дані!";
-        const string NotSet = "<not set>";
 
         public TeachersTableForm(MainForm parentForm, string dbPath)
         {

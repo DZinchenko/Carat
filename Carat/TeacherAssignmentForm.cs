@@ -103,7 +103,7 @@ namespace Carat
             LoadTeachers();
         }
 
-        private double GetMaxTeacherHours(Teacher t)
+        private double GetMinTeacherHours(Teacher t)
         {
             if (t.Position == "асистент")
             {
@@ -121,9 +121,17 @@ namespace Carat
             {
                 return 550;
             }
+            else if (t.Position == "викладач")
+            {
+                return 550;
+            }
+            else if (t.Position == "зав. кафедри")
+            {
+                return 400;
+            }
             else
             {
-                return 300;
+                return 550;
             }
         }
 
@@ -135,7 +143,7 @@ namespace Carat
 
             foreach (var teacher in teachers)
             {
-                var minHours = GetMaxTeacherHours(teacher);
+                var minHours = GetMinTeacherHours(teacher);
                 comboBoxTATeachers.Items.Add(teacher.Name + " (розп. год. " + m_TAItemRepository.GetAssignedTeacherHours(teacher.Id).ToString(Tools.HoursAccuracy) + "/" + minHours.ToString(Tools.HoursAccuracy) + ")");
             }
         }

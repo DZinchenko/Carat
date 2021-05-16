@@ -46,7 +46,7 @@ namespace Carat
             }
         }
 
-        private void LoadWorkTypes()
+        public void LoadWorkTypes()
         {
             var workTypes = m_workTypeRepository.GetAllWorkTypes();
 

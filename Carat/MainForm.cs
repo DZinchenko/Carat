@@ -53,6 +53,7 @@ namespace Carat
             m_lastModeRepository = new LastModeRepository(m_lastModeDbName);
             var lastMode = m_lastModeRepository.GetLastMode();
             ApplyLastMode(lastMode);
+            LoadWorksTypes();
         }
 
         private void ApplyLastMode(LastMode lastMode)
@@ -63,6 +64,8 @@ namespace Carat
                 setEducLevelFilter(lastMode.EducLevel);
                 setEducTypeFilter(lastMode.EducType);
                 setCourseFilter(lastMode.Course);
+                setSemestrFilter(lastMode.Semestr);
+                setIsEmptyWorks(lastMode.IsEmptyWorksFlag);
                 UpdateDB(lastMode.DbPath);
             }
         }
@@ -75,8 +78,16 @@ namespace Carat
             lastMode.EducLevel = getEducLevelFilter();
             lastMode.EducType = getEducTypeFilter();
             lastMode.Course = getCourseFilter();
+            lastMode.Semestr = getSemesterFilter();
+            lastMode.IsEmptyWorksFlag = getIsEmptyWorks();
 
             m_lastModeRepository.UpdateLastMode(lastMode);
+        }
+
+        private void LoadWorksTypes()
+        {
+            var workTypesForm = new WorkTypesTableForm(this, m_dbName);
+            workTypesForm.LoadWorkTypes();
         }
 
         public void TurnOffAllSemesters()
@@ -161,6 +172,8 @@ namespace Carat
                 curriculumForm = null;
                 excelReportsForm = null;
                 TAForm = null;
+
+                LoadWorksTypes();
             }
         }
 
@@ -217,6 +230,49 @@ namespace Carat
                     comboBoxCourse.SelectedItem = item;
                 }
             }
+        }
+
+        private void setSemestrFilter(uint semestr)
+        {
+            switch (semestr)
+            {
+                case 0: 
+                {
+                    if (radioButtonAll.Enabled)
+                    {
+                        radioButtonAll.Checked = true;
+                        radioButtonFirst.Checked = false;
+                        radioButtonSecond.Checked = false;
+                    }
+                    break;
+                }
+                case 1:
+                {
+                    radioButtonFirst.Checked = true;
+                    radioButtonAll.Checked = false;
+                    radioButtonSecond.Checked = false;
+                    break;
+                }
+                case 2:
+                {
+                    radioButtonSecond.Checked = true;
+                    radioButtonFirst.Checked = false;
+                    radioButtonAll.Checked = false;
+                    break;
+                }
+                default:
+                {
+                    radioButtonFirst.Checked = true;
+                    radioButtonAll.Checked = false;
+                    radioButtonSecond.Checked = false;
+                    break;
+                }
+            }
+        }
+
+        private void setIsEmptyWorks(bool flag)
+        {
+            checkBoxEmptyWorks.Checked = flag;
         }
 
         private string getEducTypeFilter()

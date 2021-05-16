@@ -12,5 +12,7 @@ namespace Carat.Data.Entities
         public string EducLevel { get; set; } = "Бакалавр";
         public string EducType { get; set; } = "Бюджет";
         public uint Course { get; set; } = 0;
+        public uint Semestr { get; set; } = 1;
+        public bool IsEmptyWorksFlag { get; set; } = false;
     }
 }

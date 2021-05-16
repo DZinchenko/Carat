@@ -100,7 +100,8 @@ namespace Carat
             "викладач",
             "ст. викладач",
             "доцент",
-            "професор"});
+            "професор",
+            "зав. кафедри"});
             this.TeacherPosition.Name = "TeacherPosition";
             this.TeacherPosition.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.TeacherPosition.Width = 84;
@@ -108,30 +109,31 @@ namespace Carat
             // TeacherRank
             // 
             this.TeacherRank.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.NullValue = "<not set>";
+            dataGridViewCellStyle3.NullValue = "-";
             this.TeacherRank.DefaultCellStyle = dataGridViewCellStyle3;
             this.TeacherRank.HeaderText = "Ступінь";
             this.TeacherRank.Items.AddRange(new object[] {
-            "<not set>",
+            "-",
             "к. т. н.",
-            "д. т. н."});
+            "д. т. н.",
+            "к.ф.-м.н."});
             this.TeacherRank.Name = "TeacherRank";
             this.TeacherRank.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TeacherRank.Width = 84;
+            this.TeacherRank.Width = 55;
             // 
             // TeacherDegree
             // 
             this.TeacherDegree.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.NullValue = "<not set>";
+            dataGridViewCellStyle4.NullValue = "-";
             this.TeacherDegree.DefaultCellStyle = dataGridViewCellStyle4;
             this.TeacherDegree.HeaderText = "Звання";
             this.TeacherDegree.Items.AddRange(new object[] {
-            "<not set>",
+            "-",
             "доцент",
             "професор"});
             this.TeacherDegree.Name = "TeacherDegree";
             this.TeacherDegree.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TeacherDegree.Width = 84;
+            this.TeacherDegree.Width = 52;
             // 
             // TeachersOccupForm
             // 
