@@ -453,6 +453,7 @@ namespace Carat
 
                 m_workRepository.AddWork(curriculumItemWork);
             }
+            UpdateWorks(m_isEmptyWorks);
         }
 
         private bool isValidWork(string name, DataGridView dgv)

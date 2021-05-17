@@ -49,6 +49,15 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public void AddGroups(List<Group> groups)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.AddRange(groups);
+                ctx.SaveChanges();
+            }
+        }
+
         public void RemoveGroup(Group group)
         {
             using (var ctx = new CaratDbContext(m_dbPath))

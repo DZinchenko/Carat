@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +12,7 @@ using Carat.EF.Repositories;
 using Carat.Data.Entities;
 using Carat.Data.Repositories;
 using Carat.Interfaces;
+using NPOI.XSSF.UserModel;
 
 namespace Carat
 {
@@ -117,9 +119,12 @@ namespace Carat
                 return;
             }
 
-            for (int i = 0; i < e.RowCount; ++i)
+            for (int i = e.RowIndex, limit = e.RowIndex + e.RowCount; i < limit; ++i)
             {
-                m_groupRepository.RemoveGroup(groups[i + e.RowIndex]);
+                if (i < groups.Count)
+                {
+                    m_groupRepository.RemoveGroup(groups[i]);
+                }
             }
         }
 
@@ -237,6 +242,129 @@ namespace Carat
         private void dataGridViewGroups_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        private void buttonExportGroups_Click(object sender, EventArgs e)
+        {
+            using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
+            {
+                var workbook = new XSSFWorkbook();
+                var sheet = workbook.CreateSheet("Групи");
+                var row = sheet.CreateRow(0);
+
+                row.CreateCell(0).SetCellValue("Назва");
+                row.CreateCell(1).SetCellValue("Курс");
+                row.CreateCell(2).SetCellValue("Форма навчання");
+                row.CreateCell(3).SetCellValue("Рівень навчання");
+                row.CreateCell(4).SetCellValue("Бюджетників");
+                row.CreateCell(5).SetCellValue("Контрактників");
+                row.CreateCell(6).SetCellValue("Факультет");
+                row.CreateCell(7).SetCellValue("Примітки");
+
+                var allGroups = m_groupRepository.GetAllGroups();
+
+                for (int i = 0, rowIndex = 1; i < allGroups.Count; ++i, ++rowIndex)
+                {
+                    var dataRow = sheet.CreateRow(rowIndex);
+
+                    dataRow.CreateCell(0).SetCellValue(allGroups[i].Name);
+                    dataRow.CreateCell(1).SetCellValue(allGroups[i].Course);
+                    dataRow.CreateCell(2).SetCellValue(allGroups[i].EducForm);
+                    dataRow.CreateCell(3).SetCellValue(allGroups[i].EducLevel);
+                    dataRow.CreateCell(4).SetCellValue(allGroups[i].BudgetNumber);
+                    dataRow.CreateCell(5).SetCellValue(allGroups[i].ContractNumber);
+                    dataRow.CreateCell(6).SetCellValue(allGroups[i].Faculty);
+                    dataRow.CreateCell(7).SetCellValue(allGroups[i].Note);
+                }
+
+                for (int i = 0; i <= 7; ++i)
+                {
+                    sheet.AutoSizeColumn(i);
+                }
+
+                workbook.Write(fileData);
+
+                System.Diagnostics.Process.Start(@fileData.Name);
+            }
+        }
+
+        private void buttonImportGroups_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.InitialDirectory = "c:\\";
+                    openFileDialog.Filter = "Excel Files|*.xlsx";
+                    openFileDialog.FilterIndex = 2;
+                    openFileDialog.RestoreDirectory = true;
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        var workbook = new XSSFWorkbook(openFileDialog.FileName);
+                        var sheet = workbook[0];
+                        var groups = new List<Group>();
+
+                        if (sheet == null)
+                        {
+                            return;
+                        }
+
+                        dataGridViewGroups.Rows.Clear();
+
+                        for (int i = 1; i <= sheet.LastRowNum; ++i)
+                        {
+                            var row = sheet.GetRow(i);
+                            var group = new Group();
+                            uint contractNumber = 0;
+                            uint course = 1;
+                            uint budjetNumber = 0;
+
+                            group.Name = row.GetCell(0)?.ToString();
+
+                            try
+                            {
+                                course = Convert.ToUInt32(row.GetCell(1)?.ToString());
+                            }
+                            catch (Exception)
+                            { }
+                            group.Course = course;
+
+                            group.EducForm = row.GetCell(2)?.ToString();
+                            group.EducLevel = row.GetCell(3)?.ToString();
+
+                            try
+                            {
+                                budjetNumber = Convert.ToUInt32(row.GetCell(4)?.ToString());
+                            }
+                            catch (Exception)
+                            { }
+                            group.BudgetNumber = budjetNumber;
+
+                            try
+                            {
+                                contractNumber = Convert.ToUInt32(row.GetCell(5)?.ToString());
+                            }
+                            catch (Exception)
+                            { }
+                            group.ContractNumber = contractNumber;
+
+                            group.Faculty = row.GetCell(6)?.ToString();
+                            group.Note = row.GetCell(7)?.ToString();
+
+                            groups.Add(group);
+                        }
+
+                        m_groupRepository.AddGroups(groups);
+
+                        LoadData();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

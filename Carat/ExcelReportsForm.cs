@@ -63,13 +63,6 @@ namespace Carat
             treeViewExcelReports.ExpandAll();
         }
 
-        public static string GetTempFilePathWithExtension(string extension)
-        {
-            var path = Path.GetTempPath();
-            var fileName = Guid.NewGuid().ToString() + extension;
-            return Path.Combine(path, fileName);
-        }
-
         private string GetSemesterString()
         {
             string result = "";
@@ -208,7 +201,7 @@ namespace Carat
                 XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
                 sheet.AutoSizeColumn(1);
 
-                using (var fileData = new FileStream(GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
+                using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
                 {
                     workbook.Write(fileData);
 
@@ -366,7 +359,7 @@ namespace Carat
                 XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
                 sheet.AutoSizeColumn(2);
 
-                using (var fileData = new FileStream(GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
+                using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
                 {
                     workbook.Write(fileData);
 

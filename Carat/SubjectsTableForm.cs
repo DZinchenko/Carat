@@ -138,9 +138,12 @@ namespace Carat
                 return;
             }
 
-            for (int i = 0; i < subjects.Count; ++i)
+            for (int i = e.RowIndex, limit = e.RowIndex + e.RowCount; i < limit; ++i)
             {
-                m_subjectRepository.RemoveSubject(subjects[i + e.RowIndex]);
+                if (i < subjects.Count)
+                {
+                    m_subjectRepository.RemoveSubject(subjects[i]);
+                }
             }
         }
 
@@ -166,81 +169,77 @@ namespace Carat
 
         private void buttonExportSubjects_Click(object sender, EventArgs e)
         {
-            var filePath = string.Empty;
-
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
             {
-                saveFileDialog.InitialDirectory = "c:\\";
-                saveFileDialog.Filter = "Excel Files|*.xlsx";
-                saveFileDialog.FilterIndex = 2;
-                saveFileDialog.RestoreDirectory = true;
+                var workbook = new XSSFWorkbook();
+                var sheet = workbook.CreateSheet("Дисципліни");
+                var row = sheet.CreateRow(0);
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                row.CreateCell(0).SetCellValue("Назва");
+                row.CreateCell(1).SetCellValue("Примітки");
+
+                var allSubjects = m_subjectRepository.GetAllSubjects();
+
+                for (int i = 0, rowIndex = 1; i < allSubjects.Count; ++i, ++rowIndex)
                 {
-                    var workbook = new XSSFWorkbook();
-                    var sheet = workbook.CreateSheet("Дисципліни");
-                    var row = sheet.CreateRow(0);
+                    var dataRow = sheet.CreateRow(rowIndex);
 
-                    row.CreateCell(0).SetCellValue("Назва");
-                    row.CreateCell(1).SetCellValue("Примітки");
-
-                    var allSubjects = m_subjectRepository.GetAllSubjects();
-
-                    for (int i = 0, rowIndex = 1; i < allSubjects.Count; ++i, ++rowIndex)
-                    {
-                        var dataRow = sheet.CreateRow(rowIndex);
-
-                        dataRow.CreateCell(0).SetCellValue(allSubjects[i].Name);
-                        dataRow.CreateCell(1).SetCellValue(allSubjects[i].Notes);
-                    }
-
-                    sheet.AutoSizeColumn(0);
-                    sheet.AutoSizeColumn(1);
-
-                    using (var fileData = new FileStream(saveFileDialog.FileName, FileMode.Create))
-                    {
-                        workbook.Write(fileData);
-                    }
+                    dataRow.CreateCell(0).SetCellValue(allSubjects[i].Name);
+                    dataRow.CreateCell(1).SetCellValue(allSubjects[i].Notes);
                 }
+
+                sheet.AutoSizeColumn(0);
+                sheet.AutoSizeColumn(1);
+
+                workbook.Write(fileData);
+
+                System.Diagnostics.Process.Start(@fileData.Name);               
             }
         }
 
         private void buttonImportSubjects_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            try
             {
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "Excel Files|*.xlsx";
-                openFileDialog.FilterIndex = 2;
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    var workbook = new XSSFWorkbook(openFileDialog.FileName);
-                    var sheet = workbook[0];
-                    var subjects = new List<Subject>();
+                    openFileDialog.InitialDirectory = "c:\\";
+                    openFileDialog.Filter = "Excel Files|*.xlsx";
+                    openFileDialog.FilterIndex = 2;
+                    openFileDialog.RestoreDirectory = true;
 
-                    if (sheet == null)
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        return;
+                        var workbook = new XSSFWorkbook(openFileDialog.FileName);
+                        var sheet = workbook[0];
+                        var subjects = new List<Subject>();
+
+                        if (sheet == null)
+                        {
+                            return;
+                        }
+
+                        dataGridViewSubjects.Rows.Clear();
+
+                        for (int i = 1; i <= sheet.LastRowNum; ++i)
+                        {
+                            var row = sheet.GetRow(i);
+                            var subject = new Subject();
+
+                            subject.Name = row.GetCell(0)?.ToString();
+                            subject.Notes = row.GetCell(1)?.ToString();
+                            subjects.Add(subject);
+                        }
+
+                        m_subjectRepository.AddSubjects(subjects);
+
+                        LoadData();
                     }
-
-                    dataGridViewSubjects.Rows.Clear();
-
-                    for (int i = 1; i < sheet.LastRowNum; ++i)
-                    {
-                        var row = sheet.GetRow(i);
-                        var subject = new Subject();
-
-                        subject.Name = row.GetCell(0)?.ToString();
-                        subject.Notes = row.GetCell(1)?.ToString();
-                        subjects.Add(subject);
-                    }
-
-                    m_subjectRepository.AddSubjects(subjects);
-
-                    LoadData();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

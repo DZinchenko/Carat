@@ -9,6 +9,7 @@ namespace Carat.Data.Repositories
         Teacher GetTeacher(int teacherId);
         Teacher GetTeacherByName(string name);
         void AddTeacher(Teacher teacher);
+        void AddTeachers(List<Teacher> teachers);
         void RemoveTeacher(Teacher teacher);
         void UpdateTeacher(Teacher teacher);
         void DeleteAllTeachers();

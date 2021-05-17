@@ -11,6 +11,8 @@ using Carat.Data.Entities;
 using Carat.Data.Repositories;
 using Carat.EF.Repositories;
 using Carat.Interfaces;
+using System.IO;
+using NPOI.XSSF.UserModel;
 
 namespace Carat
 {
@@ -227,9 +229,12 @@ namespace Carat
                 return;
             }
 
-            for (int i = 0; i < e.RowCount; ++i)
+            for (int i = e.RowIndex, limit = e.RowIndex + e.RowCount; i < limit; ++i)
             {
-                m_teacherRepository.RemoveTeacher(teachers[i + e.RowIndex]);
+                if (i < teachers.Count)
+                {
+                    m_teacherRepository.RemoveTeacher(teachers[i]);
+                }
             }
         }
 
@@ -238,5 +243,106 @@ namespace Carat
             e.Cancel = true;
         }
 
+        private void buttonImportTeachers_Click(object sender, EventArgs e)
+        {
+            try {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.InitialDirectory = "c:\\";
+                    openFileDialog.Filter = "Excel Files|*.xlsx";
+                    openFileDialog.FilterIndex = 2;
+                    openFileDialog.RestoreDirectory = true;
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        var workbook = new XSSFWorkbook(openFileDialog.FileName);
+                        var sheet = workbook[0];
+                        var teachers = new List<Teacher>();
+
+                        if (sheet == null)
+                        {
+                            return;
+                        }
+
+                        dataGridViewTeachers.Rows.Clear();
+
+                        for (int i = 1; i <= sheet.LastRowNum; ++i)
+                        {
+                            var row = sheet.GetRow(i);
+                            var teacher = new Teacher();
+                            double staffUnit = 1.0;
+
+                            teacher.Name = row.GetCell(0)?.ToString();
+
+                            try
+                            {
+                                staffUnit = Convert.ToDouble(row.GetCell(1)?.ToString());
+                            }
+                            catch (Exception)
+                            { }
+                        
+                            teacher.StaffUnit = staffUnit;
+                            teacher.Position = row.GetCell(2)?.ToString();
+                            teacher.Rank = row.GetCell(3)?.ToString();
+                            teacher.Degree = row.GetCell(4)?.ToString();
+                            teacher.OccupForm = row.GetCell(5)?.ToString();
+                            teacher.Note = row.GetCell(6)?.ToString();
+
+                            teachers.Add(teacher);
+                        }
+
+                        m_teacherRepository.AddTeachers(teachers);
+
+                        LoadData();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonExportTeachers_Click(object sender, EventArgs e)
+        {
+            using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
+            {
+                var workbook = new XSSFWorkbook();
+                var sheet = workbook.CreateSheet("Викладачі");
+                var row = sheet.CreateRow(0);
+
+                row.CreateCell(0).SetCellValue("ПІБ");
+                row.CreateCell(1).SetCellValue("Кіл-ть штатної од.");
+                row.CreateCell(2).SetCellValue("Посада");
+                row.CreateCell(3).SetCellValue("Ступінь");
+                row.CreateCell(4).SetCellValue("Звання");
+                row.CreateCell(5).SetCellValue("Форма зайнятості");
+                row.CreateCell(6).SetCellValue("Примітки");
+
+                var allTeachers = m_teacherRepository.GetAllTeachers();
+
+                for (int i = 0, rowIndex = 1; i < allTeachers.Count; ++i, ++rowIndex)
+                {
+                    var dataRow = sheet.CreateRow(rowIndex);
+
+                    dataRow.CreateCell(0).SetCellValue(allTeachers[i].Name);
+                    dataRow.CreateCell(1).SetCellValue(allTeachers[i].StaffUnit.ToString(Tools.HoursAccuracy));
+                    dataRow.CreateCell(2).SetCellValue(allTeachers[i].Position);
+                    dataRow.CreateCell(3).SetCellValue(allTeachers[i].Rank);
+                    dataRow.CreateCell(4).SetCellValue(allTeachers[i].Degree);
+                    dataRow.CreateCell(5).SetCellValue(allTeachers[i].OccupForm);
+                    dataRow.CreateCell(6).SetCellValue(allTeachers[i].Note);
+                }
+
+                for (int i = 0; i <= 6; ++i)
+                {
+                    sheet.AutoSizeColumn(i);
+                }
+
+                workbook.Write(fileData);
+
+                System.Diagnostics.Process.Start(@fileData.Name);
+            }
+        }
     }
 }

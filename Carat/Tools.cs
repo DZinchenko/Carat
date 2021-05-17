@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace Carat
 {
@@ -73,6 +74,13 @@ namespace Carat
                 result = "PhD";
 
             return result;
+        }
+
+        static public string GetTempFilePathWithExtension(string extension)
+        {
+            var path = Path.GetTempPath();
+            var fileName = Guid.NewGuid().ToString() + extension;
+            return Path.Combine(path, fileName);
         }
     }
 }

@@ -47,6 +47,15 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public void AddTeachers(List<Teacher> teachers)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.AddRange(teachers);
+                ctx.SaveChanges();
+            }
+        }
+
         public void RemoveTeacher(Teacher teacher)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
