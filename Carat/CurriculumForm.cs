@@ -612,7 +612,16 @@ namespace Carat
                 }
 
                 var course = Tools.GetCurriculumItemCourse(cellText);
-                var hoursInCell = Convert.ToDouble(row.GetCell(2).ToString());
+
+                double hoursInCell = 0;
+
+                try
+                {
+                    hoursInCell = row.GetCell(2).NumericCellValue;
+                }
+                catch (Exception)
+                { }
+
                 var isExam = row.GetCell(7)?.ToString();
                 var curriculumItem = new CurriculumItem();
 

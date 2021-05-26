@@ -60,13 +60,20 @@ namespace Carat
         {
             if (lastMode != null)
             {
-                setEducFormFilter(lastMode.EducForm);
-                setEducLevelFilter(lastMode.EducLevel);
-                setEducTypeFilter(lastMode.EducType);
-                setCourseFilter(lastMode.Course);
-                setSemestrFilter(lastMode.Semestr);
-                setIsEmptyWorks(lastMode.IsEmptyWorksFlag);
-                UpdateDB(lastMode.DbPath);
+                if (!File.Exists(lastMode.DbPath))
+                {
+                    SaveLastMode();
+                }
+                else
+                {
+                    setEducFormFilter(lastMode.EducForm);
+                    setEducLevelFilter(lastMode.EducLevel);
+                    setEducTypeFilter(lastMode.EducType);
+                    setCourseFilter(lastMode.Course);
+                    setSemestrFilter(lastMode.Semestr);
+                    setIsEmptyWorks(lastMode.IsEmptyWorksFlag);
+                    UpdateDB(lastMode.DbPath);
+                }
             }
         }
 

@@ -33,6 +33,7 @@ namespace Carat
         private IWorkRepository m_workRepository;
         private ITeacherRepository m_teacherRepository;
         private ITAItemRepository m_taItemRepository;
+        private IWorkTypeRepository m_workTypeRepository;
 
         private string IncorrectNameMessageDataIsEmpty = "Дані відсутні!";
 
@@ -59,6 +60,7 @@ namespace Carat
             m_workRepository = new WorkRepository(dbPath);
             m_teacherRepository = new TeacherRepository(dbPath);
             m_taItemRepository = new TAItemRepository(dbPath);
+            m_workTypeRepository = new WorkTypeRepository(dbPath);
 
             treeViewExcelReports.ExpandAll();
         }
@@ -216,7 +218,20 @@ namespace Carat
 
         private void GenerateLoadShortByTeachers()
         {
-            var teachers = m_teacherRepository.GetAllTeachers();
+            var fullTeachers = m_teacherRepository.GetAllTeachers();
+            var teachers = new List<Teacher>();
+
+            foreach (var teacher in fullTeachers)
+            {
+                var items = m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Денна");
+                items.AddRange(m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Заочна"));
+                items.AddRange(m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Вечірня"));
+
+                if (!items.TrueForAll(item => { return Tools.isEqual(item.WorkHours, 0); }))
+                {
+                    teachers.Add(teacher);
+                }
+            }
 
             if (teachers.Count == 0)
             {
@@ -240,6 +255,7 @@ namespace Carat
                 sheet.GetRow(4).Cells[0].SetCellValue(GetSemesterString() + ", " + GetEducTypeString());
 
                 int i = 0;
+                var workTypes = m_workTypeRepository.GetAllWorkTypes();
 
                 foreach (var teacher in teachers)
                 {
@@ -260,11 +276,11 @@ namespace Carat
                         if (work == null)
                             continue;
 
-                        if (work.WorkTypeId == 0)
+                        if (work.WorkTypeId == workTypes[0].Id)
                         {
                             lectureHours1 += taItem.WorkHours;
                         }
-                        else if (work.WorkTypeId == 1 || work.WorkTypeId == 2)
+                        else if (work.WorkTypeId == workTypes[1].Id || work.WorkTypeId == workTypes[2].Id)
                         {
                             otherAudi1 += taItem.WorkHours;
                         }
@@ -284,11 +300,11 @@ namespace Carat
                     {
                         var work = m_workRepository.GetWork(taItem.WorkId);
 
-                        if (work.WorkTypeId == 0)
+                        if (work.WorkTypeId == workTypes[0].Id)
                         {
                             lectureHours2 += taItem.WorkHours;
                         }
-                        else if (work.WorkTypeId == 1 || work.WorkTypeId == 2)
+                        else if (work.WorkTypeId == workTypes[1].Id || work.WorkTypeId == workTypes[2].Id)
                         {
                             otherAudi2 += taItem.WorkHours;
                         }

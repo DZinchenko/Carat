@@ -143,7 +143,7 @@ namespace Carat
 
             foreach (var teacher in teachers)
             {
-                var minHours = GetMinTeacherHours(teacher);
+                var minHours = teacher.StaffUnit * GetMinTeacherHours(teacher);
                 comboBoxTATeachers.Items.Add(teacher.Name + " (розп. год. " + m_TAItemRepository.GetAssignedTeacherHours(teacher.Id).ToString(Tools.HoursAccuracy) + "/" + minHours.ToString(Tools.HoursAccuracy) + ")");
             }
         }
@@ -322,7 +322,22 @@ namespace Carat
 
                 m_TAItemRepository.AddTAItem(item);
 
+                var TAItemsWithSaved = m_TAItemRepository.GetTAItems(selectedWorkId);
+                var savedItem = TAItemsWithSaved[e.RowIndex];
+                var groups = m_groupRepository.GetGroups(savedItem.Course, savedItem.EducForm, savedItem.EducLevel);
+
+                foreach (var group in groups)
+                {
+                    var groupToTeacherItem = new GroupsToTAItem();
+                    groupToTeacherItem.TAItemID = savedItem.Id;
+                    groupToTeacherItem.GroupId = group.Id;
+                    m_groupsToTeacherRepository.AddGroupsToTAItem(groupToTeacherItem);
+                }
+
                 SyncHours(item.WorkId);
+
+                dataGridViewTATeachers.ClearSelection();
+                dataGridViewTATeachers.Rows[e.RowIndex].Selected = true;
             }
 
             LoadTeachers();
