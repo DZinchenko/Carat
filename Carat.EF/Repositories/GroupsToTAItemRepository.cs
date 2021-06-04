@@ -73,5 +73,22 @@ namespace Carat.EF.Repositories
                 ctx.SaveChanges();
             }
         }
+
+        public List<GroupsToTAItem> GetGroupsToTAItems(int groupId)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.GroupsToTeachers.Where(b => b.GroupId == groupId).ToList();
+            }
+        }
+
+        public void RemoveGroupsToTAItems(List<GroupsToTAItem> groupsToTAItems)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.RemoveRange(groupsToTAItems);
+                ctx.SaveChanges();
+            }
+        }
     }
 }

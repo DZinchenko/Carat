@@ -20,6 +20,7 @@ namespace Carat
     {
         MainForm m_parentForm = null;
         IGroupRepository m_groupRepository = null;
+        IGroupsToTAItemRepository m_groupsToTAItemRepository = null;
         const string IncorrectNameMessage = "Некоректна назва групи";
         const string IncorrectDataMessage = "Некоректні дані";
 
@@ -29,6 +30,7 @@ namespace Carat
 
             m_parentForm = parentForm;
             m_groupRepository = new GroupRepository(dbPath);
+            m_groupsToTAItemRepository = new GroupsToTAItemRepository(dbPath);
         }
 
         public void LoadData()
@@ -123,6 +125,7 @@ namespace Carat
             {
                 if (i < groups.Count)
                 {
+                    m_groupsToTAItemRepository.RemoveGroupsToTAItems(m_groupsToTAItemRepository.GetGroupsToTAItems(groups[i].Id));
                     m_groupRepository.RemoveGroup(groups[i]);
                 }
             }
