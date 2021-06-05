@@ -139,8 +139,9 @@ namespace Carat
         }
 
         private void GenerateReport(Subject subject)
-        { 
-        
+        {
+            MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
         }
     }
 }

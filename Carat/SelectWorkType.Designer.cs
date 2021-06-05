@@ -50,6 +50,7 @@ namespace Carat
             this.dataGridViewSelectWorkType.ReadOnly = true;
             this.dataGridViewSelectWorkType.Size = new System.Drawing.Size(933, 519);
             this.dataGridViewSelectWorkType.TabIndex = 0;
+            this.dataGridViewSelectWorkType.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSelectWorkType_CellDoubleClick);
             // 
             // SelectWorkTypeName
             // 

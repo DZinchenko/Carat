@@ -128,7 +128,109 @@ namespace Carat
             }
         }
 
-        private void dataGridViewSelectSubject_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void GenerateReport(WorkType workType)
+        {
+            var allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var allWorks = new List<Work>();
+            var allTAItems = new List<TAItem>();
+
+            foreach (var curItem in allCurriculumItems)
+            {
+                allWorks.AddRange(m_workRepository.GetWorks(curItem.Id, true));
+            }
+
+            allWorks.RemoveAll(work => { return work.WorkTypeId != workType.Id; });
+
+            foreach (var work in allWorks)
+            {
+                allTAItems.AddRange(m_taItemRepository.GetTAItems(work.Id));
+            }
+
+            allTAItems.RemoveAll(item => {return Tools.isEqual(0, item.WorkHours); });
+
+            if (allTAItems.Count <= 0)
+            {
+                MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                templatePath += "\\templates\\DefaultByWorkType.xlsx";
+
+                var workbook = new XSSFWorkbook(templatePath);
+                var sheet = workbook[0];
+
+                if (sheet == null)
+                {
+                    return;
+                }
+
+                sheet.GetRow(4).Cells[1].SetCellValue("Вид роботи: " + workType.Name + ", " + GetSemesterString() + ", " + GetEducTypeString() + ", " + GetEducFormString());
+
+                int numberCounter = 0;
+                foreach (var taItem in allTAItems)
+                {
+                    var newRow = sheet.CopyRow(8, sheet.LastRowNum);
+                    var work = m_workRepository.GetWork(taItem.WorkId);
+                    var curriculumItem = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
+                    var subject = m_subjectRepository.GetSubject(curriculumItem.SubjectId);
+                    var teacher = m_teacherRepository.GetTeacher(taItem.TeacherId);
+                    var groupsToTAItem = m_groupsToTAItemRepository.GetGroupsToTAItemsByTAItemId(taItem.Id);
+                    var groups = new List<Group>();
+                    var groupsCellText = "";
+
+                    foreach (var groupToTaItem in groupsToTAItem)
+                    {
+                        groups.Add(m_groupRepository.GetGroup(groupToTaItem.GroupId));
+                    }
+
+                    foreach (var group in groups)
+                    {
+                        groupsCellText += group.Name + "; ";
+                    }
+
+                    newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
+                    newRow.Cells[1].SetCellValue(subject.Name);
+                    newRow.Cells[2].SetCellValue(curriculumItem.EducLevel);
+                    newRow.Cells[3].SetCellValue(curriculumItem.Course);
+                    newRow.Cells[4].SetCellValue(groupsCellText);
+                    newRow.Cells[5].SetCellValue(teacher.Name);
+                    newRow.Cells[6].SetCellValue(taItem.WorkHours);
+
+                    newRow.Height = -1;
+
+                    ++numberCounter;
+                }
+
+                sheet.ShiftRows(9, sheet.LastRowNum, -1);
+
+                var firstCell = sheet.GetRow(8).Cells[6].Address;
+                var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[6].Address;
+                var finalCell = sheet.GetRow(sheet.LastRowNum).Cells[6];
+
+                finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
+                finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+
+                XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
+                sheet.AutoSizeColumn(1);
+                sheet.AutoSizeColumn(4);
+
+                using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
+                {
+                    workbook.Write(fileData);
+
+                    System.Diagnostics.Process.Start(@fileData.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dataGridViewSelectWorkType_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var workTypes = m_workTypeRepository.GetAllWorkTypes();
 
@@ -138,11 +240,6 @@ namespace Carat
             }
 
             GenerateReport(workTypes[e.RowIndex]);
-        }
-
-        private void GenerateReport(WorkType workType)
-        {
-
         }
     }
 }
