@@ -74,11 +74,19 @@ namespace Carat.EF.Repositories
             }
         }
 
-        public List<GroupsToTAItem> GetGroupsToTAItems(int groupId)
+        public List<GroupsToTAItem> GetGroupsToTAItemsByGroupId(int groupId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
                 return ctx.GroupsToTeachers.Where(b => b.GroupId == groupId).ToList();
+            }
+        }
+
+        public List<GroupsToTAItem> GetGroupsToTAItemsByTAItemId(int TAItemId)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.GroupsToTeachers.Where(b => b.TAItemID == TAItemId).ToList();
             }
         }
 

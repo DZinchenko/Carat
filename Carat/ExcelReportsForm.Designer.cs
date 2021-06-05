@@ -97,6 +97,7 @@ namespace Carat
             treeNode14});
             this.treeViewExcelReports.Size = new System.Drawing.Size(899, 519);
             this.treeViewExcelReports.TabIndex = 0;
+            this.treeViewExcelReports.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewExcelReports_AfterSelect);
             this.treeViewExcelReports.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewExcelReports_NodeMouseDoubleClick);
             // 
             // ExcelReportsForm

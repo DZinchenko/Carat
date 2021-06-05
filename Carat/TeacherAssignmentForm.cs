@@ -482,8 +482,11 @@ namespace Carat
 
             if (!isSelectionChanging)
             {
-                for (int i = 0; i < e.RowCount; ++i)
+                for (int i = e.RowIndex, limit = e.RowIndex + e.RowCount; i < limit; ++i)
                 {
+                    var groupsToTAItems = m_groupsToTeacherRepository.GetGroupsToTAItemsByTAItemId(items[i].Id);
+
+                    m_groupsToTeacherRepository.RemoveGroupsToTAItems(groupsToTAItems);
                     m_TAItemRepository.RemoveTAItem(items[i]);
                 }
 

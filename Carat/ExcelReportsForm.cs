@@ -34,6 +34,8 @@ namespace Carat
         private ITeacherRepository m_teacherRepository;
         private ITAItemRepository m_taItemRepository;
         private IWorkTypeRepository m_workTypeRepository;
+        private IGroupRepository m_groupRepository;
+        private IGroupsToTAItemRepository m_groupsToTAItemRepository;
 
         private string IncorrectNameMessageDataIsEmpty = "Дані відсутні!";
 
@@ -61,6 +63,8 @@ namespace Carat
             m_teacherRepository = new TeacherRepository(dbPath);
             m_taItemRepository = new TAItemRepository(dbPath);
             m_workTypeRepository = new WorkTypeRepository(dbPath);
+            m_groupRepository = new GroupRepository(dbPath);
+            m_groupsToTAItemRepository = new GroupsToTAItemRepository(dbPath);
 
             treeViewExcelReports.ExpandAll();
         }
@@ -119,7 +123,7 @@ namespace Carat
         {
             var curriculumItems = new List<CurriculumItem>();
 
-            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
             curriculumItems.RemoveAll(curriculumItem =>
             {
@@ -221,7 +225,7 @@ namespace Carat
         {
             var curriculumItems = new List<CurriculumItem>();
 
-            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
             curriculumItems.RemoveAll(curriculumItem =>
             {
@@ -341,7 +345,7 @@ namespace Carat
         {
             var curriculumItems = new List<CurriculumItem>();
 
-            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
             curriculumItems.RemoveAll(curriculumItem =>
             {
@@ -745,6 +749,161 @@ namespace Carat
             }
         }
 
+        private void GenerateSchedule()
+        {
+            var groups = new List<Group>();
+            groups = m_groupRepository.GetGroupsForReports(m_course, m_educForm, m_educLevel);
+
+            groups.RemoveAll(group =>
+            {
+                var groupToTAItems = m_groupsToTAItemRepository.GetGroupsToTAItemsByGroupId(group.Id);
+                double distributedHours = 0;
+                bool semestrFlag = true;
+
+                foreach (var item in groupToTAItems)
+                {
+                    var taItem = m_taItemRepository.GetTAItem(item.TAItemID);
+                    distributedHours += taItem.WorkHours;
+
+                    if (taItem.Semestr == m_semestr || m_semestr == 0)
+                    {
+                        semestrFlag = false;
+                    }
+                }
+                
+                return semestrFlag || Tools.isEqual(distributedHours, 0);
+            });
+
+            if (groups.Count == 0)
+            {
+                MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                templatePath += "\\templates\\Schedule.xlsx";
+
+                var workbook = new XSSFWorkbook(templatePath);
+                var sheet = workbook[0];
+
+                if (sheet == null)
+                {
+                    return;
+                }
+
+                sheet.GetRow(3).Cells[0].SetCellValue(GetSemesterString() + ", " + GetEducTypeString() + ", " + GetEducFormString());
+
+                for (int groupCounter = 0; groupCounter < groups.Count;)
+                {
+                    var groupRow = sheet.CopyRow(8, sheet.LastRowNum);
+                    var group = groups[groupCounter];
+                    var groupToTAItems = m_groupsToTAItemRepository.GetGroupsToTAItemsByGroupId(group.Id);
+                    var curriculumItems = new Dictionary<int, CurriculumItem>();
+
+                    groupRow.Cells[0].SetCellValue((groupCounter + 1).ToString());
+                    groupRow.Cells[1].SetCellValue(group.Name + ", " + group.Course + " курс, " + group.EducLevel.ToLower() + ", " + group.EducForm.ToLower() + " форма навчання");
+
+                    foreach (var groupToTAItem in groupToTAItems)
+                    {
+                        var taItem = m_taItemRepository.GetTAItem(groupToTAItem.TAItemID);
+                        var work = m_workRepository.GetWork(taItem.WorkId);
+                        var currItem = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
+                        curriculumItems[currItem.Id] = currItem;
+                    }
+
+                    int curriculumItemCounter = 0;
+                    foreach (var curriculumItem in curriculumItems)
+                    {
+                        var subjectRow = sheet.CopyRow(9, sheet.LastRowNum);
+                        var subject = m_subjectRepository.GetSubject(curriculumItem.Value.SubjectId);
+                        var works = m_workRepository.GetWorks(curriculumItem.Key, true);
+                        var taItems = new List<TAItem>();
+                        var resultTeachersMap = new Dictionary<int, List<Work>>();
+
+                        subjectRow.Cells[0].SetCellValue((groupCounter + 1).ToString() + "." + (curriculumItemCounter + 1).ToString());
+                        subjectRow.Cells[1].SetCellValue(subject.Name + ", " + curriculumItem.Value.Semestr + " семестр, " + curriculumItem.Value.EducLevel.ToLower() + ", " + curriculumItem.Value.EducForm.ToLower() + " форма навчання, " + curriculumItem.Value.EducType.ToLower());
+
+                        foreach (var work in works)
+                        {
+                            taItems.AddRange(m_taItemRepository.GetTAItems(work.Id));
+                        }
+
+                        foreach (var taItem in taItems)
+                        {
+                            if (!resultTeachersMap.ContainsKey(taItem.TeacherId))
+                            {
+                                resultTeachersMap.Add(taItem.TeacherId, new List<Work>());
+                            }
+
+                            resultTeachersMap[taItem.TeacherId].Add(m_workRepository.GetWork(taItem.WorkId));
+                        }
+               
+                        foreach (var teacherItem in resultTeachersMap)
+                        {
+                            var teacherRow = sheet.CopyRow(10, sheet.LastRowNum);
+                            var singleTeacher = m_teacherRepository.GetTeacher(teacherItem.Key);
+                            teacherRow.Cells[1].SetCellValue(singleTeacher.Name);
+
+                            foreach (var workItem in teacherItem.Value)
+                            {
+                                var taItem = taItems.Find(item => { return (item.TeacherId == teacherItem.Key) && (item.WorkId == workItem.Id); });
+                                if (taItem != null)
+                                {
+                                    teacherRow.Cells[2 + workItem.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
+                                }
+                            }
+
+                            teacherRow.Height = -1;
+                        }
+
+                        subjectRow.Height = -1;
+                        ++curriculumItemCounter;
+                    }
+
+                    groupRow.Height = -1;
+                    ++groupCounter;
+                    }
+                
+                sheet.ShiftRows(11, sheet.LastRowNum, -3);
+
+                for (int i = 2; i < 38; ++i)
+                {
+                    var firstCell = sheet.GetRow(8).Cells[i].Address;
+                    var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[i].Address;
+                    var finalCell = sheet.GetRow(sheet.LastRowNum).Cells[i];
+
+                    finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
+                    finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+                }
+
+                for (int i = 8, lastIndex = sheet.LastRowNum - 1; i <= lastIndex; ++i)
+                {
+                    var firstCell = sheet.GetRow(i).Cells[2].Address;
+                    var lastCell = sheet.GetRow(i).Cells[36].Address;
+                    var finalCell = sheet.GetRow(i).Cells[37];
+
+                    if (finalCell.CellType == NPOI.SS.UserModel.CellType.Formula)
+                        finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+                }
+
+                XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
+                sheet.AutoSizeColumn(1);
+
+                using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
+                {
+                    workbook.Write(fileData);
+
+                    System.Diagnostics.Process.Start(@fileData.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void treeViewExcelReports_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.FullPath == "Навантаження кафедри\\за дисциплінами (заплановані)")
@@ -767,12 +926,21 @@ namespace Carat
             {
                 GenerateLoadFullByTeachers();
             }
+            if (e.Node.FullPath == "Навантаження кафедри\\розклад")
+            {
+                GenerateSchedule();
+            }
         }
 
         private void ExcelReports_FormClosed(object sender, FormClosedEventArgs e)
         {
             m_parentForm.excelReportsForm = null;
             m_parentForm.SetButtonState();
+        }
+
+        private void treeViewExcelReports_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            
         }
     }
 }

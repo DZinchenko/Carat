@@ -125,7 +125,7 @@ namespace Carat
             {
                 if (i < groups.Count)
                 {
-                    m_groupsToTAItemRepository.RemoveGroupsToTAItems(m_groupsToTAItemRepository.GetGroupsToTAItems(groups[i].Id));
+                    m_groupsToTAItemRepository.RemoveGroupsToTAItems(m_groupsToTAItemRepository.GetGroupsToTAItemsByGroupId(groups[i].Id));
                     m_groupRepository.RemoveGroup(groups[i]);
                 }
             }

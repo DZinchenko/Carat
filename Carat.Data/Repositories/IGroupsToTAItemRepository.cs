@@ -8,7 +8,8 @@ namespace Carat.Data.Repositories
         List<GroupsToTAItem> GetAllGroupsToTAItem();
         List<GroupsToTAItem> GetGroupsToTAItem(int TAItemId);
         GroupsToTAItem GetGroupsToTAItem(int TAItemId, int groupId);
-        List<GroupsToTAItem> GetGroupsToTAItems(int groupIds);
+        List<GroupsToTAItem> GetGroupsToTAItemsByGroupId(int groupId);
+        List<GroupsToTAItem> GetGroupsToTAItemsByTAItemId(int TAItemId);
         void AddGroupsToTAItem(GroupsToTAItem groupsToTAItem);
         void RemoveGroupsToTAItem(GroupsToTAItem groupsToTAItem);
         void RemoveGroupsToTAItems(List<GroupsToTAItem> groupsToTAItems);

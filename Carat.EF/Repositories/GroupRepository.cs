@@ -40,6 +40,89 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public List<Group> GetGroupsForReports(uint course, string educForm, string educLevel)
+        {
+            if (educForm == "<всі>")
+            {
+                if (educLevel == "<всі>")
+                {
+                    if (course == 0)
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.Groups.ToList();
+                        }
+                    }
+                    else
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.Groups.Where(b => b.Course == course).ToList();
+                        }
+                    }
+                }
+                else
+                {
+                    if (course == 0)
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.Groups.Where(b => b.EducLevel == educLevel).ToList();
+                        }
+                    }
+                    else
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.Groups.Where(b => b.Course == course
+                                                         && b.EducLevel == educLevel).ToList();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (educLevel == "<всі>")
+                {
+                    if (course == 0)
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.Groups.Where(b => b.EducForm == educForm).ToList();
+                        }
+                    }
+                    else
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.Groups.Where(b => b.Course == course
+                                                         && b.EducForm == educForm).ToList();
+                        }
+                    }
+                }
+                else
+                {
+                    if (course == 0)
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.Groups.Where(b => b.EducLevel == educLevel
+                                                         && b.EducForm == educForm).ToList();
+                        }
+                    }
+                    else
+                    {
+                        using (var ctx = new CaratDbContext(m_dbPath))
+                        {
+                            return ctx.Groups.Where(b => b.Course == course
+                                                         && b.EducLevel == educLevel
+                                                         && b.EducForm == educForm).ToList();
+                        }
+                    }
+                }
+            }
+        }
+
         public void AddGroup(Group group)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
