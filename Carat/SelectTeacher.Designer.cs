@@ -45,9 +45,10 @@ namespace Carat
             this.SelectTeacherName});
             this.dataGridViewSelectTeacher.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewSelectTeacher.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewSelectTeacher.MultiSelect = false;
             this.dataGridViewSelectTeacher.Name = "dataGridViewSelectTeacher";
             this.dataGridViewSelectTeacher.ReadOnly = true;
-            this.dataGridViewSelectTeacher.Size = new System.Drawing.Size(800, 450);
+            this.dataGridViewSelectTeacher.Size = new System.Drawing.Size(933, 519);
             this.dataGridViewSelectTeacher.TabIndex = 0;
             this.dataGridViewSelectTeacher.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSelectTeacher_CellDoubleClick);
             // 
@@ -57,13 +58,16 @@ namespace Carat
             this.SelectTeacherName.HeaderText = "ПІБ";
             this.SelectTeacherName.Name = "SelectTeacherName";
             this.SelectTeacherName.ReadOnly = true;
+            this.SelectTeacherName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.SelectTeacherName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // SelectTeacher
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(933, 519);
             this.Controls.Add(this.dataGridViewSelectTeacher);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SelectTeacher";
             this.Text = "SelectTeacher";

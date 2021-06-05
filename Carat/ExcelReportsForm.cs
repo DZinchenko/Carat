@@ -978,7 +978,43 @@ namespace Carat
 
                 return;
             }
-            
+            if (e.Node.FullPath == "Вибіркові\\за вибраною дисципліною")
+            {
+                panelContainer.Visible = true;
+
+                m_loadedSelectForm = new SelectSubject(m_parentForm, m_dbPath, m_educType, m_educForm, m_educLevel, m_course, m_semestr);
+
+                m_loadedSelectForm.TopLevel = false;
+                m_loadedSelectForm.Size = panelContainer.Size;
+
+                panelContainer.Controls.Add(m_loadedSelectForm);
+                panelContainer.Tag = m_loadedSelectForm;
+                m_loadedSelectForm.BringToFront();
+                m_loadedSelectForm.Dock = DockStyle.Fill;
+
+                m_loadedSelectForm.Show();
+
+                return;
+            }
+            if (e.Node.FullPath == "Вибіркові\\за вибраним видом роботи")
+            {
+                panelContainer.Visible = true;
+
+                m_loadedSelectForm = new SelectWorkType(m_parentForm, m_dbPath, m_educType, m_educForm, m_educLevel, m_course, m_semestr);
+
+                m_loadedSelectForm.TopLevel = false;
+                m_loadedSelectForm.Size = panelContainer.Size;
+
+                panelContainer.Controls.Add(m_loadedSelectForm);
+                panelContainer.Tag = m_loadedSelectForm;
+                m_loadedSelectForm.BringToFront();
+                m_loadedSelectForm.Dock = DockStyle.Fill;
+
+                m_loadedSelectForm.Show();
+
+                return;
+            }
+
             m_loadedSelectForm?.Close();
             panelContainer.Visible = false;
         }
