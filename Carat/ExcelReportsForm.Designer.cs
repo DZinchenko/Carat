@@ -56,6 +56,9 @@ namespace Carat
             treeNode13});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelReportsForm));
             this.treeViewExcelReports = new System.Windows.Forms.TreeView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelContainer = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeViewExcelReports
@@ -95,23 +98,42 @@ namespace Carat
             treeNode6,
             treeNode11,
             treeNode14});
-            this.treeViewExcelReports.Size = new System.Drawing.Size(899, 519);
+            this.treeViewExcelReports.Size = new System.Drawing.Size(899, 260);
             this.treeViewExcelReports.TabIndex = 0;
             this.treeViewExcelReports.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewExcelReports_AfterSelect);
             this.treeViewExcelReports.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewExcelReports_NodeMouseDoubleClick);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.treeViewExcelReports);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(899, 260);
+            this.panel1.TabIndex = 1;
+            // 
+            // panelContainer
+            // 
+            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContainer.Location = new System.Drawing.Point(0, 260);
+            this.panelContainer.Name = "panelContainer";
+            this.panelContainer.Size = new System.Drawing.Size(899, 259);
+            this.panelContainer.TabIndex = 2;
             // 
             // ExcelReportsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(899, 519);
-            this.Controls.Add(this.treeViewExcelReports);
+            this.Controls.Add(this.panelContainer);
+            this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 186);
             this.Name = "ExcelReportsForm";
             this.Text = "Excel звіти";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ExcelReports_FormClosed);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -119,5 +141,7 @@ namespace Carat
         #endregion
 
         private System.Windows.Forms.TreeView treeViewExcelReports;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelContainer;
     }
 }

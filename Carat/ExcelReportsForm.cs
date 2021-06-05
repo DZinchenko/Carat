@@ -27,6 +27,7 @@ namespace Carat
         private uint m_semestr;
 
         private MainForm m_parentForm;
+        private Form m_loadedSelectForm = null;
 
         private ICurriculumItemRepository m_curriculumItemRepository;
         private ISubjectRepository m_subjectRepository;
@@ -67,6 +68,7 @@ namespace Carat
             m_groupsToTAItemRepository = new GroupsToTAItemRepository(dbPath);
 
             treeViewExcelReports.ExpandAll();
+            panelContainer.Visible = false;
         }
 
         private string GetSemesterString()
@@ -940,7 +942,27 @@ namespace Carat
 
         private void treeViewExcelReports_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            
+            if (e.Node.FullPath == "Вибіркові\\за вибраним викладачем")
+            {
+                panelContainer.Visible = true;
+
+                m_loadedSelectForm = new SelectTeacher(m_parentForm, m_dbPath, m_educType, m_educForm, m_educLevel, m_course, m_semestr, false);
+
+                m_loadedSelectForm.TopLevel = false;
+                m_loadedSelectForm.Size = panelContainer.Size;
+
+                panelContainer.Controls.Add(m_loadedSelectForm);
+                panelContainer.Tag = m_loadedSelectForm;
+                m_loadedSelectForm.BringToFront();
+                m_loadedSelectForm.Dock = DockStyle.Fill;
+
+                m_loadedSelectForm.Show();
+            }
+            else 
+            {
+                m_loadedSelectForm?.Close();
+                panelContainer.Visible = false;
+            }
         }
     }
 }
