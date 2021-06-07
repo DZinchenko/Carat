@@ -186,6 +186,25 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public List<TAItem> GetTAItemsByTeacherIdWithouFilters(int teacherId, uint semestr)
+        {
+            if (semestr == 0)
+            {
+                using (var ctx = new CaratDbContext(m_dbPath))
+                {
+                    return ctx.TAItems.Where(b => b.TeacherId == teacherId).ToList();
+                }
+            }
+            else
+            {
+                using (var ctx = new CaratDbContext(m_dbPath))
+                {
+                    return ctx.TAItems.Where(b => b.TeacherId == teacherId && b.Semestr == semestr).ToList();
+                }
+            }
+
+        }
+
         public void DeleteAllTAItems()
         {
             using (var ctx = new CaratDbContext(m_dbPath))

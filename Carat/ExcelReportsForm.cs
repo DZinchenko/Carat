@@ -946,7 +946,7 @@ namespace Carat
             {
                 panelContainer.Visible = true;
 
-                m_loadedSelectForm = new SelectTeacher(m_parentForm, m_dbPath, m_educType, m_educForm, m_educLevel, m_course, m_semestr, false);
+                m_loadedSelectForm = new SelectTeacher(m_parentForm, m_dbPath, m_educType, m_educForm, m_educLevel, m_course, m_semestr, ByTeacherReportType.Default);
 
                 m_loadedSelectForm.TopLevel = false;
                 m_loadedSelectForm.Size = panelContainer.Size;
@@ -964,7 +964,7 @@ namespace Carat
             {
                 panelContainer.Visible = true;
 
-                m_loadedSelectForm = new SelectTeacher(m_parentForm, m_dbPath, m_educType, m_educForm, m_educLevel, m_course, m_semestr, true);
+                m_loadedSelectForm = new SelectTeacher(m_parentForm, m_dbPath, m_educType, m_educForm, m_educLevel, m_course, m_semestr, ByTeacherReportType.Extended);
 
                 m_loadedSelectForm.TopLevel = false;
                 m_loadedSelectForm.Size = panelContainer.Size;
@@ -1001,6 +1001,24 @@ namespace Carat
                 panelContainer.Visible = true;
 
                 m_loadedSelectForm = new SelectWorkType(m_parentForm, m_dbPath, m_educType, m_educForm, m_educLevel, m_course, m_semestr);
+
+                m_loadedSelectForm.TopLevel = false;
+                m_loadedSelectForm.Size = panelContainer.Size;
+
+                panelContainer.Controls.Add(m_loadedSelectForm);
+                panelContainer.Tag = m_loadedSelectForm;
+                m_loadedSelectForm.BringToFront();
+                m_loadedSelectForm.Dock = DockStyle.Fill;
+
+                m_loadedSelectForm.Show();
+
+                return;
+            }
+            if (e.Node.FullPath == "Інші\\індивідуальний план")
+            {
+                panelContainer.Visible = true;
+
+                m_loadedSelectForm = new SelectTeacher(m_parentForm, m_dbPath, m_educType, m_educForm, m_educLevel, m_course, m_semestr, ByTeacherReportType.Individual);
 
                 m_loadedSelectForm.TopLevel = false;
                 m_loadedSelectForm.Size = panelContainer.Size;

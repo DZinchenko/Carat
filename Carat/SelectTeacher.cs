@@ -16,6 +16,13 @@ using NPOI.XSSF.UserModel;
 
 namespace Carat
 {
+    public enum ByTeacherReportType
+    {
+        Default,
+        Extended,
+        Individual
+    }
+
     public partial class SelectTeacher : Form
     {
         private MainForm m_parentForm = null;
@@ -25,7 +32,7 @@ namespace Carat
         private string m_educLevel;
         private uint m_course;
         private uint m_semestr;
-        private bool m_isExtendedReport;
+        private ByTeacherReportType m_reportType;
 
         private string IncorrectNameMessageDataIsEmpty = "Дані відсутні!";
 
@@ -36,6 +43,7 @@ namespace Carat
         ISubjectRepository m_subjectRepository;
         IGroupsToTAItemRepository m_groupsToTAItemRepository;
         IGroupRepository m_groupRepository;
+        IWorkTypeRepository m_workTypeRepository;
 
         public SelectTeacher(MainForm parentForm,
                                 string dbPath,
@@ -44,7 +52,7 @@ namespace Carat
                                 string educLevel,
                                 uint course,
                                 uint semestr,
-                                bool isExtendedReport)
+                                ByTeacherReportType reportType)
         {
             InitializeComponent();
 
@@ -55,7 +63,7 @@ namespace Carat
             m_educLevel = educLevel;
             m_course = course;
             m_semestr = semestr;
-            m_isExtendedReport = isExtendedReport;
+            m_reportType = reportType;
 
             m_teacherRepository = new TeacherRepository(m_dbPath);
             m_curriculumItemRepository = new CurriculumItemRepository(m_dbPath);
@@ -64,6 +72,7 @@ namespace Carat
             m_subjectRepository = new SubjectRepository(m_dbPath);
             m_groupsToTAItemRepository = new GroupsToTAItemRepository(m_dbPath);
             m_groupRepository = new GroupRepository(m_dbPath);
+            m_workTypeRepository = new WorkTypeRepository(m_dbPath);
 
             LoadData();
         }
@@ -137,13 +146,19 @@ namespace Carat
                 return;
             }
 
-            if (m_isExtendedReport)
+            switch (m_reportType)
             {
-                GenerateExtendedReport(teachers[e.RowIndex]);
-            }
-            else
-            {
-                GenerateReport(teachers[e.RowIndex]);
+                case ByTeacherReportType.Default:
+                    GenerateReport(teachers[e.RowIndex]);
+                    break;
+                case ByTeacherReportType.Extended:
+                    GenerateExtendedReport(teachers[e.RowIndex]);
+                    break;
+                case ByTeacherReportType.Individual:
+                    GenerateIndividualPlan(teachers[e.RowIndex]);
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -417,6 +432,306 @@ namespace Carat
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
                 }
+
+                XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
+                sheet.AutoSizeColumn(1);
+
+                using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
+                {
+                    workbook.Write(fileData);
+
+                    System.Diagnostics.Process.Start(@fileData.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private List<Group> GetGroups(List<TAItem> taItems)
+        {
+            var result = new Dictionary<int, Group>();
+
+            foreach (var taItem in taItems)
+            {
+                var groupsToTaItem = m_groupsToTAItemRepository.GetGroupsToTAItemsByTAItemId(taItem.Id);
+
+                foreach (var groupToTaItem in groupsToTaItem)
+                {
+                    var group = m_groupRepository.GetGroup(groupToTaItem.GroupId);
+                    result[group.Id] = group;
+                }
+            }
+
+            return result.Select(item => { return item.Value; }).ToList();
+        }
+
+        public static NPOI.SS.UserModel.ICell GetCell(NPOI.SS.UserModel.IRow row, int column)
+        {
+            NPOI.SS.UserModel.ICell cell = row.GetCell(column);
+
+            if (cell == null)
+            {
+                cell = row.CreateCell(column);
+            }
+            return cell;
+        }
+
+        private int GetColumnIndexByWorkName(string workName)
+        {
+            int result = 22;
+
+            switch (workName)
+            {
+                case "Лекції":
+                    result = 38;
+                    break;
+                case "Практич.заняття (комп. практ. семін.)":
+                    result = 42;
+                    break;
+                case "Лабор.роб. (комп.практ.)":
+                    result = 46;
+                    break;
+                case "Екзамени":
+                    result = 54;
+                    break;
+                case "Заліки":
+                    result = 58;
+                    break;
+                case "Контр.роб. (мод.,темат.)":
+                    result = 62;
+                    break;
+                case "Курсові проекти":
+                    result = 66;
+                    break;
+                case "Курсові роботи":
+                    result = 70;
+                    break;
+                case "РГР, РР, ГР":
+                    result = 75;
+                    break;
+                case "ДКР":
+                    result = 79;
+                    break;
+                case "Реферати":
+                    result = 83;
+                    break;
+                case "Консультації":
+                    result = 87;
+                    break;
+                case "Індивід заняття зі студентами":
+                    result = 50;
+                    break;
+                case "Індивід заняття з магістрами":
+                    break;
+                case "Індивід заняття за змішаною формою навч.":
+                    break;
+                case "Керівництво практиками":
+                    break;
+                case "Керівниц.атестац.роб.(бакалаврів)":
+                    break;
+                case "Керівниц.атестац.роб.(магістр ОПП)":
+                    break;
+                case "Керівниц.атестац.роб.(магістр ОНП)":
+                    break;
+                case "Консульт.атестац.роб.(бакалаврів)":
+                    break;
+                case "Консульт.атестац.роб.(магістр ОПП)":
+                    break;
+                case "Консульт.атестац.роб.(магістр ОНП)":
+                    break;
+                case "Рецензув.атестац.роб.(бакалаврів)":
+                    break;
+                case "Рецензув.атестац.роб.(магістр ОПП)":
+                    break;
+                case "Рецензув.атестац.роб.(магістр ОНП)":
+                    break;
+                case "Вступний іспит (магістр ОПП)":
+                    break;
+                case "Вступний іспит (магістр ОНП)":
+                    break;
+                case "Вступний іспит (аспірант)":
+                    break;
+                case "Робота в ЕК (бакалаврів)":
+                    break;
+                case "Робота в ЕК (магістр ОПП)":
+                    break;
+                case "Робота в ЕК (магістр ОНП)":
+                    break;
+                case "Керівництво (аспірантами)":
+                    break;
+                case "Керівництво (здобувач., стаж.)":
+                    break;
+                case "Заняття з аспірантами":
+                    break;
+                case "Консульт.докторантів":
+                    break;
+            }
+
+            return result;
+        }
+
+        private int PrintSubjects(NPOI.SS.UserModel.ISheet sheet, Dictionary<string, List<TAItem>> TAItemsSubjects, int subjectCounter, int startIndex)
+        {
+            foreach (var subjectItem in TAItemsSubjects)
+            {
+                if (subjectItem.Value.Count <= 0)
+                {
+                    continue;
+                }
+                var curriculumItem = m_curriculumItemRepository.GetCurriculumItem((m_workRepository.GetWork(subjectItem.Value[0].WorkId)).CurriculumItemId);
+                var rowIndex = startIndex + subjectCounter;
+
+                GetCell(sheet.GetRow(rowIndex), 22).SetCellValue(subjectItem.Key);
+                GetCell(sheet.GetRow(rowIndex), 23).SetCellValue(curriculumItem.SubjectHours);
+                GetCell(sheet.GetRow(rowIndex), 25).SetCellValue("ТЕФ");
+                GetCell(sheet.GetRow(rowIndex), 26).SetCellValue(curriculumItem.Course);
+
+                var groups = GetGroups(subjectItem.Value);
+                uint budjetNumber = 0;
+                uint contractNumber = 0;
+                string groupsCellText = "";
+
+                foreach (var group in groups)
+                {
+                    groupsCellText += group.Name + "; ";
+                    budjetNumber += group.BudgetNumber;
+                    contractNumber += group.ContractNumber;
+                }
+
+                GetCell(sheet.GetRow(rowIndex), 24).SetCellValue(groups.Count);
+                GetCell(sheet.GetRow(rowIndex), 33).SetCellValue(groupsCellText);
+                GetCell(sheet.GetRow(rowIndex), 34).SetCellValue(budjetNumber);
+                GetCell(sheet.GetRow(rowIndex), 35).SetCellValue(contractNumber);
+
+                foreach (var taItem in subjectItem.Value)
+                {
+                    var work = m_workRepository.GetWork(taItem.WorkId);
+                    var workType = m_workTypeRepository.GetWorkType(work.WorkTypeId);
+                    var curriculumItemOfWork = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
+                    var columnIndex = GetColumnIndexByWorkName(workType.Name);
+
+                    if (curriculumItemOfWork.EducType == "Контракт")
+                    {
+                        columnIndex += 2;
+                    }
+
+                    GetCell(sheet.GetRow(rowIndex), columnIndex).SetCellValue(taItem.WorkHours);
+                }
+
+                ++subjectCounter;
+            }
+
+            return subjectCounter;
+        }
+
+        private void GenerateIndividualPlan(Teacher teacher)
+        {
+            var allTAItems = m_taItemRepository.GetTAItemsByTeacherIdWithouFilters(teacher.Id, 0);
+            var firstSemesterTAItemsSubjectsFull = new Dictionary<string, List<TAItem>>();
+            var firstSemesterTAItemsSubjectsExternal = new Dictionary<string, List<TAItem>>();
+            var firstSemesterTAItemsSubjectsEvening = new Dictionary<string, List<TAItem>>();
+            var secondSemesterTAItemsSubjectsFull = new Dictionary<string, List<TAItem>>();
+            var secondSemesterTAItemsSubjectsExternal = new Dictionary<string, List<TAItem>>();
+            var secondSemesterTAItemsSubjectsEvening = new Dictionary<string, List<TAItem>>();
+
+            allTAItems.RemoveAll(item => { return Tools.isEqual(item.WorkHours, 0); });
+
+            if (allTAItems.Count <= 0)
+            {
+                MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            foreach (var taItem in allTAItems)
+            {
+                Dictionary<string, List<TAItem>> resultDic = null;   
+                
+                var work = m_workRepository.GetWork(taItem.WorkId);
+                if (work == null)
+                {
+                    continue;
+                }
+
+                var curriculumItem = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
+                if (curriculumItem == null)
+                {
+                    continue;
+                }
+                
+                var subject = m_subjectRepository.GetSubject(curriculumItem.SubjectId);
+                if (subject == null)
+                {
+                    continue;
+                }
+
+                if (curriculumItem.Semestr == 1)
+                {
+                    if (curriculumItem.EducForm == "Денна")
+                    {
+                        resultDic = firstSemesterTAItemsSubjectsFull;
+                    }
+                    else if (curriculumItem.EducForm == "Заочна")
+                    {
+                        resultDic = firstSemesterTAItemsSubjectsExternal;
+                    }
+                    else
+                    {
+                        resultDic = firstSemesterTAItemsSubjectsEvening;
+                    }
+                }
+                else 
+                {
+                    if (curriculumItem.EducForm == "Денна")
+                    {
+                        resultDic = secondSemesterTAItemsSubjectsFull;
+                    }
+                    else if (curriculumItem.EducForm == "Заочна")
+                    {
+                        resultDic = secondSemesterTAItemsSubjectsExternal;
+                    }
+                    else
+                    {
+                        resultDic = secondSemesterTAItemsSubjectsEvening;
+                    }
+                }
+
+                if (!resultDic.ContainsKey(subject.Name))
+                {
+                    resultDic[subject.Name] = new List<TAItem>();
+                }
+
+                resultDic[subject.Name].Add(taItem);
+            }
+
+            try
+            {
+                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                templatePath += "\\templates\\IndividualPlan.xlsx";
+
+                var workbook = new XSSFWorkbook(templatePath);
+                var sheet = workbook[0];
+
+                if (sheet == null)
+                {
+                    return;
+                }
+
+                sheet.GetRow(30).Cells[0].SetCellValue(teacher.Name);
+                sheet.GetRow(34).Cells[0].SetCellValue(teacher.Rank);
+                sheet.GetRow(39).Cells[0].SetCellValue(teacher.Position);
+
+                int firstSemesterCounter = 0;
+                int secondSemesterCounter = 0;
+
+                firstSemesterCounter = PrintSubjects(sheet, firstSemesterTAItemsSubjectsFull, firstSemesterCounter, 15);
+                firstSemesterCounter = PrintSubjects(sheet, firstSemesterTAItemsSubjectsExternal, firstSemesterCounter, 15);
+                firstSemesterCounter = PrintSubjects(sheet, firstSemesterTAItemsSubjectsEvening, firstSemesterCounter, 15);
+
+                secondSemesterCounter = PrintSubjects(sheet, secondSemesterTAItemsSubjectsFull, secondSemesterCounter, 35);
+                secondSemesterCounter = PrintSubjects(sheet, secondSemesterTAItemsSubjectsExternal, secondSemesterCounter, 35);
+                secondSemesterCounter = PrintSubjects(sheet, secondSemesterTAItemsSubjectsEvening, secondSemesterCounter, 35);
 
                 XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
                 sheet.AutoSizeColumn(1);
