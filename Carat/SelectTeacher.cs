@@ -33,6 +33,15 @@ namespace Carat
         private uint m_course;
         private uint m_semestr;
         private ByTeacherReportType m_reportType;
+        private List<string> m_specialWorks = new List<string> 
+        {
+            "Бакалаврський проект",
+            "Магістерська дисертація ОПП",
+            "Магістерська дисертація ОНП",
+            "Вступний іспит",
+            "Аспіранти",
+            "Науково-дослідна робота за темою магістерської дисертації - 1. Основи наукових досліджень"
+        };
 
         private string IncorrectNameMessageDataIsEmpty = "Дані відсутні!";
 
@@ -480,7 +489,7 @@ namespace Carat
 
         private int GetColumnIndexByWorkName(string workName)
         {
-            int result = 22;
+            int result = -1;
 
             switch (workName)
             {
@@ -523,53 +532,197 @@ namespace Carat
                 case "Індивід заняття зі студентами":
                     result = 50;
                     break;
+            }
+
+            return result;
+        }
+
+        private int GetRowIndexByOtherWorkName(string workName)
+        {
+            int result = -1;
+
+            switch (workName)
+                {
                 case "Індивід заняття з магістрами":
+                    result = 7;
                     break;
                 case "Індивід заняття за змішаною формою навч.":
                     break;
                 case "Керівництво практиками":
+                    result = 9;
                     break;
                 case "Керівниц.атестац.роб.(бакалаврів)":
+                    result = 13;
                     break;
                 case "Керівниц.атестац.роб.(магістр ОПП)":
+                    result = 14;
                     break;
                 case "Керівниц.атестац.роб.(магістр ОНП)":
+                    result = 15;
                     break;
                 case "Консульт.атестац.роб.(бакалаврів)":
+                    result = 16;
                     break;
                 case "Консульт.атестац.роб.(магістр ОПП)":
+                    result = 17;
                     break;
                 case "Консульт.атестац.роб.(магістр ОНП)":
+                    result = 18;
                     break;
                 case "Рецензув.атестац.роб.(бакалаврів)":
+                    result = 19;
                     break;
                 case "Рецензув.атестац.роб.(магістр ОПП)":
+                    result = 20;
                     break;
                 case "Рецензув.атестац.роб.(магістр ОНП)":
+                    result = 21;
                     break;
                 case "Вступний іспит (магістр ОПП)":
+                    result = 22;
                     break;
                 case "Вступний іспит (магістр ОНП)":
+                    result = 23;
                     break;
                 case "Вступний іспит (аспірант)":
+                    result = 24;
                     break;
                 case "Робота в ЕК (бакалаврів)":
+                    result = 25;
                     break;
                 case "Робота в ЕК (магістр ОПП)":
+                    result = 28;
                     break;
                 case "Робота в ЕК (магістр ОНП)":
+                    result = 31;
                     break;
                 case "Керівництво (аспірантами)":
+                    result = 34;
                     break;
                 case "Керівництво (здобувач., стаж.)":
+                    result = 35;
                     break;
                 case "Заняття з аспірантами":
+                    result = -1;
                     break;
                 case "Консульт.докторантів":
+                    result = -1;
                     break;
             }
 
             return result;
+        }
+
+        private void PrintOtherSubjects(NPOI.SS.UserModel.ISheet sheet, Dictionary<string, List<TAItem>> TAItemsSubjects)
+        {
+            int facultyColumnIndex = 101;
+            int courseColumnIndex = 102;
+            int groupColumnIndex = 103;
+            int budjetColumnIndex = 104;
+            int contractColumnIndex = 105;
+            int hoursColumnIndex = 106;
+
+            foreach (var subjectItem in TAItemsSubjects)
+            {
+                if (subjectItem.Value.Count <= 0)
+                {
+                    continue;
+                }
+
+                if (!m_specialWorks.Contains(subjectItem.Key))
+                {
+                    continue;
+                }
+
+                foreach (var taItem in subjectItem.Value)
+                {
+                    var work = m_workRepository.GetWork(taItem.WorkId);
+                    var workType = m_workTypeRepository.GetWorkType(work.WorkTypeId);
+                    var curriculumItem = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
+                    int rowIndex = GetRowIndexByOtherWorkName(workType.Name);
+                    int shiftValue = 0;
+
+                    if (curriculumItem.Semestr == 2)
+                    {
+                        shiftValue = 10;
+                    }
+
+                    if (rowIndex < 0)
+                    {
+                        continue;
+                    }
+
+                    if (rowIndex == 7 || rowIndex == 9)
+                    {
+                        // Дописать и потом сравнить значение в отчёте и в программе (нагрузка преподавателя в навнтажен1 дроп бокс)
+                    }
+                    else {
+                        var cell = GetCell(sheet.GetRow(rowIndex), hoursColumnIndex + shiftValue);
+                        if (cell.StringCellValue == null)
+                        {
+                            cell.SetCellValue(taItem.WorkHours);
+                        }
+                        else 
+                        {
+                            try
+                            {
+                                cell.SetCellValue(cell.NumericCellValue + taItem.WorkHours);
+                            }
+                            catch (Exception) { }
+                        }
+                    }
+
+                    var groups = GetGroups(new List<TAItem>{taItem});
+
+                    GetCell(sheet.GetRow(rowIndex), facultyColumnIndex + shiftValue).SetCellValue("ТЕФ");
+                    GetCell(sheet.GetRow(rowIndex), courseColumnIndex + shiftValue).SetCellValue(curriculumItem.Course);
+
+                    foreach (var group in groups)
+                    {
+                        var groupCell = GetCell(sheet.GetRow(rowIndex), groupColumnIndex + shiftValue);
+                        if (groupCell.StringCellValue == null)
+                        {
+                            groupCell.SetCellValue(group.Name + "; ");
+                        }
+                        else
+                        {
+                            try
+                            {
+                                groupCell.SetCellValue(groupCell.StringCellValue + group.Name + "; ");
+                            }
+                            catch (Exception) { }
+                        }
+
+                        var budjetCell = GetCell(sheet.GetRow(rowIndex), budjetColumnIndex + shiftValue);
+                        if (budjetCell.NumericCellValue == null)
+                        {
+                            budjetCell.SetCellValue(group.BudgetNumber);
+                        }
+                        else
+                        {
+                            try
+                            {
+                                budjetCell.SetCellValue(budjetCell.NumericCellValue + group.BudgetNumber);
+                            }
+                            catch (Exception) { }
+                        }
+
+                        var contractCell = GetCell(sheet.GetRow(rowIndex), contractColumnIndex + shiftValue);
+                        if (contractCell.NumericCellValue == null)
+                        {
+                            contractCell.SetCellValue(group.ContractNumber);
+                        }
+                        else
+                        {
+                            try
+                            {
+                                contractCell.SetCellValue(contractCell.NumericCellValue + group.ContractNumber);
+                            }
+                            catch (Exception) { }
+                        }
+                    }
+                }
+            }
         }
 
         private int PrintSubjects(NPOI.SS.UserModel.ISheet sheet, Dictionary<string, List<TAItem>> TAItemsSubjects, int subjectCounter, int startIndex)
@@ -580,6 +733,12 @@ namespace Carat
                 {
                     continue;
                 }
+
+                if (m_specialWorks.Contains(subjectItem.Key))
+                {
+                    continue;
+                }
+
                 var curriculumItem = m_curriculumItemRepository.GetCurriculumItem((m_workRepository.GetWork(subjectItem.Value[0].WorkId)).CurriculumItemId);
                 var rowIndex = startIndex + subjectCounter;
 
@@ -611,6 +770,11 @@ namespace Carat
                     var workType = m_workTypeRepository.GetWorkType(work.WorkTypeId);
                     var curriculumItemOfWork = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
                     var columnIndex = GetColumnIndexByWorkName(workType.Name);
+
+                    if (columnIndex < 0)
+                    {
+                        continue;
+                    }
 
                     if (curriculumItemOfWork.EducType == "Контракт")
                     {
@@ -732,6 +896,14 @@ namespace Carat
                 secondSemesterCounter = PrintSubjects(sheet, secondSemesterTAItemsSubjectsFull, secondSemesterCounter, 35);
                 secondSemesterCounter = PrintSubjects(sheet, secondSemesterTAItemsSubjectsExternal, secondSemesterCounter, 35);
                 secondSemesterCounter = PrintSubjects(sheet, secondSemesterTAItemsSubjectsEvening, secondSemesterCounter, 35);
+
+                PrintOtherSubjects(sheet, firstSemesterTAItemsSubjectsFull);
+                PrintOtherSubjects(sheet, firstSemesterTAItemsSubjectsExternal);
+                PrintOtherSubjects(sheet, firstSemesterTAItemsSubjectsEvening);
+
+                PrintOtherSubjects(sheet, secondSemesterTAItemsSubjectsFull);
+                PrintOtherSubjects(sheet, secondSemesterTAItemsSubjectsExternal);
+                PrintOtherSubjects(sheet, secondSemesterTAItemsSubjectsEvening);
 
                 XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
                 sheet.AutoSizeColumn(1);
