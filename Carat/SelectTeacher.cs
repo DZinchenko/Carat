@@ -231,10 +231,12 @@ namespace Carat
                     var taItems = curriculumItemWithTaItems.Value;
                     var groupsDic = new Dictionary<int, Group>();
                     var otherTeachers = new Dictionary<int, Teacher>();
+                    var otherTeachersGroups = new Dictionary<int, List<Group>>();
+                    var otherTAItems = new List<TAItem>();
 
                     newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
-                    newRow.Cells[3].SetCellValue(curriculumItem.EducLevel);
-                    newRow.Cells[4].SetCellValue(curriculumItem.Course);
+                    newRow.Cells[4].SetCellValue(curriculumItem.EducLevel);
+                    newRow.Cells[5].SetCellValue(curriculumItem.Course);
 
                     foreach (var taItem in taItems)
                     {
@@ -242,7 +244,6 @@ namespace Carat
                         var work = m_workRepository.GetWork(taItem.WorkId);
                         var currItem = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
                         var otherWorks = m_workRepository.GetWorks(currItem.Id, true);
-                        var otherTAItems = new List<TAItem>();
 
                         foreach (var otherWork in otherWorks)
                         {
@@ -263,25 +264,47 @@ namespace Carat
                         }
                     }
 
-                    string firstCellText = m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name + " ( ";
-                    foreach (var group in groupsDic)
-                    {
-                        firstCellText += group.Value.Name + "; ";
-                    }
-                    firstCellText += ")";
+                    string firstCellText = m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name;
                     newRow.Cells[1].SetCellValue(firstCellText);
 
                     string secondCellText = "";
-                    foreach (var otherTeacher in otherTeachers)
+                    foreach (var group in groupsDic)
                     {
-                        secondCellText += otherTeacher.Value.Name + "; ";
+                        secondCellText += group.Value.Name + "; ";
                     }
                     newRow.Cells[2].SetCellValue(secondCellText);
+                 
+                    foreach (var otherTeacher in otherTeachers)
+                    {
+                        var newRowForOtherTeacher = sheet.CopyRow(8, sheet.LastRowNum);
+                        newRowForOtherTeacher.Cells[3].SetCellValue(otherTeacher.Value.Name);
+                        var TAItemsForOtherTeacher = new List<TAItem>();
 
+                        foreach (var otherTAItem in otherTAItems)
+                        {
+                            if (otherTeacher.Key == otherTAItem.TeacherId && !Tools.isEqual(0, otherTAItem.WorkHours))
+                                TAItemsForOtherTeacher.Add(otherTAItem);
+                        }
+
+                        var otherTeacherGroups = GetGroups(TAItemsForOtherTeacher);
+
+                        foreach (var otherTeacherGroup in otherTeacherGroups)
+                        {
+                            var cell = GetCell(newRowForOtherTeacher, 2);
+                            cell.SetCellValue(cell.StringCellValue + otherTeacherGroup.Name + "; ");
+                        }
+
+                        foreach (var taItem in TAItemsForOtherTeacher)
+                        {
+                            var work = m_workRepository.GetWork(taItem.WorkId);
+                            newRowForOtherTeacher.Cells[6 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
+                        }
+                    }
+                    
                     foreach (var taItem in taItems)
                     {
                         var work = m_workRepository.GetWork(taItem.WorkId);
-                        newRow.Cells[5 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
+                        newRow.Cells[6 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
                     }
 
                     newRow.Height = -1;
@@ -291,7 +314,7 @@ namespace Carat
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
 
-                for (int i = 5; i < 40; ++i)
+                for (int i = 6; i < 41; ++i)
                 {
                     var firstCell = sheet.GetRow(8).Cells[i].Address;
                     var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[i].Address;
@@ -303,9 +326,9 @@ namespace Carat
 
                 for (int i = 8, lastIndex = sheet.LastRowNum; i < lastIndex; ++i)
                 {
-                    var firstCell = sheet.GetRow(i).Cells[5].Address;
-                    var lastCell = sheet.GetRow(i).Cells[39].Address;
-                    var finalCell = sheet.GetRow(i).Cells[40];
+                    var firstCell = sheet.GetRow(i).Cells[6].Address;
+                    var lastCell = sheet.GetRow(i).Cells[40].Address;
+                    var finalCell = sheet.GetRow(i).Cells[41];
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
