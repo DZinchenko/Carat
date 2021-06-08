@@ -10,8 +10,27 @@ namespace Carat
 {
     public class Tools
     {
+        public enum SpecialSubjects
+        {
+            BachelorProject,
+            MasterDissertationOPP,
+            MasterDissertationONP,
+            EntranceExam,
+            PostgraduateStudents,
+            MasterDissertation1
+        }
+
         static private double accuracy = 0.000001;
         static public string HoursAccuracy { get; } = "F2";
+        static public Dictionary<SpecialSubjects, string> OtherSubjects = new Dictionary<SpecialSubjects, string>
+        {
+            {SpecialSubjects.BachelorProject,  "Бакалаврський проект" },
+            {SpecialSubjects.MasterDissertationOPP, "Магістерська дисертація ОПП" },
+            {SpecialSubjects.MasterDissertationONP, "Магістерська дисертація ОНП" },
+            {SpecialSubjects.EntranceExam, "Вступний іспит" },
+            {SpecialSubjects.PostgraduateStudents, "Аспіранти" },
+            {SpecialSubjects.MasterDissertation1, "Науково-дослідна робота за темою магістерської дисертації - 1. Основи наукових досліджень" }
+        };
 
         static public string MessageBoxErrorTitle() {
             return "Data error";

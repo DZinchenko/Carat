@@ -547,6 +547,7 @@ namespace Carat
                     result = 7;
                     break;
                 case "Індивід заняття за змішаною формою навч.":
+                    result = 6;
                     break;
                 case "Керівництво практиками":
                     result = 9;
@@ -606,7 +607,7 @@ namespace Carat
                     result = -1;
                     break;
                 case "Консульт.докторантів":
-                    result = -1;
+                    result = 36;
                     break;
             }
 
@@ -652,27 +653,31 @@ namespace Carat
                         continue;
                     }
 
-                    if (rowIndex == 7 || rowIndex == 9)
+
+                    if (rowIndex == 7 && curriculumItem.EducLevel == "Магістр" && curriculumItem.Course == 2)
                     {
-                        // Дописать и потом сравнить значение в отчёте и в программе (нагрузка преподавателя в навнтажен1 дроп бокс)
+                        rowIndex += 1;
                     }
-                    else {
-                        var cell = GetCell(sheet.GetRow(rowIndex), hoursColumnIndex + shiftValue);
-                        if (cell.StringCellValue == null)
+                    else if (rowIndex == 9)
+                    {
+                        if (subjectItem.Key.Contains("ОПП"))
                         {
-                            cell.SetCellValue(taItem.WorkHours);
+                            rowIndex += 1;
                         }
-                        else 
+                        else if (subjectItem.Key.Contains("ОНП"))
                         {
-                            try
-                            {
-                                cell.SetCellValue(cell.NumericCellValue + taItem.WorkHours);
-                            }
-                            catch (Exception) { }
+                            rowIndex += 2;
                         }
                     }
 
-                    var groups = GetGroups(new List<TAItem>{taItem});
+                    var cell = GetCell(sheet.GetRow(rowIndex), hoursColumnIndex + shiftValue);
+                    try
+                    {
+                        cell.SetCellValue(cell.NumericCellValue + taItem.WorkHours);
+                    }
+                    catch (Exception) { }
+
+                    var groups = GetGroups(new List<TAItem> { taItem });
 
                     GetCell(sheet.GetRow(rowIndex), facultyColumnIndex + shiftValue).SetCellValue("ТЕФ");
                     GetCell(sheet.GetRow(rowIndex), courseColumnIndex + shiftValue).SetCellValue(curriculumItem.Course);
@@ -694,32 +699,18 @@ namespace Carat
                         }
 
                         var budjetCell = GetCell(sheet.GetRow(rowIndex), budjetColumnIndex + shiftValue);
-                        if (budjetCell.NumericCellValue == null)
+                        try
                         {
-                            budjetCell.SetCellValue(group.BudgetNumber);
+                            budjetCell.SetCellValue(budjetCell.NumericCellValue + group.BudgetNumber);
                         }
-                        else
-                        {
-                            try
-                            {
-                                budjetCell.SetCellValue(budjetCell.NumericCellValue + group.BudgetNumber);
-                            }
-                            catch (Exception) { }
-                        }
+                        catch (Exception) { }
 
                         var contractCell = GetCell(sheet.GetRow(rowIndex), contractColumnIndex + shiftValue);
-                        if (contractCell.NumericCellValue == null)
+                        try
                         {
-                            contractCell.SetCellValue(group.ContractNumber);
+                            contractCell.SetCellValue(contractCell.NumericCellValue + group.ContractNumber);
                         }
-                        else
-                        {
-                            try
-                            {
-                                contractCell.SetCellValue(contractCell.NumericCellValue + group.ContractNumber);
-                            }
-                            catch (Exception) { }
-                        }
+                        catch (Exception) { }
                     }
                 }
             }
