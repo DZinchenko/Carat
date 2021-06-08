@@ -504,17 +504,21 @@ namespace Carat
 
                 foreach (var teacher in teachers)
                 {
-                    var newRow = sheet.GetRow(9 + i);
+                    var newRow = sheet.GetRow(8 + i);
 
                     newRow.Cells[0].SetCellValue(i+1);
-                    newRow.Cells[1].SetCellValue(teacher.Name + " (" + teacher.Position + "; " +  teacher.StaffUnit.ToString("F2") + ")");
+                    newRow.Cells[1].SetCellValue(teacher.Name);
+                    newRow.Cells[2].SetCellValue(teacher.Position);
+                    newRow.Cells[3].SetCellValue(teacher.StaffUnit.ToString("F2"));
 
-                    var taItems1 = m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Денна");
-                    double lectureHours1 = 0.00;
-                    double otherAudi1 = 0.00;
-                    double other1 = 0.00;
+                    var taItems = m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Денна");
+                    taItems.AddRange(m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Заочна"));
+                    taItems.AddRange(m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Вечірня"));
+                    double lectureHours = 0.00;
+                    double otherAudi = 0.00;
+                    double other = 0.00;
 
-                    foreach (var taItem in taItems1)
+                    foreach (var taItem in taItems)
                     {
                         var work = m_workRepository.GetWork(taItem.WorkId);
 
@@ -523,49 +527,21 @@ namespace Carat
 
                         if (work.WorkTypeId == workTypes[0].Id)
                         {
-                            lectureHours1 += taItem.WorkHours;
+                            lectureHours += taItem.WorkHours;
                         }
                         else if (work.WorkTypeId == workTypes[1].Id || work.WorkTypeId == workTypes[2].Id)
                         {
-                            otherAudi1 += taItem.WorkHours;
+                            otherAudi += taItem.WorkHours;
                         }
                         else
                         {
-                            other1 += taItem.WorkHours;
+                            other += taItem.WorkHours;
                         }
                     }
 
-                    var taItems2 = m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Заочна");
-                    taItems2.AddRange(m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Вечірня"));
-                    double lectureHours2 = 0.00;
-                    double otherAudi2 = 0.00;
-                    double other2 = 0.00;
-
-                    foreach (var taItem in taItems2)
-                    {
-                        var work = m_workRepository.GetWork(taItem.WorkId);
-
-                        if (work.WorkTypeId == workTypes[0].Id)
-                        {
-                            lectureHours2 += taItem.WorkHours;
-                        }
-                        else if (work.WorkTypeId == workTypes[1].Id || work.WorkTypeId == workTypes[2].Id)
-                        {
-                            otherAudi2 += taItem.WorkHours;
-                        }
-                        else
-                        {
-                            other2 += taItem.WorkHours;
-                        }
-                    }
-
-                    newRow.Cells[2].SetCellValue(lectureHours1);
-                    newRow.Cells[3].SetCellValue(otherAudi1);
-                    newRow.Cells[4].SetCellValue(other1);
-
-                    newRow.Cells[6].SetCellValue(lectureHours2);
-                    newRow.Cells[7].SetCellValue(otherAudi2);
-                    newRow.Cells[8].SetCellValue(other2);
+                    newRow.Cells[4].SetCellValue(lectureHours);
+                    newRow.Cells[5].SetCellValue(otherAudi);
+                    newRow.Cells[6].SetCellValue(other);
 
                     newRow.Height = -1;
 
@@ -573,52 +549,33 @@ namespace Carat
 
                     if (i < teachers.Count)
                     {
-                        sheet.CopyRow(9, 9 + i);
+                        sheet.CopyRow(8, 8 + i);
                     }
                 }            
 
-                for (int j = 2; j < 10; ++j)
+                for (int j = 4; j < 7; ++j)
                 {
-                    var firstCell = sheet.GetRow(9).Cells[j].Address;
-                    var lastCell = sheet.GetRow(9 + teachers.Count - 1).Cells[j].Address;
-                    var finalCell = sheet.GetRow(9 + teachers.Count).Cells[j];
+                    var firstCell = sheet.GetRow(8).Cells[j].Address;
+                    var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[j].Address;
+                    var finalCell = sheet.GetRow(sheet.LastRowNum).Cells[j];
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
                 }
 
-                for (int j = 9, lastIndex = teachers.Count + 9; j <= lastIndex; ++j)
+                for (int j = 8, lastIndex = sheet.LastRowNum; j <= lastIndex; ++j)
                 {
-                    var firstCell = sheet.GetRow(j).Cells[2].Address;
-                    var lastCell = sheet.GetRow(j).Cells[4].Address;
-                    var finalCell = sheet.GetRow(j).Cells[5];
+                    var firstCell = sheet.GetRow(j).Cells[4].Address;
+                    var lastCell = sheet.GetRow(j).Cells[6].Address;
+                    var finalCell = sheet.GetRow(j).Cells[7];
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
-                }
-
-                for (int j = 9, lastIndex = teachers.Count + 9; j <= lastIndex; ++j)
-                {
-                    var firstCell = sheet.GetRow(j).Cells[6].Address;
-                    var lastCell = sheet.GetRow(j).Cells[7].Address;
-                    var finalCell = sheet.GetRow(j).Cells[9];
-
-                    finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
-                    finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
-                }
-
-                for (int j = 9, lastIndex = teachers.Count + 9; j <= lastIndex; ++j)
-                {
-                    var firstSumCell = sheet.GetRow(j).Cells[5].Address;
-                    var lastSumCell = sheet.GetRow(j).Cells[9].Address;
-                    var finalCell = sheet.GetRow(j).Cells[10];
-
-                    finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
-                    finalCell.SetCellFormula(string.Format(firstSumCell + "+" + lastSumCell));
                 }
 
                 XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
                 sheet.AutoSizeColumn(2);
+                sheet.AutoSizeColumn(3);
 
                 using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
                 {
