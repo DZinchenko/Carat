@@ -726,8 +726,14 @@ namespace Carat
                 {
                     var taItem = m_taItemRepository.GetTAItem(item.TAItemID);
 
-                    distributedHours += taItem.WorkHours;
+                    if (taItem == null)
+                    {
+                        m_groupsToTAItemRepository.RemoveGroupsToTAItem(item);
+                        continue;
+                    }
 
+                    distributedHours += taItem.WorkHours;
+                    
                     if (taItem.Semestr == m_semestr || m_semestr == 0)
                     {
                         semestrFlag = false;
@@ -771,8 +777,17 @@ namespace Carat
                     foreach (var groupToTAItem in groupToTAItems)
                     {
                         var taItem = m_taItemRepository.GetTAItem(groupToTAItem.TAItemID);
+                        if (taItem == null)
+                            continue;
+
                         var work = m_workRepository.GetWork(taItem.WorkId);
+                        if (work == null)
+                            continue;
+
                         var currItem = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
+                        if (currItem == null)
+                            continue;
+
                         curriculumItems[currItem.Id] = currItem;
                     }
 

@@ -19,7 +19,8 @@ namespace Carat.EF.Repositories
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.Teachers.OrderBy(orderFunc).ToList();
+                var result = ctx.Teachers.ToList();
+                return result.OrderBy(orderFunc).ToList();
             }
         }
 
