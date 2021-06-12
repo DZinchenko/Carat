@@ -43,6 +43,8 @@ namespace Carat
         private uint m_semestr;
         private string m_educLevel;
         private bool m_isEmptyWorks;
+        private bool isSortChanging = false;
+        private int sortColumnIndex = 0;
 
         const string IncorrectDataMessage = "Некоректні дані";
 
@@ -93,7 +95,7 @@ namespace Carat
 
         public void LoadData()
         {
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = GetAllSortedCurriculumItems();
 
             foreach (var item in curriculumItems)
             {
@@ -166,7 +168,7 @@ namespace Carat
                 return;
             }
 
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = GetAllSortedCurriculumItems();
             var rowIndex = dataGridViewTASubjects.SelectedRows[0].Index;
 
             if (curriculumItems.Count <= rowIndex)
@@ -601,6 +603,45 @@ namespace Carat
                 dataGridViewTATeachers.Rows[e.RowIndex].Selected = true;
 
                 MessageBox.Show("Групи замінені");
+            }
+        }
+
+        private void dataGridViewTASubjects_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 0 || e.ColumnIndex == 1)
+            {
+                dataGridViewTASubjects.EndEdit();
+                dataGridViewTATeachers.EndEdit();
+                dataGridViewTAWorks.EndEdit();
+
+                sortColumnIndex = e.ColumnIndex;
+
+                PerformSort();
+            }
+        }
+
+        private List<CurriculumItem> GetAllSortedCurriculumItems()
+        {
+            if (sortColumnIndex == 0)
+            {
+                return m_curriculumItemRepository.GetAllCurriculumItems(
+                    item => m_subjectRepository.GetSubject(item.SubjectId).Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            }
+            else
+            {
+                return m_curriculumItemRepository.GetAllCurriculumItems(
+                    item => item.Course + m_subjectRepository.GetSubject(item.SubjectId).Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            }
+        }
+
+        private void PerformSort()
+        {
+            if (!isSortChanging)
+            {
+                isSortChanging = true;
+                dataGridViewTASubjects.Rows.Clear();
+                LoadData();
+                isSortChanging = false;
             }
         }
     }

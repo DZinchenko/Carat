@@ -125,7 +125,8 @@ namespace Carat
         {
             var curriculumItems = new List<CurriculumItem>();
 
-            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(
+                a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
             curriculumItems.RemoveAll(curriculumItem =>
             {
@@ -227,7 +228,8 @@ namespace Carat
         {
             var curriculumItems = new List<CurriculumItem>();
 
-            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(
+                a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
             curriculumItems.RemoveAll(curriculumItem =>
             {
@@ -347,7 +349,8 @@ namespace Carat
         {
             var curriculumItems = new List<CurriculumItem>();
 
-            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(
+                a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
             curriculumItems.RemoveAll(curriculumItem =>
             {

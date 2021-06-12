@@ -44,27 +44,16 @@ namespace Carat.EF.Repositories
             }
         }
 
-        public List<CurriculumItem> GetCurriculumItems(string educType, string educForm)
+        public List<CurriculumItem> GetCurriculumItems<OrderType>(Func<CurriculumItem, OrderType> orderFunc, string educType, string educForm)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
                 return ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                   && b.EducForm == educForm).ToList();
+                                                   && b.EducForm == educForm).OrderBy(orderFunc).ToList();
             }
         }
 
-        public List<CurriculumItem> GetAllCurriculumItems(string educType, string educForm, uint semestr, string educlevel)
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                    return ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                       && b.EducForm == educForm
-                                                       && b.Semestr == semestr
-                                                       && b.EducLevel == educlevel).ToList();
-            }
-        }
-
-        public List<CurriculumItem> GetAllCurriculumItemsForReports(string educType, string educForm, uint course, uint semestr, string educlevel)
+        public List<CurriculumItem> GetAllCurriculumItemsForReports<OrderType>(Func<CurriculumItem, OrderType> orderFunc, string educType, string educForm, uint course, uint semestr, string educlevel)
         {
             if (educType == "<всі>")
             {
@@ -78,14 +67,14 @@ namespace Carat.EF.Repositories
                             {
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
-                                    return ctx.CurriculumItems.ToList();
+                                    return ctx.CurriculumItems.OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
                             {
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
-                                    return ctx.CurriculumItems.Where(b => b.Semestr == semestr).ToList();
+                                    return ctx.CurriculumItems.Where(b => b.Semestr == semestr).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -95,7 +84,7 @@ namespace Carat.EF.Repositories
                             {
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
-                                    return ctx.CurriculumItems.Where(b => b.Course == course).ToList();
+                                    return ctx.CurriculumItems.Where(b => b.Course == course).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -103,7 +92,7 @@ namespace Carat.EF.Repositories
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
                                     return ctx.CurriculumItems.Where(b => b.Semestr == semestr
-                                                                       && b.Course == course).ToList();
+                                                                       && b.Course == course).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -116,7 +105,7 @@ namespace Carat.EF.Repositories
                             {
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
-                                    return ctx.CurriculumItems.Where(b => b.EducForm == educForm).ToList();
+                                    return ctx.CurriculumItems.Where(b => b.EducForm == educForm).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -124,7 +113,7 @@ namespace Carat.EF.Repositories
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
                                     return ctx.CurriculumItems.Where(b => b.Semestr == semestr
-                                                                       && b.EducForm == educForm).ToList();
+                                                                       && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -135,7 +124,7 @@ namespace Carat.EF.Repositories
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
                                     return ctx.CurriculumItems.Where(b => b.Course == course
-                                                                       && b.EducForm == educForm).ToList();
+                                                                       && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -144,7 +133,7 @@ namespace Carat.EF.Repositories
                                 {
                                     return ctx.CurriculumItems.Where(b => b.Semestr == semestr
                                                                        && b.Course == course
-                                                                       && b.EducForm == educForm).ToList();
+                                                                       && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -160,7 +149,7 @@ namespace Carat.EF.Repositories
                             {
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
-                                    return ctx.CurriculumItems.Where(b => b.EducLevel == educlevel).ToList();
+                                    return ctx.CurriculumItems.Where(b => b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -168,7 +157,7 @@ namespace Carat.EF.Repositories
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
                                     return ctx.CurriculumItems.Where(b => b.Semestr == semestr
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -179,7 +168,7 @@ namespace Carat.EF.Repositories
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
                                     return ctx.CurriculumItems.Where(b => b.Course == course
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -188,7 +177,7 @@ namespace Carat.EF.Repositories
                                 {
                                     return ctx.CurriculumItems.Where(b => b.Semestr == semestr
                                                                        && b.Course == course
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -202,7 +191,7 @@ namespace Carat.EF.Repositories
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducForm == educForm
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -211,7 +200,7 @@ namespace Carat.EF.Repositories
                                 {
                                     return ctx.CurriculumItems.Where(b => b.Semestr == semestr
                                                                        && b.EducForm == educForm
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -223,7 +212,7 @@ namespace Carat.EF.Repositories
                                 {
                                     return ctx.CurriculumItems.Where(b => b.Course == course
                                                                        && b.EducForm == educForm
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -233,7 +222,7 @@ namespace Carat.EF.Repositories
                                     return ctx.CurriculumItems.Where(b => b.Semestr == semestr
                                                                        && b.Course == course
                                                                        && b.EducForm == educForm
-                                                                       && b.EducLevel == educlevel).ToList(); ;
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList(); ;
                                 }
                             }
                         }
@@ -252,7 +241,7 @@ namespace Carat.EF.Repositories
                             {
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
-                                    return ctx.CurriculumItems.Where(b => b.EducType == educType).ToList();
+                                    return ctx.CurriculumItems.Where(b => b.EducType == educType).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -260,7 +249,7 @@ namespace Carat.EF.Repositories
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                                       && b.Semestr == semestr).ToList();
+                                                                       && b.Semestr == semestr).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -271,7 +260,7 @@ namespace Carat.EF.Repositories
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                                       && b.Course == course).ToList();
+                                                                       && b.Course == course).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -280,7 +269,7 @@ namespace Carat.EF.Repositories
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                                        && b.Semestr == semestr
-                                                                       && b.Course == course).ToList();
+                                                                       && b.Course == course).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -294,7 +283,7 @@ namespace Carat.EF.Repositories
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                                       && b.EducForm == educForm).ToList();
+                                                                       && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -303,7 +292,7 @@ namespace Carat.EF.Repositories
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                                        && b.Semestr == semestr
-                                                                       && b.EducForm == educForm).ToList();
+                                                                       && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -315,7 +304,7 @@ namespace Carat.EF.Repositories
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                                        && b.Course == course
-                                                                       && b.EducForm == educForm).ToList();
+                                                                       && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -325,7 +314,7 @@ namespace Carat.EF.Repositories
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                                        && b.Semestr == semestr
                                                                        && b.Course == course
-                                                                       && b.EducForm == educForm).ToList();
+                                                                       && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -342,7 +331,7 @@ namespace Carat.EF.Repositories
                                 using (var ctx = new CaratDbContext(m_dbPath))
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -351,7 +340,7 @@ namespace Carat.EF.Repositories
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                                        && b.Semestr == semestr
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -363,7 +352,7 @@ namespace Carat.EF.Repositories
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                                        && b.Course == course
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -373,7 +362,7 @@ namespace Carat.EF.Repositories
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                                        && b.Semestr == semestr
                                                                        && b.Course == course
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -388,7 +377,7 @@ namespace Carat.EF.Repositories
                                 {
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                                        && b.EducForm == educForm
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -398,7 +387,7 @@ namespace Carat.EF.Repositories
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                                        && b.Semestr == semestr
                                                                        && b.EducForm == educForm
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                         }
@@ -411,7 +400,7 @@ namespace Carat.EF.Repositories
                                     return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                                        && b.Course == course
                                                                        && b.EducForm == educForm
-                                                                       && b.EducLevel == educlevel).ToList();
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList();
                                 }
                             }
                             else
@@ -422,7 +411,7 @@ namespace Carat.EF.Repositories
                                                                        && b.Semestr == semestr
                                                                        && b.Course == course
                                                                        && b.EducForm == educForm
-                                                                       && b.EducLevel == educlevel).ToList(); ;
+                                                                       && b.EducLevel == educlevel).OrderBy(orderFunc).ToList(); ;
                                 }
                             }
                         }
@@ -431,7 +420,7 @@ namespace Carat.EF.Repositories
             }
         }
 
-        public List<CurriculumItem> GetAllCurriculumItems(string educType, string educForm, uint course, uint semestr, string educlevel)
+        public List<CurriculumItem> GetAllCurriculumItems<OrderType>(Func<CurriculumItem, OrderType> orderFunc, string educType, string educForm, uint course, uint semestr, string educlevel)
         {
             if (course == 0)
             {
@@ -441,7 +430,7 @@ namespace Carat.EF.Repositories
                     {
                         return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                             && b.EducLevel == educlevel
-                                                            && b.EducForm == educForm).ToList();
+                                                            && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                     }
                 }
                 else
@@ -451,7 +440,7 @@ namespace Carat.EF.Repositories
                         return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                             && b.EducLevel == educlevel
                                                             && b.Semestr == semestr
-                                                            && b.EducForm == educForm).ToList();
+                                                            && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                     }
                 }
             }
@@ -464,7 +453,7 @@ namespace Carat.EF.Repositories
                         return ctx.CurriculumItems.Where(b => b.EducType == educType
                                                            && b.EducLevel == educlevel
                                                            && b.EducForm == educForm
-                                                           && b.Course == course).ToList();
+                                                           && b.Course == course).OrderBy(orderFunc).ToList();
                     }
                 }
                 else
@@ -476,22 +465,11 @@ namespace Carat.EF.Repositories
                                                            && b.Semestr == semestr
                                                            && b.EducForm == educForm
                                                            && b.Semestr == semestr
-                                                           && b.Course == course).ToList();
+                                                           && b.Course == course).OrderBy(orderFunc).ToList();
                     }
                 }
             }
-        }
-
-        public List<CurriculumItem> GetCurriculumItems(string educType, string educForm, uint semestr)
-        {
-            using (var ctx = new CaratDbContext(m_dbPath))
-            {
-                    return ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                       && b.EducForm == educForm
-                                                       && b.Semestr == semestr).ToList();
-            }
-        }
-        
+        }   
 
         public void AddCurriculumItem(CurriculumItem curriculumItem)
         {
@@ -534,6 +512,15 @@ namespace Carat.EF.Repositories
             using (var ctx = new CaratDbContext(m_dbPath))
             {
                 ctx.RemoveRange(items);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void RemoveCurriculumItemsBySubjectId(int subjectId)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.RemoveRange(ctx.CurriculumItems.Where(item => item.SubjectId == subjectId));
                 ctx.SaveChanges();
             }
         }

@@ -177,7 +177,7 @@ namespace Carat
             var allWorks = new List<Work>();
             var allTAItem = new List<TAItem>();
             var groupedTAItemsWithCurriculumItem = new Dictionary<int, List<TAItem>>();
-            allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
             foreach (var curItem in allCurriculumItems)
             {
@@ -356,7 +356,7 @@ namespace Carat
             var allWorks = new List<Work>();
             var allTAItem = new List<TAItem>();
             var groupedTAItemsWithCurriculumItem = new Dictionary<int, List<TAItem>>();
-            allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
             foreach (var curItem in allCurriculumItems)
             {

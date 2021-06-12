@@ -39,11 +39,12 @@ namespace Carat
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.dataGridViewTASubjects = new System.Windows.Forms.DataGridView();
-            this.TASubjects = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TASubjectCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.dataGridViewTAWorks = new System.Windows.Forms.DataGridView();
@@ -52,9 +53,8 @@ namespace Carat
             this.panelGroups = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.sqliteCommand1 = new Microsoft.Data.Sqlite.SqliteCommand();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.TASubjects = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TASubjectCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTATeachers)).BeginInit();
             this.panelTeacherAssignmentTop.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -63,11 +63,11 @@ namespace Carat
             this.panel1.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTAWorks)).BeginInit();
-            this.panel4.SuspendLayout();
-            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewTATeachers
@@ -161,24 +161,8 @@ namespace Carat
             this.dataGridViewTASubjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTASubjects.Size = new System.Drawing.Size(543, 334);
             this.dataGridViewTASubjects.TabIndex = 1;
+            this.dataGridViewTASubjects.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTASubjects_ColumnHeaderMouseClick);
             this.dataGridViewTASubjects.SelectionChanged += new System.EventHandler(this.dataGridViewTASubjects_SelectionChanged);
-            // 
-            // TASubjects
-            // 
-            this.TASubjects.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.TASubjects.HeaderText = "Дисципліни";
-            this.TASubjects.Name = "TASubjects";
-            this.TASubjects.ReadOnly = true;
-            this.TASubjects.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // TASubjectCourse
-            // 
-            this.TASubjectCourse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.TASubjectCourse.HeaderText = "Курс";
-            this.TASubjectCourse.Name = "TASubjectCourse";
-            this.TASubjectCourse.ReadOnly = true;
-            this.TASubjectCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TASubjectCourse.Width = 39;
             // 
             // panel1
             // 
@@ -208,6 +192,33 @@ namespace Carat
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(543, 23);
             this.panel7.TabIndex = 2;
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.comboBoxTATeachers);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(122, 0);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(421, 23);
+            this.panel9.TabIndex = 2;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.label1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(122, 23);
+            this.panel4.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(116, 15);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Вибрати викладача:";
             // 
             // panel2
             // 
@@ -282,32 +293,22 @@ namespace Carat
             this.sqliteCommand1.Transaction = null;
             this.sqliteCommand1.UpdatedRowSource = System.Data.UpdateRowSource.None;
             // 
-            // panel4
+            // TASubjects
             // 
-            this.panel4.Controls.Add(this.label1);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(122, 23);
-            this.panel4.TabIndex = 1;
+            this.TASubjects.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.TASubjects.HeaderText = "Дисципліни";
+            this.TASubjects.Name = "TASubjects";
+            this.TASubjects.ReadOnly = true;
+            this.TASubjects.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
-            // panel9
+            // TASubjectCourse
             // 
-            this.panel9.Controls.Add(this.comboBoxTATeachers);
-            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(122, 0);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(421, 23);
-            this.panel9.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Вибрати викладача:";
+            this.TASubjectCourse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.TASubjectCourse.HeaderText = "Курс";
+            this.TASubjectCourse.Name = "TASubjectCourse";
+            this.TASubjectCourse.ReadOnly = true;
+            this.TASubjectCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.TASubjectCourse.Width = 58;
             // 
             // TeacherAssignmentForm
             // 
@@ -330,12 +331,12 @@ namespace Carat
             this.panel1.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTAWorks)).EndInit();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.panel9.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -346,8 +347,6 @@ namespace Carat
         private System.Windows.Forms.ComboBox comboBoxTATeachers;
         private System.Windows.Forms.DataGridView dataGridViewTASubjects;
         private System.Windows.Forms.DataGridView dataGridViewTAWorks;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TASubjects;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TASubjectCourse;
         private System.Windows.Forms.DataGridViewTextBoxColumn TAWork;
         private System.Windows.Forms.DataGridViewTextBoxColumn TAWorkFreeHours;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
@@ -365,5 +364,7 @@ namespace Carat
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TASubjects;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TASubjectCourse;
     }
 }

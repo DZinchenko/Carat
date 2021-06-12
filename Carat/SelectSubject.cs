@@ -117,7 +117,7 @@ namespace Carat
 
         private void LoadData()
         {
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
             foreach (var item in curriculumItems)
             {
@@ -127,7 +127,7 @@ namespace Carat
 
         private void dataGridViewSelectSubject_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
             if (e.RowIndex < 0 || e.RowIndex >= curriculumItems.Count)
             {
@@ -139,7 +139,7 @@ namespace Carat
 
         private void GenerateReport(Subject subject)
         {
-            var allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
             allCurriculumItems.RemoveAll(curItem => { return curItem.SubjectId != subject.Id; });
 
             if (allCurriculumItems.Count <= 0)

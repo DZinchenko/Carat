@@ -129,7 +129,7 @@ namespace Carat
 
         private void GenerateReport(WorkType workType)
         {
-            var allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
             var allWorks = new List<Work>();
             var allTAItems = new List<TAItem>();
 

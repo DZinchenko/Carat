@@ -20,6 +20,7 @@ namespace Carat
     public partial class SubjectsTableForm : Form, IDataUserForm
     {
         private ISubjectRepository m_subjectRepository;
+        private ICurriculumItemRepository m_curriculumItemRepository;
         private MainForm m_parentForm = null;
         private const string IncorrectNameMessage = "Некоректна назва предмета!";
         private bool isSortChanging = false;
@@ -30,6 +31,7 @@ namespace Carat
 
             m_parentForm = parentForm;
             m_subjectRepository = new SubjectRepository(dbName);
+            m_curriculumItemRepository = new CurriculumItemRepository(dbName);
         }
 
         public void LoadData()
@@ -155,6 +157,7 @@ namespace Carat
             {
                 if (i < subjects.Count)
                 {
+                    m_curriculumItemRepository.RemoveCurriculumItemsBySubjectId(subjects[i].Id);
                     m_subjectRepository.RemoveSubject(subjects[i]);
                 }
             }

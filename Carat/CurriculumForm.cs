@@ -32,6 +32,8 @@ namespace Carat
         private uint m_semestr;
         private string m_educLevel;
         private bool m_isEmptyWorks;
+        private bool isSortChanging = false;
+        private int sortColumnIndex = 0;
         
         public CurriculumForm(MainForm parentForm,
                               string dbName,
@@ -107,7 +109,7 @@ namespace Carat
         {
             var workTypes = m_workTypeRepository.GetAllWorkTypes();
             var subjects = m_subjectRepository.GetAllSubjects();
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = GetAllSortedCurriculumItems();
 
             foreach (var work in workTypes)
             {
@@ -128,7 +130,7 @@ namespace Carat
 
         private int getCurrentCurriculumId()
         {
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = GetAllSortedCurriculumItems();
             var rowIndex = dataGridViewCurriculumSubjects.SelectedCells[0].RowIndex;
 
             return curriculumItems[rowIndex].Id;
@@ -157,7 +159,7 @@ namespace Carat
 
         private void SyncDataCurriculumSubjects()
         {
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = GetAllSortedCurriculumItems();
 
             for (int i = 0; i < curriculumItems.Count; ++i)
             {
@@ -202,7 +204,7 @@ namespace Carat
                 return;
             }
 
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = GetAllSortedCurriculumItems();
 
             if (e.RowIndex < curriculumItems.Count)
             {
@@ -247,6 +249,7 @@ namespace Carat
                 dataGridViewCurriculumSubjects.ClearSelection();
                 dataGridViewCurriculumSubjects.Rows[dataGridViewCurriculumSubjects.Rows.Count - 1].Selected = true;
             }
+            PerformSort();
         }
 
         private bool isValidSubject(string name, uint course, DataGridView dgv)
@@ -339,7 +342,7 @@ namespace Carat
 
         private void dataGridViewCurriculumSubjects_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = GetAllSortedCurriculumItems();
 
             if (e.RowIndex < 0)
             {
@@ -347,6 +350,11 @@ namespace Carat
             }
 
             if (e.RowIndex >= curriculumItems.Count)
+            {
+                return;
+            }
+
+            if (isSortChanging)
             {
                 return;
             }
@@ -366,7 +374,7 @@ namespace Carat
         {
             if (dataGridViewCurriculumSubjects.SelectedCells.Count == 1 || dataGridViewCurriculumSubjects.SelectedRows.Count == 1)
             {
-                var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+                var curriculumItems = GetAllSortedCurriculumItems();
 
                 if (curriculumItems.Count == 0)
                 {
@@ -570,7 +578,7 @@ namespace Carat
 
         private void dataGridViewCurriculumSubjects_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = GetAllSortedCurriculumItems();
             var curriculumItem = curriculumItems[e.Row.Index];
             var works = m_workRepository.GetWorks(curriculumItem.Id, false);
 
@@ -731,7 +739,7 @@ namespace Carat
                             return;
                         }
 
-                        var oldCurriculumItems = m_curriculumItemRepository.GetCurriculumItems(educType, educForm);
+                        var oldCurriculumItems = m_curriculumItemRepository.GetCurriculumItems(a => a.Id, educType, educForm);
                         var oldWorks = new List<Work>();
 
                         foreach (var curItem in oldCurriculumItems)
@@ -1134,6 +1142,44 @@ namespace Carat
 
             m_parentForm.HideProgress();
             m_parentForm.Enabled = true;
+        }
+
+        private void dataGridViewCurriculumSubjects_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 0 || e.ColumnIndex == 1)
+            {
+                dataGridViewCurriculumSubjects.EndEdit();
+                dataGridViewCurriculumWorkTypes.EndEdit();
+
+                sortColumnIndex = e.ColumnIndex;
+
+                PerformSort();
+            }
+        }
+
+        private List<CurriculumItem> GetAllSortedCurriculumItems()
+        {
+            if (sortColumnIndex == 0)
+            {
+                return m_curriculumItemRepository.GetAllCurriculumItems(
+                    item => m_subjectRepository.GetSubject(item.SubjectId).Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            }
+            else
+            {
+                return m_curriculumItemRepository.GetAllCurriculumItems(
+                    item => item.Course + m_subjectRepository.GetSubject(item.SubjectId).Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            }
+        }
+
+        private void PerformSort()
+        {
+            if (!isSortChanging)
+            {
+                isSortChanging = true;
+                dataGridViewCurriculumSubjects.Rows.Clear();
+                LoadData();
+                isSortChanging = false;
+            }
         }
     }
 }
