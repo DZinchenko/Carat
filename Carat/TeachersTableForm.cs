@@ -22,6 +22,8 @@ namespace Carat
         ITeacherRepository m_teacherRepository = null;
         const string IncorrectNameMessage = "Некоректне ім'я викладача!";
         const string IncorrectDataMessage = "Некоректні дані!";
+        bool isSortChanging = false;
+        int sortColumnIndex = 0;
 
         public TeachersTableForm(MainForm parentForm, string dbPath)
         {
@@ -39,7 +41,7 @@ namespace Carat
 
         public void LoadData()
         {
-            var teachers = m_teacherRepository.GetAllTeachers();
+            var teachers = GetAllSortedTeachers();
 
             foreach (var teacher in teachers)
             {
@@ -56,7 +58,7 @@ namespace Carat
 
         private void SyncData()
         {
-            var teachers = m_teacherRepository.GetAllTeachers();
+            var teachers = GetAllSortedTeachers();
 
             for (int i = 0; i < teachers.Count; ++i)
             {
@@ -74,6 +76,11 @@ namespace Carat
         private void RemoveLastRow()
         {
             int index = dataGridViewTeachers.Rows.Count - 2;
+
+            if (isSortChanging)
+            {
+                return;
+            }
 
             if (index < 0)
             {
@@ -115,7 +122,7 @@ namespace Carat
                 return;
             }
 
-            var teachers = m_teacherRepository.GetAllTeachers();
+            var teachers = GetAllSortedTeachers();
 
             if (e.RowIndex < teachers.Count)
             {
@@ -127,6 +134,7 @@ namespace Carat
                 }
 
                 m_teacherRepository.UpdateTeacher(teacher);
+                PerformSort();
             }
             else
             {
@@ -139,6 +147,7 @@ namespace Carat
                 }
 
                 m_teacherRepository.AddTeacher(teacher);
+                PerformSort();
             }
         }
 
@@ -217,9 +226,14 @@ namespace Carat
 
         private void dataGridViewTeachers_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            var teachers = m_teacherRepository.GetAllTeachers();
+            var teachers = GetAllSortedTeachers();
 
             if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            if (isSortChanging)
             {
                 return;
             }
@@ -319,7 +333,7 @@ namespace Carat
                 row.CreateCell(5).SetCellValue("Форма зайнятості");
                 row.CreateCell(6).SetCellValue("Примітки");
 
-                var allTeachers = m_teacherRepository.GetAllTeachers();
+                var allTeachers = GetAllSortedTeachers();
 
                 for (int i = 0, rowIndex = 1; i < allTeachers.Count; ++i, ++rowIndex)
                 {
@@ -342,6 +356,36 @@ namespace Carat
                 workbook.Write(fileData);
 
                 System.Diagnostics.Process.Start(@fileData.Name);
+            }
+        }
+
+        private List<Teacher> GetAllSortedTeachers()
+        {
+            if (sortColumnIndex == 0)
+            {
+                return m_teacherRepository.GetAllTeachers(a => a.Name);
+            }
+            else
+            {
+                return m_teacherRepository.GetAllTeachers(a => a.StaffUnit);
+            }
+        }
+
+        private void PerformSort()
+        {
+            isSortChanging = true;
+            dataGridViewTeachers.Rows.Clear();
+            LoadData();
+            isSortChanging = false;
+        }
+
+        private void dataGridViewTeachers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 0 || e.ColumnIndex == 1)
+            {
+                sortColumnIndex = e.ColumnIndex;
+
+                PerformSort();
             }
         }
     }

@@ -465,7 +465,7 @@ namespace Carat
 
         private void GenerateLoadShortByTeachers()
         {
-            var fullTeachers = m_teacherRepository.GetAllTeachers();
+            var fullTeachers = m_teacherRepository.GetAllTeachers(a => a.Name);
             var teachers = new List<Teacher>();
 
             foreach (var teacher in fullTeachers)
@@ -592,7 +592,7 @@ namespace Carat
 
         private void GenerateLoadFullByTeachers()
         {
-            var fullTeachers = m_teacherRepository.GetAllTeachers();
+            var fullTeachers = m_teacherRepository.GetAllTeachers(a => a.Name);
             var teachers = new List<Teacher>();
 
             foreach (var teacher in fullTeachers)
@@ -722,6 +722,7 @@ namespace Carat
                 foreach (var item in groupToTAItems)
                 {
                     var taItem = m_taItemRepository.GetTAItem(item.TAItemID);
+
                     distributedHours += taItem.WorkHours;
 
                     if (taItem.Semestr == m_semestr || m_semestr == 0)

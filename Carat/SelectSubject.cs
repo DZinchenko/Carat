@@ -25,7 +25,6 @@ namespace Carat
         private string m_educLevel;
         private uint m_course;
         private uint m_semestr;
-        private bool m_isExtendedReport;
 
         private string IncorrectNameMessageDataIsEmpty = "Дані відсутні!";
 

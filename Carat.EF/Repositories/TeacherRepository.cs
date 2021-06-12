@@ -15,13 +15,14 @@ namespace Carat.EF.Repositories
             m_dbPath = dbPath;
         }
 
-        public List<Teacher> GetAllTeachers()
+        public List<Teacher> GetAllTeachers<OrderType>(Func<Teacher, OrderType> orderFunc)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.Teachers.ToList();
+                return ctx.Teachers.OrderBy(orderFunc).ToList();
             }
         }
+
         public Teacher GetTeacher(int teacherId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
@@ -78,7 +79,7 @@ namespace Carat.EF.Repositories
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.RemoveRange(GetAllTeachers());
+                ctx.RemoveRange(GetAllTeachers(a => a.Name));
                 ctx.SaveChanges();
             }
         }

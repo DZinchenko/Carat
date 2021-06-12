@@ -36,6 +36,10 @@ namespace Carat
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeachersTableForm));
             this.dataGridViewTeachers = new System.Windows.Forms.DataGridView();
+            this.panelTeachersTop = new System.Windows.Forms.Panel();
+            this.buttonImportTeachers = new System.Windows.Forms.Button();
+            this.buttonExportTeachers = new System.Windows.Forms.Button();
+            this.panelTeachersBottom = new System.Windows.Forms.Panel();
             this.TeacherName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TeacherStake = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TeacherPosition = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -43,10 +47,6 @@ namespace Carat
             this.TeacherDegree = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.TeachersOccupForm = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.TeacherNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panelTeachersTop = new System.Windows.Forms.Panel();
-            this.buttonImportTeachers = new System.Windows.Forms.Button();
-            this.buttonExportTeachers = new System.Windows.Forms.Button();
-            this.panelTeachersBottom = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeachers)).BeginInit();
             this.panelTeachersTop.SuspendLayout();
             this.panelTeachersBottom.SuspendLayout();
@@ -73,15 +73,71 @@ namespace Carat
             this.dataGridViewTeachers.Size = new System.Drawing.Size(899, 493);
             this.dataGridViewTeachers.TabIndex = 0;
             this.dataGridViewTeachers.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTeachers_CellValueChanged);
+            this.dataGridViewTeachers.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTeachers_ColumnHeaderMouseClick);
             this.dataGridViewTeachers.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewTeachers_DataError);
             this.dataGridViewTeachers.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewTeachers_RowsRemoved);
+            // 
+            // panelTeachersTop
+            // 
+            this.panelTeachersTop.Controls.Add(this.buttonImportTeachers);
+            this.panelTeachersTop.Controls.Add(this.buttonExportTeachers);
+            this.panelTeachersTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTeachersTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTeachersTop.Name = "panelTeachersTop";
+            this.panelTeachersTop.Size = new System.Drawing.Size(899, 26);
+            this.panelTeachersTop.TabIndex = 2;
+            // 
+            // buttonImportTeachers
+            // 
+            this.buttonImportTeachers.BackColor = System.Drawing.Color.Transparent;
+            this.buttonImportTeachers.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonImportTeachers.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonImportTeachers.FlatAppearance.BorderSize = 0;
+            this.buttonImportTeachers.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.buttonImportTeachers.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.buttonImportTeachers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonImportTeachers.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonImportTeachers.Image = global::Carat.Properties.Resources.icons8_импорт_xls_24_norm;
+            this.buttonImportTeachers.Location = new System.Drawing.Point(24, 0);
+            this.buttonImportTeachers.Name = "buttonImportTeachers";
+            this.buttonImportTeachers.Size = new System.Drawing.Size(24, 26);
+            this.buttonImportTeachers.TabIndex = 2;
+            this.buttonImportTeachers.UseVisualStyleBackColor = false;
+            this.buttonImportTeachers.Click += new System.EventHandler(this.buttonImportTeachers_Click);
+            // 
+            // buttonExportTeachers
+            // 
+            this.buttonExportTeachers.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExportTeachers.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonExportTeachers.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonExportTeachers.FlatAppearance.BorderSize = 0;
+            this.buttonExportTeachers.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.buttonExportTeachers.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.buttonExportTeachers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExportTeachers.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonExportTeachers.Image = global::Carat.Properties.Resources.icons8_экспорт_xls_24;
+            this.buttonExportTeachers.Location = new System.Drawing.Point(0, 0);
+            this.buttonExportTeachers.Name = "buttonExportTeachers";
+            this.buttonExportTeachers.Size = new System.Drawing.Size(24, 26);
+            this.buttonExportTeachers.TabIndex = 1;
+            this.buttonExportTeachers.UseVisualStyleBackColor = false;
+            this.buttonExportTeachers.Click += new System.EventHandler(this.buttonExportTeachers_Click);
+            // 
+            // panelTeachersBottom
+            // 
+            this.panelTeachersBottom.Controls.Add(this.dataGridViewTeachers);
+            this.panelTeachersBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTeachersBottom.Location = new System.Drawing.Point(0, 26);
+            this.panelTeachersBottom.Name = "panelTeachersBottom";
+            this.panelTeachersBottom.Size = new System.Drawing.Size(899, 493);
+            this.panelTeachersBottom.TabIndex = 3;
             // 
             // TeacherName
             // 
             this.TeacherName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.TeacherName.HeaderText = "ПІБ";
             this.TeacherName.Name = "TeacherName";
-            this.TeacherName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TeacherName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // TeacherStake
             // 
@@ -91,8 +147,8 @@ namespace Carat
             this.TeacherStake.DefaultCellStyle = dataGridViewCellStyle1;
             this.TeacherStake.HeaderText = "Кіл-ть штат. один.";
             this.TeacherStake.Name = "TeacherStake";
-            this.TeacherStake.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TeacherStake.Width = 101;
+            this.TeacherStake.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.TeacherStake.Width = 120;
             // 
             // TeacherPosition
             // 
@@ -160,61 +216,6 @@ namespace Carat
             this.TeacherNotes.Name = "TeacherNotes";
             this.TeacherNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // panelTeachersTop
-            // 
-            this.panelTeachersTop.Controls.Add(this.buttonImportTeachers);
-            this.panelTeachersTop.Controls.Add(this.buttonExportTeachers);
-            this.panelTeachersTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTeachersTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTeachersTop.Name = "panelTeachersTop";
-            this.panelTeachersTop.Size = new System.Drawing.Size(899, 26);
-            this.panelTeachersTop.TabIndex = 2;
-            // 
-            // buttonImportTeachers
-            // 
-            this.buttonImportTeachers.BackColor = System.Drawing.Color.Transparent;
-            this.buttonImportTeachers.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonImportTeachers.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonImportTeachers.FlatAppearance.BorderSize = 0;
-            this.buttonImportTeachers.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
-            this.buttonImportTeachers.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.buttonImportTeachers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonImportTeachers.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonImportTeachers.Image = global::Carat.Properties.Resources.icons8_импорт_xls_24_norm;
-            this.buttonImportTeachers.Location = new System.Drawing.Point(24, 0);
-            this.buttonImportTeachers.Name = "buttonImportTeachers";
-            this.buttonImportTeachers.Size = new System.Drawing.Size(24, 26);
-            this.buttonImportTeachers.TabIndex = 2;
-            this.buttonImportTeachers.UseVisualStyleBackColor = false;
-            this.buttonImportTeachers.Click += new System.EventHandler(this.buttonImportTeachers_Click);
-            // 
-            // buttonExportTeachers
-            // 
-            this.buttonExportTeachers.BackColor = System.Drawing.Color.Transparent;
-            this.buttonExportTeachers.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonExportTeachers.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonExportTeachers.FlatAppearance.BorderSize = 0;
-            this.buttonExportTeachers.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
-            this.buttonExportTeachers.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.buttonExportTeachers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExportTeachers.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonExportTeachers.Image = global::Carat.Properties.Resources.icons8_экспорт_xls_24;
-            this.buttonExportTeachers.Location = new System.Drawing.Point(0, 0);
-            this.buttonExportTeachers.Name = "buttonExportTeachers";
-            this.buttonExportTeachers.Size = new System.Drawing.Size(24, 26);
-            this.buttonExportTeachers.TabIndex = 1;
-            this.buttonExportTeachers.UseVisualStyleBackColor = false;
-            this.buttonExportTeachers.Click += new System.EventHandler(this.buttonExportTeachers_Click);
-            // 
-            // panelTeachersBottom
-            // 
-            this.panelTeachersBottom.Controls.Add(this.dataGridViewTeachers);
-            this.panelTeachersBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTeachersBottom.Location = new System.Drawing.Point(0, 26);
-            this.panelTeachersBottom.Name = "panelTeachersBottom";
-            this.panelTeachersBottom.Size = new System.Drawing.Size(899, 493);
-            this.panelTeachersBottom.TabIndex = 3;
-            // 
             // TeachersTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -240,6 +241,10 @@ namespace Carat
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewTeachers;
+        private System.Windows.Forms.Panel panelTeachersTop;
+        private System.Windows.Forms.Button buttonImportTeachers;
+        private System.Windows.Forms.Button buttonExportTeachers;
+        private System.Windows.Forms.Panel panelTeachersBottom;
         private System.Windows.Forms.DataGridViewTextBoxColumn TeacherName;
         private System.Windows.Forms.DataGridViewTextBoxColumn TeacherStake;
         private System.Windows.Forms.DataGridViewComboBoxColumn TeacherPosition;
@@ -247,9 +252,5 @@ namespace Carat
         private System.Windows.Forms.DataGridViewComboBoxColumn TeacherDegree;
         private System.Windows.Forms.DataGridViewComboBoxColumn TeachersOccupForm;
         private System.Windows.Forms.DataGridViewTextBoxColumn TeacherNotes;
-        private System.Windows.Forms.Panel panelTeachersTop;
-        private System.Windows.Forms.Button buttonImportTeachers;
-        private System.Windows.Forms.Button buttonExportTeachers;
-        private System.Windows.Forms.Panel panelTeachersBottom;
     }
 }

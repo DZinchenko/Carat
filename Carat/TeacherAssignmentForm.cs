@@ -137,7 +137,7 @@ namespace Carat
 
         private void LoadTeachers()
         {
-            var teachers = m_teacherRepository.GetAllTeachers();
+            var teachers = m_teacherRepository.GetAllTeachers(a => a.Name);
 
             comboBoxTATeachers.Items.Clear();
 

@@ -138,7 +138,7 @@ namespace Carat
 
         private void LoadData()
         {
-            var teachers = m_teacherRepository.GetAllTeachers();
+            var teachers = m_teacherRepository.GetAllTeachers(a => a.Name);
 
             foreach (var teacher in teachers)
             {
@@ -148,7 +148,7 @@ namespace Carat
 
         private void dataGridViewSelectTeacher_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var teachers = m_teacherRepository.GetAllTeachers();
+            var teachers = m_teacherRepository.GetAllTeachers(a => a.Name);
 
             if (e.RowIndex < 0 || e.RowIndex >= teachers.Count)
             {
