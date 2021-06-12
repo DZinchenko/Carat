@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -411,10 +411,14 @@ namespace Carat
         {
             if (!isSortChanging)
             {
+                var horizontalScrollingOffset = dataGridViewGroups.HorizontalScrollingOffset;
+                var verticalScrollingOffset = dataGridViewGroups.VerticalScrollingOffset;
                 isSortChanging = true;
                 dataGridViewGroups.Rows.Clear();
                 LoadData();
                 isSortChanging = false;
+                PropertyInfo verticalOffset = dataGridViewGroups.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
+                verticalOffset.SetValue(this.dataGridViewGroups, verticalScrollingOffset, null);
             }
         }
     }

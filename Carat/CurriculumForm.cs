@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.Reflection;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -1175,10 +1175,14 @@ namespace Carat
         {
             if (!isSortChanging)
             {
+                var horizontalScrollingOffset = dataGridViewCurriculumSubjects.HorizontalScrollingOffset;
+                var verticalScrollingOffset = dataGridViewCurriculumSubjects.VerticalScrollingOffset;
                 isSortChanging = true;
                 dataGridViewCurriculumSubjects.Rows.Clear();
                 LoadData();
                 isSortChanging = false;
+                PropertyInfo verticalOffset = dataGridViewCurriculumSubjects.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
+                verticalOffset.SetValue(this.dataGridViewCurriculumSubjects, verticalScrollingOffset, null);
             }
         }
     }

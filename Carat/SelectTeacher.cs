@@ -525,6 +525,9 @@ namespace Carat
                 case "Лабор.роб. (комп.практ.)":
                     result = 46;
                     break;
+                case "Індивід заняття за змішаною формою навч.":
+                    result = 50;
+                    break;
                 case "Екзамени":
                     result = 54;
                     break;
@@ -552,9 +555,6 @@ namespace Carat
                 case "Консультації":
                     result = 87;
                     break;
-                case "Індивід заняття зі студентами":
-                    result = 50;
-                    break;
             }
 
             return result;
@@ -569,7 +569,7 @@ namespace Carat
                 case "Індивід заняття з магістрами":
                     result = 7;
                     break;
-                case "Індивід заняття за змішаною формою навч.":
+                case "Індивід заняття зі студентами":
                     result = 6;
                     break;
                 case "Керівництво практиками":

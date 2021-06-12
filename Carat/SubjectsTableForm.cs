@@ -14,6 +14,7 @@ using Carat.Interfaces;
 using Carat.Data.Entities;
 using Carat.EF.Repositories;
 using NPOI.XSSF.UserModel;
+using System.Reflection;
 
 namespace Carat
 {
@@ -263,10 +264,15 @@ namespace Carat
         {
             if (!isSortChanging)
             {
+                var horizontalScrollingOffset = dataGridViewSubjects.HorizontalScrollingOffset;
+                var verticalScrollingOffset = dataGridViewSubjects.VerticalScrollingOffset;
                 isSortChanging = true;
                 dataGridViewSubjects.Rows.Clear();
                 LoadData();
                 isSortChanging = false;
+                dataGridViewSubjects.HorizontalScrollingOffset = horizontalScrollingOffset;
+                PropertyInfo verticalOffset = dataGridViewSubjects.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
+                verticalOffset.SetValue(this.dataGridViewSubjects, verticalScrollingOffset, null);
             }
         }
     }

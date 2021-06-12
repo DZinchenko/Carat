@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.Reflection;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -638,10 +638,14 @@ namespace Carat
         {
             if (!isSortChanging)
             {
+                var horizontalScrollingOffset = dataGridViewTASubjects.HorizontalScrollingOffset;
+                var verticalScrollingOffset = dataGridViewTASubjects.VerticalScrollingOffset;
                 isSortChanging = true;
                 dataGridViewTASubjects.Rows.Clear();
                 LoadData();
                 isSortChanging = false;
+                PropertyInfo verticalOffset = dataGridViewTASubjects.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
+                verticalOffset.SetValue(this.dataGridViewTASubjects, verticalScrollingOffset, null);
             }
         }
     }
