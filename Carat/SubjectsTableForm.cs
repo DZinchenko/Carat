@@ -22,6 +22,7 @@ namespace Carat
         private ISubjectRepository m_subjectRepository;
         private MainForm m_parentForm = null;
         private const string IncorrectNameMessage = "Некоректна назва предмета!";
+        private bool isSortChanging = false;
 
         public SubjectsTableForm(MainForm parentForm, string dbName)
         {
@@ -56,6 +57,11 @@ namespace Carat
             int index = dataGridViewSubjects.Rows.Count - 2;
 
             if (index < 0)
+            {
+                return;
+            }
+
+            if (isSortChanging)
             {
                 return;
             }
@@ -122,6 +128,8 @@ namespace Carat
                 // Add to DB new data
                 m_subjectRepository.AddSubject(subject);
             }
+
+            PerformSort();
         }
 
         private void dataGridViewSubjects_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
@@ -134,6 +142,11 @@ namespace Carat
             }
 
             if (e.RowIndex >= subjects.Count)
+            {
+                return;
+            }
+
+            if (isSortChanging)
             {
                 return;
             }
@@ -240,6 +253,17 @@ namespace Carat
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PerformSort()
+        {
+            if (!isSortChanging)
+            {
+                isSortChanging = true;
+                dataGridViewSubjects.Rows.Clear();
+                LoadData();
+                isSortChanging = false;
             }
         }
     }

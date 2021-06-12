@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using Carat.Data.Entities;
 using Carat.Data.Repositories;
@@ -55,7 +56,7 @@ namespace Carat.EF.Repositories
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.Subjects.ToList();
+                return ctx.Subjects.OrderBy(a => (a.Name.ToLower())).ToList();
             }
         }
 

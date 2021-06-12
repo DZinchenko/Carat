@@ -22,6 +22,7 @@ namespace Carat
 
         static private double accuracy = 0.000001;
         static public string HoursAccuracy { get; } = "F2";
+
         static public Dictionary<SpecialSubjects, string> OtherSubjects = new Dictionary<SpecialSubjects, string>
         {
             {SpecialSubjects.BachelorProject,  "Бакалаврський проект" },

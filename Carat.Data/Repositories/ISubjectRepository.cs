@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Carat.Data.Entities;
+
 
 namespace Carat.Data.Repositories
 {

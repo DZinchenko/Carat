@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,8 +50,9 @@ namespace Carat
             TurnOffAllSemesters();
 
             dataBaseStatelabel.Text = m_dbName;
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ukr-uk");
 
-            m_lastModeRepository = new LastModeRepository(m_lastModeDbName);
+        m_lastModeRepository = new LastModeRepository(m_lastModeDbName);
             var lastMode = m_lastModeRepository.GetLastMode();
             ApplyLastMode(lastMode);
             LoadWorksTypes();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
@@ -9,7 +10,7 @@ namespace Carat.EF
     public class CaratDbContext : DbContext
     {
         private string m_dbPath = "";
-
+ 
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Group> Groups { get; set; }
