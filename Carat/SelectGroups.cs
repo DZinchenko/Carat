@@ -28,7 +28,7 @@ namespace Carat
             m_TAItem = TAItem;
             m_groupRepository = new GroupRepository(dbPath);
             m_groupsToTAItemRepository = new GroupsToTAItemRepository(dbPath); 
-            m_groups = m_groupRepository.GetGroups(m_TAItem.Course, m_TAItem.EducForm, m_TAItem.EducLevel);
+            m_groups = m_groupRepository.GetGroups(a=>a.Name, m_TAItem.Course, m_TAItem.EducForm, m_TAItem.EducLevel);
 
             LoadGroups();
         }

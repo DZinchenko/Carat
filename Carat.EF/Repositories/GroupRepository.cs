@@ -15,11 +15,11 @@ namespace Carat.EF.Repositories
             m_dbPath = dbPath;
         }
 
-        public List<Group> GetAllGroups()
+        public List<Group> GetAllGroups<OrderType>(Func<Group, OrderType> orderFunc)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                return ctx.Groups.ToList();
+                return ctx.Groups.OrderBy(orderFunc).ToList();
             }
         }
         public Group GetGroup(int groupId)
@@ -30,17 +30,17 @@ namespace Carat.EF.Repositories
             }
         }
 
-        public List<Group> GetGroups(uint course, string educForm, string educLevel)
+        public List<Group> GetGroups<OrderType>(Func<Group, OrderType> orderFunc, uint course, string educForm, string educLevel)
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
                 return ctx.Groups.Where(b => b.Course == course
                                           && b.EducForm == educForm
-                                          && b.EducLevel == educLevel).ToList();
+                                          && b.EducLevel == educLevel).OrderBy(orderFunc).ToList();
             }
         }
 
-        public List<Group> GetGroupsForReports(uint course, string educForm, string educLevel)
+        public List<Group> GetGroupsForReports<OrderType>(Func<Group, OrderType> orderFunc, uint course, string educForm, string educLevel)
         {
             if (educForm == "<всі>")
             {
@@ -50,14 +50,14 @@ namespace Carat.EF.Repositories
                     {
                         using (var ctx = new CaratDbContext(m_dbPath))
                         {
-                            return ctx.Groups.ToList();
+                            return ctx.Groups.OrderBy(orderFunc).ToList();
                         }
                     }
                     else
                     {
                         using (var ctx = new CaratDbContext(m_dbPath))
                         {
-                            return ctx.Groups.Where(b => b.Course == course).ToList();
+                            return ctx.Groups.Where(b => b.Course == course).OrderBy(orderFunc).ToList();
                         }
                     }
                 }
@@ -67,7 +67,7 @@ namespace Carat.EF.Repositories
                     {
                         using (var ctx = new CaratDbContext(m_dbPath))
                         {
-                            return ctx.Groups.Where(b => b.EducLevel == educLevel).ToList();
+                            return ctx.Groups.Where(b => b.EducLevel == educLevel).OrderBy(orderFunc).ToList();
                         }
                     }
                     else
@@ -75,7 +75,7 @@ namespace Carat.EF.Repositories
                         using (var ctx = new CaratDbContext(m_dbPath))
                         {
                             return ctx.Groups.Where(b => b.Course == course
-                                                         && b.EducLevel == educLevel).ToList();
+                                                         && b.EducLevel == educLevel).OrderBy(orderFunc).ToList();
                         }
                     }
                 }
@@ -88,7 +88,7 @@ namespace Carat.EF.Repositories
                     {
                         using (var ctx = new CaratDbContext(m_dbPath))
                         {
-                            return ctx.Groups.Where(b => b.EducForm == educForm).ToList();
+                            return ctx.Groups.Where(b => b.EducForm == educForm).OrderBy(orderFunc).ToList();
                         }
                     }
                     else
@@ -96,7 +96,7 @@ namespace Carat.EF.Repositories
                         using (var ctx = new CaratDbContext(m_dbPath))
                         {
                             return ctx.Groups.Where(b => b.Course == course
-                                                         && b.EducForm == educForm).ToList();
+                                                         && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                         }
                     }
                 }
@@ -107,7 +107,7 @@ namespace Carat.EF.Repositories
                         using (var ctx = new CaratDbContext(m_dbPath))
                         {
                             return ctx.Groups.Where(b => b.EducLevel == educLevel
-                                                         && b.EducForm == educForm).ToList();
+                                                         && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                         }
                     }
                     else
@@ -116,7 +116,7 @@ namespace Carat.EF.Repositories
                         {
                             return ctx.Groups.Where(b => b.Course == course
                                                          && b.EducLevel == educLevel
-                                                         && b.EducForm == educForm).ToList();
+                                                         && b.EducForm == educForm).OrderBy(orderFunc).ToList();
                         }
                     }
                 }
@@ -163,7 +163,7 @@ namespace Carat.EF.Repositories
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.RemoveRange(GetAllGroups());
+                ctx.RemoveRange(GetAllGroups(a => a.Name));
                 ctx.SaveChanges();
             }
         }

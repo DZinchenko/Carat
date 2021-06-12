@@ -23,6 +23,8 @@ namespace Carat
         IGroupsToTAItemRepository m_groupsToTAItemRepository = null;
         const string IncorrectNameMessage = "Некоректна назва групи";
         const string IncorrectDataMessage = "Некоректні дані";
+        bool isSortChanging = false;
+        int sortColumnIndex = 0;
 
         public GroupsTableForm(MainForm parentForm, string dbPath)
         {
@@ -35,7 +37,7 @@ namespace Carat
 
         public void LoadData()
         {
-            var groups = m_groupRepository.GetAllGroups();
+            var groups = GetAllSortedGroups();
 
             foreach (var group in groups)
             {
@@ -53,7 +55,7 @@ namespace Carat
 
         private void SyncData()
         {
-            var groups = m_groupRepository.GetAllGroups();
+            var groups = GetAllSortedGroups();
 
             for (int i = 0; i < groups.Count; ++i)
             {
@@ -74,6 +76,11 @@ namespace Carat
             int index = dataGridViewGroups.Rows.Count - 2;
 
             if (index < 0)
+            {
+                return;
+            }
+
+            if (isSortChanging)
             {
                 return;
             }
@@ -109,7 +116,7 @@ namespace Carat
 
         private void dataGridViewGroups_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            var groups = m_groupRepository.GetAllGroups();
+            var groups = GetAllSortedGroups();
 
             if (e.RowIndex < 0)
             {
@@ -117,6 +124,11 @@ namespace Carat
             }
 
             if (e.RowIndex >= groups.Count)
+            {
+                return;
+            }
+
+            if (isSortChanging)
             {
                 return;
             }
@@ -143,7 +155,7 @@ namespace Carat
                 return;
             }
 
-            var groups = m_groupRepository.GetAllGroups();
+            var groups = GetAllSortedGroups();
 
             if (e.RowIndex < groups.Count)
             {
@@ -155,6 +167,7 @@ namespace Carat
                 }
 
                 m_groupRepository.UpdateGroup(group);
+                PerformSort();
             }
             else
             {
@@ -167,6 +180,7 @@ namespace Carat
                 }
 
                 m_groupRepository.AddGroup(group);
+                PerformSort();
             }
         }
 
@@ -264,7 +278,7 @@ namespace Carat
                 row.CreateCell(6).SetCellValue("Факультет");
                 row.CreateCell(7).SetCellValue("Примітки");
 
-                var allGroups = m_groupRepository.GetAllGroups();
+                var allGroups = GetAllSortedGroups();
 
                 for (int i = 0, rowIndex = 1; i < allGroups.Count; ++i, ++rowIndex)
                 {
@@ -368,6 +382,36 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private List<Group> GetAllSortedGroups()
+        {
+            if (sortColumnIndex == 0)
+            {
+                return m_groupRepository.GetAllGroups(a => a.Name);
+            }
+            else
+            {
+                return m_groupRepository.GetAllGroups(a => a.Course + a.Name);
+            }
+        }
+
+        private void dataGridViewGroups_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 0 || e.ColumnIndex == 1)
+            {
+                sortColumnIndex = e.ColumnIndex;
+
+                PerformSort();
+            }
+        }
+
+        private void PerformSort()
+        {
+            isSortChanging = true;
+            dataGridViewGroups.Rows.Clear();
+            LoadData();
+            isSortChanging = false;
         }
     }
 }

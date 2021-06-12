@@ -37,6 +37,10 @@ namespace Carat
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GroupsTableForm));
             this.dataGridViewGroups = new System.Windows.Forms.DataGridView();
+            this.panelGroupsTop = new System.Windows.Forms.Panel();
+            this.buttonImportGroups = new System.Windows.Forms.Button();
+            this.buttonExportGroups = new System.Windows.Forms.Button();
+            this.panelGroupsBottom = new System.Windows.Forms.Panel();
             this.GroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupCourse = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupEduForm = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -45,10 +49,6 @@ namespace Carat
             this.GroupContr_cnt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupFaculty = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panelGroupsTop = new System.Windows.Forms.Panel();
-            this.buttonImportGroups = new System.Windows.Forms.Button();
-            this.buttonExportGroups = new System.Windows.Forms.Button();
-            this.panelGroupsBottom = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGroups)).BeginInit();
             this.panelGroupsTop.SuspendLayout();
             this.panelGroupsBottom.SuspendLayout();
@@ -56,8 +56,6 @@ namespace Carat
             // 
             // dataGridViewGroups
             // 
-            this.dataGridViewGroups.AllowDrop = true;
-            this.dataGridViewGroups.AllowUserToOrderColumns = true;
             this.dataGridViewGroups.AllowUserToResizeRows = false;
             this.dataGridViewGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewGroups.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -77,8 +75,64 @@ namespace Carat
             this.dataGridViewGroups.Size = new System.Drawing.Size(899, 493);
             this.dataGridViewGroups.TabIndex = 1;
             this.dataGridViewGroups.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGroups_CellValueChanged);
+            this.dataGridViewGroups.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewGroups_ColumnHeaderMouseClick);
             this.dataGridViewGroups.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewGroups_DataError);
             this.dataGridViewGroups.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewGroups_RowsRemoved);
+            // 
+            // panelGroupsTop
+            // 
+            this.panelGroupsTop.Controls.Add(this.buttonImportGroups);
+            this.panelGroupsTop.Controls.Add(this.buttonExportGroups);
+            this.panelGroupsTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelGroupsTop.Location = new System.Drawing.Point(0, 0);
+            this.panelGroupsTop.Name = "panelGroupsTop";
+            this.panelGroupsTop.Size = new System.Drawing.Size(899, 26);
+            this.panelGroupsTop.TabIndex = 3;
+            // 
+            // buttonImportGroups
+            // 
+            this.buttonImportGroups.BackColor = System.Drawing.Color.Transparent;
+            this.buttonImportGroups.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonImportGroups.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonImportGroups.FlatAppearance.BorderSize = 0;
+            this.buttonImportGroups.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.buttonImportGroups.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.buttonImportGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonImportGroups.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonImportGroups.Image = global::Carat.Properties.Resources.icons8_импорт_xls_24_norm;
+            this.buttonImportGroups.Location = new System.Drawing.Point(24, 0);
+            this.buttonImportGroups.Name = "buttonImportGroups";
+            this.buttonImportGroups.Size = new System.Drawing.Size(24, 26);
+            this.buttonImportGroups.TabIndex = 2;
+            this.buttonImportGroups.UseVisualStyleBackColor = false;
+            this.buttonImportGroups.Click += new System.EventHandler(this.buttonImportGroups_Click);
+            // 
+            // buttonExportGroups
+            // 
+            this.buttonExportGroups.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExportGroups.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonExportGroups.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonExportGroups.FlatAppearance.BorderSize = 0;
+            this.buttonExportGroups.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.buttonExportGroups.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.buttonExportGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExportGroups.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonExportGroups.Image = global::Carat.Properties.Resources.icons8_экспорт_xls_24;
+            this.buttonExportGroups.Location = new System.Drawing.Point(0, 0);
+            this.buttonExportGroups.Name = "buttonExportGroups";
+            this.buttonExportGroups.Size = new System.Drawing.Size(24, 26);
+            this.buttonExportGroups.TabIndex = 1;
+            this.buttonExportGroups.UseVisualStyleBackColor = false;
+            this.buttonExportGroups.Click += new System.EventHandler(this.buttonExportGroups_Click);
+            // 
+            // panelGroupsBottom
+            // 
+            this.panelGroupsBottom.Controls.Add(this.dataGridViewGroups);
+            this.panelGroupsBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGroupsBottom.Location = new System.Drawing.Point(0, 26);
+            this.panelGroupsBottom.Name = "panelGroupsBottom";
+            this.panelGroupsBottom.Size = new System.Drawing.Size(899, 493);
+            this.panelGroupsBottom.TabIndex = 4;
             // 
             // GroupName
             // 
@@ -86,7 +140,7 @@ namespace Carat
             this.GroupName.HeaderText = "Назва";
             this.GroupName.MinimumWidth = 6;
             this.GroupName.Name = "GroupName";
-            this.GroupName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.GroupName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // GroupCourse
             // 
@@ -102,7 +156,8 @@ namespace Carat
             this.GroupCourse.MinimumWidth = 6;
             this.GroupCourse.Name = "GroupCourse";
             this.GroupCourse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GroupCourse.Width = 39;
+            this.GroupCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.GroupCourse.Width = 58;
             // 
             // GroupEduForm
             // 
@@ -180,61 +235,6 @@ namespace Carat
             this.GroupNotes.Name = "GroupNotes";
             this.GroupNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // panelGroupsTop
-            // 
-            this.panelGroupsTop.Controls.Add(this.buttonImportGroups);
-            this.panelGroupsTop.Controls.Add(this.buttonExportGroups);
-            this.panelGroupsTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelGroupsTop.Location = new System.Drawing.Point(0, 0);
-            this.panelGroupsTop.Name = "panelGroupsTop";
-            this.panelGroupsTop.Size = new System.Drawing.Size(899, 26);
-            this.panelGroupsTop.TabIndex = 3;
-            // 
-            // buttonImportGroups
-            // 
-            this.buttonImportGroups.BackColor = System.Drawing.Color.Transparent;
-            this.buttonImportGroups.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonImportGroups.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonImportGroups.FlatAppearance.BorderSize = 0;
-            this.buttonImportGroups.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
-            this.buttonImportGroups.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.buttonImportGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonImportGroups.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonImportGroups.Image = global::Carat.Properties.Resources.icons8_импорт_xls_24_norm;
-            this.buttonImportGroups.Location = new System.Drawing.Point(24, 0);
-            this.buttonImportGroups.Name = "buttonImportGroups";
-            this.buttonImportGroups.Size = new System.Drawing.Size(24, 26);
-            this.buttonImportGroups.TabIndex = 2;
-            this.buttonImportGroups.UseVisualStyleBackColor = false;
-            this.buttonImportGroups.Click += new System.EventHandler(this.buttonImportGroups_Click);
-            // 
-            // buttonExportGroups
-            // 
-            this.buttonExportGroups.BackColor = System.Drawing.Color.Transparent;
-            this.buttonExportGroups.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonExportGroups.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonExportGroups.FlatAppearance.BorderSize = 0;
-            this.buttonExportGroups.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
-            this.buttonExportGroups.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.buttonExportGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExportGroups.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonExportGroups.Image = global::Carat.Properties.Resources.icons8_экспорт_xls_24;
-            this.buttonExportGroups.Location = new System.Drawing.Point(0, 0);
-            this.buttonExportGroups.Name = "buttonExportGroups";
-            this.buttonExportGroups.Size = new System.Drawing.Size(24, 26);
-            this.buttonExportGroups.TabIndex = 1;
-            this.buttonExportGroups.UseVisualStyleBackColor = false;
-            this.buttonExportGroups.Click += new System.EventHandler(this.buttonExportGroups_Click);
-            // 
-            // panelGroupsBottom
-            // 
-            this.panelGroupsBottom.Controls.Add(this.dataGridViewGroups);
-            this.panelGroupsBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelGroupsBottom.Location = new System.Drawing.Point(0, 26);
-            this.panelGroupsBottom.Name = "panelGroupsBottom";
-            this.panelGroupsBottom.Size = new System.Drawing.Size(899, 493);
-            this.panelGroupsBottom.TabIndex = 4;
-            // 
             // GroupsTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -260,6 +260,10 @@ namespace Carat
 
         #endregion
         private System.Windows.Forms.DataGridView dataGridViewGroups;
+        private System.Windows.Forms.Panel panelGroupsTop;
+        private System.Windows.Forms.Button buttonImportGroups;
+        private System.Windows.Forms.Button buttonExportGroups;
+        private System.Windows.Forms.Panel panelGroupsBottom;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupName;
         private System.Windows.Forms.DataGridViewComboBoxColumn GroupCourse;
         private System.Windows.Forms.DataGridViewComboBoxColumn GroupEduForm;
@@ -268,9 +272,5 @@ namespace Carat
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupContr_cnt;
         private System.Windows.Forms.DataGridViewComboBoxColumn GroupFaculty;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupNotes;
-        private System.Windows.Forms.Panel panelGroupsTop;
-        private System.Windows.Forms.Button buttonImportGroups;
-        private System.Windows.Forms.Button buttonExportGroups;
-        private System.Windows.Forms.Panel panelGroupsBottom;
     }
 }

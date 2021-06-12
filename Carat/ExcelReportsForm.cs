@@ -711,7 +711,7 @@ namespace Carat
         private void GenerateSchedule()
         {
             var groups = new List<Group>();
-            groups = m_groupRepository.GetGroupsForReports(m_course, m_educForm, m_educLevel);
+            groups = m_groupRepository.GetGroupsForReports(a => a.Name, m_course, m_educForm, m_educLevel);
 
             groups.RemoveAll(group =>
             {

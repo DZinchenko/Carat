@@ -324,7 +324,7 @@ namespace Carat
 
                 var TAItemsWithSaved = m_TAItemRepository.GetTAItems(selectedWorkId);
                 var savedItem = TAItemsWithSaved[e.RowIndex];
-                var groups = m_groupRepository.GetGroups(savedItem.Course, savedItem.EducForm, savedItem.EducLevel);
+                var groups = m_groupRepository.GetGroups(a => a.Name, savedItem.Course, savedItem.EducForm, savedItem.EducLevel);
 
                 foreach (var group in groups)
                 {

@@ -39,8 +39,7 @@ namespace Carat
             // 
             // dataGridViewWorkTypes
             // 
-            this.dataGridViewWorkTypes.AllowDrop = true;
-            this.dataGridViewWorkTypes.AllowUserToOrderColumns = true;
+            this.dataGridViewWorkTypes.AllowUserToDeleteRows = false;
             this.dataGridViewWorkTypes.AllowUserToResizeRows = false;
             this.dataGridViewWorkTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewWorkTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {

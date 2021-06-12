@@ -367,7 +367,7 @@ namespace Carat
             }
             else
             {
-                return m_teacherRepository.GetAllTeachers(a => a.StaffUnit);
+                return m_teacherRepository.GetAllTeachers(a => a.StaffUnit + a.Name);
             }
         }
 
