@@ -400,6 +400,7 @@ namespace Carat
         {
             if (e.ColumnIndex == 0 || e.ColumnIndex == 1)
             {
+                dataGridViewGroups.EndEdit();
                 sortColumnIndex = e.ColumnIndex;
 
                 PerformSort();
@@ -408,10 +409,13 @@ namespace Carat
 
         private void PerformSort()
         {
-            isSortChanging = true;
-            dataGridViewGroups.Rows.Clear();
-            LoadData();
-            isSortChanging = false;
+            if (!isSortChanging)
+            {
+                isSortChanging = true;
+                dataGridViewGroups.Rows.Clear();
+                LoadData();
+                isSortChanging = false;
+            }
         }
     }
 }

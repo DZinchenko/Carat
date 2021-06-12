@@ -373,16 +373,20 @@ namespace Carat
 
         private void PerformSort()
         {
-            isSortChanging = true;
-            dataGridViewTeachers.Rows.Clear();
-            LoadData();
-            isSortChanging = false;
+            if (!isSortChanging)
+            {
+                isSortChanging = true;
+                dataGridViewTeachers.Rows.Clear();
+                LoadData();
+                isSortChanging = false;
+            }
         }
 
         private void dataGridViewTeachers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.ColumnIndex == 0 || e.ColumnIndex == 1)
             {
+                dataGridViewTeachers.EndEdit();
                 sortColumnIndex = e.ColumnIndex;
 
                 PerformSort();
