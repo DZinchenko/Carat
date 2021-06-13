@@ -411,8 +411,8 @@ namespace Carat
                     var groupsDic = new Dictionary<int, Group>();
 
                     newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
-                    newRow.Cells[2].SetCellValue(curriculumItem.EducLevel);
-                    newRow.Cells[3].SetCellValue(curriculumItem.Course);
+                    newRow.Cells[3].SetCellValue(curriculumItem.EducLevel);
+                    newRow.Cells[4].SetCellValue(curriculumItem.Course);
 
                     foreach (var taItem in taItems)
                     {
@@ -423,14 +423,14 @@ namespace Carat
                         }
                     }
 
-                    string firstCellText = m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name + " ( ";
+                    string secondCellText = "";
                     foreach (var group in groupsDic)
                     {
-                        firstCellText += group.Value.Name + "; ";
+                        secondCellText += group.Value.Name + "; ";
                     }
-                    firstCellText += ")";
 
-                    newRow.Cells[1].SetCellValue(firstCellText);
+                    newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name);
+                    newRow.Cells[2].SetCellValue(secondCellText);
 
                     foreach (var taItem in taItems)
                     {
@@ -445,7 +445,7 @@ namespace Carat
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
 
-                for (int i = 4; i < 39; ++i)
+                for (int i = 5; i <= 40; ++i)
                 {
                     var firstCell = sheet.GetRow(8).Cells[i].Address;
                     var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[i].Address;
@@ -457,9 +457,9 @@ namespace Carat
 
                 for (int i = 8, lastIndex = sheet.LastRowNum; i < lastIndex; ++i)
                 {
-                    var firstCell = sheet.GetRow(i).Cells[4].Address;
-                    var lastCell = sheet.GetRow(i).Cells[38].Address;
-                    var finalCell = sheet.GetRow(i).Cells[39];
+                    var firstCell = sheet.GetRow(i).Cells[5].Address;
+                    var lastCell = sheet.GetRow(i).Cells[39].Address;
+                    var finalCell = sheet.GetRow(i).Cells[40];
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
