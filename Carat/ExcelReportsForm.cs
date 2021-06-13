@@ -345,39 +345,72 @@ namespace Carat
             }
         }
 
+        public static NPOI.SS.UserModel.ICell GetCell(NPOI.SS.UserModel.IRow row, int column)
+        {
+            NPOI.SS.UserModel.ICell cell = row.GetCell(column);
+
+            if (cell == null)
+            {
+                cell = row.CreateCell(column);
+            }
+            return cell;
+        }
+
+
         private void GenerateNotDistributedBySubjects()
         {
-            var curriculumItems = new List<CurriculumItem>();
-
-            curriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(
+            var parsedCurriculumItems = new List<CurriculumItem>();
+            parsedCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(
                 a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var total = 0.0;
 
-            curriculumItems.RemoveAll(curriculumItem =>
+            parsedCurriculumItems.RemoveAll(curriculumItem =>
             {
-                var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, false);
-                return curriculumWorks.TrueForAll(work => {
+                var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, true);
+
+                return !curriculumWorks.Any(work => {
                     var taItems = m_taItemRepository.GetTAItems(work.Id);
-                    double distributedHours = 0;
+                    double distributedHours = 0.0;
+                    double notDistributedHours = 0.0;
 
                     foreach (var taItem in taItems)
                     {
                         distributedHours += taItem.WorkHours;
                     }
 
-                    return Tools.isEqual(work.TotalHours, 0) || (!Tools.isEqual(0, distributedHours));
+                    notDistributedHours = work.TotalHours - distributedHours;
+                    total += notDistributedHours;
+                    return !(notDistributedHours < 0.01);
                 });
             });
 
-            if (curriculumItems.Count == 0)
+            if (parsedCurriculumItems.Count == 0)
             {
                 MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            var inputSubjects = new Dictionary<string, List<int>>();
+
+            foreach (var item in parsedCurriculumItems)
+            {
+                var subject = m_subjectRepository.GetSubject(item.SubjectId);
+                var key = subject.Name + item.EducLevel + item.Course;
+                if (!inputSubjects.ContainsKey(key))
+                {
+                    inputSubjects[key] = new List<int>();
+                }
+
+                if (!inputSubjects[key].Contains(item.Id))
+                {
+                    inputSubjects[key].Add(item.Id);
+                }
+            }
+
             try
             {
                 var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
-                templatePath += "\\templates\\DistributedBySubjects.xlsx";
+                templatePath += "\\templates\\NotDistributedBySubjects.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
                 var sheet = workbook[0];
@@ -389,62 +422,73 @@ namespace Carat
 
                 sheet.GetRow(3).Cells[0].SetCellValue(GetSemesterString() + ", " + GetEducTypeString() + ", " + GetEducFormString());
 
-                for (int i = 0; i < curriculumItems.Count;)
+                int rowCounter = 0;
+                foreach (var currSubject in inputSubjects)
                 {
-                    var newRow = sheet.GetRow(8 + i);
-                    var curriculumItem = curriculumItems[i];
-                    var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, false);
+                    var newRow = sheet.CopyRow(8, sheet.LastRowNum);
+                    var curriculumItems = new List<CurriculumItem>();
 
-                    if (
-                        curriculumWorks.Count <= 0)
+                    foreach (var currId in currSubject.Value)
                     {
-                        ++i;
+                        curriculumItems.Add(m_curriculumItemRepository.GetCurriculumItem(currId));
+                    }
+
+                    if (curriculumItems.Count <= 0)
+                    {
+                        ++rowCounter;
                         continue;
                     }
 
-                    newRow.Cells[0].SetCellValue((i + 1).ToString());
-                    newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name);
-                    newRow.Cells[2].SetCellValue(curriculumItem.EducLevel);
-                    newRow.Cells[3].SetCellValue(curriculumItem.Course);
+                    newRow.Cells[0].SetCellValue((rowCounter + 1).ToString());
+                    newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItems[0].SubjectId).Name);
+                    newRow.Cells[2].SetCellValue(curriculumItems[0].EducLevel);
+                    newRow.Cells[3].SetCellValue(curriculumItems[0].Course);
 
-                    for (int cellIndex = 4, workTypeIndex = 0; cellIndex <= 38; ++cellIndex, ++workTypeIndex)
+                    foreach (var curItem in curriculumItems)
                     {
-                        var taItems = m_taItemRepository.GetTAItems(curriculumWorks[workTypeIndex].Id);
-                        double distributedHours = 0;
-
-                        foreach (var taItem in taItems)
+                        var curItemWorks = m_workRepository.GetWorks(curItem.Id, false);
+                        for (int cellIndex = 4, workTypeIndex = 0; cellIndex <= 38; ++cellIndex, ++workTypeIndex)
                         {
-                            distributedHours += taItem.WorkHours;
-                        }
+                            var taItems = m_taItemRepository.GetTAItems(curItemWorks[workTypeIndex].Id);
 
-                        newRow.Cells[cellIndex].SetCellValue(curriculumWorks[workTypeIndex].TotalHours - distributedHours);
+                            double distributedHours = 0;
+
+                            foreach (var taItem in taItems)
+                            {
+                                distributedHours += taItem.WorkHours;
+                            }
+
+                            var resultCell = GetCell(newRow, cellIndex);
+                            try
+                            {
+                                resultCell.SetCellValue(resultCell.NumericCellValue + (curItemWorks[workTypeIndex].TotalHours - distributedHours));
+                            }
+                            catch (Exception) { }
+                        }
                     }
 
                     newRow.Height = -1;
 
-                    ++i;
-
-                    if (i < curriculumItems.Count)
-                    {
-                        sheet.CopyRow(8, 8 + i);
-                    }
+                    ++rowCounter;
                 }
 
-                for (int i = 4; i < 39; ++i)
+                sheet.ShiftRows(9, sheet.LastRowNum, -1);
+
+                for (int i = 4; i < 40; ++i)
                 {
-                    var firstCell = sheet.GetRow(8).Cells[i].Address;
-                    var lastCell = sheet.GetRow(8 + curriculumItems.Count - 1).Cells[i].Address;
-                    var finalCell = sheet.GetRow(8 + curriculumItems.Count).Cells[i];
+                    var firstCell = GetCell(sheet.GetRow(8), i).Address;
+                    var lastCell = GetCell(sheet.GetRow(sheet.LastRowNum - 1), i).Address;
+                    var finalCell = GetCell(sheet.GetRow(sheet.LastRowNum), i);
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
                 }
 
-                for (int i = 8, lastIndex = curriculumItems.Count + 8; i <= lastIndex; ++i)
+                for (int i = 8, lastIndex = sheet.LastRowNum; i < lastIndex; ++i)
                 {
-                    var firstCell = sheet.GetRow(i).Cells[4].Address;
-                    var lastCell = sheet.GetRow(i).Cells[38].Address;
-                    var finalCell = sheet.GetRow(i).Cells[39];
+                    var firstCell = GetCell(sheet.GetRow(i), 4).Address;
+                    var lastCell = GetCell(sheet.GetRow(i), 38).Address;
+                    var finalCell = GetCell(sheet.GetRow(i), 39);
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
@@ -465,6 +509,130 @@ namespace Carat
                 MessageBox.Show(ex.Message);
             }
         }
+
+        //private void GenerateNotDistributedBySubjects()
+        //{
+        //    var parsedCurriculumItems = new List<CurriculumItem>();
+
+        //    parsedCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(
+        //        a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+
+        //    parsedCurriculumItems.RemoveAll(curriculumItem =>
+        //    {
+        //        var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, true);
+
+        //        return !curriculumWorks.Any(work => {
+        //            var taItems = m_taItemRepository.GetTAItems(work.Id);
+        //            double distributedHours = 0.0;
+        //            double notDistributedHours = 0.0;
+
+        //            foreach (var taItem in taItems)
+        //            {
+        //                distributedHours += taItem.WorkHours;
+        //            }
+
+        //            notDistributedHours = work.TotalHours - distributedHours;
+        //            return !(notDistributedHours < 0.01);
+        //        });
+        //    });
+
+        //    if (parsedCurriculumItems.Count == 0)
+        //    {
+        //        MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        return;
+        //    }
+
+        //    try
+        //    {
+        //        var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+        //        templatePath += "\\templates\\DistributedBySubjects.xlsx";
+
+        //        var workbook = new XSSFWorkbook(templatePath);
+        //        var sheet = workbook[0];
+
+        //        if (sheet == null)
+        //        {
+        //            return;
+        //        }
+
+        //        sheet.GetRow(3).Cells[0].SetCellValue(GetSemesterString() + ", " + GetEducTypeString() + ", " + GetEducFormString());
+
+        //        for (int i = 0; i < parsedCurriculumItems.Count;)
+        //        {
+        //            var newRow = sheet.GetRow(8 + i);
+        //            var curriculumItem = parsedCurriculumItems[i];
+        //            var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, false);
+
+        //            if (
+        //                curriculumWorks.Count <= 0)
+        //            {
+        //                ++i;
+        //                continue;
+        //            }
+
+        //            newRow.Cells[0].SetCellValue((i + 1).ToString());
+        //            newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name);
+        //            newRow.Cells[2].SetCellValue(curriculumItem.EducLevel);
+        //            newRow.Cells[3].SetCellValue(curriculumItem.Course);
+
+        //            for (int cellIndex = 4, workTypeIndex = 0; cellIndex <= 38; ++cellIndex, ++workTypeIndex)
+        //            {
+        //                var taItems = m_taItemRepository.GetTAItems(curriculumWorks[workTypeIndex].Id);
+        //                double distributedHours = 0;
+
+        //                foreach (var taItem in taItems)
+        //                {
+        //                    distributedHours += taItem.WorkHours;
+        //                }
+
+        //                newRow.Cells[cellIndex].SetCellValue(curriculumWorks[workTypeIndex].TotalHours - distributedHours);
+        //            }
+
+        //            newRow.Height = -1;
+
+        //            ++i;
+
+        //            if (i < parsedCurriculumItems.Count)
+        //            {
+        //                sheet.CopyRow(8, 8 + i);
+        //            }
+        //        }
+
+        //        for (int i = 4; i < 39; ++i)
+        //        {
+        //            var firstCell = sheet.GetRow(8).Cells[i].Address;
+        //            var lastCell = sheet.GetRow(8 + parsedCurriculumItems.Count - 1).Cells[i].Address;
+        //            var finalCell = sheet.GetRow(8 + parsedCurriculumItems.Count).Cells[i];
+
+        //            finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
+        //            finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+        //        }
+
+        //        for (int i = 8, lastIndex = parsedCurriculumItems.Count + 8; i <= lastIndex; ++i)
+        //        {
+        //            var firstCell = sheet.GetRow(i).Cells[4].Address;
+        //            var lastCell = sheet.GetRow(i).Cells[38].Address;
+        //            var finalCell = sheet.GetRow(i).Cells[39];
+
+        //            finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
+        //            finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+        //        }
+
+        //        XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
+        //        sheet.AutoSizeColumn(1);
+
+        //        using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
+        //        {
+        //            workbook.Write(fileData);
+
+        //            System.Diagnostics.Process.Start(@fileData.Name);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
 
         private void GenerateLoadShortByTeachers()
         {
