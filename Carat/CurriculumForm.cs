@@ -1144,6 +1144,7 @@ namespace Carat
         private void buttonImportCurriculum_Click(object sender, EventArgs e)
         {
             var selectRowsForm = new SelectCurriculumRows();
+
             selectRowsForm.ShowDialog();
 
             if (selectRowsForm.DialogResult != DialogResult.OK)
@@ -1156,6 +1157,31 @@ namespace Carat
 
             if (values.firstSemestrEnd <= values.firstSemestrStart || values.secondSemestrEnd <= values.secondSemestrStart || progress <= 0)
                 return;
+
+            var oldCurriculumItems = m_curriculumItemRepository.GetCurriculumItems(a => a.Id, values.educType, values.educForm);
+            var works = new List<Work>();
+            var taItems = new List<TAItem>();
+
+            foreach (var curItem in oldCurriculumItems)
+            {
+                works.AddRange(m_workRepository.GetWorks(curItem.Id, true));
+            }
+
+            foreach (var work in works)
+            {
+                taItems.AddRange(m_taItemRepository.GetTAItems(work.Id));
+            }
+
+            if (taItems.Any(item => { return Tools.isEqual(item.WorkHours, 0); }))
+            {
+                var result = MessageBox.Show("Знайдено розподілені години в даному навчальному плані. При імпорті нового" +
+                    " навчального плану розподілені години будуть втрачені!", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                if (result != DialogResult.OK)
+                {
+                    return;
+                }
+            }
 
             m_parentForm.Enabled = false;
             m_parentForm.ShowProgress(progress, "Curriculum loading...");
