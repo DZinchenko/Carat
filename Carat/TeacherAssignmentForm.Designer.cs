@@ -39,6 +39,8 @@ namespace Carat
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.dataGridViewTASubjects = new System.Windows.Forms.DataGridView();
+            this.TASubjects = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TASubjectCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -53,8 +55,6 @@ namespace Carat
             this.panelGroups = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.sqliteCommand1 = new Microsoft.Data.Sqlite.SqliteCommand();
-            this.TASubjects = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TASubjectCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTATeachers)).BeginInit();
             this.panelTeacherAssignmentTop.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -164,6 +164,23 @@ namespace Carat
             this.dataGridViewTASubjects.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTASubjects_ColumnHeaderMouseClick);
             this.dataGridViewTASubjects.SelectionChanged += new System.EventHandler(this.dataGridViewTASubjects_SelectionChanged);
             // 
+            // TASubjects
+            // 
+            this.TASubjects.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.TASubjects.HeaderText = "Дисципліни";
+            this.TASubjects.Name = "TASubjects";
+            this.TASubjects.ReadOnly = true;
+            this.TASubjects.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // TASubjectCourse
+            // 
+            this.TASubjectCourse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.TASubjectCourse.HeaderText = "Курс";
+            this.TASubjectCourse.Name = "TASubjectCourse";
+            this.TASubjectCourse.ReadOnly = true;
+            this.TASubjectCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.TASubjectCourse.Width = 58;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.panel8);
@@ -251,6 +268,7 @@ namespace Carat
             this.dataGridViewTAWorks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewTAWorks.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewTAWorks.Name = "dataGridViewTAWorks";
+            this.dataGridViewTAWorks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTAWorks.Size = new System.Drawing.Size(356, 334);
             this.dataGridViewTAWorks.TabIndex = 0;
             this.dataGridViewTAWorks.SelectionChanged += new System.EventHandler(this.dataGridViewTAWorks_SelectionChanged);
@@ -292,23 +310,6 @@ namespace Carat
             this.sqliteCommand1.Connection = null;
             this.sqliteCommand1.Transaction = null;
             this.sqliteCommand1.UpdatedRowSource = System.Data.UpdateRowSource.None;
-            // 
-            // TASubjects
-            // 
-            this.TASubjects.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.TASubjects.HeaderText = "Дисципліни";
-            this.TASubjects.Name = "TASubjects";
-            this.TASubjects.ReadOnly = true;
-            this.TASubjects.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // TASubjectCourse
-            // 
-            this.TASubjectCourse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.TASubjectCourse.HeaderText = "Курс";
-            this.TASubjectCourse.Name = "TASubjectCourse";
-            this.TASubjectCourse.ReadOnly = true;
-            this.TASubjectCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.TASubjectCourse.Width = 58;
             // 
             // TeacherAssignmentForm
             // 

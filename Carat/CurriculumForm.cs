@@ -22,6 +22,7 @@ namespace Carat
         private ISubjectRepository m_subjectRepository;
         private IWorkTypeRepository m_workTypeRepository;
         private IWorkRepository m_workRepository;
+        private ITAItemRepository m_taItemRepository;
 
         private MainForm m_parentForm = null;
         private const string IncorrectDataMessage = "Некоректні дані!";
@@ -34,6 +35,7 @@ namespace Carat
         private bool m_isEmptyWorks;
         private bool isSortChanging = false;
         private int sortColumnIndex = 0;
+        private bool isWorkSync = false;
         
         public CurriculumForm(MainForm parentForm,
                               string dbName,
@@ -78,6 +80,7 @@ namespace Carat
             m_workTypeRepository = new WorkTypeRepository(dbName);
             m_subjectRepository = new SubjectRepository(dbName);
             m_workRepository = new WorkRepository(dbName);
+            m_taItemRepository = new TAItemRepository(dbName);
         }
 
         private void EnableListBoxes()
@@ -436,6 +439,11 @@ namespace Carat
                 return;
             }
 
+            if (isWorkSync)
+            {
+                return;
+            }
+
             var curriculumItemWorks = m_workRepository.GetWorks(getCurrentCurriculumId(), m_isEmptyWorks);
 
             if (e.RowIndex < curriculumItemWorks.Count)
@@ -492,11 +500,12 @@ namespace Carat
             {
                 throw new Exception("DB error");
             }
-
+            isWorkSync = true;
             for (int i = 0; i < works.Count; ++i)
             {
-                dataGridViewCurriculumWorkTypes.Rows[i].Cells[1].Value = works[i]?.TotalHours;
+                dataGridViewCurriculumWorkTypes.Rows[i].Cells[1].Value = works[i]?.TotalHours.ToString(Tools.HoursAccuracy);
             }
+            isWorkSync = false;
         }
 
         private bool UpdateDataCurriculumWork(Work work, int curriculumItemId, DataGridViewCellEventArgs e, bool isNewObject)
@@ -531,21 +540,39 @@ namespace Carat
                         }
                     case 1:
                         {
-                            work.TotalHours = Convert.ToDouble(dataGridViewCurriculumWorkTypes[e.ColumnIndex, e.RowIndex].Value?.ToString());
+                            var newTotalHours = Convert.ToDouble(dataGridViewCurriculumWorkTypes[e.ColumnIndex, e.RowIndex].Value?.ToString());
 
-                            if (Tools.isLessThanZero(work.TotalHours))
+                            if (Tools.isLessThanZero(newTotalHours))
                             {
-                                throw new Exception();
+                                throw new Exception(IncorrectDataMessage);
                             }
+
+                            if (Tools.isGreaterThan(work.TotalHours, newTotalHours))
+                            {
+                                var taItems = m_taItemRepository.GetTAItems(work.Id);
+                                double distributedHours = 0;
+
+                                foreach (var taItem in taItems)
+                                {
+                                    distributedHours += taItem.WorkHours;
+                                }
+
+                                if (Tools.isGreaterThan(distributedHours, newTotalHours))
+                                {
+                                    throw new Exception("Значення не може бути менше ніж розподілені години!");
+                                }
+                            }
+                            
+                            work.TotalHours = newTotalHours;
 
                             break;
                         }
                     default: { return false; }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show(IncorrectDataMessage);
+                MessageBox.Show(ex.Message);
                 SyncDataCurriculumWorks();
                 return false;
             }
@@ -1056,8 +1083,8 @@ namespace Carat
 
             AddCurriculumItemSecondPage(
                     course, educForm, educLevel, educType, 1, sheet.GetRow(35).GetCell(12).NumericCellValue, subject.Id, 27);
-            //AddCurriculumItemSecondPage(
-            //        course, educForm, educLevel, educType, 2, sheet.GetRow(35).GetCell(17).NumericCellValue, subject.Id, 27);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(35).GetCell(17).NumericCellValue, subject.Id, 27);
         }
 
         private void ReadSecondPage(NPOI.SS.UserModel.ISheet sheet, string educType, string educForm)

@@ -218,6 +218,31 @@ namespace Carat
             }
         }
 
+        private void CheckComboBoxTeacherState()
+        {
+            var rowIndex = dataGridViewTAWorks.SelectedCells[0].RowIndex;
+            var works = m_workRepository.GetWorks(selectedCurriculumSubjectId, m_isEmptyWorks);
+            
+            if (rowIndex >= works.Count)
+            {
+                return;
+            }
+
+            string sFreeHours = dataGridViewTAWorks.Rows[rowIndex].Cells[1].Value.ToString();
+            double dFreeHours;
+
+            try
+            {
+                dFreeHours = Convert.ToDouble(sFreeHours);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            comboBoxTATeachers.Enabled = Tools.isGreaterThanZero(dFreeHours);
+        }
+
         private void dataGridViewTAWorks_SelectionChanged(object sender, EventArgs e)
         {
             comboBoxTATeachers.Enabled = false;
@@ -342,6 +367,13 @@ namespace Carat
                 dataGridViewTATeachers.Rows[e.RowIndex].Selected = true;
             }
 
+            CheckComboBoxTeacherState();
+            //if (dataGridViewTAWorks.SelectedRows.Count > 0)
+            //{
+            //    var prevSelectedRowIndex = dataGridViewTAWorks.SelectedRows[0].Index;
+            //    dataGridViewTAWorks.ClearSelection();
+            //    dataGridViewTAWorks.Rows[prevSelectedRowIndex].Selected = true;
+            //}
             LoadTeachers();
         }
 
@@ -452,7 +484,6 @@ namespace Carat
                         }
                     case 2:
                         {
-
                             break;
                         }
                     default: { return false; }
@@ -494,6 +525,8 @@ namespace Carat
 
                 SyncHours(selectedWorkId);
             }
+
+            CheckComboBoxTeacherState();
         }
 
         private void comboBoxTATeachers_SelectionChangeCommitted(object sender, EventArgs e)
