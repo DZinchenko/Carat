@@ -544,7 +544,7 @@ namespace Carat
                     result = 70;
                     break;
                 case "РГР, РР, ГР":
-                    result = 75;
+                    result = 74;
                     break;
                 case "ДКР":
                     result = 79;
@@ -665,6 +665,7 @@ namespace Carat
                     var curriculumItem = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
                     int rowIndex = GetRowIndexByOtherWorkName(workType.Name);
                     int shiftValue = 0;
+                    int hoursCellIndexBC = hoursColumnIndex;
 
                     if (curriculumItem.Semestr == 2)
                     {
@@ -675,6 +676,11 @@ namespace Carat
                     {
                         continue;
                     }
+
+                    if (curriculumItem.EducType == "Контракт")
+                    {
+                        hoursCellIndexBC += 2;
+                    }    
 
 
                     if (rowIndex == 7 && curriculumItem.EducLevel == "Магістр" && curriculumItem.Course == 2)
@@ -693,7 +699,7 @@ namespace Carat
                         }
                     }
 
-                    var cell = GetCell(sheet.GetRow(rowIndex), hoursColumnIndex + shiftValue);
+                    var cell = GetCell(sheet.GetRow(rowIndex), hoursCellIndexBC + shiftValue);
                     try
                     {
                         cell.SetCellValue(cell.NumericCellValue + taItem.WorkHours);
@@ -724,14 +730,30 @@ namespace Carat
                         var budjetCell = GetCell(sheet.GetRow(rowIndex), budjetColumnIndex + shiftValue);
                         try
                         {
-                            budjetCell.SetCellValue(budjetCell.NumericCellValue + group.BudgetNumber);
+                            if (rowIndex == 13 || rowIndex == 14 || rowIndex == 15)
+                            {
+                                if (curriculumItem.EducType == "Бюджет")
+                                    budjetCell.SetCellValue(Math.Round(cell.NumericCellValue/workType.StudentHours));
+                            }
+                            else
+                            {
+                                budjetCell.SetCellValue(budjetCell.NumericCellValue + group.BudgetNumber);
+                            }
                         }
                         catch (Exception) { }
 
                         var contractCell = GetCell(sheet.GetRow(rowIndex), contractColumnIndex + shiftValue);
                         try
                         {
-                            contractCell.SetCellValue(contractCell.NumericCellValue + group.ContractNumber);
+                            if (rowIndex == 13 || rowIndex == 14 || rowIndex == 15)
+                            {
+                                if (curriculumItem.EducType == "Контракт")
+                                    contractCell.SetCellValue(Math.Round(cell.NumericCellValue / workType.StudentHours));
+                            }
+                            else
+                            {
+                                contractCell.SetCellValue(budjetCell.NumericCellValue + group.BudgetNumber);
+                            }
                         }
                         catch (Exception) { }
                     }
