@@ -104,7 +104,7 @@ namespace Carat
                 return "всі форми навчання";
             }
 
-            return (m_educForm + " форма начвання").ToLower();
+            return (m_educForm + " форма навчання").ToLower();
         }
 
         private string GetEducTypeString()

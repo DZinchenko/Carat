@@ -17,6 +17,49 @@ namespace Carat
 {
     public partial class TeacherAssignmentForm : Form, IDataUserForm
     {
+        public class ComboBoxCustomItem
+        {
+            public string Name;
+            public double Min;
+            public double Current;
+            public double Max;
+
+            public ComboBoxCustomItem(string teacherName, double min, double current, double max)
+            {
+                Name = teacherName;
+                Min = min;
+                Current = current;
+                Max = max;
+            }
+
+            public Color GetColor()
+            {
+                Color result = Color.LightGreen;
+
+                if (Current > Max)
+                {
+                    result = Color.IndianRed;
+                }
+                else if (Current < Min)
+                {
+                    result = Color.White;
+                }
+
+                return result;
+            }
+
+            public override string ToString()
+            {
+                return Name
+                        + " (min="
+                        + Min.ToString("F0")
+                        + " - є: "
+                        + Current.ToString("F0")
+                        + " - max="
+                        + Max.ToString("F0") + ")";
+            }
+        }
+
         private MainForm m_parentForm = null;
         private SelectGroups m_selectGroupsForm = null;
         private ISubjectRepository m_subjectRepository = null;
@@ -146,7 +189,8 @@ namespace Carat
             foreach (var teacher in teachers)
             {
                 var minHours = teacher.StaffUnit * GetMinTeacherHours(teacher);
-                comboBoxTATeachers.Items.Add(teacher.Name + " (розп. год. " + m_TAItemRepository.GetAssignedTeacherHours(teacher.Id).ToString(Tools.HoursAccuracy) + "/" + minHours.ToString(Tools.HoursAccuracy) + ")");
+                var maxHours = teacher.StaffUnit * 600;
+                comboBoxTATeachers.Items.Add(new ComboBoxCustomItem(teacher.Name, minHours, m_TAItemRepository.GetAssignedTeacherHours(teacher.Id), maxHours));
             }
         }
 
@@ -368,12 +412,6 @@ namespace Carat
             }
 
             CheckComboBoxTeacherState();
-            //if (dataGridViewTAWorks.SelectedRows.Count > 0)
-            //{
-            //    var prevSelectedRowIndex = dataGridViewTAWorks.SelectedRows[0].Index;
-            //    dataGridViewTAWorks.ClearSelection();
-            //    dataGridViewTAWorks.Rows[prevSelectedRowIndex].Selected = true;
-            //}
             LoadTeachers();
         }
 
@@ -679,6 +717,28 @@ namespace Carat
                 isSortChanging = false;
                 PropertyInfo verticalOffset = dataGridViewTASubjects.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
                 verticalOffset.SetValue(this.dataGridViewTASubjects, verticalScrollingOffset, null);
+            }
+        }
+
+        private void comboBoxTATeachers_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index >= 0)
+            {
+                var item = comboBoxTATeachers.Items[e.Index] as ComboBoxCustomItem;
+
+                if (item != null)
+                {
+                    Brush brush = ((e.State & DrawItemState.Selected) == DrawItemState.Selected) ?
+                         new SolidBrush(Color.SlateGray) : new SolidBrush(item.GetColor());
+                    e.Graphics.FillRectangle(brush, e.Bounds);
+                    e.Graphics.DrawString(item.ToString(), e.Font, new SolidBrush(Color.Black), new Point(e.Bounds.X, e.Bounds.Y));
+                }
+                else 
+                {
+                    e.Graphics.DrawString(comboBoxTATeachers.Items[e.Index].ToString(), e.Font, new SolidBrush(Color.Black), new Point(e.Bounds.X, e.Bounds.Y));
+                }
+
+                e.DrawFocusRectangle();
             }
         }
     }

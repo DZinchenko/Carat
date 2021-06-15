@@ -50,7 +50,7 @@ namespace Carat
             TurnOffAllSemesters();
 
             dataBaseStatelabel.Text = m_dbName;
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ukr-uk");
+            //CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ukr-uk");
 
         m_lastModeRepository = new LastModeRepository(m_lastModeDbName);
             var lastMode = m_lastModeRepository.GetLastMode();

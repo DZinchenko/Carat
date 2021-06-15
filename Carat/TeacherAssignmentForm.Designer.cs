@@ -108,11 +108,13 @@ namespace Carat
             this.comboBoxTATeachers.AccessibleDescription = "";
             this.comboBoxTATeachers.AccessibleName = "";
             this.comboBoxTATeachers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxTATeachers.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxTATeachers.Location = new System.Drawing.Point(0, 0);
             this.comboBoxTATeachers.Name = "comboBoxTATeachers";
-            this.comboBoxTATeachers.Size = new System.Drawing.Size(421, 23);
+            this.comboBoxTATeachers.Size = new System.Drawing.Size(421, 24);
             this.comboBoxTATeachers.TabIndex = 0;
             this.comboBoxTATeachers.Tag = "";
+            this.comboBoxTATeachers.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxTATeachers_DrawItem);
             this.comboBoxTATeachers.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTATeachers_SelectionChangeCommitted);
             // 
             // panelTeacherAssignmentTop

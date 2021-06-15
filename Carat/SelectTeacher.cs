@@ -123,7 +123,7 @@ namespace Carat
                 return "всі форми навчання";
             }
 
-            return (m_educForm + " форма начвання").ToLower();
+            return (m_educForm + " форма навчання").ToLower();
         }
 
         private string GetEducTypeString()
@@ -752,7 +752,7 @@ namespace Carat
                             }
                             else
                             {
-                                contractCell.SetCellValue(budjetCell.NumericCellValue + group.BudgetNumber);
+                                contractCell.SetCellValue(contractCell.NumericCellValue + group.ContractNumber);
                             }
                         }
                         catch (Exception) { }
