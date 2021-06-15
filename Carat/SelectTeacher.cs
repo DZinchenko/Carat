@@ -560,6 +560,13 @@ namespace Carat
             return result;
         }
 
+        private bool IsDivisibleWorkType(int workType)
+        {
+            return workType == 13 || workType == 14 || workType == 15
+                || workType == 16 || workType == 17 || workType == 18
+                || workType == 19 || workType == 20 || workType == 21 || workType == 34;
+        }
+
         private int GetRowIndexByOtherWorkName(string workName)
         {
             int result = -1;
@@ -730,7 +737,7 @@ namespace Carat
                         var budjetCell = GetCell(sheet.GetRow(rowIndex), budjetColumnIndex + shiftValue);
                         try
                         {
-                            if (rowIndex == 13 || rowIndex == 14 || rowIndex == 15)
+                            if (IsDivisibleWorkType(rowIndex))
                             {
                                 if (curriculumItem.EducType == "Бюджет")
                                     budjetCell.SetCellValue(Math.Round(cell.NumericCellValue/workType.StudentHours));
