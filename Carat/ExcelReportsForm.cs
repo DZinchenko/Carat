@@ -557,6 +557,7 @@ namespace Carat
                     newRow.Cells[1].SetCellValue(teacher.Name);
                     newRow.Cells[2].SetCellValue(teacher.Position);
                     newRow.Cells[3].SetCellValue(teacher.StaffUnit);
+                    newRow.Cells[4].SetCellValue(GetOccupationFormString(teacher));
 
                     var taItems = m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Денна");
                     taItems.AddRange(m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, "Заочна"));
@@ -586,9 +587,9 @@ namespace Carat
                         }
                     }
 
-                    newRow.Cells[4].SetCellValue(lectureHours);
-                    newRow.Cells[5].SetCellValue(otherAudi);
-                    newRow.Cells[6].SetCellValue(other);
+                    newRow.Cells[5].SetCellValue(lectureHours);
+                    newRow.Cells[6].SetCellValue(otherAudi);
+                    newRow.Cells[7].SetCellValue(other);
 
                     newRow.Height = -1;
 
@@ -600,7 +601,7 @@ namespace Carat
                     }
                 }            
 
-                for (int j = 4; j < 7; ++j)
+                for (int j = 5; j < 8; ++j)
                 {
                     var firstCell = sheet.GetRow(8).Cells[j].Address;
                     var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[j].Address;
@@ -612,9 +613,9 @@ namespace Carat
 
                 for (int j = 8, lastIndex = sheet.LastRowNum; j <= lastIndex; ++j)
                 {
-                    var firstCell = sheet.GetRow(j).Cells[4].Address;
-                    var lastCell = sheet.GetRow(j).Cells[6].Address;
-                    var finalCell = sheet.GetRow(j).Cells[7];
+                    var firstCell = sheet.GetRow(j).Cells[5].Address;
+                    var lastCell = sheet.GetRow(j).Cells[7].Address;
+                    var finalCell = sheet.GetRow(j).Cells[8];
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));

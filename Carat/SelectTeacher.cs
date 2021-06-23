@@ -435,7 +435,7 @@ namespace Carat
                     foreach (var taItem in taItems)
                     {
                         var work = m_workRepository.GetWork(taItem.WorkId);
-                        newRow.Cells[4 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
+                        newRow.Cells[5 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
                     }
 
                     newRow.Height = -1;
@@ -717,6 +717,7 @@ namespace Carat
 
                     GetCell(sheet.GetRow(rowIndex), facultyColumnIndex + shiftValue).SetCellValue("ТЕФ");
                     GetCell(sheet.GetRow(rowIndex), courseColumnIndex + shiftValue).SetCellValue(curriculumItem.Course);
+                    bool isGroupsNotExist = groups.Count == 0;
 
                     foreach (var group in groups)
                     {
@@ -752,7 +753,7 @@ namespace Carat
                         var contractCell = GetCell(sheet.GetRow(rowIndex), contractColumnIndex + shiftValue);
                         try
                         {
-                            if (rowIndex == 13 || rowIndex == 14 || rowIndex == 15)
+                            if (IsDivisibleWorkType(rowIndex))
                             {
                                 if (curriculumItem.EducType == "Контракт")
                                     contractCell.SetCellValue(Math.Round(cell.NumericCellValue / workType.StudentHours));
@@ -760,6 +761,29 @@ namespace Carat
                             else
                             {
                                 contractCell.SetCellValue(contractCell.NumericCellValue + group.ContractNumber);
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+
+                    if (isGroupsNotExist)
+                    {
+                        var budjetCell = GetCell(sheet.GetRow(rowIndex), budjetColumnIndex + shiftValue);
+                        try
+                        {
+                            if (IsDivisibleWorkType(rowIndex) && (curriculumItem.EducType == "Бюджет"))
+                            {
+                                budjetCell.SetCellValue(Math.Round(cell.NumericCellValue / workType.StudentHours));
+                            }
+                        }
+                        catch (Exception) { }
+
+                        var contractCell = GetCell(sheet.GetRow(rowIndex), contractColumnIndex + shiftValue);
+                        try
+                        {
+                            if (IsDivisibleWorkType(rowIndex) && (curriculumItem.EducType == "Контракт"))
+                            {
+                                contractCell.SetCellValue(Math.Round(cell.NumericCellValue / workType.StudentHours));
                             }
                         }
                         catch (Exception) { }
