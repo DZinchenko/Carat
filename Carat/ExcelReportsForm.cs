@@ -140,6 +140,9 @@ namespace Carat
                 return;
             }
 
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(curriculumItems.Count, "Planned by subjects report generating...");
+
             try
             {
                 var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
@@ -186,6 +189,8 @@ namespace Carat
                     {
                         sheet.CopyRow(8, 8 + i);                      
                     }
+
+                    m_parentForm.IncrementProgress();
                 }
 
                 for (int i = 4; i < 39; ++i)
@@ -196,6 +201,7 @@ namespace Carat
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+                    m_parentForm.IncrementProgress();
                 }
 
                 for (int i = 8, lastIndex = curriculumItems.Count + 8; i <= lastIndex; ++i)
@@ -206,6 +212,7 @@ namespace Carat
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+                    m_parentForm.IncrementProgress();
                 }
 
                 XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
@@ -222,6 +229,8 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+            m_parentForm.HideProgress();
+            m_parentForm.Enabled = true;
         }
 
         private void GenerateDistributedBySubjects()
@@ -252,6 +261,9 @@ namespace Carat
                 MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(curriculumItems.Count, "Distributed by subjects report generating...");
 
             try
             {
@@ -307,6 +319,8 @@ namespace Carat
                     {
                         sheet.CopyRow(8, 8 + i);
                     }
+
+                    m_parentForm.IncrementProgress();
                 }
 
                 for (int i = 4; i < 39; ++i)
@@ -343,6 +357,9 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            m_parentForm.HideProgress();
+            m_parentForm.Enabled = true;
         }
 
         public static NPOI.SS.UserModel.ICell GetCell(NPOI.SS.UserModel.IRow row, int column)
@@ -407,6 +424,9 @@ namespace Carat
                 }
             }
 
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(parsedCurriculumItems.Count, "Not distributed by subjects report generating...");
+            
             try
             {
                 var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
@@ -470,6 +490,7 @@ namespace Carat
                     newRow.Height = -1;
 
                     ++rowCounter;
+                    m_parentForm.IncrementProgress();
                 }
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
@@ -508,6 +529,9 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            m_parentForm.HideProgress();
+            m_parentForm.Enabled = true;
         }
 
         private void GenerateLoadShortByTeachers()
@@ -530,6 +554,9 @@ namespace Carat
                 MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(teachers.Count, "Short by teachers report generating...");
 
             try
             {
@@ -599,6 +626,8 @@ namespace Carat
                     {
                         sheet.CopyRow(8, 8 + i);
                     }
+
+                    m_parentForm.IncrementProgress();
                 }            
 
                 for (int j = 5; j < 8; ++j)
@@ -636,6 +665,9 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            m_parentForm.HideProgress();
+            m_parentForm.Enabled = true;
         }
 
         private string GetOccupationFormString(Teacher teacher)
@@ -670,6 +702,9 @@ namespace Carat
                 MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(teachers.Count, "Full by teachers report generating...");
 
             try
             {
@@ -733,6 +768,8 @@ namespace Carat
                     {
                         sheet.CopyRow(8, 8 + rowCounter);
                     }
+
+                    m_parentForm.IncrementProgress();
                 }
 
                 for (int i = 5; i < 41; ++i)
@@ -769,6 +806,9 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            m_parentForm.HideProgress();
+            m_parentForm.Enabled = true;
         }
 
         private void GenerateSchedule()
@@ -808,6 +848,9 @@ namespace Carat
                 MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(groups.Count, "Schedule report generating...");
 
             try
             {
@@ -907,6 +950,8 @@ namespace Carat
 
                     groupRow.Height = -1;
                     ++groupCounter;
+
+                    m_parentForm.IncrementProgress();
                     }
                 
                 sheet.ShiftRows(11, sheet.LastRowNum, -3);
@@ -945,6 +990,9 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            m_parentForm.HideProgress();
+            m_parentForm.Enabled = true;
         }
 
         private void treeViewExcelReports_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)

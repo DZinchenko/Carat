@@ -148,6 +148,9 @@ namespace Carat
                 return;
             }
 
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(allCurriculumItems.Count, "By subject report generating...");
+
             try
             {
                 var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
@@ -222,6 +225,8 @@ namespace Carat
 
                         ++numberCounter;
                     }
+
+                    m_parentForm.IncrementProgress();
                 }
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
@@ -261,6 +266,9 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            m_parentForm.Enabled = true;
+            m_parentForm.HideProgress();
         }
     }
 }

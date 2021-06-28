@@ -153,6 +153,9 @@ namespace Carat
                 return;
             }
 
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(allTAItems.Count, "By work type report generating...");
+
             try
             {
                 var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
@@ -201,6 +204,7 @@ namespace Carat
                     newRow.Height = -1;
 
                     ++numberCounter;
+                    m_parentForm.IncrementProgress();
                 }
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
@@ -227,6 +231,9 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            m_parentForm.Enabled = true;
+            m_parentForm.HideProgress();
         }
 
         private void dataGridViewSelectWorkType_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

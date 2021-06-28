@@ -208,6 +208,9 @@ namespace Carat
                 groupedTAItemsWithCurriculumItem[work.CurriculumItemId].Add(taItem);
             }
 
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(groupedTAItemsWithCurriculumItem.Count, "Extended by teacher report generating...");
+
             try
             {
                 var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
@@ -310,6 +313,7 @@ namespace Carat
                     newRow.Height = -1;
 
                     ++numberCounter;
+                    m_parentForm.IncrementProgress();
                 }
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
@@ -348,6 +352,9 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            m_parentForm.Enabled = true;
+            m_parentForm.HideProgress();
         }
 
         private void GenerateReport(Teacher teacher)
@@ -386,6 +393,9 @@ namespace Carat
                 }
                 groupedTAItemsWithCurriculumItem[work.CurriculumItemId].Add(taItem);
             }
+
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(groupedTAItemsWithCurriculumItem.Count, "By teacher report generating...");
 
             try
             {
@@ -441,6 +451,7 @@ namespace Carat
                     newRow.Height = -1;
 
                     ++numberCounter;
+                    m_parentForm.IncrementProgress();
                 }
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
@@ -479,6 +490,9 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            m_parentForm.Enabled = true;
+            m_parentForm.HideProgress();
         }
 
         private List<Group> GetGroups(List<TAItem> taItems)
@@ -788,6 +802,8 @@ namespace Carat
                         }
                         catch (Exception) { }
                     }
+
+                    m_parentForm.IncrementProgress();
                 }
             }
         }
@@ -852,6 +868,7 @@ namespace Carat
                 }
 
                 ++subjectCounter;
+                m_parentForm.IncrementProgress();
             }
 
             return subjectCounter;
@@ -936,6 +953,15 @@ namespace Carat
                 resultDic[subject.Name].Add(taItem);
             }
 
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(firstSemesterTAItemsSubjectsFull.Count
+                + firstSemesterTAItemsSubjectsExternal.Count
+                + firstSemesterTAItemsSubjectsEvening.Count
+                + secondSemesterTAItemsSubjectsFull.Count
+                + secondSemesterTAItemsSubjectsExternal.Count
+                + secondSemesterTAItemsSubjectsEvening.Count, 
+                "Individual report generating...");
+
             try
             {
                 var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
@@ -986,6 +1012,9 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            m_parentForm.Enabled = true;
+            m_parentForm.HideProgress();
         }
     }
 }
