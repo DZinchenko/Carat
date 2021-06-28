@@ -997,27 +997,27 @@ namespace Carat
 
         private void treeViewExcelReports_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (e.Node.FullPath == "Навантаження кафедри\\за дисциплінами (заплановані)")
+            if (e.Node.FullPath == "Зведені\\Навчальний план")
             {
                 GeneratePlannedBySubjects();
             }
-            if (e.Node.FullPath == "Навантаження кафедри\\за дисциплінами (розподілені)")
+            if (e.Node.FullPath == "Зведені\\Навантаження за дисциплінами")
             {
                 GenerateDistributedBySubjects();
             }
-            if (e.Node.FullPath == "Інші\\нерозподілені години")
+            if (e.Node.FullPath == "Зведені\\Нерозподілені години")
             {
                 GenerateNotDistributedBySubjects();
             }
-            if (e.Node.FullPath == "Навантаження кафедри\\за викладачами (скорочений)")
+            if (e.Node.FullPath == "Зведені\\Навантаження за викладачами")
             {
                 GenerateLoadShortByTeachers();
             }
-            if (e.Node.FullPath == "Навантаження кафедри\\за викладачами (повний)")
+            if (e.Node.FullPath == "Зведені\\Навантаження за викладачами детальне")
             {
                 GenerateLoadFullByTeachers();
             }
-            if (e.Node.FullPath == "Навантаження кафедри\\розклад")
+            if (e.Node.FullPath == "Зведені\\Розклад для груп")
             {
                 GenerateSchedule();
             }
@@ -1049,7 +1049,7 @@ namespace Carat
 
                 return;
             }
-            if (e.Node.FullPath == "Вибіркові\\за вибраним викладачем (розширений)")
+            if (e.Node.FullPath == "Вибіркові\\за вибраним викладачем розширений")
             {
                 panelContainer.Visible = true;
 
@@ -1103,7 +1103,7 @@ namespace Carat
 
                 return;
             }
-            if (e.Node.FullPath == "Інші\\індивідуальний план")
+            if (e.Node.FullPath == "Вибіркові\\Індивідуальний план")
             {
                 panelContainer.Visible = true;
 

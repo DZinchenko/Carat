@@ -29,31 +29,34 @@ namespace Carat
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("за дисциплінами (заплановані)");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("за дисциплінами (розподілені)");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("за викладачами (повний)");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("за викладачами (скорочений)");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("розклад");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Навантаження кафедри", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Навчальний план");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Навантаження за дисциплінами");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Навантаження за викладачами детальне");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Навантаження за викладачами");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Розклад для груп");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Нерозподілені години");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Підсумковий за дисциплінами");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Підсумковий за викладачами");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Зведені", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
             treeNode3,
             treeNode4,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("за вибраною дисципліною");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("за вибраним викладачем");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("за вибраним викладачем (розширений)");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("за вибраним видом роботи");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Вибіркові", new System.Windows.Forms.TreeNode[] {
+            treeNode5,
+            treeNode6,
             treeNode7,
-            treeNode8,
-            treeNode9,
-            treeNode10});
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("нерозподілені години");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("індивідуальний план");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Інші", new System.Windows.Forms.TreeNode[] {
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("за вибраним викладачем");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("за вибраним викладачем розширений");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("за вибраною дисципліною");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("за вибраним видом роботи");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Індивідуальний план");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Вибіркові", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11,
             treeNode12,
-            treeNode13});
+            treeNode13,
+            treeNode14});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelReportsForm));
             this.treeViewExcelReports = new System.Windows.Forms.TreeView();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -67,38 +70,39 @@ namespace Carat
             this.treeViewExcelReports.Location = new System.Drawing.Point(0, 0);
             this.treeViewExcelReports.Name = "treeViewExcelReports";
             treeNode1.Name = "NodeBySubjectsScheduled";
-            treeNode1.Text = "за дисциплінами (заплановані)";
+            treeNode1.Text = "Навчальний план";
             treeNode2.Name = "NodeBySubjectsDistributed";
-            treeNode2.Text = "за дисциплінами (розподілені)";
+            treeNode2.Text = "Навантаження за дисциплінами";
             treeNode3.Name = "NodeByTeachers";
-            treeNode3.Text = "за викладачами (повний)";
+            treeNode3.Text = "Навантаження за викладачами детальне";
             treeNode4.Name = "NodeShortByTeachers";
-            treeNode4.Text = "за викладачами (скорочений)";
+            treeNode4.Text = "Навантаження за викладачами";
             treeNode5.Name = "NodeSchedule";
-            treeNode5.Text = "розклад";
-            treeNode6.Name = "NodeCafedra";
-            treeNode6.Text = "Навантаження кафедри";
-            treeNode7.Name = "NodeSelectedSubject";
-            treeNode7.Text = "за вибраною дисципліною";
-            treeNode8.Name = "NodeSelectedTeacher";
-            treeNode8.Text = "за вибраним викладачем";
-            treeNode9.Name = "NodeSelectedTeacherExtended";
-            treeNode9.Text = "за вибраним викладачем (розширений)";
-            treeNode10.Name = "NodeSelectedWork";
-            treeNode10.Text = "за вибраним видом роботи";
-            treeNode11.Name = "NodeSelective";
-            treeNode11.Text = "Вибіркові";
-            treeNode12.Name = "NodeUnallocated";
-            treeNode12.Text = "нерозподілені години";
-            treeNode13.Name = "NodeIndividualPlan";
-            treeNode13.Text = "індивідуальний план";
-            treeNode14.Name = "NodeOther";
-            treeNode14.Text = "Інші";
+            treeNode5.Text = "Розклад для груп";
+            treeNode6.Name = "NodeUnallocated";
+            treeNode6.Text = "Нерозподілені години";
+            treeNode7.Name = "NodeFinalBySubjects";
+            treeNode7.Text = "Підсумковий за дисциплінами";
+            treeNode8.Name = "NodeFinalByTeachers";
+            treeNode8.Text = "Підсумковий за викладачами";
+            treeNode9.Name = "NodeTotal";
+            treeNode9.Text = "Зведені";
+            treeNode10.Name = "NodeSelectedTeacher";
+            treeNode10.Text = "за вибраним викладачем";
+            treeNode11.Name = "NodeSelectedTeacherExtended";
+            treeNode11.Text = "за вибраним викладачем розширений";
+            treeNode12.Name = "NodeSelectedSubject";
+            treeNode12.Text = "за вибраною дисципліною";
+            treeNode13.Name = "NodeSelectedWork";
+            treeNode13.Text = "за вибраним видом роботи";
+            treeNode14.Name = "NodeIndividualPlan";
+            treeNode14.Text = "Індивідуальний план";
+            treeNode15.Name = "NodeSelective";
+            treeNode15.Text = "Вибіркові";
             this.treeViewExcelReports.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode11,
-            treeNode14});
-            this.treeViewExcelReports.Size = new System.Drawing.Size(899, 260);
+            treeNode9,
+            treeNode15});
+            this.treeViewExcelReports.Size = new System.Drawing.Size(899, 281);
             this.treeViewExcelReports.TabIndex = 0;
             this.treeViewExcelReports.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewExcelReports_AfterSelect);
             this.treeViewExcelReports.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewExcelReports_NodeMouseDoubleClick);
@@ -109,15 +113,15 @@ namespace Carat
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(899, 260);
+            this.panel1.Size = new System.Drawing.Size(899, 281);
             this.panel1.TabIndex = 1;
             // 
             // panelContainer
             // 
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContainer.Location = new System.Drawing.Point(0, 260);
+            this.panelContainer.Location = new System.Drawing.Point(0, 281);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(899, 259);
+            this.panelContainer.Size = new System.Drawing.Size(899, 238);
             this.panelContainer.TabIndex = 2;
             // 
             // ExcelReportsForm
