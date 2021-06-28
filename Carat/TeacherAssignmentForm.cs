@@ -741,5 +741,70 @@ namespace Carat
                 e.DrawFocusRectangle();
             }
         }
+
+        private void dataGridViewTASubjects_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                ContextMenu m = new ContextMenu();
+                m.MenuItems.Add(new MenuItem("Видалити навантаження"));
+
+                int currentMouseOverRow = dataGridViewTASubjects.HitTest(e.X, e.Y).RowIndex;
+
+                if (currentMouseOverRow >= 0)
+                {
+                    isSelectionChanging = true;
+                    dataGridViewTASubjects.ClearSelection();
+                    dataGridViewTASubjects.Rows[currentMouseOverRow].Selected = true;
+                    isSelectionChanging = false;
+
+                    m.MenuItems[0].Click += DeleteAssignment;
+                    m.Show(dataGridViewTASubjects, new Point(e.X, e.Y));
+                }
+            }
+        }
+
+        private void DeleteAssignment(object sender, EventArgs e)
+        {
+            m_parentForm.Enabled = false;
+            try
+            {
+                var works = m_workRepository.GetWorks(selectedCurriculumSubjectId, true);
+                var taItems = new List<TAItem>();
+                var groupsToTAItems = new List<GroupsToTAItem>();
+
+                foreach (var work in works)
+                {
+                    taItems.AddRange(m_TAItemRepository.GetTAItems(work.Id));
+                }
+
+                foreach (var taItem in taItems)
+                {
+                    groupsToTAItems.AddRange(m_groupsToTeacherRepository.GetGroupsToTAItem(taItem.Id));
+                }
+
+                foreach (var groupToTAItem in groupsToTAItems)
+                {
+                    m_groupsToTeacherRepository.RemoveGroupsToTAItem(groupToTAItem);
+                }
+
+                foreach (var taItem in taItems)
+                {
+                    m_TAItemRepository.RemoveTAItem(taItem);
+                }
+
+                isSelectionChanging = true;
+                var selectedRowIndex = dataGridViewTASubjects.SelectedRows[0].Index;
+                dataGridViewTASubjects.ClearSelection();
+                dataGridViewTASubjects.Rows[selectedRowIndex].Selected = true;
+                isSelectionChanging = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            m_parentForm.Enabled = true;
+        }
     }
 }

@@ -29,7 +29,6 @@ namespace Carat
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeacherAssignmentForm));
             this.dataGridViewTATeachers = new System.Windows.Forms.DataGridView();
             this.TATeacher = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,7 +52,6 @@ namespace Carat
             this.TAWork = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TAWorkFreeHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelGroups = new System.Windows.Forms.Panel();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.sqliteCommand1 = new Microsoft.Data.Sqlite.SqliteCommand();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTATeachers)).BeginInit();
             this.panelTeacherAssignmentTop.SuspendLayout();
@@ -165,6 +163,7 @@ namespace Carat
             this.dataGridViewTASubjects.TabIndex = 1;
             this.dataGridViewTASubjects.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTASubjects_ColumnHeaderMouseClick);
             this.dataGridViewTASubjects.SelectionChanged += new System.EventHandler(this.dataGridViewTASubjects_SelectionChanged);
+            this.dataGridViewTASubjects.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewTASubjects_MouseClick);
             // 
             // TASubjects
             // 
@@ -300,11 +299,6 @@ namespace Carat
             this.panelGroups.Size = new System.Drawing.Size(356, 185);
             this.panelGroups.TabIndex = 0;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // sqliteCommand1
             // 
             this.sqliteCommand1.CommandText = null;
@@ -352,7 +346,6 @@ namespace Carat
         private System.Windows.Forms.DataGridView dataGridViewTAWorks;
         private System.Windows.Forms.DataGridViewTextBoxColumn TAWork;
         private System.Windows.Forms.DataGridViewTextBoxColumn TAWorkFreeHours;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel1;
