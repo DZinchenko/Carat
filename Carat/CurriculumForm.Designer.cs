@@ -29,11 +29,14 @@ namespace Carat
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CurriculumForm));
             this.panelCurriculumRight = new System.Windows.Forms.Panel();
             this.dataGridViewCurriculumSubjects = new System.Windows.Forms.DataGridView();
+            this.CurriculumSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CurriculumSubjectCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CurriculumSubjectHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonImportCurriculum = new System.Windows.Forms.Button();
             this.panelCurriculumLeftButtom = new System.Windows.Forms.Panel();
@@ -45,9 +48,6 @@ namespace Carat
             this.CurriculumWorkTypesHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.listBoxWorkTypes = new System.Windows.Forms.ListBox();
-            this.CurriculumSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CurriculumSubjectCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CurriculumSubjectHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelCurriculumRight.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurriculumSubjects)).BeginInit();
             this.panel1.SuspendLayout();
@@ -89,6 +89,33 @@ namespace Carat
             this.dataGridViewCurriculumSubjects.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewCurriculumSubjects_RowsRemoved);
             this.dataGridViewCurriculumSubjects.SelectionChanged += new System.EventHandler(this.dataGridViewCurriculumSubjects_SelectionChanged);
             this.dataGridViewCurriculumSubjects.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridViewCurriculumSubjects_UserDeletingRow);
+            // 
+            // CurriculumSubject
+            // 
+            this.CurriculumSubject.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CurriculumSubject.HeaderText = "Дисципліна";
+            this.CurriculumSubject.Name = "CurriculumSubject";
+            this.CurriculumSubject.ReadOnly = true;
+            this.CurriculumSubject.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // CurriculumSubjectCourse
+            // 
+            this.CurriculumSubjectCourse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CurriculumSubjectCourse.HeaderText = "Курс";
+            this.CurriculumSubjectCourse.Name = "CurriculumSubjectCourse";
+            this.CurriculumSubjectCourse.ReadOnly = true;
+            this.CurriculumSubjectCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.CurriculumSubjectCourse.Width = 58;
+            // 
+            // CurriculumSubjectHours
+            // 
+            this.CurriculumSubjectHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle1.NullValue = "0";
+            this.CurriculumSubjectHours.DefaultCellStyle = dataGridViewCellStyle1;
+            this.CurriculumSubjectHours.HeaderText = "Обсяг";
+            this.CurriculumSubjectHours.Name = "CurriculumSubjectHours";
+            this.CurriculumSubjectHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.CurriculumSubjectHours.Width = 46;
             // 
             // panel1
             // 
@@ -176,6 +203,7 @@ namespace Carat
             this.dataGridViewCurriculumWorkTypes.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
             this.dataGridViewCurriculumWorkTypes.Location = new System.Drawing.Point(0, 26);
             this.dataGridViewCurriculumWorkTypes.Name = "dataGridViewCurriculumWorkTypes";
+            this.dataGridViewCurriculumWorkTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridViewCurriculumWorkTypes.Size = new System.Drawing.Size(370, 384);
             this.dataGridViewCurriculumWorkTypes.TabIndex = 1;
             this.dataGridViewCurriculumWorkTypes.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCurriculumWorkTypes_CellValueChanged);
@@ -217,33 +245,6 @@ namespace Carat
             this.listBoxWorkTypes.Size = new System.Drawing.Size(370, 109);
             this.listBoxWorkTypes.TabIndex = 0;
             this.listBoxWorkTypes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxWorkTypes_MouseDoubleClick);
-            // 
-            // CurriculumSubject
-            // 
-            this.CurriculumSubject.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CurriculumSubject.HeaderText = "Дисципліна";
-            this.CurriculumSubject.Name = "CurriculumSubject";
-            this.CurriculumSubject.ReadOnly = true;
-            this.CurriculumSubject.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // CurriculumSubjectCourse
-            // 
-            this.CurriculumSubjectCourse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CurriculumSubjectCourse.HeaderText = "Курс";
-            this.CurriculumSubjectCourse.Name = "CurriculumSubjectCourse";
-            this.CurriculumSubjectCourse.ReadOnly = true;
-            this.CurriculumSubjectCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.CurriculumSubjectCourse.Width = 58;
-            // 
-            // CurriculumSubjectHours
-            // 
-            this.CurriculumSubjectHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle1.NullValue = "0";
-            this.CurriculumSubjectHours.DefaultCellStyle = dataGridViewCellStyle1;
-            this.CurriculumSubjectHours.HeaderText = "Обсяг";
-            this.CurriculumSubjectHours.Name = "CurriculumSubjectHours";
-            this.CurriculumSubjectHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CurriculumSubjectHours.Width = 46;
             // 
             // CurriculumForm
             // 

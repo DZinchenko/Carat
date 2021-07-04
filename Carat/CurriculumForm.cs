@@ -100,11 +100,11 @@ namespace Carat
         {
             m_isEmptyWorks = isEmptyWorks;
 
-            if (dataGridViewCurriculumSubjects.SelectedCells.Count > 0)
+            if (dataGridViewCurriculumWorkTypes.SelectedCells.Count == 1)
             {
-                var selectedRowIndex = dataGridViewCurriculumSubjects.SelectedCells[0].RowIndex;
-                dataGridViewCurriculumSubjects.Rows[selectedRowIndex].Selected = false;
-                dataGridViewCurriculumSubjects.Rows[selectedRowIndex].Selected = true;
+                var rowIndex = dataGridViewCurriculumWorkTypes.SelectedCells[0].RowIndex;
+                dataGridViewCurriculumWorkTypes.ClearSelection();
+                dataGridViewCurriculumWorkTypes.Rows[rowIndex].Cells[1].Selected = true;
             }
         }
 

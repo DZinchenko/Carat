@@ -115,6 +115,22 @@ namespace Carat
             return m_educType.ToLower();
         }
 
+        private string GetEducFormString(CurriculumItem curriculumItem)
+        {
+            var result = "д";
+
+            if (curriculumItem.EducForm == "Заочна")
+            {
+                result = "з";
+            }
+            else if (curriculumItem.EducForm == "Вечірня")
+            {
+                result = "в";
+            }
+
+            return result;
+        }
+
         private void LoadData()
         {
             var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
@@ -213,12 +229,13 @@ namespace Carat
                         newRow.Cells[1].SetCellValue(teacher.Name);
                         newRow.Cells[2].SetCellValue(groupsCellText);
                         newRow.Cells[3].SetCellValue(curItem.EducLevel);
-                        newRow.Cells[4].SetCellValue(curItem.Course);
+                        newRow.Cells[4].SetCellValue(GetEducFormString(curItem));
+                        newRow.Cells[5].SetCellValue(curItem.Course);
 
                         foreach (var taItem in teacherDicEl.Value)
                         {
                             var work = m_workRepository.GetWork(taItem.WorkId);
-                            newRow.Cells[5 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
+                            newRow.Cells[6 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
                         }
 
                         newRow.Height = -1;
@@ -231,7 +248,7 @@ namespace Carat
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
 
-                for (int i = 5; i < 40; ++i)
+                for (int i = 6; i < 41; ++i)
                 {
                     var firstCell = sheet.GetRow(8).Cells[i].Address;
                     var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[i].Address;
@@ -243,9 +260,9 @@ namespace Carat
 
                 for (int i = 8, lastIndex = sheet.LastRowNum; i <= lastIndex; ++i)
                 {
-                    var firstCell = sheet.GetRow(i).Cells[5].Address;
-                    var lastCell = sheet.GetRow(i).Cells[39].Address;
-                    var finalCell = sheet.GetRow(i).Cells[40];
+                    var firstCell = sheet.GetRow(i).Cells[6].Address;
+                    var lastCell = sheet.GetRow(i).Cells[40].Address;
+                    var finalCell = sheet.GetRow(i).Cells[41];
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));

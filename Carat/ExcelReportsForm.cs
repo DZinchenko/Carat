@@ -121,6 +121,22 @@ namespace Carat
             return m_educType.ToLower();
         }
 
+        private string GetEducFormString(CurriculumItem curriculumItem)
+        {
+            var result = "д";
+
+            if (curriculumItem.EducForm == "Заочна")
+            {
+                result = "з";
+            }
+            else if (curriculumItem.EducForm == "Вечірня")
+            {
+                result = "в";
+            }
+
+            return result;
+        }
+
         private void GeneratePlannedBySubjects()
         {
             var curriculumItems = new List<CurriculumItem>();
@@ -174,9 +190,10 @@ namespace Carat
                     newRow.Cells[0].SetCellValue((i + 1).ToString());
                     newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name);
                     newRow.Cells[2].SetCellValue(curriculumItem.EducLevel);
-                    newRow.Cells[3].SetCellValue(curriculumItem.Course);
+                    newRow.Cells[3].SetCellValue(GetEducFormString(curriculumItem));
+                    newRow.Cells[4].SetCellValue(curriculumItem.Course);
 
-                    for (int cellIndex = 4, workTypeIndex = 0; cellIndex <= 38; ++cellIndex, ++workTypeIndex)
+                    for (int cellIndex = 5, workTypeIndex = 0; cellIndex <= 39; ++cellIndex, ++workTypeIndex)
                     {
                         newRow.Cells[cellIndex].SetCellValue(curriculumWorks[workTypeIndex].TotalHours);
                     }
@@ -193,7 +210,7 @@ namespace Carat
                     m_parentForm.IncrementProgress();
                 }
 
-                for (int i = 4; i < 39; ++i)
+                for (int i = 5; i < 40; ++i)
                 {
                     var firstCell = sheet.GetRow(8).Cells[i].Address;
                     var lastCell = sheet.GetRow(8 + curriculumItems.Count - 1).Cells[i].Address;
@@ -206,9 +223,9 @@ namespace Carat
 
                 for (int i = 8, lastIndex = curriculumItems.Count + 8; i <= lastIndex; ++i)
                 {
-                    var firstCell = sheet.GetRow(i).Cells[4].Address;
-                    var lastCell = sheet.GetRow(i).Cells[38].Address;
-                    var finalCell = sheet.GetRow(i).Cells[39];
+                    var firstCell = sheet.GetRow(i).Cells[5].Address;
+                    var lastCell = sheet.GetRow(i).Cells[39].Address;
+                    var finalCell = sheet.GetRow(i).Cells[40];
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
@@ -296,9 +313,10 @@ namespace Carat
                     newRow.Cells[0].SetCellValue((i + 1).ToString());
                     newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name);
                     newRow.Cells[2].SetCellValue(curriculumItem.EducLevel);
-                    newRow.Cells[3].SetCellValue(curriculumItem.Course);
+                    newRow.Cells[3].SetCellValue(GetEducFormString(curriculumItem));
+                    newRow.Cells[4].SetCellValue(curriculumItem.Course);
 
-                    for (int cellIndex = 4, workTypeIndex = 0; cellIndex <= 38; ++cellIndex, ++workTypeIndex)
+                    for (int cellIndex = 5, workTypeIndex = 0; cellIndex <= 39; ++cellIndex, ++workTypeIndex)
                     {
                         var taItems = m_taItemRepository.GetTAItems(curriculumWorks[workTypeIndex].Id);
                         double distributedHours = 0;
@@ -323,7 +341,7 @@ namespace Carat
                     m_parentForm.IncrementProgress();
                 }
 
-                for (int i = 4; i < 39; ++i)
+                for (int i = 5; i < 40; ++i)
                 {
                     var firstCell = sheet.GetRow(8).Cells[i].Address;
                     var lastCell = sheet.GetRow(8 + curriculumItems.Count - 1).Cells[i].Address;
@@ -335,9 +353,9 @@ namespace Carat
 
                 for (int i = 8, lastIndex = curriculumItems.Count + 8; i <= lastIndex; ++i)
                 {
-                    var firstCell = sheet.GetRow(i).Cells[4].Address;
-                    var lastCell = sheet.GetRow(i).Cells[38].Address;
-                    var finalCell = sheet.GetRow(i).Cells[39];
+                    var firstCell = sheet.GetRow(i).Cells[5].Address;
+                    var lastCell = sheet.GetRow(i).Cells[39].Address;
+                    var finalCell = sheet.GetRow(i).Cells[40];
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
@@ -462,12 +480,13 @@ namespace Carat
                     newRow.Cells[0].SetCellValue((rowCounter + 1).ToString());
                     newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItems[0].SubjectId).Name);
                     newRow.Cells[2].SetCellValue(curriculumItems[0].EducLevel);
-                    newRow.Cells[3].SetCellValue(curriculumItems[0].Course);
+                    newRow.Cells[3].SetCellValue(GetEducFormString(curriculumItems[0]));
+                    newRow.Cells[4].SetCellValue(curriculumItems[0].Course);
 
                     foreach (var curItem in curriculumItems)
                     {
                         var curItemWorks = m_workRepository.GetWorks(curItem.Id, false);
-                        for (int cellIndex = 4, workTypeIndex = 0; cellIndex <= 38; ++cellIndex, ++workTypeIndex)
+                        for (int cellIndex = 5, workTypeIndex = 0; cellIndex <= 39; ++cellIndex, ++workTypeIndex)
                         {
                             var taItems = m_taItemRepository.GetTAItems(curItemWorks[workTypeIndex].Id);
 
@@ -495,7 +514,7 @@ namespace Carat
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
 
-                for (int i = 4; i < 40; ++i)
+                for (int i = 5; i < 41; ++i)
                 {
                     var firstCell = GetCell(sheet.GetRow(8), i).Address;
                     var lastCell = GetCell(sheet.GetRow(sheet.LastRowNum - 1), i).Address;
@@ -507,9 +526,9 @@ namespace Carat
 
                 for (int i = 8, lastIndex = sheet.LastRowNum; i < lastIndex; ++i)
                 {
-                    var firstCell = GetCell(sheet.GetRow(i), 4).Address;
-                    var lastCell = GetCell(sheet.GetRow(i), 38).Address;
-                    var finalCell = GetCell(sheet.GetRow(i), 39);
+                    var firstCell = GetCell(sheet.GetRow(i), 5).Address;
+                    var lastCell = GetCell(sheet.GetRow(i), 39).Address;
+                    var finalCell = GetCell(sheet.GetRow(i), 40);
 
                     finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                     finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));

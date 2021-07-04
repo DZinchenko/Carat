@@ -190,7 +190,7 @@ namespace Carat
             {
                 var minHours = teacher.StaffUnit * GetMinTeacherHours(teacher);
                 var maxHours = teacher.StaffUnit * 600;
-                comboBoxTATeachers.Items.Add(new ComboBoxCustomItem(teacher.Name, minHours, m_TAItemRepository.GetAssignedTeacherHours(teacher.Id), maxHours));
+                comboBoxTATeachers.Items.Add(new ComboBoxCustomItem(teacher.Name, minHours, m_TAItemRepository.GetAssignedTeacherHours(teacher.Id, "Бюджет"), maxHours));
             }
         }
 

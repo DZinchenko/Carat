@@ -117,6 +117,22 @@ namespace Carat
             return m_educType.ToLower();
         }
 
+        private string GetEducFormString(CurriculumItem curriculumItem)
+        {
+            var result = "д";
+
+            if (curriculumItem.EducForm == "Заочна")
+            {
+                result = "з";
+            }
+            else if (curriculumItem.EducForm == "Вечірня")
+            {
+                result = "в";
+            }
+
+            return result;
+        }
+
         private void LoadData()
         {
             var workTypes = m_workTypeRepository.GetAllWorkTypes();
@@ -196,10 +212,11 @@ namespace Carat
                     newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
                     newRow.Cells[1].SetCellValue(subject.Name);
                     newRow.Cells[2].SetCellValue(curriculumItem.EducLevel);
-                    newRow.Cells[3].SetCellValue(curriculumItem.Course);
-                    newRow.Cells[4].SetCellValue(groupsCellText);
-                    newRow.Cells[5].SetCellValue(teacher.Name);
-                    newRow.Cells[6].SetCellValue(taItem.WorkHours);
+                    newRow.Cells[3].SetCellValue(GetEducFormString(curriculumItem));
+                    newRow.Cells[4].SetCellValue(curriculumItem.Course);
+                    newRow.Cells[5].SetCellValue(groupsCellText);
+                    newRow.Cells[6].SetCellValue(teacher.Name);
+                    newRow.Cells[7].SetCellValue(taItem.WorkHours);
 
                     newRow.Height = -1;
 
@@ -209,16 +226,16 @@ namespace Carat
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
 
-                var firstCell = sheet.GetRow(8).Cells[6].Address;
-                var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[6].Address;
-                var finalCell = sheet.GetRow(sheet.LastRowNum).Cells[6];
+                var firstCell = sheet.GetRow(8).Cells[7].Address;
+                var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[7].Address;
+                var finalCell = sheet.GetRow(sheet.LastRowNum).Cells[7];
 
                 finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
                 finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
 
                 XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
                 sheet.AutoSizeColumn(1);
-                sheet.AutoSizeColumn(4);
+                sheet.AutoSizeColumn(5);
 
                 using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
                 {

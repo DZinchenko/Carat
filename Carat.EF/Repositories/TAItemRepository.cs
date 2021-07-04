@@ -110,6 +110,22 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public double GetAssignedTeacherHours(int teacherId, string educType)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                var taItems = ctx.TAItems.Where(b => b.TeacherId == teacherId && b.EducType == educType).ToList();
+                double result = 0;
+
+                foreach (var item in taItems)
+                {
+                    result += item.WorkHours;
+                }
+
+                return result;
+            }
+        }
+
         public List<TAItem> GetTAItemsByTeacherId(int teacherId, uint semestr, string educType, string educForm)
         {
             if (educForm == "<всі>")
