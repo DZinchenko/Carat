@@ -71,6 +71,9 @@ namespace Carat
             // 
             this.dataGridViewCurriculumSubjects.AllowUserToAddRows = false;
             this.dataGridViewCurriculumSubjects.AllowUserToResizeRows = false;
+            this.dataGridViewCurriculumSubjects.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.dataGridViewCurriculumSubjects.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridViewCurriculumSubjects.EnableHeadersVisualStyles = false;
             this.dataGridViewCurriculumSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCurriculumSubjects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CurriculumSubject,
@@ -195,6 +198,9 @@ namespace Carat
             // 
             this.dataGridViewCurriculumWorkTypes.AllowUserToAddRows = false;
             this.dataGridViewCurriculumWorkTypes.AllowUserToDeleteRows = false;
+            this.dataGridViewCurriculumWorkTypes.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.dataGridViewCurriculumWorkTypes.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridViewCurriculumWorkTypes.EnableHeadersVisualStyles = false;
             this.dataGridViewCurriculumWorkTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCurriculumWorkTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CurriculumWorkType,

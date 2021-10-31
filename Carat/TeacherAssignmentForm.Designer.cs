@@ -71,6 +71,9 @@ namespace Carat
             // dataGridViewTATeachers
             // 
             this.dataGridViewTATeachers.AllowUserToAddRows = false;
+            this.dataGridViewTATeachers.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.dataGridViewTATeachers.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridViewTATeachers.EnableHeadersVisualStyles = false;
             this.dataGridViewTATeachers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTATeachers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TATeacher,
@@ -149,6 +152,9 @@ namespace Carat
             this.dataGridViewTASubjects.AllowUserToAddRows = false;
             this.dataGridViewTASubjects.AllowUserToDeleteRows = false;
             this.dataGridViewTASubjects.AllowUserToResizeRows = false;
+            this.dataGridViewTASubjects.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.dataGridViewTASubjects.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridViewTASubjects.EnableHeadersVisualStyles = false;
             this.dataGridViewTASubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTASubjects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TASubjects,
@@ -262,6 +268,9 @@ namespace Carat
             this.dataGridViewTAWorks.AllowUserToAddRows = false;
             this.dataGridViewTAWorks.AllowUserToDeleteRows = false;
             this.dataGridViewTAWorks.AllowUserToResizeRows = false;
+            this.dataGridViewTAWorks.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.dataGridViewTAWorks.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridViewTAWorks.EnableHeadersVisualStyles = false;
             this.dataGridViewTAWorks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTAWorks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TAWork,

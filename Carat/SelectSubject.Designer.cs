@@ -41,6 +41,9 @@ namespace Carat
             this.dataGridViewSelectSubject.AllowUserToDeleteRows = false;
             this.dataGridViewSelectSubject.AllowUserToResizeColumns = false;
             this.dataGridViewSelectSubject.AllowUserToResizeRows = false;
+            this.dataGridViewSelectSubject.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.dataGridViewSelectSubject.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridViewSelectSubject.EnableHeadersVisualStyles = false;
             this.dataGridViewSelectSubject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSelectSubject.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectSubjectName,

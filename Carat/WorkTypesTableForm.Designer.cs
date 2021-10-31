@@ -41,6 +41,9 @@ namespace Carat
             // 
             this.dataGridViewWorkTypes.AllowUserToDeleteRows = false;
             this.dataGridViewWorkTypes.AllowUserToResizeRows = false;
+            this.dataGridViewWorkTypes.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.dataGridViewWorkTypes.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridViewWorkTypes.EnableHeadersVisualStyles = false;
             this.dataGridViewWorkTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewWorkTypes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.WorkTypeName,
@@ -70,7 +73,7 @@ namespace Carat
             this.WorkTypeStudentHours.HeaderText = "год./студ.";
             this.WorkTypeStudentHours.Name = "WorkTypeStudentHours";
             this.WorkTypeStudentHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.WorkTypeStudentHours.Width = 65;
+            this.WorkTypeStudentHours.Width = 66;
             // 
             // WorkTypesTableForm
             // 

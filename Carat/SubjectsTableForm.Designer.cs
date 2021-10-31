@@ -29,6 +29,7 @@ namespace Carat
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubjectsTableForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonImportSubjects = new System.Windows.Forms.Button();
@@ -89,6 +90,9 @@ namespace Carat
             // dataGridViewSubjects
             // 
             this.dataGridViewSubjects.AllowUserToResizeRows = false;
+            this.dataGridViewSubjects.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.dataGridViewSubjects.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridViewSubjects.EnableHeadersVisualStyles = false;
             this.dataGridViewSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSubjects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SubjectName,
