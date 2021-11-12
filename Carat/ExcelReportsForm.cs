@@ -37,6 +37,7 @@ namespace Carat
         private IWorkTypeRepository m_workTypeRepository;
         private IGroupRepository m_groupRepository;
         private IGroupsToTAItemRepository m_groupsToTAItemRepository;
+        private IReportDTORepository m_reportDTORepository;
 
         private string IncorrectNameMessageDataIsEmpty = "Дані відсутні!";
 
@@ -66,6 +67,7 @@ namespace Carat
             m_workTypeRepository = new WorkTypeRepository(dbPath);
             m_groupRepository = new GroupRepository(dbPath);
             m_groupsToTAItemRepository = new GroupsToTAItemRepository(dbPath);
+            m_reportDTORepository = new ReportDTORepository(dbPath);
 
             treeViewExcelReports.ExpandAll();
             panelContainer.Visible = false;
@@ -204,7 +206,7 @@ namespace Carat
 
                     if (i < curriculumItems.Count)
                     {
-                        sheet.CopyRow(8, 8 + i);                      
+                        sheet.CopyRow(8, 8 + i);
                     }
 
                     m_parentForm.IncrementProgress();
@@ -260,7 +262,8 @@ namespace Carat
             curriculumItems.RemoveAll(curriculumItem =>
             {
                 var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, false);
-                return curriculumWorks.TrueForAll(work => {
+                return curriculumWorks.TrueForAll(work =>
+                {
                     var taItems = m_taItemRepository.GetTAItems(work.Id);
                     double distributedHours = 0;
 
@@ -269,7 +272,7 @@ namespace Carat
                         distributedHours += taItem.WorkHours;
                     }
 
-                    return Tools.isEqual(work.TotalHours, 0) || Tools.isEqual(0, distributedHours); 
+                    return Tools.isEqual(work.TotalHours, 0) || Tools.isEqual(0, distributedHours);
                 });
             });
 
@@ -403,7 +406,8 @@ namespace Carat
             {
                 var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, true);
 
-                return !curriculumWorks.Any(work => {
+                return !curriculumWorks.Any(work =>
+                {
                     var taItems = m_taItemRepository.GetTAItems(work.Id);
                     double distributedHours = 0.0;
                     double notDistributedHours = 0.0;
@@ -444,7 +448,7 @@ namespace Carat
 
             m_parentForm.Enabled = false;
             m_parentForm.ShowProgress(parsedCurriculumItems.Count, "Not distributed by subjects report generating...");
-            
+
             try
             {
                 var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
@@ -599,7 +603,7 @@ namespace Carat
                 {
                     var newRow = sheet.GetRow(8 + i);
 
-                    newRow.Cells[0].SetCellValue(i+1);
+                    newRow.Cells[0].SetCellValue(i + 1);
                     newRow.Cells[1].SetCellValue(teacher.Name);
                     newRow.Cells[2].SetCellValue(teacher.Position);
                     newRow.Cells[3].SetCellValue(teacher.StaffUnit);
@@ -647,7 +651,7 @@ namespace Carat
                     }
 
                     m_parentForm.IncrementProgress();
-                }            
+                }
 
                 for (int j = 5; j < 8; ++j)
                 {
@@ -693,7 +697,7 @@ namespace Carat
         {
             var result = "ш";
 
-            if (teacher.OccupForm == "Сумісник") 
+            if (teacher.OccupForm == "Сумісник")
             {
                 result = "с";
             }
@@ -755,7 +759,7 @@ namespace Carat
 
                     var taItems = m_taItemRepository.GetTAItemsByTeacherId(teacher.Id, m_semestr, m_educType, m_educForm);
                     var totalWorksHours = new Dictionary<int, double>();
-                    
+
                     foreach (var workType in workTypes)
                     {
                         totalWorksHours.Add(workType.Id, 0);
@@ -852,13 +856,13 @@ namespace Carat
                     }
 
                     distributedHours += taItem.WorkHours;
-                    
+
                     if (taItem.Semestr == m_semestr || m_semestr == 0)
                     {
                         semestrFlag = false;
                     }
                 }
-                
+
                 return semestrFlag || Tools.isEqual(distributedHours, 0);
             });
 
@@ -944,7 +948,7 @@ namespace Carat
 
                             resultTeachersMap[taItem.TeacherId].Add(m_workRepository.GetWork(taItem.WorkId));
                         }
-               
+
                         foreach (var teacherItem in resultTeachersMap)
                         {
                             var teacherRow = sheet.CopyRow(10, sheet.LastRowNum);
@@ -971,8 +975,8 @@ namespace Carat
                     ++groupCounter;
 
                     m_parentForm.IncrementProgress();
-                    }
-                
+                }
+
                 sheet.ShiftRows(11, sheet.LastRowNum, -3);
 
                 for (int i = 2; i < 38; ++i)
@@ -1014,6 +1018,294 @@ namespace Carat
             m_parentForm.Enabled = true;
         }
 
+        private void GenerateFinalBySubjects()
+        {
+            var allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var allSubjects = m_subjectRepository.GetAllSubjects();
+
+            if (allCurriculumItems.Count <= 0)
+            {
+                MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(allCurriculumItems.Count, "Final by subjects report generating...");
+
+            try
+            {
+                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                templatePath += "\\templates\\FinalBySubjects.xlsx";
+
+                var workbook = new XSSFWorkbook(templatePath);
+                var sheet = workbook[0];
+
+                if (sheet == null)
+                {
+                    return;
+                }
+
+                var subjectFont = workbook.CreateFont();
+                subjectFont.FontHeightInPoints = 11;
+                subjectFont.FontName = "Calibri";
+                subjectFont.IsBold = true;
+
+                var subjectCellStyle = new XSSFCellStyle(workbook.GetStylesSource());
+                subjectCellStyle.SetFont(subjectFont);
+                subjectCellStyle.BorderTop = NPOI.SS.UserModel.BorderStyle.Thin;
+                subjectCellStyle.BorderRight = NPOI.SS.UserModel.BorderStyle.Thin;
+
+                var subjectRowEmptyCellStyle = new XSSFCellStyle(workbook.GetStylesSource());
+                subjectRowEmptyCellStyle.BorderLeft = NPOI.SS.UserModel.BorderStyle.None;
+                subjectRowEmptyCellStyle.BorderRight = NPOI.SS.UserModel.BorderStyle.None;
+                subjectRowEmptyCellStyle.BorderTop = NPOI.SS.UserModel.BorderStyle.Thin;
+
+                var subjectRowNums = new List<int>();
+
+                var groupedCurriculumItems = allCurriculumItems.GroupBy(ci => ci.SubjectId).OrderBy(ci => allSubjects.First(s => s.Id == ci.Key).Name).ToList();
+
+                foreach (var cirItemsGroup in groupedCurriculumItems)
+                {
+                    var allWorks = m_workRepository.GetWorksForCurriculumItemIds(cirItemsGroup.Select(cig => cig.Id).ToList(), true);
+
+                    if (allWorks.Count == 0) { continue; }
+
+                    subjectRowNums.Add(sheet.LastRowNum);
+                    var newSubjectRow = sheet.CopyRow(8, sheet.LastRowNum);
+                    var subjectcell = newSubjectRow.GetCell(1);
+                    subjectcell.SetCellValue(allSubjects.Find(s => s.Id == cirItemsGroup.Key).Name);
+                    subjectcell.CellStyle = subjectCellStyle;
+
+                    for (int i = 2; i < 41; i++)
+                    {
+                        newSubjectRow.Cells[i].CellStyle = subjectRowEmptyCellStyle;
+                    }
+
+
+                    int numberCounter = 0;
+                    foreach (var curItem in cirItemsGroup)
+                    {
+                        if (!allWorks.ContainsKey(curItem.Id)) { continue; }
+
+                        var allTAItems = new List<TAItem>();
+                        var teachersDic = new Dictionary<int, List<TAItem>>();
+
+                        foreach (var work in allWorks[curItem.Id])
+                        {
+                            allTAItems.AddRange(m_taItemRepository.GetTAItems(work.Id));
+                        }
+                        allTAItems.RemoveAll(item => { return Tools.isEqual(0, item.WorkHours); });
+
+                        foreach (var taItem in allTAItems)
+                        {
+                            var groups = new List<Group>();
+
+                            if (!teachersDic.ContainsKey(taItem.TeacherId))
+                            {
+                                teachersDic[taItem.TeacherId] = new List<TAItem>();
+                            }
+
+                            teachersDic[taItem.TeacherId].Add(taItem);
+                        }
+                        var teachers = m_teacherRepository.GetTeachersById(teachersDic.Keys.ToList()).OrderBy(t => t.Name).ToList();
+
+                        foreach (var teacher in teachers)
+                        {
+                            var newRow = sheet.CopyRow(8, sheet.LastRowNum);
+                            var groupsDic = new Dictionary<int, Group>();
+                            var groupsToTaItems = m_groupsToTAItemRepository.GetGroupsToTAItem(teachersDic[teacher.Id][0].Id);
+                            var groupsCellText = "";
+
+                            foreach (var groupsToTaItem in groupsToTaItems)
+                            {
+                                groupsDic[groupsToTaItem.Id] = m_groupRepository.GetGroup(groupsToTaItem.GroupId);
+                            }
+
+                            foreach (var group in groupsDic)
+                            {
+                                groupsCellText += group.Value.Name + "; ";
+                            }
+
+                            newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
+                            newRow.Cells[1].SetCellValue(teacher.Name);
+                            newRow.Cells[2].SetCellValue(groupsCellText);
+                            newRow.Cells[3].SetCellValue(curItem.EducLevel);
+                            newRow.Cells[4].SetCellValue(GetEducFormString(curItem));
+                            newRow.Cells[5].SetCellValue(curItem.Course);
+
+                            foreach (var taItem in teachersDic[teacher.Id])
+                            {
+                                var work = m_workRepository.GetWork(taItem.WorkId);
+                                newRow.Cells[6 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
+                            }
+
+                            newRow.Height = -1;
+
+                            ++numberCounter;
+                        }
+
+                        m_parentForm.IncrementProgress();
+                    }
+                }
+
+                sheet.ShiftRows(9, sheet.LastRowNum, -1);
+                subjectRowNums = subjectRowNums.Select(n => n - 1).ToList();
+
+
+                for (int i = 6; i < 41; ++i)
+                {
+                    var firstCell = sheet.GetRow(9).Cells[i].Address;
+                    var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[i].Address;
+                    var finalCell = sheet.GetRow(sheet.LastRowNum).Cells[i];
+
+                    finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
+                    finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+                }
+
+                for (int i = 8, lastIndex = sheet.LastRowNum; i <= lastIndex; ++i)
+                {
+                    if (subjectRowNums.Contains(i)) { continue; }
+
+                    var firstCell = sheet.GetRow(i).Cells[6].Address;
+                    var lastCell = sheet.GetRow(i).Cells[40].Address;
+                    var finalCell = sheet.GetRow(i).Cells[41];
+
+                    finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
+                    finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+                }
+
+                XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
+                sheet.AutoSizeColumn(1);
+                sheet.AutoSizeColumn(2);
+
+                using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
+                {
+                    workbook.Write(fileData);
+
+                    System.Diagnostics.Process.Start(@fileData.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            m_parentForm.Enabled = true;
+            m_parentForm.HideProgress();
+        }
+
+        private void GenerateFinalByTeachers()
+        {
+            var data = m_reportDTORepository.getFinalTeachersReportDTO(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+
+            m_parentForm.Enabled = false;
+            m_parentForm.ShowProgress(data.Teachers.Count, "By teacher report generating...");
+
+            //try
+            //{
+                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                templatePath += "\\templates\\FinalByTeachers.xlsx";
+
+                var workbook = new XSSFWorkbook(templatePath);
+                var sheet = workbook[0];
+
+                if (sheet == null)
+                {
+                    return;
+                }
+
+                var teacherFont = workbook.CreateFont();
+                teacherFont.FontHeightInPoints = 11;
+                teacherFont.FontName = "Calibri";
+                teacherFont.IsBold = true;
+
+                var teacherCellStyle = new XSSFCellStyle(workbook.GetStylesSource());
+                teacherCellStyle.SetFont(teacherFont);
+                teacherCellStyle.BorderTop = NPOI.SS.UserModel.BorderStyle.Thin;
+                teacherCellStyle.BorderRight = NPOI.SS.UserModel.BorderStyle.Thin;
+
+                var teacherRowEmptyCellStyle = new XSSFCellStyle(workbook.GetStylesSource());
+                teacherRowEmptyCellStyle.BorderLeft = NPOI.SS.UserModel.BorderStyle.None;
+                teacherRowEmptyCellStyle.BorderRight = NPOI.SS.UserModel.BorderStyle.None;
+                teacherRowEmptyCellStyle.BorderTop = NPOI.SS.UserModel.BorderStyle.Thin;
+
+                foreach (var teacher in data.Teachers)
+                {
+                    var newTeacherRow = sheet.CopyRow(8, sheet.LastRowNum);
+                    var teacherCell = newTeacherRow.Cells[1];
+                    teacherCell.SetCellValue(teacher.Name);
+                    teacherCell.CellStyle = teacherCellStyle;
+
+                    for (int i = 2; i < 41; i++)
+                    {
+                        newTeacherRow.Cells[i].CellStyle = teacherRowEmptyCellStyle;
+                    }
+
+                    int numberCounter = 0;
+                    foreach (var curriculumItem in data.CurriculumItemsByTeacherIds[teacher.Id])
+                    {
+                        var newRow = sheet.CopyRow(8, sheet.LastRowNum);
+                        newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
+                        newRow.Cells[1].SetCellValue(data.SubjectsByCurriculumItemIds[curriculumItem.Id].Name);
+                        newRow.Cells[2].SetCellValue(data.GroupNamesByCurriculumItemIds.ContainsKey(curriculumItem.Id) 
+                            ? string.Join("; ", data.GroupNamesByCurriculumItemIds[curriculumItem.Id]) : "");
+                        newRow.Cells[3].SetCellValue(curriculumItem.EducLevel);
+                        newRow.Cells[4].SetCellValue(GetEducFormString(curriculumItem));
+                        newRow.Cells[5].SetCellValue(curriculumItem.Course);
+
+                        foreach (var taItem in data.TAItemsByCurriculumItemIds[curriculumItem.Id])
+                        {
+                            var work = data.WorksForTAItems.Find(w => w.Id == taItem.WorkId);
+                            newRow.Cells[6 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
+                        }
+
+                        newRow.Height = -1;
+                        ++numberCounter;
+                    }
+                    m_parentForm.IncrementProgress();
+                }
+                
+                sheet.ShiftRows(9, sheet.LastRowNum, -1);
+
+                for (int i = 6; i <= 41; ++i)
+                {
+                    var firstCell = sheet.GetRow(8).Cells[i].Address;
+                    var lastCell = sheet.GetRow(sheet.LastRowNum - 1).Cells[i].Address;
+                    var finalCell = sheet.GetRow(sheet.LastRowNum).Cells[i];
+
+                    finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
+                    finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+                }
+
+                for (int i = 8, lastIndex = sheet.LastRowNum; i < lastIndex; ++i)
+                {
+                    var firstCell = sheet.GetRow(i).Cells[6].Address;
+                    var lastCell = sheet.GetRow(i).Cells[40].Address;
+                    var finalCell = sheet.GetRow(i).Cells[41];
+
+                    finalCell.SetCellType(NPOI.SS.UserModel.CellType.Formula);
+                    finalCell.SetCellFormula(string.Format("SUM(" + firstCell + ":" + lastCell + ")"));
+                }
+
+                XSSFFormulaEvaluator.EvaluateAllFormulaCells(workbook);
+                sheet.AutoSizeColumn(1);
+
+                using (var fileData = new FileStream(Tools.GetTempFilePathWithExtension(".xlsx"), FileMode.OpenOrCreate))
+                {
+                    workbook.Write(fileData);
+
+                    System.Diagnostics.Process.Start(@fileData.Name);
+                }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+
+            m_parentForm.Enabled = true;
+            m_parentForm.HideProgress();
+        }
+
         private void treeViewExcelReports_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.FullPath == "Зведені\\Навчальний план")
@@ -1039,6 +1331,14 @@ namespace Carat
             if (e.Node.FullPath == "Зведені\\Розклад для груп")
             {
                 GenerateSchedule();
+            }
+            if (e.Node.FullPath == "Зведені\\Підсумковий за дисциплінами")
+            {
+                GenerateFinalBySubjects();
+            }
+            if (e.Node.FullPath == "Зведені\\Підсумковий за викладачами")
+            {
+                GenerateFinalByTeachers();
             }
         }
 

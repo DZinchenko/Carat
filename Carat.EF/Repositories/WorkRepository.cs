@@ -43,6 +43,15 @@ namespace Carat.EF.Repositories
             }
         }
 
+        public Dictionary<int, List<Work>> GetWorksForCurriculumItemIds(List<int> curriculumItemIds, bool withoutZeroHours)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.Works.Where(w => curriculumItemIds.Contains(w.CurriculumItemId) && (w.TotalHours > 0.00001 || !withoutZeroHours))
+                    .AsEnumerable().GroupBy(w => w.CurriculumItemId).ToDictionary(g => g.Key, g => g.ToList());
+            }
+        }
+
         public Work GetWork(int workId)
         {
             using (var ctx = new CaratDbContext(m_dbPath))

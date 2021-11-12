@@ -7,6 +7,7 @@ namespace Carat.Data.Repositories
     public interface ITeacherRepository
     {
         List<Teacher> GetAllTeachers<OrderType>(Func<Teacher, OrderType> orderFunc);
+        List<Teacher> GetTeachersById(List<int> teacherIds);
         Teacher GetTeacher(int teacherId);
         Teacher GetTeacherByName(string name);
         void AddTeacher(Teacher teacher);

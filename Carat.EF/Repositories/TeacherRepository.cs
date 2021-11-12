@@ -84,5 +84,13 @@ namespace Carat.EF.Repositories
                 ctx.SaveChanges();
             }
         }
+
+        public List<Teacher> GetTeachersById(List<int> teacherIds)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.Teachers.Where(t => teacherIds.Contains(t.Id)).ToList();
+            }
+        }
     }
 }
