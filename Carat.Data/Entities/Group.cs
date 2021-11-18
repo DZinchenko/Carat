@@ -9,7 +9,7 @@
         public uint Course { get; set; } = 1;
         public uint BudgetNumber { get; set; } = 0;
         public uint ContractNumber { get; set; } = 0;
-        public string Faculty { get; set; } = "ТЕФ";
+        public int FacultyId { get; set; } = 1;
         public string Note { get; set; }
     }
 }

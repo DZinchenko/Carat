@@ -33,6 +33,7 @@ namespace Carat
         public Form curriculumForm = null;
         public Form TAForm = null;
         public Form excelReportsForm = null;
+        public Form facultiesForm = null;
         public bool IsFiltersValuesSelected = false;
         public bool IsRequiredFiltersValuesSelected = false;
 
@@ -173,6 +174,7 @@ namespace Carat
                 curriculumForm?.Close();
                 excelReportsForm?.Close();
                 TAForm?.Close();
+                facultiesForm?.Close();
 
                 subjectsForm = null;
                 groupsForm = null;
@@ -181,6 +183,7 @@ namespace Carat
                 curriculumForm = null;
                 excelReportsForm = null;
                 TAForm = null;
+                facultiesForm = null;
 
                 LoadWorksTypes();
             }
@@ -600,6 +603,9 @@ namespace Carat
                     if (excelReportsForm != null)
                         excelReportsForm.Size = panelWorkspace.Size;
 
+                    if (facultiesForm != null)
+                        facultiesForm.Size = panelWorkspace.Size;
+
                     break;
                 case 2:
                     ApplyShinglesMode();
@@ -626,6 +632,7 @@ namespace Carat
             workTypesForm?.Close();
             excelReportsForm?.Close();
             TAForm?.Close();
+            facultiesForm?.Close();
 
             if (curriculumForm == null)
             {
@@ -657,6 +664,7 @@ namespace Carat
             workTypesForm?.Close();
             curriculumForm?.Close();
             excelReportsForm?.Close();
+            facultiesForm?.Close();
 
             if (TAForm == null)
             {
@@ -758,6 +766,7 @@ namespace Carat
             curriculumForm?.Close();
             TAForm?.Close();
             excelReportsForm?.Close();
+            facultiesForm?.Close();
 
             if (workTypesForm == null)
             {
@@ -892,6 +901,7 @@ namespace Carat
             curriculumForm?.Close();
             excelReportsForm?.Close();
             TAForm?.Close();
+            facultiesForm?.Close();
         }
 
         private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -933,6 +943,10 @@ namespace Carat
             {
                 openedForms.Add(excelReportsForm);
             }
+            if (facultiesForm != null)
+            {
+                openedForms.Add(facultiesForm);
+            }
 
             if (openedForms.Count <= 0)
             {
@@ -963,6 +977,7 @@ namespace Carat
             workTypesForm?.Close();
             curriculumForm?.Close();
             TAForm?.Close();
+            facultiesForm?.Close();
 
             radioButtonAll.Enabled = true;
             if (excelReportsForm == null)
@@ -981,6 +996,26 @@ namespace Carat
             else
             {
                 excelReportsForm.BringToFront();
+            }
+        }
+
+        private void facultiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TurnOffAllSemesters();
+            curriculumForm?.Close();
+            TAForm?.Close();
+            excelReportsForm?.Close();
+            workTypesForm?.Close();
+            groupsForm?.Close();
+
+            if (facultiesForm == null)
+            {
+                facultiesForm = new FacultiesTableForm(this, m_dbName);
+                openChildForm(facultiesForm);
+            }
+            else
+            {
+                facultiesForm.BringToFront();
             }
         }
     }

@@ -21,6 +21,7 @@ namespace Carat
         MainForm m_parentForm = null;
         IGroupRepository m_groupRepository = null;
         IGroupsToTAItemRepository m_groupsToTAItemRepository = null;
+        IFacultyRepository m_facultyRepository = null;
         const string IncorrectNameMessage = "Некоректна назва групи";
         const string IncorrectDataMessage = "Некоректні дані";
         bool isSortChanging = false;
@@ -33,14 +34,21 @@ namespace Carat
             m_parentForm = parentForm;
             m_groupRepository = new GroupRepository(dbPath);
             m_groupsToTAItemRepository = new GroupsToTAItemRepository(dbPath);
+            m_facultyRepository = new FacultyRepository(dbPath);
         }
 
         public void LoadData()
         {
             var groups = GetAllSortedGroups();
+            var faculties = m_facultyRepository.GetFaculties();
+
+            this.GroupFaculty.Items.Clear();
+            this.GroupFaculty.Items.AddRange(m_facultyRepository.GetFaculties().ConvertAll(f => f.Name).ToArray());
+            if (this.GroupFaculty.Items.Count == 0) { this.GroupFaculty.Items.Add("ТЕФ"); }
 
             foreach (var group in groups)
             {
+                var facultyName = faculties.Find(f => f.Id == group.FacultyId).Name;
                 dataGridViewGroups.Rows.Add(
                     group.Name,
                     group.Course.ToString(),
@@ -48,7 +56,7 @@ namespace Carat
                     group.EducLevel,
                     group.BudgetNumber, 
                     group.ContractNumber,
-                    group.Faculty,
+                    facultyName,
                     group.Note);
             }
         }
@@ -56,6 +64,10 @@ namespace Carat
         private void SyncData()
         {
             var groups = GetAllSortedGroups();
+            var faculties = m_facultyRepository.GetFaculties();
+
+            this.GroupFaculty.Items.Clear();
+            this.GroupFaculty.Items.AddRange(m_facultyRepository.GetFaculties().ConvertAll(f => f.Name));
 
             for (int i = 0; i < groups.Count; ++i)
             {
@@ -66,7 +78,7 @@ namespace Carat
                     groups[i].EducLevel,
                     groups[i].BudgetNumber,
                     groups[i].ContractNumber,
-                    groups[i].Faculty,
+                    faculties.Find(f => f.Id == groups[i].FacultyId).Name,
                     groups[i].Note);
             }
         }
@@ -206,6 +218,7 @@ namespace Carat
                     case 0:
                         {
                             group.Name = dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString().Trim();
+                            group.FacultyId = m_facultyRepository.GetFaculty(dataGridViewGroups[6, e.RowIndex].EditedFormattedValue?.ToString()?.Trim()).Id;
                             break;
                         }
                     case 1:
@@ -235,7 +248,7 @@ namespace Carat
                         }
                     case 6:
                         {
-                            group.Faculty = dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            group.FacultyId = m_facultyRepository.GetFaculty(dataGridViewGroups[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim()).Id;
                             break;
                         }
                     case 7:
@@ -279,6 +292,7 @@ namespace Carat
                 row.CreateCell(7).SetCellValue("Примітки");
 
                 var allGroups = GetAllSortedGroups();
+                var faculties = m_facultyRepository.GetFaculties(allGroups);
 
                 for (int i = 0, rowIndex = 1; i < allGroups.Count; ++i, ++rowIndex)
                 {
@@ -290,7 +304,7 @@ namespace Carat
                     dataRow.CreateCell(3).SetCellValue(allGroups[i].EducLevel);
                     dataRow.CreateCell(4).SetCellValue(allGroups[i].BudgetNumber);
                     dataRow.CreateCell(5).SetCellValue(allGroups[i].ContractNumber);
-                    dataRow.CreateCell(6).SetCellValue(allGroups[i].Faculty);
+                    dataRow.CreateCell(6).SetCellValue(faculties.Find(f => f.Id == allGroups[i].FacultyId).Name);
                     dataRow.CreateCell(7).SetCellValue(allGroups[i].Note);
                 }
 
@@ -366,7 +380,7 @@ namespace Carat
                             { }
                             group.ContractNumber = contractNumber;
 
-                            group.Faculty = row.GetCell(6)?.ToString();
+                            group.FacultyId = m_facultyRepository.GetFaculty(row.GetCell(6)?.ToString()).Id;
                             group.Note = row.GetCell(7)?.ToString();
 
                             groups.Add(group);
@@ -411,14 +425,16 @@ namespace Carat
         {
             if (!isSortChanging)
             {
-                var horizontalScrollingOffset = dataGridViewGroups.HorizontalScrollingOffset;
                 var verticalScrollingOffset = dataGridViewGroups.VerticalScrollingOffset;
                 isSortChanging = true;
                 dataGridViewGroups.Rows.Clear();
                 LoadData();
                 isSortChanging = false;
-                PropertyInfo verticalOffset = dataGridViewGroups.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
-                verticalOffset.SetValue(this.dataGridViewGroups, verticalScrollingOffset, null);
+                if (verticalScrollingOffset > 0)
+                {
+                    PropertyInfo verticalOffset = dataGridViewGroups.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
+                    verticalOffset.SetValue(this.dataGridViewGroups, verticalScrollingOffset, null);
+                }
             }
         }
     }

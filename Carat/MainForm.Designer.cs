@@ -94,6 +94,7 @@
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
+            this.facultiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
@@ -154,7 +155,7 @@
             this.fileToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.fileToolStripMenuItem.MergeIndex = 0;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 21);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(50, 21);
             this.fileToolStripMenuItem.Text = "Файл";
             this.fileToolStripMenuItem.DropDownClosed += new System.EventHandler(this.fileToolStripMenuItem_DropDownClosed);
             this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
@@ -166,20 +167,20 @@
             this.toolStripMenuItem2.BackColor = System.Drawing.Color.White;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(240, 20);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(260, 22);
             this.toolStripMenuItem2.Text = "Створити нову БД...";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(237, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(257, 6);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.BackColor = System.Drawing.Color.White;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(240, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(260, 24);
             this.toolStripMenuItem3.Text = "Зберегти резервну копію БД...";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
@@ -187,7 +188,7 @@
             // 
             this.toolStripMenuItem4.BackColor = System.Drawing.Color.White;
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(240, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(260, 24);
             this.toolStripMenuItem4.Text = "Відновити з резервної копії...";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
@@ -198,7 +199,7 @@
             this.toolStripMenuItem6});
             this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(101, 21);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(107, 21);
             this.settingsToolStripMenuItem.Text = "Налаштування";
             this.settingsToolStripMenuItem.DropDownClosed += new System.EventHandler(this.settingsToolStripMenuItem_DropDownClosed);
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
@@ -210,7 +211,7 @@
             this.toolStripMenuItem5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem5.ImageTransparentColor = System.Drawing.Color.Black;
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(237, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(254, 24);
             this.toolStripMenuItem5.Text = "Розгортати вікно при запуску";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
@@ -218,17 +219,18 @@
             // 
             this.toolStripMenuItem6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(237, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(254, 24);
             this.toolStripMenuItem6.Text = "Приховувати панель навігації";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // baseToolStripMenuItem
             // 
             this.baseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.workTypesToolStripMenuItem});
+            this.workTypesToolStripMenuItem,
+            this.facultiesToolStripMenuItem});
             this.baseToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.baseToolStripMenuItem.Name = "baseToolStripMenuItem";
-            this.baseToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
+            this.baseToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
             this.baseToolStripMenuItem.Text = "База";
             this.baseToolStripMenuItem.DropDownClosed += new System.EventHandler(this.baseToolStripMenuItem_DropDownClosed);
             this.baseToolStripMenuItem.Click += new System.EventHandler(this.baseToolStripMenuItem_Click);
@@ -238,7 +240,7 @@
             // workTypesToolStripMenuItem
             // 
             this.workTypesToolStripMenuItem.Name = "workTypesToolStripMenuItem";
-            this.workTypesToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.workTypesToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.workTypesToolStripMenuItem.Text = "Види робіт";
             this.workTypesToolStripMenuItem.Click += new System.EventHandler(this.workTypesToolStripMenuItem_Click);
             // 
@@ -250,7 +252,7 @@
             this.closeAllToolStripMenuItem});
             this.windowToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(51, 21);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(54, 21);
             this.windowToolStripMenuItem.Text = "Вікна ";
             this.windowToolStripMenuItem.DropDownClosed += new System.EventHandler(this.windowToolStripMenuItem_DropDownClosed);
             this.windowToolStripMenuItem.Click += new System.EventHandler(this.windowToolStripMenuItem_Click);
@@ -260,7 +262,7 @@
             // cascadeToolStripMenuItem
             // 
             this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(148, 24);
             this.cascadeToolStripMenuItem.Text = "Каскадом";
             this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
             // 
@@ -268,14 +270,14 @@
             // 
             this.shinglesToolStripMenuItem.CheckOnClick = true;
             this.shinglesToolStripMenuItem.Name = "shinglesToolStripMenuItem";
-            this.shinglesToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.shinglesToolStripMenuItem.Size = new System.Drawing.Size(148, 24);
             this.shinglesToolStripMenuItem.Text = "Черепицею";
             this.shinglesToolStripMenuItem.Click += new System.EventHandler(this.shinglesToolStripMenuItem_Click);
             // 
             // closeAllToolStripMenuItem
             // 
             this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(148, 24);
             this.closeAllToolStripMenuItem.Text = "Закрити всі";
             this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.closeAllToolStripMenuItem_Click);
             // 
@@ -283,7 +285,7 @@
             // 
             this.aboutToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(55, 21);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // panelTools
@@ -320,7 +322,7 @@
             this.labelIsEmptyWorks.AutoSize = true;
             this.labelIsEmptyWorks.Location = new System.Drawing.Point(990, 10);
             this.labelIsEmptyWorks.Name = "labelIsEmptyWorks";
-            this.labelIsEmptyWorks.Size = new System.Drawing.Size(51, 15);
+            this.labelIsEmptyWorks.Size = new System.Drawing.Size(52, 17);
             this.labelIsEmptyWorks.TabIndex = 2;
             this.labelIsEmptyWorks.Text = "П.П.В.Р.";
             // 
@@ -359,7 +361,7 @@
             this.radioButtonAll.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButtonAll.Location = new System.Drawing.Point(68, 3);
             this.radioButtonAll.Name = "radioButtonAll";
-            this.radioButtonAll.Size = new System.Drawing.Size(32, 19);
+            this.radioButtonAll.Size = new System.Drawing.Size(33, 21);
             this.radioButtonAll.TabIndex = 2;
             this.radioButtonAll.TabStop = true;
             this.radioButtonAll.Text = "Σ";
@@ -371,7 +373,7 @@
             this.radioButtonSecond.AutoSize = true;
             this.radioButtonSecond.Location = new System.Drawing.Point(36, 3);
             this.radioButtonSecond.Name = "radioButtonSecond";
-            this.radioButtonSecond.Size = new System.Drawing.Size(31, 19);
+            this.radioButtonSecond.Size = new System.Drawing.Size(33, 21);
             this.radioButtonSecond.TabIndex = 1;
             this.radioButtonSecond.TabStop = true;
             this.radioButtonSecond.Text = "2";
@@ -383,7 +385,7 @@
             this.radioButtonFirst.AutoSize = true;
             this.radioButtonFirst.Location = new System.Drawing.Point(4, 3);
             this.radioButtonFirst.Name = "radioButtonFirst";
-            this.radioButtonFirst.Size = new System.Drawing.Size(31, 19);
+            this.radioButtonFirst.Size = new System.Drawing.Size(33, 21);
             this.radioButtonFirst.TabIndex = 0;
             this.radioButtonFirst.TabStop = true;
             this.radioButtonFirst.Text = "1";
@@ -407,7 +409,7 @@
             this.comboBoxEducLevel.Location = new System.Drawing.Point(559, 6);
             this.comboBoxEducLevel.Name = "comboBoxEducLevel";
             this.comboBoxEducLevel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.comboBoxEducLevel.Size = new System.Drawing.Size(82, 23);
+            this.comboBoxEducLevel.Size = new System.Drawing.Size(82, 25);
             this.comboBoxEducLevel.TabIndex = 12;
             this.comboBoxEducLevel.Tag = "";
             this.comboBoxEducLevel.SelectedIndexChanged += new System.EventHandler(this.comboBoxEducLevel_SelectedIndexChanged);
@@ -418,7 +420,7 @@
             this.labelSemestr.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelSemestr.Location = new System.Drawing.Point(798, 6);
             this.labelSemestr.Name = "labelSemestr";
-            this.labelSemestr.Size = new System.Drawing.Size(65, 19);
+            this.labelSemestr.Size = new System.Drawing.Size(70, 20);
             this.labelSemestr.TabIndex = 9;
             this.labelSemestr.Text = "Семестр:";
             // 
@@ -428,7 +430,7 @@
             this.labelEducLevel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelEducLevel.Location = new System.Drawing.Point(442, 6);
             this.labelEducLevel.Name = "labelEducLevel";
-            this.labelEducLevel.Size = new System.Drawing.Size(116, 19);
+            this.labelEducLevel.Size = new System.Drawing.Size(128, 20);
             this.labelEducLevel.TabIndex = 11;
             this.labelEducLevel.Text = "Рівень навчання:";
             // 
@@ -465,7 +467,7 @@
             this.labelCourse.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelCourse.Location = new System.Drawing.Point(671, 6);
             this.labelCourse.Name = "labelCourse";
-            this.labelCourse.Size = new System.Drawing.Size(41, 19);
+            this.labelCourse.Size = new System.Drawing.Size(44, 20);
             this.labelCourse.TabIndex = 8;
             this.labelCourse.Text = "Курс:";
             // 
@@ -496,7 +498,7 @@
             this.comboBoxCourse.Location = new System.Drawing.Point(713, 6);
             this.comboBoxCourse.Name = "comboBoxCourse";
             this.comboBoxCourse.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.comboBoxCourse.Size = new System.Drawing.Size(55, 23);
+            this.comboBoxCourse.Size = new System.Drawing.Size(55, 25);
             this.comboBoxCourse.TabIndex = 7;
             this.comboBoxCourse.Tag = "";
             this.comboBoxCourse.SelectedIndexChanged += new System.EventHandler(this.comboBoxCourse_SelectedIndexChanged);
@@ -508,7 +510,7 @@
             this.labelEducForm.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelEducForm.Location = new System.Drawing.Point(276, 6);
             this.labelEducForm.Name = "labelEducForm";
-            this.labelEducForm.Size = new System.Drawing.Size(55, 19);
+            this.labelEducForm.Size = new System.Drawing.Size(60, 20);
             this.labelEducForm.TabIndex = 5;
             this.labelEducForm.Text = "Форма:";
             // 
@@ -537,7 +539,7 @@
             "Вечірня"});
             this.comboBoxEducForm.Location = new System.Drawing.Point(334, 6);
             this.comboBoxEducForm.Name = "comboBoxEducForm";
-            this.comboBoxEducForm.Size = new System.Drawing.Size(78, 23);
+            this.comboBoxEducForm.Size = new System.Drawing.Size(78, 25);
             this.comboBoxEducForm.TabIndex = 4;
             this.comboBoxEducForm.Tag = "";
             this.comboBoxEducForm.SelectedIndexChanged += new System.EventHandler(this.comboBoxEducForm_SelectedIndexChanged);
@@ -549,7 +551,7 @@
             this.labelEducType.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelEducType.Location = new System.Drawing.Point(64, 6);
             this.labelEducType.Name = "labelEducType";
-            this.labelEducType.Size = new System.Drawing.Size(100, 19);
+            this.labelEducType.Size = new System.Drawing.Size(109, 20);
             this.labelEducType.TabIndex = 2;
             this.labelEducType.Text = "Вид навчання:";
             // 
@@ -568,7 +570,7 @@
             "Контракт"});
             this.comboBoxEducType.Location = new System.Drawing.Point(165, 6);
             this.comboBoxEducType.Name = "comboBoxEducType";
-            this.comboBoxEducType.Size = new System.Drawing.Size(82, 23);
+            this.comboBoxEducType.Size = new System.Drawing.Size(82, 25);
             this.comboBoxEducType.TabIndex = 1;
             this.comboBoxEducType.Tag = "";
             this.comboBoxEducType.SelectedIndexChanged += new System.EventHandler(this.comboBoxEducType_SelectedIndexChanged);
@@ -616,7 +618,7 @@
             this.labelProgress.AutoSize = true;
             this.labelProgress.Location = new System.Drawing.Point(327, 6);
             this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(118, 15);
+            this.labelProgress.Size = new System.Drawing.Size(134, 17);
             this.labelProgress.TabIndex = 3;
             this.labelProgress.Text = "Some progress name";
             // 
@@ -632,7 +634,7 @@
             this.dataBaseStateHelpLabel.AutoSize = true;
             this.dataBaseStateHelpLabel.Location = new System.Drawing.Point(3, 2);
             this.dataBaseStateHelpLabel.Name = "dataBaseStateHelpLabel";
-            this.dataBaseStateHelpLabel.Size = new System.Drawing.Size(143, 15);
+            this.dataBaseStateHelpLabel.Size = new System.Drawing.Size(158, 17);
             this.dataBaseStateHelpLabel.TabIndex = 1;
             this.dataBaseStateHelpLabel.Text = "Завантажена база даних:";
             // 
@@ -641,7 +643,7 @@
             this.dataBaseStatelabel.AutoSize = true;
             this.dataBaseStatelabel.Location = new System.Drawing.Point(144, 2);
             this.dataBaseStatelabel.Name = "dataBaseStatelabel";
-            this.dataBaseStatelabel.Size = new System.Drawing.Size(36, 15);
+            this.dataBaseStatelabel.Size = new System.Drawing.Size(40, 17);
             this.dataBaseStatelabel.TabIndex = 0;
             this.dataBaseStatelabel.Text = "None";
             // 
@@ -664,7 +666,7 @@
             this.labelCarat.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelCarat.Location = new System.Drawing.Point(366, 298);
             this.labelCarat.Name = "labelCarat";
-            this.labelCarat.Size = new System.Drawing.Size(195, 86);
+            this.labelCarat.Size = new System.Drawing.Size(208, 91);
             this.labelCarat.TabIndex = 1;
             this.labelCarat.Text = "Carat";
             // 
@@ -928,9 +930,16 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
+            // facultiesToolStripMenuItem
+            // 
+            this.facultiesToolStripMenuItem.Name = "facultiesToolStripMenuItem";
+            this.facultiesToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
+            this.facultiesToolStripMenuItem.Text = "Факультети";
+            this.facultiesToolStripMenuItem.Click += new System.EventHandler(this.facultiesToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(110)))), ((int)(((byte)(95)))));
@@ -1043,6 +1052,7 @@
         private System.Windows.Forms.ProgressBar workProgressBar;
         private System.Windows.Forms.Panel panelProgress;
         private System.Windows.Forms.Label labelProgress;
+        private System.Windows.Forms.ToolStripMenuItem facultiesToolStripMenuItem;
     }
 }
 
