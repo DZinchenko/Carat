@@ -229,7 +229,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\ExtendedByTeacher.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
@@ -416,7 +416,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\DefaultByTeacher.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
@@ -982,7 +982,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\IndividualPlan.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);

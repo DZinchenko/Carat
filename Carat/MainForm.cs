@@ -1012,6 +1012,7 @@ namespace Carat
             {
                 facultiesForm = new FacultiesTableForm(this, m_dbName);
                 openChildForm(facultiesForm);
+                facultiesForm.Size = this.panelWorkspace.Size;
             }
             else
             {

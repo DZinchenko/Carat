@@ -169,7 +169,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\DefaultBySubject.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);

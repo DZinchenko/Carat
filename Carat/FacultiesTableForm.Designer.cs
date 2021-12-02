@@ -35,7 +35,7 @@ namespace Carat
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFaculties)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridViewWorkTypes
+            // dataGridViewFaculties
             // 
             this.dataGridViewFaculties.AllowUserToDeleteRows = false;
             this.dataGridViewFaculties.AllowUserToResizeRows = false;
@@ -53,7 +53,7 @@ namespace Carat
             this.dataGridViewFaculties.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewFaculties.EnableHeadersVisualStyles = false;
             this.dataGridViewFaculties.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewFaculties.Name = "dataGridViewWorkTypes";
+            this.dataGridViewFaculties.Name = "dataGridViewFaculties";
             this.dataGridViewFaculties.RowHeadersWidth = 43;
             this.dataGridViewFaculties.Size = new System.Drawing.Size(899, 519);
             this.dataGridViewFaculties.TabIndex = 1;
@@ -71,10 +71,12 @@ namespace Carat
             // 
             // FacultiesTableForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(899, 519);
             this.Controls.Add(this.dataGridViewFaculties);
+            this.MinimumSize = new System.Drawing.Size(700, 186);
             this.Name = "FacultiesTableForm";
             this.Text = "FacultiesTableForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FacultiesForm_FormClosed);

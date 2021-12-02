@@ -163,7 +163,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\PlannedBySubjects.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
@@ -287,7 +287,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\DistributedBySubjects.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
@@ -451,7 +451,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\NotDistributedBySubjects.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
@@ -583,7 +583,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\ShortByTeachers.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
@@ -731,7 +731,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\FullByTeachers.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
@@ -877,7 +877,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\Schedule.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
@@ -1034,7 +1034,7 @@ namespace Carat
 
             try
             {
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\FinalBySubjects.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
@@ -1044,6 +1044,8 @@ namespace Carat
                 {
                     return;
                 }
+
+                sheet.GetRow(3).Cells[0].SetCellValue(GetSemesterString() + ", " + GetEducTypeString() + ", " + GetEducFormString());
 
                 var subjectFont = workbook.CreateFont();
                 subjectFont.FontHeightInPoints = 11;
@@ -1068,7 +1070,7 @@ namespace Carat
                 {
                     var allWorks = m_workRepository.GetWorksForCurriculumItemIds(cirItemsGroup.Select(cig => cig.Id).ToList(), true);
 
-                    if (allWorks.Count == 0) { continue; }
+                    if (allWorks.Count == 0 || cirItemsGroup.Count() == 0) { continue; }
 
                     subjectRowNums.Add(sheet.LastRowNum);
                     var newSubjectRow = sheet.CopyRow(8, sheet.LastRowNum);
@@ -1151,7 +1153,6 @@ namespace Carat
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
                 subjectRowNums = subjectRowNums.Select(n => n - 1).ToList();
 
-
                 for (int i = 6; i < 41; ++i)
                 {
                     var firstCell = sheet.GetRow(9).Cells[i].Address;
@@ -1201,9 +1202,9 @@ namespace Carat
             m_parentForm.Enabled = false;
             m_parentForm.ShowProgress(data.Teachers.Count, "By teacher report generating...");
 
-            //try
-            //{
-                var templatePath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName;
+            try
+            {
+                var templatePath = Directory.GetCurrentDirectory();
                 templatePath += "\\templates\\FinalByTeachers.xlsx";
 
                 var workbook = new XSSFWorkbook(templatePath);
@@ -1213,6 +1214,8 @@ namespace Carat
                 {
                     return;
                 }
+
+                sheet.GetRow(3).Cells[0].SetCellValue(GetSemesterString() + ", " + GetEducTypeString() + ", " + GetEducFormString());
 
                 var teacherFont = workbook.CreateFont();
                 teacherFont.FontHeightInPoints = 11;
@@ -1296,11 +1299,11 @@ namespace Carat
 
                     System.Diagnostics.Process.Start(@fileData.Name);
                 }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             m_parentForm.Enabled = true;
             m_parentForm.HideProgress();

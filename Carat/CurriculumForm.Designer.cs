@@ -273,7 +273,6 @@ namespace Carat
             this.panelCurriculumLeft.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurriculumWorkTypes)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion

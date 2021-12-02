@@ -16,7 +16,18 @@ namespace Carat
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            try
+            {
+                Application.Run(new MainForm());
+            }
+            catch(Exception ex)
+            {
+                if(ex.Message.Contains("no such column") || ex.Message.Contains("no such table"))
+                {
+                    MessageBox.Show("Ви використовуєте стару версію бази даних!");
+                    Application.Run(new MainForm());
+                }
+            }
         }
     }
 }
