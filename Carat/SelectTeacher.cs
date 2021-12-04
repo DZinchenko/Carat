@@ -53,6 +53,7 @@ namespace Carat
         IGroupsToTAItemRepository m_groupsToTAItemRepository;
         IGroupRepository m_groupRepository;
         IWorkTypeRepository m_workTypeRepository;
+        IPositionRepository m_positionRepository;
 
         public SelectTeacher(MainForm parentForm,
                                 string dbPath,
@@ -82,6 +83,7 @@ namespace Carat
             m_groupsToTAItemRepository = new GroupsToTAItemRepository(m_dbPath);
             m_groupRepository = new GroupRepository(m_dbPath);
             m_workTypeRepository = new WorkTypeRepository(m_dbPath);
+            m_positionRepository = new PositionRepository(m_dbPath);
 
             LoadData();
         }
@@ -995,7 +997,7 @@ namespace Carat
 
                 sheet.GetRow(30).Cells[0].SetCellValue(teacher.Name);
                 sheet.GetRow(34).Cells[0].SetCellValue(teacher.Rank);
-                sheet.GetRow(39).Cells[0].SetCellValue(teacher.Position);
+                sheet.GetRow(39).Cells[0].SetCellValue(m_positionRepository.GetPosition(teacher.PositionId).Name);
 
                 int firstSemesterCounter = 0;
                 int secondSemesterCounter = 0;

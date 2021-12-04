@@ -42,6 +42,7 @@
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.baseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.workTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.facultiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.shinglesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,7 +95,7 @@
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonSubjects = new System.Windows.Forms.Button();
             this.buttonTables = new System.Windows.Forms.Button();
-            this.facultiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.positionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelOptions.SuspendLayout();
             this.menuStripOptions.SuspendLayout();
             this.panelTools.SuspendLayout();
@@ -227,7 +228,8 @@
             // 
             this.baseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.workTypesToolStripMenuItem,
-            this.facultiesToolStripMenuItem});
+            this.facultiesToolStripMenuItem,
+            this.positionsToolStripMenuItem});
             this.baseToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.baseToolStripMenuItem.Name = "baseToolStripMenuItem";
             this.baseToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
@@ -243,6 +245,13 @@
             this.workTypesToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.workTypesToolStripMenuItem.Text = "Види робіт";
             this.workTypesToolStripMenuItem.Click += new System.EventHandler(this.workTypesToolStripMenuItem_Click);
+            // 
+            // facultiesToolStripMenuItem
+            // 
+            this.facultiesToolStripMenuItem.Name = "facultiesToolStripMenuItem";
+            this.facultiesToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
+            this.facultiesToolStripMenuItem.Text = "Факультети";
+            this.facultiesToolStripMenuItem.Click += new System.EventHandler(this.facultiesToolStripMenuItem_Click);
             // 
             // windowToolStripMenuItem
             // 
@@ -930,12 +939,12 @@
             this.buttonTables.UseVisualStyleBackColor = false;
             this.buttonTables.Click += new System.EventHandler(this.buttonTables_Click);
             // 
-            // facultiesToolStripMenuItem
+            // positionsToolStripMenuItem
             // 
-            this.facultiesToolStripMenuItem.Name = "facultiesToolStripMenuItem";
-            this.facultiesToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
-            this.facultiesToolStripMenuItem.Text = "Факультети";
-            this.facultiesToolStripMenuItem.Click += new System.EventHandler(this.facultiesToolStripMenuItem_Click);
+            this.positionsToolStripMenuItem.Name = "positionsToolStripMenuItem";
+            this.positionsToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
+            this.positionsToolStripMenuItem.Text = "Посади";
+            this.positionsToolStripMenuItem.Click += new System.EventHandler(this.positionsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1053,6 +1062,7 @@
         private System.Windows.Forms.Panel panelProgress;
         private System.Windows.Forms.Label labelProgress;
         private System.Windows.Forms.ToolStripMenuItem facultiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem positionsToolStripMenuItem;
     }
 }
 

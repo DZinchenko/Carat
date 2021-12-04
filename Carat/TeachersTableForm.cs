@@ -21,6 +21,7 @@ namespace Carat
     {
         MainForm m_parentForm = null;
         ITeacherRepository m_teacherRepository = null;
+        IPositionRepository m_positionRepository = null;
         const string IncorrectNameMessage = "Некоректне ім'я викладача!";
         const string IncorrectDataMessage = "Некоректні дані!";
         bool isSortChanging = false;
@@ -32,6 +33,7 @@ namespace Carat
 
             m_parentForm = parentForm;
             m_teacherRepository = new TeacherRepository(dbPath);
+            m_positionRepository = new PositionRepository(dbPath);
         }
 
         private void TeachersTableForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -43,13 +45,16 @@ namespace Carat
         public void LoadData()
         {
             var teachers = GetAllSortedTeachers();
+            var positions = m_positionRepository.GetPositions();
+
+            LoadPositionsToDataGridView(positions);
 
             foreach (var teacher in teachers)
             {
                 dataGridViewTeachers.Rows.Add(
                     teacher.Name, 
                     teacher.StaffUnit, 
-                    teacher.Position, 
+                    positions.First(p => p.Id == teacher.PositionId).Name, 
                     teacher.Rank, 
                     teacher.Degree, 
                     teacher.OccupForm,
@@ -60,18 +65,26 @@ namespace Carat
         private void SyncData()
         {
             var teachers = GetAllSortedTeachers();
+            var positions = m_positionRepository.GetPositions();
+
+            LoadPositionsToDataGridView(positions);
 
             for (int i = 0; i < teachers.Count; ++i)
             {
                 dataGridViewTeachers.Rows[i].SetValues(
                     teachers[i].Name,
                     teachers[i].StaffUnit,
-                    teachers[i].Position,
+                    positions.First(p => p.Id == teachers[i].PositionId).Name,
                     teachers[i].Rank,
                     teachers[i].Degree,
                     teachers[i].OccupForm,
                     teachers[i].Note);
             }
+        }
+
+        private void LoadPositionsToDataGridView(List<Position> positions)
+        {
+            this.TeacherPosition.Items.AddRange( positions.Select(p => p.Name).ToArray());
         }
 
         private void RemoveLastRow()
@@ -189,7 +202,7 @@ namespace Carat
                         }
                     case 2:
                         {
-                            teacher.Position = dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            teacher.PositionId = m_positionRepository.GetPosition(dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim()).Id;
                             break;
                         }
                     case 3:
@@ -297,7 +310,16 @@ namespace Carat
                             { }
                         
                             teacher.StaffUnit = staffUnit;
-                            teacher.Position = row.GetCell(2)?.ToString();
+
+                            var positionName = row.GetCell(2)?.ToString();
+                            var position = m_positionRepository.GetPosition(positionName);
+                            if (position == null) 
+                            { 
+                                m_positionRepository.AddPosition(new Position{ Name = positionName });
+                                position = m_positionRepository.GetPosition(positionName);
+                            }
+                            teacher.PositionId = position.Id;
+
                             teacher.Rank = row.GetCell(3)?.ToString();
                             teacher.Degree = row.GetCell(4)?.ToString();
                             teacher.OccupForm = row.GetCell(5)?.ToString();
@@ -335,6 +357,7 @@ namespace Carat
                 row.CreateCell(6).SetCellValue("Примітки");
 
                 var allTeachers = GetAllSortedTeachers();
+                var positions = m_positionRepository.GetPositions();
 
                 for (int i = 0, rowIndex = 1; i < allTeachers.Count; ++i, ++rowIndex)
                 {
@@ -342,7 +365,7 @@ namespace Carat
 
                     dataRow.CreateCell(0).SetCellValue(allTeachers[i].Name);
                     dataRow.CreateCell(1).SetCellValue(allTeachers[i].StaffUnit.ToString(Tools.HoursAccuracy));
-                    dataRow.CreateCell(2).SetCellValue(allTeachers[i].Position);
+                    dataRow.CreateCell(2).SetCellValue(positions.First(p => p.Id == allTeachers[i].PositionId).Name);
                     dataRow.CreateCell(3).SetCellValue(allTeachers[i].Rank);
                     dataRow.CreateCell(4).SetCellValue(allTeachers[i].Degree);
                     dataRow.CreateCell(5).SetCellValue(allTeachers[i].OccupForm);

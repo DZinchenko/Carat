@@ -70,6 +70,7 @@ namespace Carat
         private ITeacherRepository m_teacherRepository = null;
         private IGroupsToTAItemRepository m_groupsToTeacherRepository = null;
         private ITAItemRepository m_TAItemRepository = null;
+        private IPositionRepository m_positionRepository = null;
 
         private bool isSelectionChanging = false;
         private string m_dbPath;
@@ -122,6 +123,7 @@ namespace Carat
             m_teacherRepository = new TeacherRepository(dbPath);
             m_groupsToTeacherRepository = new GroupsToTAItemRepository(dbPath);
             m_TAItemRepository = new TAItemRepository(dbPath);
+            m_positionRepository = new PositionRepository(dbPath);
         }
 
         public void UpdateWorks(bool isEmptyWorks)
@@ -148,49 +150,16 @@ namespace Carat
             LoadTeachers();
         }
 
-        private double GetMinTeacherHours(Teacher t)
-        {
-            if (t.Position == "асистент")
-            {
-                return 550;
-            }
-            else if (t.Position == "доцент")
-            {
-                return 450;
-            }
-            else if (t.Position == "професор")
-            {
-                return 400;
-            }
-            else if (t.Position == "ст. викладач")
-            {
-                return 550;
-            }
-            else if (t.Position == "викладач")
-            {
-                return 550;
-            }
-            else if (t.Position == "зав. кафедри")
-            {
-                return 400;
-            }
-            else
-            {
-                return 550;
-            }
-        }
-
         private void LoadTeachers()
         {
             var teachers = m_teacherRepository.GetAllTeachers(a => a.Name);
-
+            var positions = m_positionRepository.GetPositions();
             comboBoxTATeachers.Items.Clear();
 
             foreach (var teacher in teachers)
             {
-                var minHours = teacher.StaffUnit * GetMinTeacherHours(teacher);
-                var maxHours = teacher.StaffUnit * 600;
-                comboBoxTATeachers.Items.Add(new ComboBoxCustomItem(teacher.Name, minHours, m_TAItemRepository.GetAssignedTeacherHours(teacher.Id, "Бюджет"), maxHours));
+                var position = positions.First(p => p.Id == teacher.PositionId);
+                comboBoxTATeachers.Items.Add(new ComboBoxCustomItem(teacher.Name, position.MinHours, m_TAItemRepository.GetAssignedTeacherHours(teacher.Id, "Бюджет"), position.MaxHours));
             }
         }
 

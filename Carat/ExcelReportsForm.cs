@@ -38,6 +38,7 @@ namespace Carat
         private IGroupRepository m_groupRepository;
         private IGroupsToTAItemRepository m_groupsToTAItemRepository;
         private IReportDTORepository m_reportDTORepository;
+        private IPositionRepository m_positionRepository;
 
         private string IncorrectNameMessageDataIsEmpty = "Дані відсутні!";
 
@@ -68,6 +69,7 @@ namespace Carat
             m_groupRepository = new GroupRepository(dbPath);
             m_groupsToTAItemRepository = new GroupsToTAItemRepository(dbPath);
             m_reportDTORepository = new ReportDTORepository(dbPath);
+            m_positionRepository = new PositionRepository(dbPath);
 
             treeViewExcelReports.ExpandAll();
             panelContainer.Visible = false;
@@ -598,6 +600,7 @@ namespace Carat
 
                 int i = 0;
                 var workTypes = m_workTypeRepository.GetAllWorkTypes();
+                var positions = m_positionRepository.GetPositions();
 
                 foreach (var teacher in teachers)
                 {
@@ -605,7 +608,7 @@ namespace Carat
 
                     newRow.Cells[0].SetCellValue(i + 1);
                     newRow.Cells[1].SetCellValue(teacher.Name);
-                    newRow.Cells[2].SetCellValue(teacher.Position);
+                    newRow.Cells[2].SetCellValue(positions.First(p => p.Id == teacher.PositionId).Name);
                     newRow.Cells[3].SetCellValue(teacher.StaffUnit);
                     newRow.Cells[4].SetCellValue(GetOccupationFormString(teacher));
 
@@ -746,6 +749,7 @@ namespace Carat
 
                 int rowCounter = 0;
                 var workTypes = m_workTypeRepository.GetAllWorkTypes();
+                var positions = m_positionRepository.GetPositions();
 
                 foreach (var teacher in teachers)
                 {
@@ -753,7 +757,7 @@ namespace Carat
 
                     newRow.Cells[0].SetCellValue(rowCounter + 1);
                     newRow.Cells[1].SetCellValue(teacher.Name);
-                    newRow.Cells[2].SetCellValue(teacher.Position);
+                    newRow.Cells[2].SetCellValue(positions.First(p => p.Id == teacher.PositionId).Name);
                     newRow.Cells[3].SetCellValue(teacher.StaffUnit);
                     newRow.Cells[4].SetCellValue(GetOccupationFormString(teacher));
 
@@ -1110,6 +1114,8 @@ namespace Carat
                             teachersDic[taItem.TeacherId].Add(taItem);
                         }
                         var teachers = m_teacherRepository.GetTeachersById(teachersDic.Keys.ToList()).OrderBy(t => t.Name).ToList();
+
+                        if (teachers.Count == 0) { continue; }
 
                         foreach (var teacher in teachers)
                         {

@@ -156,17 +156,9 @@ namespace Carat
             // TeacherPosition
             // 
             this.TeacherPosition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle2.NullValue = "<not set>";
+            dataGridViewCellStyle2.NullValue = "<не встановлено>";
             this.TeacherPosition.DefaultCellStyle = dataGridViewCellStyle2;
             this.TeacherPosition.HeaderText = "Посада";
-            this.TeacherPosition.Items.AddRange(new object[] {
-            "<not set>",
-            "асистент",
-            "викладач",
-            "ст. викладач",
-            "доцент",
-            "професор",
-            "зав. кафедри"});
             this.TeacherPosition.Name = "TeacherPosition";
             this.TeacherPosition.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.TeacherPosition.Width = 84;

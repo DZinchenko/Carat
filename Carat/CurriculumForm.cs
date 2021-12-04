@@ -1234,8 +1234,11 @@ namespace Carat
                 dataGridViewCurriculumSubjects.Rows.Clear();
                 LoadData();
                 isSortChanging = false;
-                PropertyInfo verticalOffset = dataGridViewCurriculumSubjects.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
-                verticalOffset.SetValue(this.dataGridViewCurriculumSubjects, verticalScrollingOffset, null);
+                if (verticalScrollingOffset > 0)
+                {
+                    PropertyInfo verticalOffset = dataGridViewCurriculumSubjects.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
+                    verticalOffset.SetValue(this.dataGridViewCurriculumSubjects, verticalScrollingOffset, null);
+                }
             }
         }
     }

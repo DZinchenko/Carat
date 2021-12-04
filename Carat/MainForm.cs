@@ -34,6 +34,7 @@ namespace Carat
         public Form TAForm = null;
         public Form excelReportsForm = null;
         public Form facultiesForm = null;
+        public Form positionsForm = null;
         public bool IsFiltersValuesSelected = false;
         public bool IsRequiredFiltersValuesSelected = false;
 
@@ -175,6 +176,7 @@ namespace Carat
                 excelReportsForm?.Close();
                 TAForm?.Close();
                 facultiesForm?.Close();
+                positionsForm?.Close();
 
                 subjectsForm = null;
                 groupsForm = null;
@@ -665,6 +667,7 @@ namespace Carat
             curriculumForm?.Close();
             excelReportsForm?.Close();
             facultiesForm?.Close();
+            positionsForm?.Close();
 
             if (TAForm == null)
             {
@@ -767,6 +770,7 @@ namespace Carat
             TAForm?.Close();
             excelReportsForm?.Close();
             facultiesForm?.Close();
+            positionsForm?.Close();
 
             if (workTypesForm == null)
             {
@@ -902,6 +906,7 @@ namespace Carat
             excelReportsForm?.Close();
             TAForm?.Close();
             facultiesForm?.Close();
+            positionsForm?.Close();
         }
 
         private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -978,6 +983,7 @@ namespace Carat
             curriculumForm?.Close();
             TAForm?.Close();
             facultiesForm?.Close();
+            positionsForm?.Close();
 
             radioButtonAll.Enabled = true;
             if (excelReportsForm == null)
@@ -1007,6 +1013,7 @@ namespace Carat
             excelReportsForm?.Close();
             workTypesForm?.Close();
             groupsForm?.Close();
+            positionsForm?.Close();
 
             if (facultiesForm == null)
             {
@@ -1017,6 +1024,28 @@ namespace Carat
             else
             {
                 facultiesForm.BringToFront();
+            }
+        }
+
+        private void positionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TurnOffAllSemesters();
+            curriculumForm?.Close();
+            TAForm?.Close();
+            excelReportsForm?.Close();
+            workTypesForm?.Close();
+            groupsForm?.Close();
+            facultiesForm?.Close();
+
+            if (positionsForm == null)
+            {
+                positionsForm = new PositionsTableForm(this, m_dbName);
+                openChildForm(positionsForm);
+                positionsForm.Size = this.panelWorkspace.Size;
+            }
+            else
+            {
+                positionsForm.BringToFront();
             }
         }
     }
