@@ -152,6 +152,8 @@ namespace Carat
 
         private void LoadTeachers()
         {
+            comboBoxTATeachers.DroppedDown = false;
+
             var teachers = m_teacherRepository.GetAllTeachers(a => a.Name);
             var positions = m_positionRepository.GetPositions();
             comboBoxTATeachers.Items.Clear();
@@ -159,7 +161,12 @@ namespace Carat
             foreach (var teacher in teachers)
             {
                 var position = positions.First(p => p.Id == teacher.PositionId);
-                comboBoxTATeachers.Items.Add(new ComboBoxCustomItem(teacher.Name, position.MinHours, m_TAItemRepository.GetAssignedTeacherHours(teacher.Id, "Бюджет"), position.MaxHours));
+                comboBoxTATeachers.Items.Add(
+                    new ComboBoxCustomItem(
+                        teacher.Name,
+                        position.MinHours * teacher.StaffUnit,
+                        m_TAItemRepository.GetAssignedTeacherHours(teacher.Id, "Бюджет"),
+                        position.MaxHours * teacher.StaffUnit));
             }
         }
 
@@ -235,7 +242,7 @@ namespace Carat
         {
             var rowIndex = dataGridViewTAWorks.SelectedCells[0].RowIndex;
             var works = m_workRepository.GetWorks(selectedCurriculumSubjectId, m_isEmptyWorks);
-            
+
             if (rowIndex >= works.Count)
             {
                 return;
@@ -547,17 +554,23 @@ namespace Carat
             var teacherName = cbItem.Substring(0, cbItem.IndexOf('(') - 1);
 
             var teacher = m_teacherRepository.GetTeacherByName(teacherName);
+            var dgvIndex = dataGridViewTATeachers.Rows.Count;
 
             if (teacher != null)
             {
-                var dgvIndex = dataGridViewTATeachers.Rows.Count;
-
                 dataGridViewTATeachers.Rows.Add();
                 dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, dataGridViewTAWorks.Rows[selectedWorkIndex].Cells[1].Value.ToString(), "");
+                //Scroll DataGridView to bottom and start editing hours
+                dataGridViewTATeachers.CurrentCell = dataGridViewTATeachers.Rows[dgvIndex].Cells[1];
+                dataGridViewTATeachers.BeginEdit(true);
             }
 
             LoadTeachers();
-            dataGridViewTATeachers.Focus();
+            //dataGridViewTATeachers.Focus();
+
+            if (teacher != null)
+            { 
+            }
         }
 
         private void dataGridViewTATeachers_SelectionChanged(object sender, EventArgs e)
@@ -702,7 +715,7 @@ namespace Carat
                     e.Graphics.FillRectangle(brush, e.Bounds);
                     e.Graphics.DrawString(item.ToString(), e.Font, new SolidBrush(Color.Black), new Point(e.Bounds.X, e.Bounds.Y));
                 }
-                else 
+                else
                 {
                     e.Graphics.DrawString(comboBoxTATeachers.Items[e.Index].ToString(), e.Font, new SolidBrush(Color.Black), new Point(e.Bounds.X, e.Bounds.Y));
                 }

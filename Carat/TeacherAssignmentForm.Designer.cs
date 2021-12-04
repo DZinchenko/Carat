@@ -29,6 +29,9 @@ namespace Carat
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeacherAssignmentForm));
             this.dataGridViewTATeachers = new System.Windows.Forms.DataGridView();
             this.TATeacher = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,16 +74,23 @@ namespace Carat
             // dataGridViewTATeachers
             // 
             this.dataGridViewTATeachers.AllowUserToAddRows = false;
-            this.dataGridViewTATeachers.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.dataGridViewTATeachers.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dataGridViewTATeachers.EnableHeadersVisualStyles = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTATeachers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTATeachers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTATeachers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TATeacher,
             this.TATeacherHours});
             this.dataGridViewTATeachers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewTATeachers.EnableHeadersVisualStyles = false;
             this.dataGridViewTATeachers.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewTATeachers.Name = "dataGridViewTATeachers";
+            this.dataGridViewTATeachers.RowHeadersWidth = 43;
             this.dataGridViewTATeachers.Size = new System.Drawing.Size(543, 162);
             this.dataGridViewTATeachers.TabIndex = 1;
             this.dataGridViewTATeachers.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTATeachers_CellMouseClick);
@@ -102,7 +112,7 @@ namespace Carat
             this.TATeacherHours.HeaderText = "Години";
             this.TATeacherHours.Name = "TATeacherHours";
             this.TATeacherHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TATeacherHours.Width = 53;
+            this.TATeacherHours.Width = 67;
             // 
             // comboBoxTATeachers
             // 
@@ -112,7 +122,7 @@ namespace Carat
             this.comboBoxTATeachers.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxTATeachers.Location = new System.Drawing.Point(0, 0);
             this.comboBoxTATeachers.Name = "comboBoxTATeachers";
-            this.comboBoxTATeachers.Size = new System.Drawing.Size(421, 24);
+            this.comboBoxTATeachers.Size = new System.Drawing.Size(421, 25);
             this.comboBoxTATeachers.TabIndex = 0;
             this.comboBoxTATeachers.Tag = "";
             this.comboBoxTATeachers.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxTATeachers_DrawItem);
@@ -152,17 +162,24 @@ namespace Carat
             this.dataGridViewTASubjects.AllowUserToAddRows = false;
             this.dataGridViewTASubjects.AllowUserToDeleteRows = false;
             this.dataGridViewTASubjects.AllowUserToResizeRows = false;
-            this.dataGridViewTASubjects.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.dataGridViewTASubjects.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dataGridViewTASubjects.EnableHeadersVisualStyles = false;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ScrollBar;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTASubjects.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTASubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTASubjects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TASubjects,
             this.TASubjectCourse});
             this.dataGridViewTASubjects.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewTASubjects.EnableHeadersVisualStyles = false;
             this.dataGridViewTASubjects.ImeMode = System.Windows.Forms.ImeMode.AlphaFull;
             this.dataGridViewTASubjects.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewTASubjects.Name = "dataGridViewTASubjects";
+            this.dataGridViewTASubjects.RowHeadersWidth = 43;
             this.dataGridViewTASubjects.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewTASubjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTASubjects.Size = new System.Drawing.Size(543, 334);
@@ -186,7 +203,7 @@ namespace Carat
             this.TASubjectCourse.Name = "TASubjectCourse";
             this.TASubjectCourse.ReadOnly = true;
             this.TASubjectCourse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.TASubjectCourse.Width = 58;
+            this.TASubjectCourse.Width = 67;
             // 
             // panel1
             // 
@@ -240,7 +257,7 @@ namespace Carat
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 15);
+            this.label1.Size = new System.Drawing.Size(126, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Вибрати викладача:";
             // 
@@ -268,16 +285,23 @@ namespace Carat
             this.dataGridViewTAWorks.AllowUserToAddRows = false;
             this.dataGridViewTAWorks.AllowUserToDeleteRows = false;
             this.dataGridViewTAWorks.AllowUserToResizeRows = false;
-            this.dataGridViewTAWorks.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.dataGridViewTAWorks.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dataGridViewTAWorks.EnableHeadersVisualStyles = false;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ScrollBar;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTAWorks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTAWorks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTAWorks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TAWork,
             this.TAWorkFreeHours});
             this.dataGridViewTAWorks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewTAWorks.EnableHeadersVisualStyles = false;
             this.dataGridViewTAWorks.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewTAWorks.Name = "dataGridViewTAWorks";
+            this.dataGridViewTAWorks.RowHeadersWidth = 43;
             this.dataGridViewTAWorks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTAWorks.Size = new System.Drawing.Size(356, 334);
             this.dataGridViewTAWorks.TabIndex = 0;
@@ -298,7 +322,7 @@ namespace Carat
             this.TAWorkFreeHours.Name = "TAWorkFreeHours";
             this.TAWorkFreeHours.ReadOnly = true;
             this.TAWorkFreeHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TAWorkFreeHours.Width = 50;
+            this.TAWorkFreeHours.Width = 64;
             // 
             // panelGroups
             // 
@@ -318,7 +342,7 @@ namespace Carat
             // 
             // TeacherAssignmentForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(899, 519);
