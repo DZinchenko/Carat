@@ -1024,17 +1024,16 @@ namespace Carat
 
         private void GenerateFinalBySubjects()
         {
-            var allCurriculumItems = m_curriculumItemRepository.GetAllCurriculumItemsForReports(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
-            var allSubjects = m_subjectRepository.GetAllSubjects();
+            var data = m_reportDTORepository.getFinalSubjectsReportDTO(m_educType, m_educForm, m_course, m_semestr, m_educLevel);
 
-            if (allCurriculumItems.Count <= 0)
+            if (data.CurriculumItemsBySubjectsIds.Count == 0)
             {
                 MessageBox.Show(IncorrectNameMessageDataIsEmpty, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             m_parentForm.Enabled = false;
-            m_parentForm.ShowProgress(allCurriculumItems.Count, "Final by subjects report generating...");
+            m_parentForm.ShowProgress(data.Subjects.Count, "Final by subjects report generating...");
 
             try
             {
@@ -1068,18 +1067,12 @@ namespace Carat
 
                 var subjectRowNums = new List<int>();
 
-                var groupedCurriculumItems = allCurriculumItems.GroupBy(ci => ci.SubjectId).OrderBy(ci => allSubjects.First(s => s.Id == ci.Key).Name).ToList();
-
-                foreach (var cirItemsGroup in groupedCurriculumItems)
+                foreach (var subject in data.Subjects)
                 {
-                    var allWorks = m_workRepository.GetWorksForCurriculumItemIds(cirItemsGroup.Select(cig => cig.Id).ToList(), true);
-
-                    if (allWorks.Count == 0 || cirItemsGroup.Count() == 0) { continue; }
-
                     subjectRowNums.Add(sheet.LastRowNum);
                     var newSubjectRow = sheet.CopyRow(8, sheet.LastRowNum);
                     var subjectcell = newSubjectRow.GetCell(1);
-                    subjectcell.SetCellValue(allSubjects.Find(s => s.Id == cirItemsGroup.Key).Name);
+                    subjectcell.SetCellValue(subject.Name);
                     subjectcell.CellStyle = subjectCellStyle;
 
                     for (int i = 2; i < 41; i++)
@@ -1087,51 +1080,19 @@ namespace Carat
                         newSubjectRow.Cells[i].CellStyle = subjectRowEmptyCellStyle;
                     }
 
-
                     int numberCounter = 0;
-                    foreach (var curItem in cirItemsGroup)
+                    foreach (var curItem in data.CurriculumItemsBySubjectsIds[subject.Id])
                     {
-                        if (!allWorks.ContainsKey(curItem.Id)) { continue; }
-
-                        var allTAItems = new List<TAItem>();
-                        var teachersDic = new Dictionary<int, List<TAItem>>();
-
-                        foreach (var work in allWorks[curItem.Id])
-                        {
-                            allTAItems.AddRange(m_taItemRepository.GetTAItems(work.Id));
-                        }
-                        allTAItems.RemoveAll(item => { return Tools.isEqual(0, item.WorkHours); });
-
-                        foreach (var taItem in allTAItems)
-                        {
-                            var groups = new List<Group>();
-
-                            if (!teachersDic.ContainsKey(taItem.TeacherId))
-                            {
-                                teachersDic[taItem.TeacherId] = new List<TAItem>();
-                            }
-
-                            teachersDic[taItem.TeacherId].Add(taItem);
-                        }
-                        var teachers = m_teacherRepository.GetTeachersById(teachersDic.Keys.ToList()).OrderBy(t => t.Name).ToList();
-
-                        if (teachers.Count == 0) { continue; }
-
-                        foreach (var teacher in teachers)
+                        foreach (var teacher in data.TeachersByCurItemsIds[curItem.Id])
                         {
                             var newRow = sheet.CopyRow(8, sheet.LastRowNum);
-                            var groupsList = new List<Group>();
-                            var groupsToTaItems = m_groupsToTAItemRepository.GetGroupsToTAItem(teachersDic[teacher.Id][0].Id);
                             var groupsCellText = "";
-
-                            foreach (var groupsToTaItem in groupsToTaItems)
+                            if (data.GroupNamesByTeacherIdsByCurItemIds.ContainsKey(curItem.Id))
                             {
-                                groupsList.Add(m_groupRepository.GetGroup(groupsToTaItem.GroupId));
-                            }
-
-                            foreach (var group in groupsList.OrderBy(item => item.Name).ToList())
-                            {
-                                groupsCellText += group.Name + "; ";
+                                if (data.GroupNamesByTeacherIdsByCurItemIds[curItem.Id].ContainsKey(teacher.Id))
+                                {
+                                    groupsCellText = string.Join("; ", data.GroupNamesByTeacherIdsByCurItemIds[curItem.Id][teacher.Id]);
+                                }
                             }
 
                             newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
@@ -1141,9 +1102,9 @@ namespace Carat
                             newRow.Cells[4].SetCellValue(GetEducFormString(curItem));
                             newRow.Cells[5].SetCellValue(curItem.Course);
 
-                            foreach (var taItem in teachersDic[teacher.Id])
+                            foreach (var taItem in data.TAItemsByTeacherIdsByCurItemIds[curItem.Id][teacher.Id])
                             {
-                                var work = m_workRepository.GetWork(taItem.WorkId);
+                                var work = data.WorksForTAItems.First(w => w.Id == taItem.WorkId);
                                 newRow.Cells[6 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
                             }
 
@@ -1151,9 +1112,8 @@ namespace Carat
 
                             ++numberCounter;
                         }
-
-                        m_parentForm.IncrementProgress();
                     }
+                    m_parentForm.IncrementProgress();
                 }
 
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);

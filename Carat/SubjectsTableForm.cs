@@ -271,8 +271,11 @@ namespace Carat
                 LoadData();
                 isSortChanging = false;
                 dataGridViewSubjects.HorizontalScrollingOffset = horizontalScrollingOffset;
-                PropertyInfo verticalOffset = dataGridViewSubjects.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
-                verticalOffset.SetValue(this.dataGridViewSubjects, verticalScrollingOffset, null);
+                if (verticalScrollingOffset > 0)
+                {
+                    PropertyInfo verticalOffset = dataGridViewSubjects.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
+                    verticalOffset.SetValue(this.dataGridViewSubjects, verticalScrollingOffset, null);
+                }
             }
         }
     }

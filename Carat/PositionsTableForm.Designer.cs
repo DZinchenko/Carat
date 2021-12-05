@@ -39,7 +39,7 @@ namespace Carat
             // 
             // dataGridViewPositions
             // 
-            this.dataGridViewPositions.AllowUserToDeleteRows = false;
+            this.dataGridViewPositions.AllowUserToDeleteRows = true;
             this.dataGridViewPositions.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ScrollBar;

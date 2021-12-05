@@ -17,9 +17,11 @@ namespace Carat
     public partial class RanksTableForm : Form, IDataUserForm
     {
         private IRankRepository m_rankRepo;
+        private ITeacherRepository m_teacherRepo;
         private MainForm m_parentForm = null;
         private const string IncorrectNameMessage = "Некоректна назва наукового ступеня!";
         private const string IncorrectDataMessage = "Некоректні дані!";
+        private const string OccupiedRankDeletionMessage = "Науковий ступінь зайнятий і тому не може бути видалений!";
         private bool isLoading = false;
 
         public RanksTableForm(MainForm parentForm, string dbName)
@@ -28,6 +30,7 @@ namespace Carat
 
             m_parentForm = parentForm;
             m_rankRepo = new RankRepository(dbName);
+            m_teacherRepo = new TeacherRepository(dbName);
         }
 
         public void LoadData()
@@ -169,7 +172,16 @@ namespace Carat
             
             for (int i = 0; i < e.RowCount; ++i)
             {
-                m_rankRepo.RemoveRank(ranks[i + e.RowIndex]);
+                var rank = ranks[i + e.RowIndex];
+                if (!m_teacherRepo.TeacherExists(t => t.RankId == rank.Id))
+                {
+                    m_rankRepo.RemoveRank(ranks[i + e.RowIndex]);
+                }
+                else
+                {
+                    MessageBox.Show(OccupiedRankDeletionMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LoadData();
+                }
             }
         }
 

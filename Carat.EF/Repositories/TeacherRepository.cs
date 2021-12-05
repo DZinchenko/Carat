@@ -92,5 +92,13 @@ namespace Carat.EF.Repositories
                 return ctx.Teachers.Where(t => teacherIds.Contains(t.Id)).ToList();
             }
         }
+
+        public bool TeacherExists(Func<Teacher, bool> predicate)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.Teachers.Any(predicate);
+            }
+        }
     }
 }

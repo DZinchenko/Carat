@@ -15,5 +15,6 @@ namespace Carat.Data.Repositories
         void RemoveTeacher(Teacher teacher);
         void UpdateTeacher(Teacher teacher);
         void DeleteAllTeachers();
+        bool TeacherExists(Func<Teacher, bool> predicate);
     }
 }

@@ -18,7 +18,9 @@ namespace Carat
     {
         private MainForm m_parentForm = null;
         private IPositionRepository m_positionRepo = null;
+        private ITeacherRepository m_teacherRepo = null;
         private const string IncorrectNameMessage = "Некоректна назва посади!";
+        private const string OccupiedPositionDeletionMessage = "Посада зайнята і тому не може бути видалена!";
         private const string IncorrectDataMessage = "Некоректні дані!";
         private bool isLoading = false;
 
@@ -27,6 +29,7 @@ namespace Carat
             InitializeComponent();
             m_parentForm = parentForm;
             m_positionRepo = new PositionRepository(dbName);
+            m_teacherRepo = new TeacherRepository(dbName);
         }
 
         public void LoadData()
@@ -176,6 +179,7 @@ namespace Carat
                     if (!int.TryParse(dataGridViewPositions[2, e.RowIndex].Value?.ToString(), out maxHours))
                     {
                         MessageBox.Show(IncorrectDataMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        dataGridViewPositions[2, e.RowIndex].Value = position.MaxHours;
                         return false;
                     }
                     position.MaxHours = maxHours;
@@ -208,7 +212,16 @@ namespace Carat
 
             for (int i = 0; i < e.RowCount; ++i)
             {
-                m_positionRepo.RemovePosition(positions[i + e.RowIndex]);
+                var position = positions[i + e.RowIndex];
+                if (!m_teacherRepo.TeacherExists(t => t.PositionId == position.Id))
+                {
+                    m_positionRepo.RemovePosition(position);
+                }
+                else
+                {
+                    MessageBox.Show(OccupiedPositionDeletionMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LoadData();
+                }
             }
         }
 
