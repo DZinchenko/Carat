@@ -252,7 +252,7 @@ namespace Carat
                     var newRow = sheet.CopyRow(8, sheet.LastRowNum);
                     var curriculumItem = m_curriculumItemRepository.GetCurriculumItem(curriculumItemWithTaItems.Key);
                     var taItems = curriculumItemWithTaItems.Value;
-                    var groupsDic = new Dictionary<int, Group>();
+                    var groupsList = new List<Group>();
                     var otherTeachers = new Dictionary<int, Teacher>();
                     var otherTeachersGroups = new Dictionary<int, List<Group>>();
                     var otherTAItems = new List<TAItem>();
@@ -264,7 +264,7 @@ namespace Carat
 
                     foreach (var taItem in taItems)
                     {
-                        var groups = m_groupsToTAItemRepository.GetGroupsToTAItemsByTAItemId(taItem.Id);
+                        var groupsToTAItems = m_groupsToTAItemRepository.GetGroupsToTAItemsByTAItemId(taItem.Id);
                         var work = m_workRepository.GetWork(taItem.WorkId);
                         var currItem = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
                         var otherWorks = m_workRepository.GetWorks(currItem.Id, true);
@@ -274,9 +274,14 @@ namespace Carat
                             otherTAItems.AddRange(m_taItemRepository.GetTAItems(otherWork.Id));
                         }
 
+                        var groups = m_groupRepository.GetGroups(groupsToTAItems.Select(item => item.GroupId).ToList()).OrderBy(g => g.Name);
+
                         foreach (var group in groups)
                         {
-                            groupsDic[group.GroupId] = m_groupRepository.GetGroup(group.GroupId);
+                            if (!groupsList.Any(g => g.Id == group.Id))
+                            {
+                                groupsList.Add(group);
+                            }
                         }
 
                         foreach (var otherTAItem in otherTAItems)
@@ -291,10 +296,11 @@ namespace Carat
                     string firstCellText = m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name;
                     newRow.Cells[1].SetCellValue(firstCellText);
 
+                    
                     string secondCellText = "";
-                    foreach (var group in groupsDic)
+                    foreach (var group in groupsList.OrderBy(g => g.Name).ToList())
                     {
-                        secondCellText += group.Value.Name + "; ";
+                        secondCellText += group.Name + "; ";
                     }
                     newRow.Cells[2].SetCellValue(secondCellText);
                  
@@ -439,7 +445,7 @@ namespace Carat
                     var newRow = sheet.CopyRow(8, sheet.LastRowNum);
                     var curriculumItem = m_curriculumItemRepository.GetCurriculumItem(curriculumItemWithTaItems.Key);
                     var taItems = curriculumItemWithTaItems.Value;
-                    var groupsDic = new Dictionary<int, Group>();
+                    var groupsList = new List<Group>();
 
                     newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
                     newRow.Cells[3].SetCellValue(curriculumItem.EducLevel);
@@ -448,17 +454,21 @@ namespace Carat
 
                     foreach (var taItem in taItems)
                     {
-                        var groups = m_groupsToTAItemRepository.GetGroupsToTAItemsByTAItemId(taItem.Id);
+                        var groupsToTAItems = m_groupsToTAItemRepository.GetGroupsToTAItemsByTAItemId(taItem.Id);
+                        var groups = m_groupRepository.GetGroups(groupsToTAItems.Select(item => item.GroupId).ToList());
                         foreach (var group in groups)
                         {
-                            groupsDic[group.GroupId] = m_groupRepository.GetGroup(group.GroupId);
+                            if (!groupsList.Any(g => g.Id == group.Id))
+                            {
+                                groupsList.Add(group);
+                            }
                         }
                     }
 
                     string secondCellText = "";
-                    foreach (var group in groupsDic)
+                    foreach (var group in groupsList.OrderBy(g => g.Name).ToList())
                     {
-                        secondCellText += group.Value.Name + "; ";
+                        secondCellText += group.Name + "; ";
                     }
 
                     newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name);
@@ -520,19 +530,12 @@ namespace Carat
         private List<Group> GetGroups(List<TAItem> taItems)
         {
             var result = new Dictionary<int, Group>();
-
+            var groupIds = new List<int>();
             foreach (var taItem in taItems)
             {
-                var groupsToTaItem = m_groupsToTAItemRepository.GetGroupsToTAItemsByTAItemId(taItem.Id);
-
-                foreach (var groupToTaItem in groupsToTaItem)
-                {
-                    var group = m_groupRepository.GetGroup(groupToTaItem.GroupId);
-                    result[group.Id] = group;
-                }
+                groupIds.AddRange(m_groupsToTAItemRepository.GetGroupsToTAItemsByTAItemId(taItem.Id).Select(item => item.GroupId).ToList());
             }
-
-            return result.Select(item => { return item.Value; }).ToList();
+            return m_groupRepository.GetGroups(groupIds);
         }
 
         public static NPOI.SS.UserModel.ICell GetCell(NPOI.SS.UserModel.IRow row, int column)
@@ -749,7 +752,7 @@ namespace Carat
                     }
                     catch (Exception) { }
 
-                    var groups = GetGroups(new List<TAItem> { taItem });
+                    var groups = GetGroups(new List<TAItem> { taItem }).OrderBy(g => g.Name).ToList();
 
                     GetCell(sheet.GetRow(rowIndex), facultyColumnIndex + shiftValue).SetCellValue("ТЕФ");
                     GetCell(sheet.GetRow(rowIndex), courseColumnIndex + shiftValue).SetCellValue(curriculumItem.Course);
@@ -852,7 +855,7 @@ namespace Carat
                 GetCell(sheet.GetRow(rowIndex), 25).SetCellValue("ТЕФ");
                 GetCell(sheet.GetRow(rowIndex), 26).SetCellValue(curriculumItem.Course);
 
-                var groups = GetGroups(subjectItem.Value);
+                var groups = GetGroups(subjectItem.Value).OrderBy(g => g.Name).ToList();
                 uint budjetNumber = 0;
                 uint contractNumber = 0;
                 string groupsCellText = "";

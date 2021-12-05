@@ -8,6 +8,7 @@ namespace Carat.Data.Repositories
     {
         List<Group> GetAllGroups<OrderType>(Func<Group, OrderType> orderFunc);
         Group GetGroup(int groupId);
+        List<Group> GetGroups(List<int> groupIds);
         List<Group> GetGroups<OrderType>(Func<Group, OrderType> orderFunc, uint course, string educForm, string educLevel);
         List<Group> GetGroupsForReports<OrderType>(Func<Group, OrderType> orderFunc, uint course, string educForm, string educLevel);
         void AddGroup(Group group);

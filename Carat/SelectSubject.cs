@@ -211,19 +211,12 @@ namespace Carat
                     {
                         var newRow = sheet.CopyRow(8, sheet.LastRowNum);
                         var teacher = m_teacherRepository.GetTeacher(teacherDicEl.Key);
-                        var groupsDic = new Dictionary<int, Group>();
                         var groupsToTaItems = m_groupsToTAItemRepository.GetGroupsToTAItem(teacherDicEl.Value[0].Id);
                         var groupsCellText = "";
 
-                        foreach (var groupsToTaItem in groupsToTaItems)
-                        {
-                            groupsDic[groupsToTaItem.Id] = m_groupRepository.GetGroup(groupsToTaItem.GroupId);
-                        }
-
-                        foreach (var group in groupsDic)
-                        {
-                            groupsCellText += group.Value.Name + "; ";
-                        }
+                        var groupNames = m_groupRepository.GetGroups(groupsToTaItems.Select(item => item.GroupId).ToList())
+                                            .Select(g => g.Name).OrderBy(n => n).ToList();
+                        groupsCellText = string.Join("; ", groupNames);
 
                         newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
                         newRow.Cells[1].SetCellValue(teacher.Name);

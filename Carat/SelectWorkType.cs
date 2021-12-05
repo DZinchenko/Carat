@@ -196,18 +196,9 @@ namespace Carat
                     var subject = m_subjectRepository.GetSubject(curriculumItem.SubjectId);
                     var teacher = m_teacherRepository.GetTeacher(taItem.TeacherId);
                     var groupsToTAItem = m_groupsToTAItemRepository.GetGroupsToTAItemsByTAItemId(taItem.Id);
-                    var groups = new List<Group>();
-                    var groupsCellText = "";
 
-                    foreach (var groupToTaItem in groupsToTAItem)
-                    {
-                        groups.Add(m_groupRepository.GetGroup(groupToTaItem.GroupId));
-                    }
-
-                    foreach (var group in groups)
-                    {
-                        groupsCellText += group.Name + "; ";
-                    }
+                    var groupNames = m_groupRepository.GetGroups(groupsToTAItem.Select(item => item.GroupId).ToList());
+                    var groupsCellText = string.Join("; ", groupNames.Select(g => g.Name).OrderBy(n => n).ToList());
 
                     newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
                     newRow.Cells[1].SetCellValue(subject.Name);

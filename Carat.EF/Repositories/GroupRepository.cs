@@ -177,5 +177,13 @@ namespace Carat.EF.Repositories
                 ctx.SaveChanges();
             }
         }
+
+        public List<Group> GetGroups(List<int> groupIds)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.Groups.Where(g => groupIds.Contains(g.Id)).ToList();
+            }
+        }
     }
 }

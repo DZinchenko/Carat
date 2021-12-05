@@ -1120,18 +1120,18 @@ namespace Carat
                         foreach (var teacher in teachers)
                         {
                             var newRow = sheet.CopyRow(8, sheet.LastRowNum);
-                            var groupsDic = new Dictionary<int, Group>();
+                            var groupsList = new List<Group>();
                             var groupsToTaItems = m_groupsToTAItemRepository.GetGroupsToTAItem(teachersDic[teacher.Id][0].Id);
                             var groupsCellText = "";
 
                             foreach (var groupsToTaItem in groupsToTaItems)
                             {
-                                groupsDic[groupsToTaItem.Id] = m_groupRepository.GetGroup(groupsToTaItem.GroupId);
+                                groupsList.Add(m_groupRepository.GetGroup(groupsToTaItem.GroupId));
                             }
 
-                            foreach (var group in groupsDic)
+                            foreach (var group in groupsList.OrderBy(item => item.Name).ToList())
                             {
-                                groupsCellText += group.Value.Name + "; ";
+                                groupsCellText += group.Name + "; ";
                             }
 
                             newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
@@ -1257,7 +1257,7 @@ namespace Carat
                         newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
                         newRow.Cells[1].SetCellValue(data.SubjectsByCurriculumItemIds[curriculumItem.Id].Name);
                         newRow.Cells[2].SetCellValue(data.GroupNamesByCurriculumItemIds.ContainsKey(curriculumItem.Id) 
-                            ? string.Join("; ", data.GroupNamesByCurriculumItemIds[curriculumItem.Id]) : "");
+                            ? string.Join("; ", data.GroupNamesByCurriculumItemIds[curriculumItem.Id].OrderBy(item => item).ToList()) : "");
                         newRow.Cells[3].SetCellValue(curriculumItem.EducLevel);
                         newRow.Cells[4].SetCellValue(GetEducFormString(curriculumItem));
                         newRow.Cells[5].SetCellValue(curriculumItem.Course);
