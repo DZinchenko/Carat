@@ -67,7 +67,7 @@ namespace Carat
 
         private void dataGridViewPositions_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (m_positionRepo == null)
+            if (m_positionRepo == null || isLoading)
             {
                 return;
             }
@@ -77,6 +77,8 @@ namespace Carat
                 return;
             }
 
+            isLoading = true;
+
             var positions = m_positionRepo.GetAllPositions();
 
             if (e.RowIndex < positions.Count)
@@ -85,6 +87,7 @@ namespace Carat
 
                 if (!UpdateData(position, e, false))
                 {
+                    isLoading = false;
                     return;
                 }
 
@@ -97,10 +100,12 @@ namespace Carat
                 if (!UpdateData(position, e, true))
                 {
                     RemoveLastRow();
+                    isLoading = false;
                     return;
                 }
                 m_positionRepo.AddPosition(position);
             }
+            isLoading = false;
         }
 
         private bool isValidName(string name)
@@ -160,6 +165,7 @@ namespace Carat
                     if (!int.TryParse(dataGridViewPositions[1, e.RowIndex].Value?.ToString(), out minHours))
                     {
                         MessageBox.Show(IncorrectDataMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        dataGridViewPositions[1, e.RowIndex].Value = position.MinHours;
                         return false;
                     }
                     position.MinHours = minHours;

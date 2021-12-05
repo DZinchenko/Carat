@@ -62,7 +62,7 @@ namespace Carat.EF.Repositories
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.Remove(position);
+                ctx.Update(position);
                 ctx.SaveChanges();
             }
         }
