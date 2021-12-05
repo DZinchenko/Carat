@@ -506,6 +506,12 @@ namespace Carat
             }
             else
             {
+                var loadDataForm = teachersForm as IDataUserForm;
+                if (loadDataForm != null)
+                {
+                    loadDataForm.LoadData();
+                }
+
                 teachersForm.BringToFront();
             }
         }
