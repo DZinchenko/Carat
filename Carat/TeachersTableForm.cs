@@ -22,10 +22,18 @@ namespace Carat
         MainForm m_parentForm = null;
         ITeacherRepository m_teacherRepository = null;
         IPositionRepository m_positionRepository = null;
+        IRankRepository m_rankRepository = null;
         const string IncorrectNameMessage = "Некоректне ім'я викладача!";
         const string IncorrectDataMessage = "Некоректні дані!";
+        const string NoPositionsMessage = "У базу даних не введено ні одної посади!";
+        const string NoRanksMessage = "У базу даних не введено ні одного наукового ступеню!";
         bool isSortChanging = false;
         int sortColumnIndex = 0;
+
+        private int defaultPositionId;
+        private int defaultRankId;
+
+        bool isLoading = false;
 
         public TeachersTableForm(MainForm parentForm, string dbPath)
         {
@@ -34,6 +42,7 @@ namespace Carat
             m_parentForm = parentForm;
             m_teacherRepository = new TeacherRepository(dbPath);
             m_positionRepository = new PositionRepository(dbPath);
+            m_rankRepository = new RankRepository(dbPath);
         }
 
         private void TeachersTableForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -44,47 +53,41 @@ namespace Carat
 
         public void LoadData()
         {
+            isLoading = true;
+
             var teachers = GetAllSortedTeachers();
-            var positions = m_positionRepository.GetPositions();
+            var positions = m_positionRepository.GetAllPositions();
+            var ranks = m_rankRepository.GetAllRanks();
 
-            LoadPositionsToDataGridView(positions);
+            TeacherPosition.Items.Clear();
+            TeacherPosition.Items.AddRange(positions.Select(p => p.Name).ToArray());
+            if (positions.Count > 0) 
+            { 
+                TeacherPosition.DefaultCellStyle.NullValue = positions[0].Name;
+                defaultPositionId = positions[0].Id;
+            }
+            TeacherRank.Items.Clear();
+            TeacherRank.Items.AddRange(ranks.Select(r => r.Name).ToArray());
+            if (ranks.Count > 0) 
+            { 
+                TeacherRank.DefaultCellStyle.NullValue = ranks[0].Name;
+                defaultRankId = ranks[0].Id;
+            }
 
+            dataGridViewTeachers.Rows.Clear();
             foreach (var teacher in teachers)
             {
                 dataGridViewTeachers.Rows.Add(
-                    teacher.Name, 
-                    teacher.StaffUnit, 
-                    positions.First(p => p.Id == teacher.PositionId).Name, 
-                    teacher.Rank, 
-                    teacher.Degree, 
+                    teacher.Name,
+                    teacher.StaffUnit,
+                    positions.First(p => p.Id == teacher.PositionId).Name,
+                    ranks.First(r => r.Id == teacher.RankId).Name,
+                    teacher.Degree,
                     teacher.OccupForm,
                     teacher.Note);
             }
-        }
 
-        private void SyncData()
-        {
-            var teachers = GetAllSortedTeachers();
-            var positions = m_positionRepository.GetPositions();
-
-            LoadPositionsToDataGridView(positions);
-
-            for (int i = 0; i < teachers.Count; ++i)
-            {
-                dataGridViewTeachers.Rows[i].SetValues(
-                    teachers[i].Name,
-                    teachers[i].StaffUnit,
-                    positions.First(p => p.Id == teachers[i].PositionId).Name,
-                    teachers[i].Rank,
-                    teachers[i].Degree,
-                    teachers[i].OccupForm,
-                    teachers[i].Note);
-            }
-        }
-
-        private void LoadPositionsToDataGridView(List<Position> positions)
-        {
-            this.TeacherPosition.Items.AddRange( positions.Select(p => p.Name).ToArray());
+            isLoading = false;
         }
 
         private void RemoveLastRow()
@@ -152,6 +155,20 @@ namespace Carat
             }
             else
             {
+                if (TeacherPosition.Items.Count == 0)
+                {
+                    MessageBox.Show(NoPositionsMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LoadData();
+                    return;
+                }
+
+                if (TeacherRank.Items.Count == 0)
+                {
+                    MessageBox.Show(NoRanksMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LoadData();
+                    return;
+                }
+
                 var teacher = new Teacher();
 
                 if (!UpdateData(teacher, e, true))
@@ -175,7 +192,7 @@ namespace Carat
                     MessageBox.Show(IncorrectNameMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (!isNewObject)
                     {
-                        SyncData();
+                        LoadData();
                     }
 
                     return false;
@@ -186,6 +203,11 @@ namespace Carat
                     case 0:
                         {
                             teacher.Name = dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            if (isNewObject) 
+                            { 
+                                teacher.PositionId = defaultPositionId; 
+                                teacher.RankId = defaultRankId; 
+                            }
                             break;
                         }
                     case 1:
@@ -207,7 +229,7 @@ namespace Carat
                         }
                     case 3:
                         {
-                            teacher.Rank = dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                            teacher.RankId = m_rankRepository.GetRank(dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim()).Id;
                             break;
                         }
                     case 4:
@@ -231,7 +253,7 @@ namespace Carat
             catch (Exception)
             {
                 MessageBox.Show(IncorrectDataMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                SyncData();
+                LoadData();
                 return false;
             }
 
@@ -240,6 +262,8 @@ namespace Carat
 
         private void dataGridViewTeachers_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
+            if (isLoading) { return; }
+
             var teachers = GetAllSortedTeachers();
 
             if (e.RowIndex < 0)
@@ -273,7 +297,8 @@ namespace Carat
 
         private void buttonImportTeachers_Click(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
                     openFileDialog.InitialDirectory = "c:\\";
@@ -308,20 +333,30 @@ namespace Carat
                             }
                             catch (Exception)
                             { }
-                        
+
                             teacher.StaffUnit = staffUnit;
 
                             var positionName = row.GetCell(2)?.ToString();
                             var position = m_positionRepository.GetPosition(positionName);
-                            if (position == null) 
-                            { 
-                                m_positionRepository.AddPosition(new Position{ Name = positionName });
+                            if (position == null)
+                            {
+                                m_positionRepository.AddPosition(new Position { Name = positionName });
                                 position = m_positionRepository.GetPosition(positionName);
                             }
                             teacher.PositionId = position.Id;
 
-                            teacher.Rank = row.GetCell(3)?.ToString();
+                            var rankName = row.GetCell(3)?.ToString();
+                            rankName = rankName == null ? "" : rankName;
+                            var rank = m_rankRepository.GetRank(rankName);
+                            if (rank == null)
+                            {
+                                m_rankRepository.AddRank(new Rank { Name = rankName });
+                                rank = m_rankRepository.GetRank(rankName);
+                            }
+                            teacher.RankId = rank.Id;
+
                             teacher.Degree = row.GetCell(4)?.ToString();
+
                             teacher.OccupForm = row.GetCell(5)?.ToString();
                             teacher.Note = row.GetCell(6)?.ToString();
 
@@ -357,7 +392,8 @@ namespace Carat
                 row.CreateCell(6).SetCellValue("Примітки");
 
                 var allTeachers = GetAllSortedTeachers();
-                var positions = m_positionRepository.GetPositions();
+                var positions = m_positionRepository.GetAllPositions();
+                var ranks = m_rankRepository.GetAllRanks();
 
                 for (int i = 0, rowIndex = 1; i < allTeachers.Count; ++i, ++rowIndex)
                 {
@@ -366,7 +402,7 @@ namespace Carat
                     dataRow.CreateCell(0).SetCellValue(allTeachers[i].Name);
                     dataRow.CreateCell(1).SetCellValue(allTeachers[i].StaffUnit.ToString(Tools.HoursAccuracy));
                     dataRow.CreateCell(2).SetCellValue(positions.First(p => p.Id == allTeachers[i].PositionId).Name);
-                    dataRow.CreateCell(3).SetCellValue(allTeachers[i].Rank);
+                    dataRow.CreateCell(3).SetCellValue(ranks.First(r => r.Id == allTeachers[i].RankId).Name);
                     dataRow.CreateCell(4).SetCellValue(allTeachers[i].Degree);
                     dataRow.CreateCell(5).SetCellValue(allTeachers[i].OccupForm);
                     dataRow.CreateCell(6).SetCellValue(allTeachers[i].Note);
@@ -405,8 +441,11 @@ namespace Carat
                 dataGridViewTeachers.Rows.Clear();
                 LoadData();
                 isSortChanging = false;
-                PropertyInfo verticalOffset = dataGridViewTeachers.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
-                verticalOffset.SetValue(this.dataGridViewTeachers, verticalScrollingOffset, null);
+                if (verticalScrollingOffset > 0)
+                {
+                    PropertyInfo verticalOffset = dataGridViewTeachers.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
+                    verticalOffset.SetValue(this.dataGridViewTeachers, verticalScrollingOffset, null);
+                }
             }
         }
 

@@ -55,7 +55,7 @@ namespace Carat
             this.dataGridViewFaculties.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewFaculties.Name = "dataGridViewFaculties";
             this.dataGridViewFaculties.RowHeadersWidth = 43;
-            this.dataGridViewFaculties.Size = new System.Drawing.Size(899, 519);
+            this.dataGridViewFaculties.Size = new System.Drawing.Size(771, 450);
             this.dataGridViewFaculties.TabIndex = 1;
             this.dataGridViewFaculties.TabStop = false;
             this.dataGridViewFaculties.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFaculties_CellValueChanged);
@@ -71,14 +71,14 @@ namespace Carat
             // 
             // FacultiesTableForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.ClientSize = new System.Drawing.Size(899, 519);
+            this.ClientSize = new System.Drawing.Size(771, 450);
             this.Controls.Add(this.dataGridViewFaculties);
-            this.MinimumSize = new System.Drawing.Size(700, 186);
+            this.MinimumSize = new System.Drawing.Size(602, 167);
             this.Name = "FacultiesTableForm";
-            this.Text = "FacultiesTableForm";
+            this.Text = "Факультети";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FacultiesForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFaculties)).EndInit();
             this.ResumeLayout(false);

@@ -9,7 +9,7 @@ namespace Carat.Data.Repositories
     {
         Position GetPosition(int id);
         Position GetPosition(string name);
-        List<Position> GetPositions();
+        List<Position> GetAllPositions();
         void AddPosition(Position position);
         void RemovePosition(Position position);
         void UpdatePosition(Position position);

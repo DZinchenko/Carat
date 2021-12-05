@@ -29,7 +29,7 @@ namespace Carat
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewPositions = new System.Windows.Forms.DataGridView();
             this.PositionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PositionMinHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,14 +41,14 @@ namespace Carat
             // 
             this.dataGridViewPositions.AllowUserToDeleteRows = false;
             this.dataGridViewPositions.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ScrollBar;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewPositions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPositions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewPositions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPositions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PositionName,
@@ -62,8 +62,9 @@ namespace Carat
             this.dataGridViewPositions.Size = new System.Drawing.Size(800, 450);
             this.dataGridViewPositions.TabIndex = 2;
             this.dataGridViewPositions.TabStop = false;
-            this.dataGridViewPositions.RowsRemoved += this.dataGridViewPositions_RowsRemoved;
             this.dataGridViewPositions.CellValueChanged += this.dataGridViewPositions_CellValueChanged;
+            this.dataGridViewPositions.RowsRemoved += this.dataGridViewPositions_RowsRemoved;
+            this.dataGridViewPositions.DataError += dataGridViewPositions_DataError;
             // 
             // PositionName
             // 
@@ -93,7 +94,7 @@ namespace Carat
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dataGridViewPositions);
             this.Name = "PositionsTableForm";
-            this.Text = "PositionsTableForm";
+            this.Text = "Посади";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPositions)).EndInit();
             this.FormClosed += this.PositionsForm_FormClosed;
             this.ResumeLayout(false);

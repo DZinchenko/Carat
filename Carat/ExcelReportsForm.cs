@@ -600,7 +600,7 @@ namespace Carat
 
                 int i = 0;
                 var workTypes = m_workTypeRepository.GetAllWorkTypes();
-                var positions = m_positionRepository.GetPositions();
+                var positions = m_positionRepository.GetAllPositions();
 
                 foreach (var teacher in teachers)
                 {
@@ -749,7 +749,7 @@ namespace Carat
 
                 int rowCounter = 0;
                 var workTypes = m_workTypeRepository.GetAllWorkTypes();
-                var positions = m_positionRepository.GetPositions();
+                var positions = m_positionRepository.GetAllPositions();
 
                 foreach (var teacher in teachers)
                 {

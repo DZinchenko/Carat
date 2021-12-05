@@ -21,6 +21,7 @@ namespace Carat.EF
         public DbSet<GroupsToTAItem> GroupsToTeachers { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<Rank> Degrees { get; set; }
 
         public CaratDbContext(string dbPath)
         {

@@ -33,7 +33,7 @@ namespace Carat
         {
             isLoading = true;
 
-            var positions = m_positionRepo.GetPositions();
+            var positions = m_positionRepo.GetAllPositions();
 
             dataGridViewPositions.Rows.Clear();
 
@@ -77,7 +77,7 @@ namespace Carat
                 return;
             }
 
-            var positions = m_positionRepo.GetPositions();
+            var positions = m_positionRepo.GetAllPositions();
 
             if (e.RowIndex < positions.Count)
             {
@@ -188,7 +188,7 @@ namespace Carat
         private void dataGridViewPositions_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             if (isLoading) { return; }
-            var positions = m_positionRepo.GetPositions();
+            var positions = m_positionRepo.GetAllPositions();
 
             if (e.RowIndex < 0)
             {
@@ -206,7 +206,7 @@ namespace Carat
             }
         }
 
-        private void dataGridViewFacultues_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void dataGridViewPositions_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.Cancel = true;
         }

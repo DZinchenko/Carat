@@ -35,6 +35,7 @@ namespace Carat
         public Form excelReportsForm = null;
         public Form facultiesForm = null;
         public Form positionsForm = null;
+        public Form ranksForm = null;
         public bool IsFiltersValuesSelected = false;
         public bool IsRequiredFiltersValuesSelected = false;
 
@@ -177,6 +178,7 @@ namespace Carat
                 TAForm?.Close();
                 facultiesForm?.Close();
                 positionsForm?.Close();
+                ranksForm?.Close();
 
                 subjectsForm = null;
                 groupsForm = null;
@@ -186,6 +188,8 @@ namespace Carat
                 excelReportsForm = null;
                 TAForm = null;
                 facultiesForm = null;
+                positionsForm = null;
+                ranksForm = null;
 
                 LoadWorksTypes();
             }
@@ -635,6 +639,7 @@ namespace Carat
             excelReportsForm?.Close();
             TAForm?.Close();
             facultiesForm?.Close();
+            ranksForm?.Close();
 
             if (curriculumForm == null)
             {
@@ -668,6 +673,7 @@ namespace Carat
             excelReportsForm?.Close();
             facultiesForm?.Close();
             positionsForm?.Close();
+            ranksForm?.Close();
 
             if (TAForm == null)
             {
@@ -771,6 +777,7 @@ namespace Carat
             excelReportsForm?.Close();
             facultiesForm?.Close();
             positionsForm?.Close();
+            ranksForm?.Close();
 
             if (workTypesForm == null)
             {
@@ -907,6 +914,7 @@ namespace Carat
             TAForm?.Close();
             facultiesForm?.Close();
             positionsForm?.Close();
+            ranksForm?.Close();
         }
 
         private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -984,6 +992,7 @@ namespace Carat
             TAForm?.Close();
             facultiesForm?.Close();
             positionsForm?.Close();
+            ranksForm?.Close();
 
             radioButtonAll.Enabled = true;
             if (excelReportsForm == null)
@@ -1014,6 +1023,7 @@ namespace Carat
             workTypesForm?.Close();
             groupsForm?.Close();
             positionsForm?.Close();
+            ranksForm?.Close();
 
             if (facultiesForm == null)
             {
@@ -1036,6 +1046,7 @@ namespace Carat
             workTypesForm?.Close();
             groupsForm?.Close();
             facultiesForm?.Close();
+            ranksForm?.Close();
 
             if (positionsForm == null)
             {
@@ -1046,6 +1057,30 @@ namespace Carat
             else
             {
                 positionsForm.BringToFront();
+            }
+        }
+
+        private void ranksToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TurnOffAllSemesters();
+            curriculumForm?.Close();
+            TAForm?.Close();
+            excelReportsForm?.Close();
+            workTypesForm?.Close();
+            groupsForm?.Close();
+            facultiesForm?.Close();
+            positionsForm?.Close();
+
+            if (ranksForm == null)
+            {
+                Cursor.Position = new Point(Cursor.Position.X, Cursor.Position.Y - 20);
+                ranksForm = new RanksTableForm(this, m_dbName);
+                openChildForm(ranksForm);
+                ranksForm.Size = this.panelWorkspace.Size;
+            }
+            else
+            {
+                ranksForm.BringToFront();
             }
         }
     }

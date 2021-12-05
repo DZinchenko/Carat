@@ -155,7 +155,7 @@ namespace Carat
             comboBoxTATeachers.DroppedDown = false;
 
             var teachers = m_teacherRepository.GetAllTeachers(a => a.Name);
-            var positions = m_positionRepository.GetPositions();
+            var positions = m_positionRepository.GetAllPositions();
             comboBoxTATeachers.Items.Clear();
 
             foreach (var teacher in teachers)
@@ -560,17 +560,13 @@ namespace Carat
             {
                 dataGridViewTATeachers.Rows.Add();
                 dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, dataGridViewTAWorks.Rows[selectedWorkIndex].Cells[1].Value.ToString(), "");
+                
                 //Scroll DataGridView to bottom and start editing hours
                 dataGridViewTATeachers.CurrentCell = dataGridViewTATeachers.Rows[dgvIndex].Cells[1];
                 dataGridViewTATeachers.BeginEdit(true);
             }
 
             LoadTeachers();
-            //dataGridViewTATeachers.Focus();
-
-            if (teacher != null)
-            { 
-            }
         }
 
         private void dataGridViewTATeachers_SelectionChanged(object sender, EventArgs e)

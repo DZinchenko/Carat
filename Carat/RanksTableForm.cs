@@ -14,59 +14,59 @@ using Carat.Interfaces;
 
 namespace Carat
 {
-    public partial class FacultiesTableForm : Form, IDataUserForm
+    public partial class RanksTableForm : Form, IDataUserForm
     {
-        private IFacultyRepository m_facultyRepository;
+        private IRankRepository m_rankRepo;
         private MainForm m_parentForm = null;
-        private const string IncorrectNameMessage = "Некоректна назва факультету!";
+        private const string IncorrectNameMessage = "Некоректна назва наукового ступеня!";
         private const string IncorrectDataMessage = "Некоректні дані!";
         private bool isLoading = false;
 
-        public FacultiesTableForm(MainForm parentForm, string dbName)
+        public RanksTableForm(MainForm parentForm, string dbName)
         {
             InitializeComponent();
 
             m_parentForm = parentForm;
-            m_facultyRepository = new FacultyRepository(dbName);
+            m_rankRepo = new RankRepository(dbName);
         }
 
         public void LoadData()
         {
             isLoading = true;
 
-            var faculties = m_facultyRepository.GetFaculties();
+            var ranks = m_rankRepo.GetAllRanks();
 
-            dataGridViewFaculties.Rows.Clear();
+            dataGridViewRanks.Rows.Clear();
 
-            foreach (var faculty in faculties)
+            foreach (var rank in ranks)
             {
-                dataGridViewFaculties.Rows.Add(faculty.Name);
+                dataGridViewRanks.Rows.Add(rank.Name);
             }
 
             isLoading = false;
         }
 
-        private void FacultiesForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void RanksForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            m_parentForm.facultiesForm = null;
+            m_parentForm.ranksForm = null;
             m_parentForm.SetButtonState();
         }
 
         private void RemoveLastRow()
         {
-            int index = dataGridViewFaculties.Rows.Count - 2;
+            int index = dataGridViewRanks.Rows.Count - 2;
 
             if (index < 0)
             {
                 return;
             }
 
-            dataGridViewFaculties.Rows.Remove(dataGridViewFaculties.Rows[index]);
+            dataGridViewRanks.Rows.Remove(dataGridViewRanks.Rows[index]);
         }
 
-        private void dataGridViewFaculties_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewRanks_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (m_facultyRepository == null)
+            if (m_rankRepo == null)
             {
                 return;
             }
@@ -76,29 +76,29 @@ namespace Carat
                 return;
             }
 
-            var faculties = m_facultyRepository.GetFaculties();
+            var ranks = m_rankRepo.GetAllRanks();
 
-            if (e.RowIndex < faculties.Count)
+            if (e.RowIndex < ranks.Count)
             {
-                var faculty = faculties[e.RowIndex];
+                var rank = ranks[e.RowIndex];
 
-                if (!UpdateData(faculty, e, false))
+                if (!UpdateData(rank, e, false))
                 {
                     return;
                 }
 
-                m_facultyRepository.UpdateFaculty(faculty);
+                m_rankRepo.UpdateRank(rank);
             }
             else
             {
-                var faculty = new Faculty();
+                var rank = new Rank();
 
-                if (!UpdateData(faculty, e, true))
+                if (!UpdateData(rank, e, true))
                 {
                     RemoveLastRow();
                     return;
                 }
-                m_facultyRepository.AddFaculty(faculty);
+                m_rankRepo.AddRank(rank);
             }
         }
 
@@ -111,9 +111,9 @@ namespace Carat
 
             var duplicatesCnt = 0;
 
-            for (int i = 0; i < dataGridViewFaculties.Rows.Count; ++i)
+            for (int i = 0; i < dataGridViewRanks.Rows.Count; ++i)
             {
-                if (dataGridViewFaculties[0, i].Value?.ToString().ToLower() == name.ToLower())
+                if (dataGridViewRanks[0, i].Value?.ToString().ToLower() == name.ToLower())
                 {
                     duplicatesCnt++;
                     if (duplicatesCnt > 1) { return false; }
@@ -123,11 +123,11 @@ namespace Carat
             return true;
         }
 
-        private bool UpdateData(Faculty faculty, DataGridViewCellEventArgs e, bool isNewObject)
+        private bool UpdateData(Rank rank, DataGridViewCellEventArgs e, bool isNewObject)
         {
             try
             {
-                var Name = dataGridViewFaculties[0, e.RowIndex].Value?.ToString()?.Trim();
+                var Name = dataGridViewRanks[0, e.RowIndex].Value?.ToString()?.Trim();
 
                 if (!isValidName(Name))
                 {
@@ -140,7 +140,7 @@ namespace Carat
                     return false;
                 }
 
-                faculty.Name = dataGridViewFaculties[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
+                rank.Name = dataGridViewRanks[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim();
             }
             catch (Exception)
             {
@@ -152,28 +152,28 @@ namespace Carat
             return true;
         }
 
-        private void dataGridViewFaculties_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        private void dataGridViewRanks_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             if (isLoading) { return; }
-            var faculties = m_facultyRepository.GetFaculties();
+            var ranks = m_rankRepo.GetAllRanks();
 
             if (e.RowIndex < 0)
             {
                 return;
             }
 
-            if (e.RowIndex >= faculties.Count)
+            if (e.RowIndex >= ranks.Count)
             {
                 return;
             }
             
             for (int i = 0; i < e.RowCount; ++i)
             {
-                m_facultyRepository.RemoveFaculty(faculties[i + e.RowIndex]);
+                m_rankRepo.RemoveRank(ranks[i + e.RowIndex]);
             }
         }
 
-        private void dataGridViewFacultues_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void dataGridViewRanks_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.Cancel = true;
         }
