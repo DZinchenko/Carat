@@ -672,6 +672,8 @@ namespace Carat
                 curriculumItem.Semestr = semestr;
                 curriculumItem.SubjectHours = hoursInCell;
                 curriculumItem.SubjectId = subject.Id;
+                curriculumItem.BudgetStudCnt = (int)(row.GetCell(19)?.NumericCellValue);
+                curriculumItem.ContractStudCnt = (int)(row.GetCell(20)?.NumericCellValue);
 
                 m_curriculumItemRepository.AddCurriculumItem(curriculumItem);
                 var workTypes = m_workTypeRepository.GetAllWorkTypes();

@@ -860,11 +860,22 @@ namespace Carat
                 uint contractNumber = 0;
                 string groupsCellText = "";
 
+                bool gotStudNumbersFromWork = false; 
+                if (curriculumItem.BudgetStudCnt != null && curriculumItem.ContractStudCnt != null)
+                {
+                    budjetNumber = (uint)curriculumItem.BudgetStudCnt;
+                    contractNumber = (uint)curriculumItem.ContractStudCnt;
+                    gotStudNumbersFromWork = true;
+                }
+
                 foreach (var group in groups)
                 {
                     groupsCellText += group.Name + "; ";
-                    budjetNumber += group.BudgetNumber;
-                    contractNumber += group.ContractNumber;
+                    if (!gotStudNumbersFromWork)
+                    {
+                        budjetNumber += group.BudgetNumber;
+                        contractNumber += group.ContractNumber;
+                    }
                 }
 
                 GetCell(sheet.GetRow(rowIndex), 24).SetCellValue(groups.Count);

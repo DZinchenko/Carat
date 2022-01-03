@@ -13,5 +13,7 @@ namespace Carat.Data.Entities
         public string EducForm { get; set; }
         public uint Semestr { get; set; }
         public string EducLevel { get; set; }
+        public int? BudgetStudCnt { get; set; }
+        public int? ContractStudCnt { get; set; }
     }
 }
