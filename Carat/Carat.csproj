@@ -186,6 +186,7 @@
     <Compile Include="CurriculumForm.Designer.cs">
       <DependentUpon>CurriculumForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IFiltersChangable.cs" />
     <Compile Include="RanksTableForm.cs">
       <SubType>Form</SubType>
     </Compile>

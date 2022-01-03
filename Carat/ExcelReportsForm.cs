@@ -75,6 +75,25 @@ namespace Carat
             panelContainer.Visible = false;
         }
 
+        public void SetFilters(string educType,
+                                string educForm,
+                                string educLevel,
+                                uint course,
+                                uint semestr)
+        {
+            m_educType = educType;
+            m_educForm = educForm;
+            m_educLevel = educLevel;
+            m_course = course;
+            m_semestr = semestr;
+
+            var selectForm = this.m_loadedSelectForm as IFiltersChangable;
+            if (selectForm != null)
+            {
+                selectForm.SetFilters(educType, educForm, educLevel, course, semestr);
+            }
+        }
+
         private string GetSemesterString()
         {
             string result = "";
@@ -1241,7 +1260,7 @@ namespace Carat
                     }
                     m_parentForm.IncrementProgress();
                 }
-                
+
                 sheet.ShiftRows(9, sheet.LastRowNum, -1);
 
                 for (int i = 6; i <= 41; ++i)

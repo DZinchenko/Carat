@@ -717,8 +717,12 @@ namespace Carat
 
             if (excelReportsForm != null)
             {
-                excelReportsForm.Close();
-                buttonExcelReports.PerformClick();
+                (excelReportsForm as ExcelReportsForm).SetFilters(
+                    getEducTypeFilter(),
+                    getEducFormFilter(),
+                    getEducLevelFilter(),
+                    getCourseFilter(),
+                    getSemesterFilter());
             }
         }
 

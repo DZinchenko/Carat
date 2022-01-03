@@ -13,10 +13,11 @@ using Carat.Data.Repositories;
 using Carat.Data.Entities;
 using Carat.EF.Repositories;
 using NPOI.XSSF.UserModel;
+using Carat.Interfaces;
 
 namespace Carat
 {
-    public partial class SelectWorkType : Form
+    public partial class SelectWorkType : Form, IFiltersChangable
     {
         private MainForm m_parentForm = null;
         private string m_dbPath;
@@ -65,6 +66,19 @@ namespace Carat
             m_workTypeRepository = new WorkTypeRepository(m_dbPath);
 
             LoadData();
+        }
+
+        public void SetFilters(string educType,
+                                string educForm,
+                                string educLevel,
+                                uint course,
+                                uint semestr)
+        {
+            m_educType = educType;
+            m_educForm = educForm;
+            m_educLevel = educLevel;
+            m_course = course;
+            m_semestr = semestr;
         }
 
         private string GetSemesterString()
