@@ -55,6 +55,7 @@ namespace Carat
         IWorkTypeRepository m_workTypeRepository;
         IPositionRepository m_positionRepository;
         IRankRepository m_rankRepository;
+        IFacultyRepository m_facultyRepository;
 
         public SelectTeacher(MainForm parentForm,
                                 string dbPath,
@@ -86,6 +87,7 @@ namespace Carat
             m_workTypeRepository = new WorkTypeRepository(m_dbPath);
             m_positionRepository = new PositionRepository(m_dbPath);
             m_rankRepository = new RankRepository(m_dbPath);
+            m_facultyRepository = new FacultyRepository(m_dbPath);
 
             LoadData();
         }
@@ -852,13 +854,14 @@ namespace Carat
 
                 GetCell(sheet.GetRow(rowIndex), 22).SetCellValue(subjectItem.Key);
                 GetCell(sheet.GetRow(rowIndex), 23).SetCellValue(curriculumItem.SubjectHours);
-                GetCell(sheet.GetRow(rowIndex), 25).SetCellValue("ТЕФ");
                 GetCell(sheet.GetRow(rowIndex), 26).SetCellValue(curriculumItem.Course);
 
                 var groups = GetGroups(subjectItem.Value).OrderBy(g => g.Name).ToList();
                 uint budjetNumber = 0;
                 uint contractNumber = 0;
                 string groupsCellText = "";
+
+                GetCell(sheet.GetRow(rowIndex), 25).SetCellValue(m_facultyRepository.GetFaculty(groups.FirstOrDefault().FacultyId).Name);
 
                 bool gotStudNumbersFromWork = false; 
                 if (curriculumItem.BudgetStudCnt != null && curriculumItem.ContractStudCnt != null)
