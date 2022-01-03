@@ -32,7 +32,7 @@ namespace Carat
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Навчальний план");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Навантаження за дисциплінами");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Навантаження за викладачами детальне");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Навантаження за викладачами");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Навантаження кафедри");
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Розклад для груп");
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Нерозподілені години");
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Підсумковий за дисциплінами");
@@ -76,7 +76,7 @@ namespace Carat
             treeNode3.Name = "NodeByTeachers";
             treeNode3.Text = "Навантаження за викладачами детальне";
             treeNode4.Name = "NodeShortByTeachers";
-            treeNode4.Text = "Навантаження за викладачами";
+            treeNode4.Text = "Навантаження кафедри";
             treeNode5.Name = "NodeSchedule";
             treeNode5.Text = "Розклад для груп";
             treeNode6.Name = "NodeUnallocated";

@@ -1297,7 +1297,7 @@ namespace Carat
             {
                 GenerateNotDistributedBySubjects();
             }
-            if (e.Node.FullPath == "Зведені\\Навантаження за викладачами")
+            if (e.Node.FullPath == "Зведені\\Навантаження кафедри")
             {
                 GenerateLoadShortByTeachers();
             }
