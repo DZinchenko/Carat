@@ -62,10 +62,13 @@ namespace Carat.EF.Repositories
                 res.Teachers = ctx.Teachers.Where(t => teacherIds.Contains(t.Id)).OrderBy(t => t.Name).ToList();
                 var subjectQuery = mainQuery.Join(ctx.Subjects, a => a.CI.SubjectId, s => s.Id, (a, s) => new { Id = a.CI.Id, Subject = s });
 
-                res.GroupNamesByCurriculumItemIds = mainQuery.Join(ctx.GroupsToTeachers, a => a.TAItem.Id, gtt => gtt.TAItemID, (a, gtt) => new { CIId = a.CI.Id, GroupId = gtt.GroupId })
-                                                    .Join(ctx.Groups, b => b.GroupId, g => g.Id, (b, g) => new { CIId = b.CIId, GroupName = g.Name })
-                                                    .AsEnumerable().GroupBy(c => c.CIId, c => c.GroupName).ToDictionary(g => g.Key, g => g.Distinct().ToList());
-                res.TAItemsByCurriculumItemIds = mainQuery.GroupBy(a => a.CI.Id, a => a.TAItem).ToDictionary(g => g.Key, g => g.ToList());
+                res.GroupNamesByCurriculumItemIdsByTeachersIds = mainQuery.Join(ctx.GroupsToTeachers, a => a.TAItem.Id, gtt => gtt.TAItemID, (a, gtt) => new { CIId = a.CI.Id, TeacherId = a.TAItem.TeacherId, GroupId = gtt.GroupId })
+                                                    .Join(ctx.Groups, b => b.GroupId, g => g.Id, (b, g) => new { CIId = b.CIId, TeacherId = b.TeacherId, GroupName = g.Name })
+                                                    .AsEnumerable().GroupBy(c => c.TeacherId).Select(a => new { Key = a.Key, Group = a.AsEnumerable().GroupBy(b => b.CIId, b => b.GroupName) })
+                                                    .ToDictionary(g => g.Key, g => g.Group.ToDictionary(g1 => g1.Key, g1 => g1.ToList()));
+                res.TAItemsByCurriculumItemIdsByTeachersIds = mainQuery.Join(ctx.Teachers, a => a.TAItem.TeacherId, t => t.Id, (a, t) => new { CI = a.CI, TAItem = a.TAItem, Teacher = t })
+                                                                .AsEnumerable().GroupBy(a => a.Teacher.Id).Select(b => new { Key = b.Key, Group = b.AsEnumerable().GroupBy(c => c.CI.Id, c => c.TAItem) })
+                                                                .ToDictionary(g => g.Key, g => g.Group.ToDictionary(g1 => g1.Key, g1 => g1.Distinct().ToList()));
                 res.WorksForTAItems = ctx.Works.Where(w => taItemsQuery.Any(ta => ta.WorkId == w.Id)).Distinct().ToList();
                 res.CurriculumItemsByTeacherIds = mainQuery.GroupBy(a => a.TAItem.TeacherId, a => a.CI)
                                                 .ToDictionary(g => g.Key, g => g.Distinct().OrderBy(ci => subjectQuery.First(s => s.Id == ci.Id).Subject.Name).ToList());

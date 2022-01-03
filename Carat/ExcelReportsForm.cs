@@ -1213,16 +1213,24 @@ namespace Carat
                     int numberCounter = 0;
                     foreach (var curriculumItem in data.CurriculumItemsByTeacherIds[teacher.Id])
                     {
+                        var groupsCellText = "";
+                        if (data.GroupNamesByCurriculumItemIdsByTeachersIds.ContainsKey(teacher.Id))
+                        {
+                            if (data.GroupNamesByCurriculumItemIdsByTeachersIds[teacher.Id].ContainsKey(curriculumItem.Id))
+                            {
+                                groupsCellText = string.Join("; ", data.GroupNamesByCurriculumItemIdsByTeachersIds[teacher.Id][curriculumItem.Id]);
+                            }
+                        }
+
                         var newRow = sheet.CopyRow(8, sheet.LastRowNum);
                         newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
                         newRow.Cells[1].SetCellValue(data.SubjectsByCurriculumItemIds[curriculumItem.Id].Name);
-                        newRow.Cells[2].SetCellValue(data.GroupNamesByCurriculumItemIds.ContainsKey(curriculumItem.Id) 
-                            ? string.Join("; ", data.GroupNamesByCurriculumItemIds[curriculumItem.Id].OrderBy(item => item).ToList()) : "");
+                        newRow.Cells[2].SetCellValue(groupsCellText);
                         newRow.Cells[3].SetCellValue(curriculumItem.EducLevel);
                         newRow.Cells[4].SetCellValue(GetEducFormString(curriculumItem));
                         newRow.Cells[5].SetCellValue(curriculumItem.Course);
 
-                        foreach (var taItem in data.TAItemsByCurriculumItemIds[curriculumItem.Id])
+                        foreach (var taItem in data.TAItemsByCurriculumItemIdsByTeachersIds[teacher.Id][curriculumItem.Id])
                         {
                             var work = data.WorksForTAItems.Find(w => w.Id == taItem.WorkId);
                             newRow.Cells[6 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
