@@ -90,6 +90,8 @@ namespace Carat
         private bool isSortChanging = false;
         private int sortColumnIndex = 0;
 
+        private int? replacingTeacherRowInd = null;
+
         const string IncorrectDataMessage = "Некоректні дані";
 
         public TeacherAssignmentForm(MainForm parentForm,
@@ -124,6 +126,8 @@ namespace Carat
             m_groupsToTeacherRepository = new GroupsToTAItemRepository(dbPath);
             m_TAItemRepository = new TAItemRepository(dbPath);
             m_positionRepository = new PositionRepository(dbPath);
+
+            this.comboBoxTATeachers.DropDownClosed += (obj, e) => { this.replacingTeacherRowInd = null; };
         }
 
         public void UpdateWorks(bool isEmptyWorks)
@@ -314,7 +318,14 @@ namespace Carat
 
             foreach (var item in taItems)
             {
-                dataGridViewTATeachers.Rows.Add(m_teacherRepository.GetTeacher(item.TeacherId)?.Name, item?.WorkHours.ToString(Tools.HoursAccuracy), "");
+                var teacherName = m_teacherRepository.GetTeacher(item.TeacherId)?.Name;
+                var rowInd = dataGridViewTATeachers.Rows.Add(teacherName, item?.WorkHours.ToString(Tools.HoursAccuracy), "");
+
+                var contextMenuStrip = new ContextMenuStrip();
+                contextMenuStrip.Items.Add(new ToolStripMenuItem("Копіювати групи", null, (obj, e) => { this.CopyGroups(rowInd); }));
+                contextMenuStrip.Items.Add(new ToolStripMenuItem("Вставити групи", null, (obj, e) => { this.PasteGroups(rowInd); }));
+                contextMenuStrip.Items.Add(new ToolStripMenuItem("Замінити викладача", null, (obj, e) => { this.StartTeacherReplacement(rowInd); }));
+                dataGridViewTATeachers.Rows[rowInd].Cells[0].ContextMenuStrip = contextMenuStrip;
             }
         }
 
@@ -389,6 +400,7 @@ namespace Carat
 
             CheckComboBoxTeacherState();
             LoadTeachers();
+            SyncData();
         }
 
         private bool isValidName(string name)
@@ -415,10 +427,17 @@ namespace Carat
         {
             var TAItems = m_TAItemRepository.GetAllTAItems(selectedWorkId, m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
 
-            for (int i = 0; i < dataGridViewTATeachers.Rows.Count; ++i)
+            for (int i = 0; i < dataGridViewTATeachers.Rows.Count; i++)
             {
                 dataGridViewTATeachers.Rows[i].SetValues(
                     m_teacherRepository.GetTeacher(TAItems[i].TeacherId)?.Name, TAItems[i].WorkHours.ToString(Tools.HoursAccuracy));
+
+                var rowInd = i;
+                var contextMenuStrip = new ContextMenuStrip();
+                contextMenuStrip.Items.Add(new ToolStripMenuItem("Копіювати групи", null, (obj, e) => { this.CopyGroups(rowInd); }));
+                contextMenuStrip.Items.Add(new ToolStripMenuItem("Вставити групи", null, (obj, e) => { this.PasteGroups(rowInd); }));
+                contextMenuStrip.Items.Add(new ToolStripMenuItem("Замінити викладача", null, (obj, e) => { this.StartTeacherReplacement(rowInd); }));
+                dataGridViewTATeachers.Rows[i].Cells[0].ContextMenuStrip = contextMenuStrip;
             }
         }
 
@@ -552,15 +571,21 @@ namespace Carat
 
             var cbItem = comboBoxTATeachers.SelectedItem.ToString();
             var teacherName = cbItem.Substring(0, cbItem.IndexOf('(') - 1);
-
             var teacher = m_teacherRepository.GetTeacherByName(teacherName);
+
+            if (this.replacingTeacherRowInd != null)
+            {
+                this.CommitTeacherReplacement(teacher);
+                return;
+            }
+
             var dgvIndex = dataGridViewTATeachers.Rows.Count;
 
             if (teacher != null)
             {
                 dataGridViewTATeachers.Rows.Add();
                 dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, dataGridViewTAWorks.Rows[selectedWorkIndex].Cells[1].Value.ToString(), "");
-                
+
                 //Scroll DataGridView to bottom and start editing hours
                 dataGridViewTATeachers.CurrentCell = dataGridViewTATeachers.Rows[dgvIndex].Cells[1];
                 dataGridViewTATeachers.BeginEdit(true);
@@ -600,59 +625,6 @@ namespace Carat
             panelGroups.Tag = m_selectGroupsForm;
             m_selectGroupsForm.BringToFront();
             m_selectGroupsForm.Show();
-        }
-
-        private void dataGridViewTATeachers_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            var taItems = m_TAItemRepository.GetTAItems(selectedWorkId);
-
-            if (e.RowIndex < 0 || e.RowIndex >= taItems.Count)
-            {
-                return;
-            }
-
-            var TAItem = taItems[e.RowIndex];
-            var groupsToTAItem = m_groupsToTeacherRepository.GetGroupsToTAItem(TAItem.Id);
-
-            if (e.Button == MouseButtons.Middle)
-            {
-                m_groupsCopyBuffer.Clear();
-
-                foreach (var el in groupsToTAItem)
-                {
-                    m_groupsCopyBuffer.Add(el.GroupId);
-                }
-
-                dataGridViewTATeachers.ClearSelection();
-                dataGridViewTATeachers.Rows[e.RowIndex].Selected = true;
-
-                MessageBox.Show("Групи скопійовані");
-            }
-            else if (e.Button == MouseButtons.Right)
-            {
-                if (m_groupsCopyBuffer.Count == 0)
-                {
-                    return;
-                }
-
-                foreach (var el in groupsToTAItem)
-                {
-                    m_groupsToTeacherRepository.RemoveGroupsToTAItem(el);
-                }
-
-                foreach (var el in m_groupsCopyBuffer)
-                {
-                    var newGroup = new GroupsToTAItem();
-                    newGroup.GroupId = el;
-                    newGroup.TAItemID = TAItem.Id;
-                    m_groupsToTeacherRepository.AddGroupsToTAItem(newGroup);
-                }
-
-                dataGridViewTATeachers.ClearSelection();
-                dataGridViewTATeachers.Rows[e.RowIndex].Selected = true;
-
-                MessageBox.Show("Групи замінені");
-            }
         }
 
         private void dataGridViewTASubjects_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -783,6 +755,71 @@ namespace Carat
             }
 
             m_parentForm.Enabled = true;
+        }
+
+        private void CopyGroups(int teacherRowInd)
+        {
+            var taItems = m_TAItemRepository.GetTAItems(selectedWorkId);
+
+            var TAItem = taItems[teacherRowInd];
+            var groupsToTAItem = m_groupsToTeacherRepository.GetGroupsToTAItem(TAItem.Id);
+
+            m_groupsCopyBuffer.Clear();
+
+            foreach (var el in groupsToTAItem)
+            {
+                m_groupsCopyBuffer.Add(el.GroupId);
+            }
+
+            dataGridViewTATeachers.ClearSelection();
+            dataGridViewTATeachers.Rows[teacherRowInd].Selected = true;
+
+            MessageBox.Show("Групи скопійовані");
+        }
+
+        private void PasteGroups(int teacherRowInd)
+        {
+            var taItems = m_TAItemRepository.GetTAItems(selectedWorkId);
+
+            var TAItem = taItems[teacherRowInd];
+            var groupsToTAItem = m_groupsToTeacherRepository.GetGroupsToTAItem(TAItem.Id);
+
+            if (m_groupsCopyBuffer.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var el in groupsToTAItem)
+            {
+                m_groupsToTeacherRepository.RemoveGroupsToTAItem(el);
+            }
+
+            foreach (var el in m_groupsCopyBuffer)
+            {
+                var newGroup = new GroupsToTAItem();
+                newGroup.GroupId = el;
+                newGroup.TAItemID = TAItem.Id;
+                m_groupsToTeacherRepository.AddGroupsToTAItem(newGroup);
+            }
+
+            dataGridViewTATeachers.ClearSelection();
+            dataGridViewTATeachers.Rows[teacherRowInd].Selected = true;
+
+            MessageBox.Show("Групи замінені");
+        }
+
+        private void StartTeacherReplacement(int teacherRowInd)
+        {
+            this.replacingTeacherRowInd = teacherRowInd;
+            this.comboBoxTATeachers.DroppedDown = true;
+        }
+
+        private void CommitTeacherReplacement(Teacher newTeacher)
+        {
+            var taItem = m_TAItemRepository.GetTAItems(selectedWorkId)[(int)this.replacingTeacherRowInd];
+            taItem.TeacherId = newTeacher.Id;
+            this.m_TAItemRepository.UpdateTAItem(taItem);
+            this.SyncData();
         }
     }
 }
