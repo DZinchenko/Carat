@@ -187,10 +187,10 @@
       <DependentUpon>CurriculumForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IFiltersChangable.cs" />
-    <Compile Include="RanksTableForm.cs">
+    <Compile Include="TableForms\RanksTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RanksTableForm.Designer.cs">
+    <Compile Include="TableForms\RanksTableForm.Designer.cs">
       <DependentUpon>RanksTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExcelReportsForm.cs">
@@ -199,16 +199,16 @@
     <Compile Include="ExcelReportsForm.Designer.cs">
       <DependentUpon>ExcelReportsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FacultiesTableForm.cs">
+    <Compile Include="TableForms\FacultiesTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FacultiesTableForm.Designer.cs">
+    <Compile Include="TableForms\FacultiesTableForm.Designer.cs">
       <DependentUpon>FacultiesTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GroupsTableForm.cs">
+    <Compile Include="TableForms\GroupsTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GroupsTableForm.Designer.cs">
+    <Compile Include="TableForms\GroupsTableForm.Designer.cs">
       <DependentUpon>GroupsTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IDataUserForm.cs" />
@@ -218,10 +218,10 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PositionsTableForm.cs">
+    <Compile Include="TableForms\PositionsTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PositionsTableForm.Designer.cs">
+    <Compile Include="TableForms\PositionsTableForm.Designer.cs">
       <DependentUpon>PositionsTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -256,10 +256,10 @@
     <Compile Include="SelectWorkType.Designer.cs">
       <DependentUpon>SelectWorkType.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubjectsTableForm.cs">
+    <Compile Include="TableForms\SubjectsTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubjectsTableForm.Designer.cs">
+    <Compile Include="TableForms\SubjectsTableForm.Designer.cs">
       <DependentUpon>SubjectsTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TeacherAssignmentForm.cs">
@@ -268,38 +268,38 @@
     <Compile Include="TeacherAssignmentForm.Designer.cs">
       <DependentUpon>TeacherAssignmentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TeachersTableForm.cs">
+    <Compile Include="TableForms\TeachersTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TeachersTableForm.Designer.cs">
+    <Compile Include="TableForms\TeachersTableForm.Designer.cs">
       <DependentUpon>TeachersTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools.cs" />
-    <Compile Include="WorkTypesTableForm.cs">
+    <Compile Include="TableForms\WorkTypesTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WorkTypesTableForm.Designer.cs">
+    <Compile Include="TableForms\WorkTypesTableForm.Designer.cs">
       <DependentUpon>WorkTypesTableForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="CurriculumForm.resx">
       <DependentUpon>CurriculumForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RanksTableForm.resx">
+    <EmbeddedResource Include="TableForms\RanksTableForm.resx">
       <DependentUpon>RanksTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExcelReportsForm.resx">
       <DependentUpon>ExcelReportsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FacultiesTableForm.resx">
+    <EmbeddedResource Include="TableForms\FacultiesTableForm.resx">
       <DependentUpon>FacultiesTableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GroupsTableForm.resx">
+    <EmbeddedResource Include="TableForms\GroupsTableForm.resx">
       <DependentUpon>GroupsTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PositionsTableForm.resx">
+    <EmbeddedResource Include="TableForms\PositionsTableForm.resx">
       <DependentUpon>PositionsTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -327,16 +327,16 @@
     <EmbeddedResource Include="SelectWorkType.resx">
       <DependentUpon>SelectWorkType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubjectsTableForm.resx">
+    <EmbeddedResource Include="TableForms\SubjectsTableForm.resx">
       <DependentUpon>SubjectsTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TeacherAssignmentForm.resx">
       <DependentUpon>TeacherAssignmentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TeachersTableForm.resx">
+    <EmbeddedResource Include="TableForms\TeachersTableForm.resx">
       <DependentUpon>TeachersTableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkTypesTableForm.resx">
+    <EmbeddedResource Include="TableForms\WorkTypesTableForm.resx">
       <DependentUpon>WorkTypesTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
