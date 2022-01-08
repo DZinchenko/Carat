@@ -1304,6 +1304,7 @@ namespace Carat
 
         private void treeViewExcelReports_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            this.HighlightNode(e.Node);
             if (e.Node.FullPath == "Зведені\\Навчальний план")
             {
                 GeneratePlannedBySubjects();
@@ -1346,6 +1347,7 @@ namespace Carat
 
         private void treeViewExcelReports_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            this.HighlightNode(e.Node);
             if (e.Node.FullPath == "Вибіркові\\за вибраним викладачем")
             {
                 panelContainer.Visible = true;
@@ -1439,6 +1441,19 @@ namespace Carat
 
             m_loadedSelectForm?.Close();
             panelContainer.Visible = false;
+        }
+
+        private TreeNode lastHighlitedNode = null;
+        private void HighlightNode(TreeNode node)
+        {
+            if (lastHighlitedNode != null)
+            {
+                this.lastHighlitedNode.BackColor = Color.White;
+                this.lastHighlitedNode.ForeColor = SystemColors.WindowText;
+            }
+            this.lastHighlitedNode = node;
+            node.BackColor = SystemColors.Highlight;
+            this.lastHighlitedNode.ForeColor = SystemColors.HighlightText;
         }
     }
 }
