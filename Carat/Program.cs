@@ -31,12 +31,13 @@ namespace Carat
             if (e.Exception.Message.Contains("no such column") || e.Exception.Message.Contains("no such table"))
             {
                 MessageBox.Show("Ви використовуєте стару версію бази даних!");
+                Application.Restart();
             }
             else
             {
                 MessageBox.Show(e.Exception.Message, "Unhandled Thread Exception");
+                Application.Exit();
             }
-            Application.Run();
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -45,12 +46,13 @@ namespace Carat
             if (message.Contains("no such column") || message.Contains("no such table"))
             {
                 MessageBox.Show("Ви використовуєте стару версію бази даних!");
+                Application.Restart();
             }
             else
             {
                 MessageBox.Show(message, "Unhandled UI Exception");
+                Application.Exit();
             }
-            Application.Run();
         }
     }
 }

@@ -768,15 +768,20 @@ namespace Carat
                     }
                     catch (Exception) { }
 
-                    var groups = GetGroups(new List<TAItem> { taItem }).OrderBy(g => g.Name).ToList();
+                    var groups = GetGroups(new List<TAItem> { taItem }).Distinct().OrderBy(g => g.Name).ToList();
 
-                    GetCell(sheet.GetRow(rowIndex), facultyColumnIndex + shiftValue).SetCellValue("ТЕФ");
+                    GetCell(sheet.GetRow(rowIndex), facultyColumnIndex + shiftValue).SetCellValue(m_facultyRepository.GetFaculty(groups.First().FacultyId).Name);
                     GetCell(sheet.GetRow(rowIndex), courseColumnIndex + shiftValue).SetCellValue(curriculumItem.Course);
                     bool isGroupsNotExist = groups.Count == 0;
 
                     foreach (var group in groups)
                     {
                         var groupCell = GetCell(sheet.GetRow(rowIndex), groupColumnIndex + shiftValue);
+                        if (groupCell.StringCellValue.Contains(group.Name + ";"))
+                        {
+                            continue;
+                        }
+
                         if (groupCell.StringCellValue == null)
                         {
                             groupCell.SetCellValue(group.Name + "; ");
