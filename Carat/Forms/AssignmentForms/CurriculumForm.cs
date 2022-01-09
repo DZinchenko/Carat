@@ -26,6 +26,7 @@ namespace Carat
 
         private MainForm m_parentForm = null;
         private const string IncorrectDataMessage = "Некоректні дані!";
+        private const string NotEmptyWorksMessage = "Для того, щоб видалити дисципліну, вам потрібно обнулити години!";
         private bool isSelectionChanging = false;
         private string m_educType;
         private string m_educForm;
@@ -126,8 +127,19 @@ namespace Carat
 
             foreach (var curriculumItem in curriculumItems)
             {
-                dataGridViewCurriculumSubjects.Rows.Add(m_subjectRepository.GetSubject(
-                    curriculumItem.SubjectId)?.Name, curriculumItem?.Course, curriculumItem?.SubjectHours.ToString(Tools.HoursAccuracy));
+                var subject = subjects.Find(s => s.Id == curriculumItem.SubjectId);
+                var rowInd = dataGridViewCurriculumSubjects.Rows.Add(subject.Name, curriculumItem?.Course, curriculumItem?.SubjectHours.ToString(Tools.HoursAccuracy));
+
+                int getRowInd(string cirrSubName)
+                {
+                    var allCurriculumItems = GetAllSortedCurriculumItems();
+                    return allCurriculumItems.FindIndex((i) => i.SubjectId == m_subjectRepository.GetSubject(cirrSubName).Id);
+                }
+
+                var contextMenuStrip = new ContextMenuStrip();
+                contextMenuStrip.Items.Add(new ToolStripMenuItem("Обнулити години", null, (obj, e) => { this.ResetCurItemHours(getRowInd(subject.Name)); }));
+                contextMenuStrip.Items.Add(new ToolStripMenuItem("Видалити дисципліну", null, (obj, e) => { this.DeleteCurItem(getRowInd(subject.Name)); }));
+                dataGridViewCurriculumSubjects.Rows[rowInd].ContextMenuStrip = contextMenuStrip;
             }
         }
 
@@ -605,11 +617,7 @@ namespace Carat
 
         private void dataGridViewCurriculumSubjects_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            var curriculumItems = GetAllSortedCurriculumItems();
-            var curriculumItem = curriculumItems[e.Row.Index];
-            var works = m_workRepository.GetWorks(curriculumItem.Id, false);
-
-            e.Cancel = !(works.All(work => work.TotalHours < 0.00001));
+            e.Cancel = !this.CheckIfCanDeleteCurSubRow(e.Row.Index);
         }
 
         private void ReadFirstPage(NPOI.SS.UserModel.ISheet sheet, 
@@ -1260,6 +1268,40 @@ namespace Carat
                     verticalOffset.SetValue(this.dataGridViewCurriculumSubjects, verticalScrollingOffset, null);
                 }
             }
+        }
+
+        private void ResetCurItemHours(int currSubRowInd)
+        {
+            var curriculumItems = GetAllSortedCurriculumItems();
+            var currId = curriculumItems[currSubRowInd].Id;
+            var curriculumItemWorks = m_workRepository.GetWorks(currId, true);
+            curriculumItemWorks.ForEach((w) => w.TotalHours = 0);
+            m_workRepository.UpdateWorks(curriculumItemWorks);
+
+            if(this.getCurrentCurriculumId() == currId)
+            {
+                this.SyncDataCurriculumWorks();
+            }
+        }
+
+        private void DeleteCurItem(int currSubRowInd)
+        {
+            if (this.CheckIfCanDeleteCurSubRow(currSubRowInd))
+            {
+                dataGridViewCurriculumSubjects.Rows.RemoveAt(currSubRowInd);
+            }
+            else
+            {
+                MessageBox.Show(NotEmptyWorksMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool CheckIfCanDeleteCurSubRow(int currSubRowInd)
+        {
+            var curriculumItems = GetAllSortedCurriculumItems();
+            var curriculumItem = curriculumItems[currSubRowInd];
+            var works = m_workRepository.GetWorks(curriculumItem.Id, false);
+            return works.All(work => work.TotalHours < 0.00001);
         }
     }
 }

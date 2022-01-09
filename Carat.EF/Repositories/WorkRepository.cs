@@ -113,5 +113,14 @@ namespace Carat.EF.Repositories
                 ctx.SaveChanges();
             }
         }
+
+        public void UpdateWorks(List<Work> works)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.UpdateRange(works);
+                ctx.SaveChanges();
+            }
+        }
     }
 }
