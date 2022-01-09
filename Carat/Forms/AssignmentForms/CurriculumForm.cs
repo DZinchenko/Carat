@@ -946,10 +946,28 @@ namespace Carat
                                                    string educForm,
                                                    string educType)
         {
-            var subjectName = "Бакалаврський проект";
-            var educLevel = "Бакалавр";
-            uint course = 4;
+            var subjectName = "Aспіранти";
+            var educLevel = "PhD";
+            uint course = 1;
             var subject = m_subjectRepository.GetSubject(subjectName);
+
+            if (subject == null)
+            {
+                subject = new Subject();
+                subject.Name = subjectName;
+                m_subjectRepository.AddSubject(subject);
+                subject = m_subjectRepository.GetSubject(subjectName);
+            }
+
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 1, sheet.GetRow(10).GetCell(12).NumericCellValue, subject.Id, 15);
+            AddCurriculumItemSecondPage(
+                    course, educForm, educLevel, educType, 2, sheet.GetRow(10).GetCell(17).NumericCellValue, subject.Id, 15);
+
+            subjectName = "Бакалаврський проект";
+            educLevel = "Бакалавр";
+            course = 4;
+            subject = m_subjectRepository.GetSubject(subjectName);
 
             if (subject == null)
             {
