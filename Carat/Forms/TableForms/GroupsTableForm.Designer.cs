@@ -160,7 +160,7 @@ namespace Carat
             // GroupFaculty
             //
             this.GroupFaculty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle7.NullValue = "ТЕФ";
+            dataGridViewCellStyle7.NullValue = "ННІАТЕ";
             this.GroupFaculty.DefaultCellStyle = dataGridViewCellStyle7;
             this.GroupFaculty.HeaderText = "Факультет";
             this.GroupFaculty.MaxDropDownItems = 20;

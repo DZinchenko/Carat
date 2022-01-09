@@ -44,7 +44,7 @@ namespace Carat
 
             this.GroupFaculty.Items.Clear();
             this.GroupFaculty.Items.AddRange(m_facultyRepository.GetFaculties().ConvertAll(f => f.Name).ToArray());
-            if (this.GroupFaculty.Items.Count == 0) { this.GroupFaculty.Items.Add("ТЕФ"); }
+            if (this.GroupFaculty.Items.Count == 0) { this.GroupFaculty.Items.Add("ННІАТЕ"); }
 
             foreach (var group in groups)
             {
