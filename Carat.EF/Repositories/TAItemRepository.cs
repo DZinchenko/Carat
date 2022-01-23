@@ -225,7 +225,17 @@ namespace Carat.EF.Repositories
         {
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.RemoveRange(GetAllTAItems());
+                ctx.RemoveRange(ctx.TAItems);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void DeleteTAItemsForWorks(List<Work> works)
+        {
+            var workIds = works.Select(w => w.Id);
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.RemoveRange(ctx.TAItems.Where(tai => workIds.Contains(tai.WorkId)));
                 ctx.SaveChanges();
             }
         }

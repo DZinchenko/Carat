@@ -1277,6 +1277,7 @@ namespace Carat
             var curriculumItemWorks = m_workRepository.GetWorks(currId, true);
             curriculumItemWorks.ForEach((w) => w.TotalHours = 0);
             m_workRepository.UpdateWorks(curriculumItemWorks);
+            m_taItemRepository.DeleteTAItemsForWorks(curriculumItemWorks);
 
             if(this.getCurrentCurriculumId() == currId)
             {
