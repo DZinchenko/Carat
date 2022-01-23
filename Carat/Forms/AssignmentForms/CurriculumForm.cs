@@ -27,6 +27,7 @@ namespace Carat
         private MainForm m_parentForm = null;
         private const string IncorrectDataMessage = "Некоректні дані!";
         private const string NotEmptyWorksMessage = "Для того, щоб видалити дисципліну, вам потрібно обнулити години!";
+        private const string DistributedHourExistMessage = "Обнулення є неможливим бо ще існують розподілені години!";
         private bool isSelectionChanging = false;
         private string m_educType;
         private string m_educForm;
@@ -1275,9 +1276,15 @@ namespace Carat
             var curriculumItems = GetAllSortedCurriculumItems();
             var currId = curriculumItems[currSubRowInd].Id;
             var curriculumItemWorks = m_workRepository.GetWorks(currId, true);
+
+            if (m_taItemRepository.ExistTAItemsForWorks(curriculumItemWorks))
+            {
+                MessageBox.Show(DistributedHourExistMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             curriculumItemWorks.ForEach((w) => w.TotalHours = 0);
             m_workRepository.UpdateWorks(curriculumItemWorks);
-            m_taItemRepository.DeleteTAItemsForWorks(curriculumItemWorks);
 
             if(this.getCurrentCurriculumId() == currId)
             {

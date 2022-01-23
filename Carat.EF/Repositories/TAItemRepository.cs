@@ -230,13 +230,12 @@ namespace Carat.EF.Repositories
             }
         }
 
-        public void DeleteTAItemsForWorks(List<Work> works)
+        public bool ExistTAItemsForWorks(List<Work> works)
         {
             var workIds = works.Select(w => w.Id);
             using (var ctx = new CaratDbContext(m_dbPath))
             {
-                ctx.RemoveRange(ctx.TAItems.Where(tai => workIds.Contains(tai.WorkId)));
-                ctx.SaveChanges();
+                return ctx.TAItems.Where(tai => workIds.Contains(tai.WorkId)).Any();
             }
         }
     }

@@ -18,6 +18,6 @@ namespace Carat.Data.Repositories
         void RemoveTAItem(TAItem TAItem);
         void UpdateTAItem(TAItem TAItem);
         void DeleteAllTAItems();
-        void DeleteTAItemsForWorks(List<Work> works);
+        bool ExistTAItemsForWorks(List<Work> works);
     }
 }
