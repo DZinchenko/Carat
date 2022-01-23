@@ -44,7 +44,7 @@ namespace Carat
                             uint course,
                             uint semestr)
 
-    {
+        {
             InitializeComponent();
 
             m_parentForm = parentForm;
@@ -77,8 +77,9 @@ namespace Carat
             m_educLevel = educLevel;
             m_course = course;
             m_semestr = semestr;
+            LoadData();
         }
-            private string GetSemesterString()
+        private string GetSemesterString()
         {
             string result = "";
 
@@ -146,8 +147,12 @@ namespace Carat
 
         private void LoadData()
         {
-            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel);
+            var curriculumItems = m_curriculumItemRepository.GetAllCurriculumItems(a => m_subjectRepository.GetSubject(a.SubjectId)?.Name, m_educType, m_educForm, m_course, m_semestr, m_educLevel)
+              .GroupBy(ci => ci.SubjectId)
+              .Select(g => g.First())
+              .ToList();
 
+            dataGridViewSelectSubject.Rows.Clear();
             foreach (var item in curriculumItems)
             {
                 dataGridViewSelectSubject.Rows.Add(m_subjectRepository.GetSubject(item.SubjectId).Name, item.Course);
@@ -196,6 +201,8 @@ namespace Carat
                 sheet.GetRow(3).Cells[0].SetCellValue("Дисципліна: " + subject.Name + ", " + GetSemesterString() + ", " + GetEducTypeString() + ", " + GetEducFormString());
 
                 int numberCounter = 0;
+                CurriculumItem lastCurItem = null;
+                Dictionary<int, List<TAItem>> lastTeachersDic = null;
                 foreach (var curItem in allCurriculumItems)
                 {
                     var allWorks = m_workRepository.GetWorks(curItem.Id, true);
@@ -222,15 +229,43 @@ namespace Carat
 
                     foreach (var teacherDicEl in teachersDic)
                     {
-                        var newRow = sheet.CopyRow(8, sheet.LastRowNum);
                         var teacher = m_teacherRepository.GetTeacher(teacherDicEl.Key);
                         var groupsToTaItems = m_groupsToTAItemRepository.GetGroupsToTAItem(teacherDicEl.Value[0].Id);
-                        var groupsCellText = "";
-
                         var groupNames = m_groupRepository.GetGroups(groupsToTaItems.Select(item => item.GroupId).ToList())
                                             .Select(g => g.Name).OrderBy(n => n).ToList();
+
+                        if (lastCurItem != null && curItem.SubjectId == lastCurItem.SubjectId
+                                                && curItem.EducForm == lastCurItem.EducForm
+                                                && curItem.EducLevel == lastCurItem.EducLevel
+                                                && curItem.EducType == lastCurItem.EducType
+                                                && curItem.Course == lastCurItem.Course
+                                                && lastTeachersDic.ContainsKey(teacher.Id))
+                        {
+                            var row = sheet.GetRow(sheet.LastRowNum - lastTeachersDic.Count + lastTeachersDic.Keys.ToList().IndexOf(teacher.Id));
+                            
+                            var lastGroupCellVal = row.Cells[2].StringCellValue;
+                            foreach (var groupName in groupNames)
+                            {
+                                if (!lastGroupCellVal.Contains(groupName))
+                                {
+                                    lastGroupCellVal += groupName;
+                                }
+                            }
+                            row.Cells[2].SetCellValue(lastGroupCellVal);
+
+                            foreach (var taItem in teacherDicEl.Value)
+                            {
+                                var work = m_workRepository.GetWork(taItem.WorkId);
+                                row.Cells[6 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours + row.Cells[6 + work.WorkTypeId - 1].NumericCellValue);
+                            }
+
+                            continue;
+                        }
+
+                        var groupsCellText = "";
                         groupsCellText = string.Join("; ", groupNames);
 
+                        var newRow = sheet.CopyRow(8, sheet.LastRowNum);
                         newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
                         newRow.Cells[1].SetCellValue(teacher.Name);
                         newRow.Cells[2].SetCellValue(groupsCellText);
@@ -249,6 +284,8 @@ namespace Carat
                         ++numberCounter;
                     }
 
+                    lastCurItem = curItem;
+                    lastTeachersDic = teachersDic;
                     m_parentForm.IncrementProgress();
                 }
 

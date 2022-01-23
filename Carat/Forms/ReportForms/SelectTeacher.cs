@@ -104,6 +104,7 @@ namespace Carat
             m_educLevel = educLevel;
             m_course = course;
             m_semestr = semestr;
+            LoadData();
         }
 
         private string GetSemesterString()
@@ -176,6 +177,7 @@ namespace Carat
         {
             var teachers = m_teacherRepository.GetAllTeachers(a => a.Name);
 
+            dataGridViewSelectTeacher.Rows.Clear();
             foreach (var teacher in teachers)
             {
                 dataGridViewSelectTeacher.Rows.Add(teacher.Name);
@@ -456,17 +458,12 @@ namespace Carat
                 sheet.GetRow(3).Cells[0].SetCellValue("Викладач: " + teacher.Name + ", " + GetSemesterString() + ", " + GetEducTypeString() + ", " + GetEducFormString());
 
                 int numberCounter = 0;
+                CurriculumItem lastCurItem = null;
                 foreach (var curriculumItemWithTaItems in groupedTAItemsWithCurriculumItem)
                 {
-                    var newRow = sheet.CopyRow(8, sheet.LastRowNum);
                     var curriculumItem = m_curriculumItemRepository.GetCurriculumItem(curriculumItemWithTaItems.Key);
                     var taItems = curriculumItemWithTaItems.Value;
                     var groupsList = new List<Group>();
-
-                    newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
-                    newRow.Cells[3].SetCellValue(curriculumItem.EducLevel);
-                    newRow.Cells[4].SetCellValue(GetEducFormString(curriculumItem));
-                    newRow.Cells[5].SetCellValue(curriculumItem.Course);
 
                     foreach (var taItem in taItems)
                     {
@@ -481,14 +478,48 @@ namespace Carat
                         }
                     }
 
+                    if (lastCurItem != null && curriculumItem.SubjectId == lastCurItem.SubjectId
+                                            && curriculumItem.EducForm == lastCurItem.EducForm
+                                            && curriculumItem.EducLevel == lastCurItem.EducLevel
+                                            && curriculumItem.EducType == lastCurItem.EducType
+                                            && curriculumItem.Course == lastCurItem.Course)
+                    {
+                        var row = sheet.GetRow(sheet.LastRowNum - 1);
+
+                        var lastGroupsCellValue = row.Cells[2].StringCellValue;
+                        foreach (var group in groupsList.OrderBy(g => g.Name).ToList())
+                        {
+                            if (!lastGroupsCellValue.Contains(group.Name))
+                            {
+                                lastGroupsCellValue += group.Name + "; ";
+                            }
+                        }
+                        row.Cells[2].SetCellValue(lastGroupsCellValue);
+
+                        foreach (var taItem in taItems)
+                        {
+                            var work = m_workRepository.GetWork(taItem.WorkId);
+                            var lastHourCellVal = row.Cells[6 + work.WorkTypeId - 1].NumericCellValue;
+                            row.Cells[6 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours + lastHourCellVal);
+                        }
+
+                        continue;
+                    }
+
                     string secondCellText = "";
                     foreach (var group in groupsList.OrderBy(g => g.Name).ToList())
                     {
                         secondCellText += group.Name + "; ";
                     }
 
+                    var newRow = sheet.CopyRow(8, sheet.LastRowNum);
+
+                    newRow.Cells[0].SetCellValue((numberCounter + 1).ToString());
                     newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name);
                     newRow.Cells[2].SetCellValue(secondCellText);
+                    newRow.Cells[3].SetCellValue(curriculumItem.EducLevel);
+                    newRow.Cells[4].SetCellValue(GetEducFormString(curriculumItem));
+                    newRow.Cells[5].SetCellValue(curriculumItem.Course);
 
                     foreach (var taItem in taItems)
                     {
@@ -498,6 +529,7 @@ namespace Carat
 
                     newRow.Height = -1;
 
+                    lastCurItem = curriculumItem;
                     ++numberCounter;
                     m_parentForm.IncrementProgress();
                 }

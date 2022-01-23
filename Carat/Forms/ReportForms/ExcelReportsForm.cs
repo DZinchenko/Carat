@@ -199,9 +199,27 @@ namespace Carat
 
                 for (int i = 0; i < curriculumItems.Count;)
                 {
-                    var newRow = sheet.GetRow(8 + i);
                     var curriculumItem = curriculumItems[i];
                     var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, false);
+
+                    if (i > 0 && curriculumItems[i - 1].SubjectId == curriculumItem.SubjectId
+                              && curriculumItems[i - 1].EducForm == curriculumItem.EducForm
+                              && curriculumItems[i - 1].EducLevel == curriculumItem.EducLevel
+                              && curriculumItems[i - 1].EducType == curriculumItem.EducType
+                              && curriculumItems[i - 1].Course == curriculumItem.Course)
+                    {
+                        var row = sheet.GetRow(8 + i - 1);
+                        for (int cellIndex = 5, workTypeIndex = 0; cellIndex <= 39; ++cellIndex, ++workTypeIndex)
+                        {
+                            var cellVal = row.Cells[cellIndex].NumericCellValue;
+                            row.Cells[cellIndex].SetCellValue(curriculumWorks[workTypeIndex].TotalHours + cellVal);
+                        }
+                        curriculumItems.RemoveAt(i);
+                        continue;
+                    }
+
+                    var newRow = sheet.GetRow(8 + i);
+                    var subjectName = m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name;
 
                     if (
                         curriculumWorks.Count <= 0)
@@ -211,7 +229,7 @@ namespace Carat
                     }
 
                     newRow.Cells[0].SetCellValue((i + 1).ToString());
-                    newRow.Cells[1].SetCellValue(m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name);
+                    newRow.Cells[1].SetCellValue(subjectName);
                     newRow.Cells[2].SetCellValue(curriculumItem.EducLevel);
                     newRow.Cells[3].SetCellValue(GetEducFormString(curriculumItem));
                     newRow.Cells[4].SetCellValue(curriculumItem.Course);
@@ -323,9 +341,34 @@ namespace Carat
 
                 for (int i = 0; i < curriculumItems.Count;)
                 {
-                    var newRow = sheet.GetRow(8 + i);
                     var curriculumItem = curriculumItems[i];
                     var curriculumWorks = m_workRepository.GetWorks(curriculumItem.Id, false);
+
+                    if (i > 0 && curriculumItems[i - 1].SubjectId == curriculumItem.SubjectId
+                             && curriculumItems[i - 1].EducForm == curriculumItem.EducForm
+                             && curriculumItems[i - 1].EducLevel == curriculumItem.EducLevel
+                             && curriculumItems[i - 1].EducType == curriculumItem.EducType
+                             && curriculumItems[i - 1].Course == curriculumItem.Course)
+                    {
+                        var row = sheet.GetRow(8 + i - 1);
+                        for (int cellIndex = 5, workTypeIndex = 0; cellIndex <= 39; ++cellIndex, ++workTypeIndex)
+                        {
+                            var taItems = m_taItemRepository.GetTAItems(curriculumWorks[workTypeIndex].Id);
+                            double distributedHours = 0;
+
+                            foreach (var taItem in taItems)
+                            {
+                                distributedHours += taItem.WorkHours;
+                            }
+
+                            var cellVal = row.Cells[cellIndex].NumericCellValue;
+                            row.Cells[cellIndex].SetCellValue(distributedHours + cellVal);
+                        }
+                        curriculumItems.RemoveAt(i);
+                        continue;
+                    }
+
+                    var newRow = sheet.GetRow(8 + i);
 
                     if (
                         curriculumWorks.Count <= 0)
