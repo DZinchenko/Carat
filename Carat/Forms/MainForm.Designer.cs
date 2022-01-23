@@ -244,28 +244,28 @@
             // workTypesToolStripMenuItem
             // 
             this.workTypesToolStripMenuItem.Name = "workTypesToolStripMenuItem";
-            this.workTypesToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
+            this.workTypesToolStripMenuItem.Size = new System.Drawing.Size(169, 24);
             this.workTypesToolStripMenuItem.Text = "Види робіт";
             this.workTypesToolStripMenuItem.Click += new System.EventHandler(this.workTypesToolStripMenuItem_Click);
             // 
             // facultiesToolStripMenuItem
             // 
             this.facultiesToolStripMenuItem.Name = "facultiesToolStripMenuItem";
-            this.facultiesToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
+            this.facultiesToolStripMenuItem.Size = new System.Drawing.Size(169, 24);
             this.facultiesToolStripMenuItem.Text = "Факультети";
             this.facultiesToolStripMenuItem.Click += new System.EventHandler(this.facultiesToolStripMenuItem_Click);
             // 
             // positionsToolStripMenuItem
             // 
             this.positionsToolStripMenuItem.Name = "positionsToolStripMenuItem";
-            this.positionsToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
+            this.positionsToolStripMenuItem.Size = new System.Drawing.Size(169, 24);
             this.positionsToolStripMenuItem.Text = "Посади";
             this.positionsToolStripMenuItem.Click += new System.EventHandler(this.positionsToolStripMenuItem_Click);
             // 
             // ranksToolStripMenuItem
             // 
             this.ranksToolStripMenuItem.Name = "ranksToolStripMenuItem";
-            this.ranksToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
+            this.ranksToolStripMenuItem.Size = new System.Drawing.Size(169, 24);
             this.ranksToolStripMenuItem.Text = "Наукові ступені";
             this.ranksToolStripMenuItem.Click += new System.EventHandler(this.ranksToolStripMenuItem_Click);
             // 
@@ -312,6 +312,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(55, 21);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // panelTools
             // 

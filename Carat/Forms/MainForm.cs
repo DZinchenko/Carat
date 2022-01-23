@@ -14,6 +14,7 @@ using Carat.Interfaces;
 using Carat.Data.Entities;
 using Carat.Data.Repositories;
 using Carat.EF.Repositories;
+using Carat.Forms;
 
 namespace Carat
 {
@@ -36,6 +37,7 @@ namespace Carat
         public Form facultiesForm = null;
         public Form positionsForm = null;
         public Form ranksForm = null;
+        public Form aboutForm = null;
         public bool IsFiltersValuesSelected = false;
         public bool IsRequiredFiltersValuesSelected = false;
 
@@ -179,6 +181,7 @@ namespace Carat
                 facultiesForm?.Close();
                 positionsForm?.Close();
                 ranksForm?.Close();
+                aboutForm?.Close();
 
                 subjectsForm = null;
                 groupsForm = null;
@@ -190,6 +193,7 @@ namespace Carat
                 facultiesForm = null;
                 positionsForm = null;
                 ranksForm = null;
+                aboutForm = null;
 
                 LoadWorksTypes();
             }
@@ -618,6 +622,12 @@ namespace Carat
                     if (facultiesForm != null)
                         facultiesForm.Size = panelWorkspace.Size;
 
+                    if (ranksForm != null)
+                        ranksForm.Size = panelWorkspace.Size;
+
+                    if (aboutForm != null)
+                        aboutForm.Size = panelWorkspace.Size;
+
                     break;
                 case 2:
                     ApplyShinglesMode();
@@ -646,6 +656,7 @@ namespace Carat
             TAForm?.Close();
             facultiesForm?.Close();
             ranksForm?.Close();
+            aboutForm?.Close();
 
             if (curriculumForm == null)
             {
@@ -680,6 +691,7 @@ namespace Carat
             facultiesForm?.Close();
             positionsForm?.Close();
             ranksForm?.Close();
+            aboutForm?.Close();
 
             if (TAForm == null)
             {
@@ -788,6 +800,7 @@ namespace Carat
             facultiesForm?.Close();
             positionsForm?.Close();
             ranksForm?.Close();
+            aboutForm?.Close();
 
             if (workTypesForm == null)
             {
@@ -925,6 +938,7 @@ namespace Carat
             facultiesForm?.Close();
             positionsForm?.Close();
             ranksForm?.Close();
+            aboutForm?.Close();
         }
 
         private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1003,6 +1017,7 @@ namespace Carat
             facultiesForm?.Close();
             positionsForm?.Close();
             ranksForm?.Close();
+            aboutForm?.Close();
 
             radioButtonAll.Enabled = true;
             if (excelReportsForm == null)
@@ -1034,6 +1049,7 @@ namespace Carat
             groupsForm?.Close();
             positionsForm?.Close();
             ranksForm?.Close();
+            aboutForm?.Close();
 
             if (facultiesForm == null)
             {
@@ -1057,6 +1073,7 @@ namespace Carat
             groupsForm?.Close();
             facultiesForm?.Close();
             ranksForm?.Close();
+            aboutForm?.Close();
 
             if (positionsForm == null)
             {
@@ -1080,6 +1097,7 @@ namespace Carat
             groupsForm?.Close();
             facultiesForm?.Close();
             positionsForm?.Close();
+            aboutForm?.Close();
 
             if (ranksForm == null)
             {
@@ -1091,6 +1109,30 @@ namespace Carat
             else
             {
                 ranksForm.BringToFront();
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TurnOffAllSemesters();
+            curriculumForm?.Close();
+            TAForm?.Close();
+            excelReportsForm?.Close();
+            workTypesForm?.Close();
+            groupsForm?.Close();
+            facultiesForm?.Close();
+            positionsForm?.Close();
+            ranksForm?.Close();
+
+            if (aboutForm == null)
+            {
+                aboutForm = new AboutForm();
+                openChildForm(aboutForm);
+                aboutForm.Size = this.panelWorkspace.Size;
+            }
+            else
+            {
+                aboutForm.BringToFront();
             }
         }
     }
