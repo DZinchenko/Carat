@@ -366,7 +366,10 @@ namespace Carat
             changeViewStateOfSubmenu(panelReportSubmenu);
         }
 
-        private void openChildForm(Form form)
+        private void openChildForm(
+            Form form, 
+            bool jumpCursor) // a variable that tells if the cursor needs to temporary change
+                             // it's position (during a view show) to avoid AutoSizeColumn exception
         {
             var loadDataForm = form as IDataUserForm;
 
@@ -383,7 +386,20 @@ namespace Carat
             panelWorkspace.Tag = form;
             form.BringToFront();
 
-            form.Show();
+            if (jumpCursor)
+            {
+                Cursor.Hide();
+                Cursor.Position = new Point(Cursor.Position.X + 100, Cursor.Position.Y + 100);
+
+                form.Show();
+
+                Cursor.Show();
+                Cursor.Position = new Point(Cursor.Position.X - 100, Cursor.Position.Y - 100);
+            }
+            else
+            {
+                form.Show();
+            }
         }
 
         private void toolStripMenuItem_Click(ToolStripMenuItem toolStripMenuItem)
@@ -420,7 +436,7 @@ namespace Carat
             {
                 buttonSubjects.Image = Properties.Resources.icons8_заполненный_круг_16;
                 subjectsForm = new SubjectsTableForm(this, m_dbName);
-                openChildForm(subjectsForm);
+                openChildForm(subjectsForm, false);
             }
             else {
                 subjectsForm.BringToFront();
@@ -488,7 +504,7 @@ namespace Carat
             {
                 buttonGroups.Image = Properties.Resources.icons8_заполненный_круг_16;
                 groupsForm = new GroupsTableForm(this, m_dbName);
-                openChildForm(groupsForm);
+                openChildForm(groupsForm, false);
             }
             else
             {
@@ -507,7 +523,7 @@ namespace Carat
             {
                 buttonTeachers.Image = Properties.Resources.icons8_заполненный_круг_16;
                 teachersForm = new TeachersTableForm(this, m_dbName);
-                openChildForm(teachersForm);
+                openChildForm(teachersForm, false);
             }
             else
             {
@@ -672,7 +688,7 @@ namespace Carat
                                                     getIsEmptyWorks(),
                                                     m_coursesValues);
 
-                openChildForm(curriculumForm);
+                openChildForm(curriculumForm, false);
             }
             else
             {
@@ -706,7 +722,7 @@ namespace Carat
                                                     getEducLevelFilter(),
                                                     getIsEmptyWorks());
 
-                openChildForm(TAForm);
+                openChildForm(TAForm, false);
             }
             else
             {
@@ -806,7 +822,7 @@ namespace Carat
             if (workTypesForm == null)
             {
                 workTypesForm = new WorkTypesTableForm(this, m_dbName);
-                openChildForm(workTypesForm);
+                openChildForm(workTypesForm, true);
             }
             else
             {
@@ -1032,7 +1048,7 @@ namespace Carat
                                                         getCourseFilter(),
                                                         getSemesterFilter());
 
-                openChildForm(excelReportsForm);
+                openChildForm(excelReportsForm, false);
             }
             else
             {
@@ -1055,7 +1071,7 @@ namespace Carat
             if (facultiesForm == null)
             {
                 facultiesForm = new FacultiesTableForm(this, m_dbName);
-                openChildForm(facultiesForm);
+                openChildForm(facultiesForm, true);
                 facultiesForm.Size = this.panelWorkspace.Size;
             }
             else
@@ -1079,7 +1095,7 @@ namespace Carat
             if (positionsForm == null)
             {
                 positionsForm = new PositionsTableForm(this, m_dbName);
-                openChildForm(positionsForm);
+                openChildForm(positionsForm, true);
                 positionsForm.Size = this.panelWorkspace.Size;
             }
             else
@@ -1102,9 +1118,8 @@ namespace Carat
 
             if (ranksForm == null)
             {
-                Cursor.Position = new Point(Cursor.Position.X, Cursor.Position.Y - 20);
                 ranksForm = new RanksTableForm(this, m_dbName);
-                openChildForm(ranksForm);
+                openChildForm(ranksForm, true);
                 ranksForm.Size = this.panelWorkspace.Size;
             }
             else
@@ -1128,7 +1143,7 @@ namespace Carat
             if (aboutForm == null)
             {
                 aboutForm = new AboutForm();
-                openChildForm(aboutForm);
+                openChildForm(aboutForm, true);
                 aboutForm.Size = this.panelWorkspace.Size;
             }
             else
