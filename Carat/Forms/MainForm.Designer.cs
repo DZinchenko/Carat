@@ -41,6 +41,7 @@
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.baseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.workTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facultiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.positionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -228,6 +229,7 @@
             // baseToolStripMenuItem
             // 
             this.baseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearToolStripMenuItem,
             this.workTypesToolStripMenuItem,
             this.facultiesToolStripMenuItem,
             this.positionsToolStripMenuItem,
@@ -241,31 +243,38 @@
             this.baseToolStripMenuItem.MouseEnter += new System.EventHandler(this.baseToolStripMenuItem_MouseEnter);
             this.baseToolStripMenuItem.MouseLeave += new System.EventHandler(this.baseToolStripMenuItem_MouseLeave);
             // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
+            this.clearToolStripMenuItem.Text = "Очистити";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            // 
             // workTypesToolStripMenuItem
             // 
             this.workTypesToolStripMenuItem.Name = "workTypesToolStripMenuItem";
-            this.workTypesToolStripMenuItem.Size = new System.Drawing.Size(169, 24);
+            this.workTypesToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.workTypesToolStripMenuItem.Text = "Види робіт";
             this.workTypesToolStripMenuItem.Click += new System.EventHandler(this.workTypesToolStripMenuItem_Click);
             // 
             // facultiesToolStripMenuItem
             // 
             this.facultiesToolStripMenuItem.Name = "facultiesToolStripMenuItem";
-            this.facultiesToolStripMenuItem.Size = new System.Drawing.Size(169, 24);
+            this.facultiesToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.facultiesToolStripMenuItem.Text = "Факультети";
             this.facultiesToolStripMenuItem.Click += new System.EventHandler(this.facultiesToolStripMenuItem_Click);
             // 
             // positionsToolStripMenuItem
             // 
             this.positionsToolStripMenuItem.Name = "positionsToolStripMenuItem";
-            this.positionsToolStripMenuItem.Size = new System.Drawing.Size(169, 24);
+            this.positionsToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.positionsToolStripMenuItem.Text = "Посади";
             this.positionsToolStripMenuItem.Click += new System.EventHandler(this.positionsToolStripMenuItem_Click);
             // 
             // ranksToolStripMenuItem
             // 
             this.ranksToolStripMenuItem.Name = "ranksToolStripMenuItem";
-            this.ranksToolStripMenuItem.Size = new System.Drawing.Size(169, 24);
+            this.ranksToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.ranksToolStripMenuItem.Text = "Наукові ступені";
             this.ranksToolStripMenuItem.Click += new System.EventHandler(this.ranksToolStripMenuItem_Click);
             // 
@@ -1074,6 +1083,7 @@
         private System.Windows.Forms.ToolStripMenuItem facultiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem positionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ranksToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
     }
 }
 

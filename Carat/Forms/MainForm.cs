@@ -56,6 +56,7 @@ namespace Carat
 
             dataBaseStatelabel.Text = m_dbName;
             //CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ukr-uk");
+            baseToolStripMenuItem.DropDownItems.Insert(1, new ToolStripSeparator());
 
         m_lastModeRepository = new LastModeRepository(m_lastModeDbName);
             var lastMode = m_lastModeRepository.GetLastMode();
@@ -1134,6 +1135,29 @@ namespace Carat
             {
                 aboutForm.BringToFront();
             }
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using(var clearForm = new ClearingForm(this.CloseAllSubforms, m_dbName))
+            {
+                clearForm.StartPosition = FormStartPosition.CenterParent;
+                clearForm.ShowDialog();
+            }
+        }
+
+        private void CloseAllSubforms()
+        {
+            TurnOffAllSemesters();
+            curriculumForm?.Close();
+            TAForm?.Close();
+            excelReportsForm?.Close();
+            workTypesForm?.Close();
+            groupsForm?.Close();
+            facultiesForm?.Close();
+            positionsForm?.Close();
+            ranksForm?.Close();
+            aboutForm?.Close();
         }
     }
 }

@@ -19,9 +19,9 @@ namespace Carat
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            //Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+            //Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
             Application.Run(new MainForm());
         }

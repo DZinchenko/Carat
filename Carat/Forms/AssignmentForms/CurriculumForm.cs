@@ -101,13 +101,13 @@ namespace Carat
         public void UpdateWorks(bool isEmptyWorks)
         {
             m_isEmptyWorks = isEmptyWorks;
-
-            if (dataGridViewCurriculumWorkTypes.SelectedCells.Count == 1)
-            {
-                var rowIndex = dataGridViewCurriculumWorkTypes.SelectedCells[0].RowIndex;
-                dataGridViewCurriculumWorkTypes.ClearSelection();
-                dataGridViewCurriculumWorkTypes.Rows[rowIndex].Cells[1].Selected = true;
-            }
+            this.LoadDataCurriculumWorks();
+            //if (dataGridViewCurriculumWorkTypes.SelectedCells.Count == 1)
+            //{
+            //    var rowIndex = dataGridViewCurriculumWorkTypes.SelectedCells[0].RowIndex;
+            //    dataGridViewCurriculumWorkTypes.ClearSelection();
+            //    dataGridViewCurriculumWorkTypes.Rows[rowIndex].Cells[1].Selected = true;
+            //}
         }
 
         public void LoadData()
@@ -407,7 +407,6 @@ namespace Carat
                 }
 
                 var curriculumItemId = curriculumItems[rowIndex].Id;
-                var curriculumItemWorks = m_workRepository.GetWorks(curriculumItemId, m_isEmptyWorks);
 
                 isSelectionChanging = true;
                 for (int i = 0, limit = dataGridViewCurriculumWorkTypes.RowCount; i < limit; ++i)
@@ -415,15 +414,27 @@ namespace Carat
                     RemoveLastRowCurriculumWorks();
                 }
                 isSelectionChanging = false;
-
-                foreach (var work in curriculumItemWorks)
-                {
-                    var workType = m_workTypeRepository.GetWorkType(work.WorkTypeId);
-                    dataGridViewCurriculumWorkTypes.Rows.Add(workType?.Name, work?.TotalHours.ToString(Tools.HoursAccuracy));
-                }
-
+                LoadDataCurriculumWorks();
                 listBoxWorkTypes.Enabled = true;
             }
+        }
+
+        private void LoadDataCurriculumWorks()
+        {
+            isSelectionChanging = true;
+
+            var curriculumItems = GetAllSortedCurriculumItems();
+            var rowIndex = dataGridViewCurriculumSubjects.SelectedCells[0].RowIndex;
+            var curriculumItemId = curriculumItems[rowIndex].Id;
+            var curriculumItemWorks = m_workRepository.GetWorks(curriculumItemId, m_isEmptyWorks);
+
+            dataGridViewCurriculumWorkTypes.Rows.Clear();
+            foreach (var work in curriculumItemWorks)
+            {
+                var workType = m_workTypeRepository.GetWorkType(work.WorkTypeId);
+                dataGridViewCurriculumWorkTypes.Rows.Add(workType?.Name, work?.TotalHours.ToString(Tools.HoursAccuracy));
+            }
+            isSelectionChanging = false;
         }
 
         private void listBoxWorkTypes_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -1288,7 +1299,7 @@ namespace Carat
 
             if(this.getCurrentCurriculumId() == currId)
             {
-                this.SyncDataCurriculumWorks();
+                this.LoadDataCurriculumWorks();
             }
         }
 

@@ -192,6 +192,12 @@
     <Compile Include="Forms\AssignmentForms\CurriculumForm.Designer.cs">
       <DependentUpon>CurriculumForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ClearingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ClearingForm.Designer.cs">
+      <DependentUpon>ClearingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IFiltersChangable.cs" />
     <Compile Include="Forms\TableForms\RanksTableForm.cs">
       <SubType>Form</SubType>
@@ -292,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AssignmentForms\CurriculumForm.resx">
       <DependentUpon>CurriculumForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ClearingForm.resx">
+      <DependentUpon>ClearingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TableForms\RanksTableForm.resx">
       <DependentUpon>RanksTableForm.cs</DependentUpon>
