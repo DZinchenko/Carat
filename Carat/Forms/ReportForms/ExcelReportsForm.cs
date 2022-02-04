@@ -218,8 +218,6 @@ namespace Carat
                         continue;
                     }
 
-                    var newRow = sheet.GetRow(8 + i);
-                    var subjectName = m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name;
 
                     if (
                         curriculumWorks.Count <= 0)
@@ -227,6 +225,14 @@ namespace Carat
                         ++i;
                         continue;
                     }
+
+                    if (i > 0)
+                    {
+                        sheet.CopyRow(8, 8 + i);
+                    }
+
+                    var newRow = sheet.GetRow(8 + i);
+                    var subjectName = m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name;
 
                     newRow.Cells[0].SetCellValue((i + 1).ToString());
                     newRow.Cells[1].SetCellValue(subjectName);
@@ -242,11 +248,6 @@ namespace Carat
                     newRow.Height = -1;
 
                     ++i;
-
-                    if (i < curriculumItems.Count)
-                    {
-                        sheet.CopyRow(8, 8 + i);
-                    }
 
                     m_parentForm.IncrementProgress();
                 }
