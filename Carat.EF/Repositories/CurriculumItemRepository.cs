@@ -455,58 +455,16 @@ namespace Carat.EF.Repositories
 
         public List<CurriculumItem> GetAllCurriculumItems<OrderType>(Func<CurriculumItem, OrderType> orderFunc, string educType, string educForm, uint course, uint semestr, string educlevel)
         {
-            if (course == 0)
+            using (var ctx = new CaratDbContext(m_dbPath))
             {
-                if (semestr == 0)
-                {
-                    using (var ctx = new CaratDbContext(m_dbPath))
-                    {
-                        var result = ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                            && b.EducLevel == educlevel
-                                                            && b.EducForm == educForm).ToList();
-                        return result.OrderBy(orderFunc).ToList();
-                    }
-                }
-                else
-                {
-                    using (var ctx = new CaratDbContext(m_dbPath))
-                    {
-                        var result = ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                            && b.EducLevel == educlevel
-                                                            && b.Semestr == semestr
-                                                            && b.EducForm == educForm).ToList();
-                        return result.OrderBy(orderFunc).ToList();
-                    }
-                }
+                return ctx.CurriculumItems.Where(b => b.EducType == educType
+                                                      && b.EducLevel == educlevel
+                                                      && b.EducForm == educForm
+                                                      && (b.Course == course || course == 0)
+                                                      && (b.Semestr == semestr || semestr == 0))
+                                                                .OrderBy(orderFunc).ToList();
             }
-            else
-            {
-                if (semestr == 0)
-                {
-                    using (var ctx = new CaratDbContext(m_dbPath))
-                    {
-                        var result = ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                           && b.EducLevel == educlevel
-                                                           && b.EducForm == educForm
-                                                           && b.Course == course).ToList();
-                        return result.OrderBy(orderFunc).ToList();
-                    }
-                }
-                else
-                {
-                    using (var ctx = new CaratDbContext(m_dbPath))
-                    {
-                        var result = ctx.CurriculumItems.Where(b => b.EducType == educType
-                                                           && b.EducLevel == educlevel
-                                                           && b.Semestr == semestr
-                                                           && b.EducForm == educForm
-                                                           && b.Semestr == semestr
-                                                           && b.Course == course).ToList();
-                        return result.OrderBy(orderFunc).ToList();
-                    }
-                }
-            }
-        }   
+        }
 
         public void AddCurriculumItem(CurriculumItem curriculumItem)
         {

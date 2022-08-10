@@ -238,5 +238,30 @@ namespace Carat.EF.Repositories
                 return ctx.TAItems.Where(tai => workIds.Contains(tai.WorkId)).Any();
             }
         }
+
+        public void DeleteAllTAItemsForWorks(List<int> workIds, string educType, string educForm, uint course, uint semestr, string educlevel)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                var items =  ctx.TAItems.Where(b => (b.EducType == educType || educType == "<всі>")
+                                                   && (b.EducForm == educForm || educForm == "<всі>")
+                                                   && b.Semestr == semestr
+                                                   && b.EducLevel == educlevel
+                                                   && b.Course == course
+                                                   && workIds.Contains(b.WorkId));
+
+                ctx.RemoveRange(items);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void AddTAItems(List<TAItem> TAItems)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.AddRange(TAItems);
+                ctx.SaveChanges();
+            }
+        }
     }
 }

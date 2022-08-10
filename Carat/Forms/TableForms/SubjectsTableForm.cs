@@ -23,8 +23,11 @@ namespace Carat
         private ISubjectRepository m_subjectRepository;
         private ICurriculumItemRepository m_curriculumItemRepository;
         private MainForm m_parentForm = null;
-        private const string IncorrectNameMessage = "Некоректна назва предмета!";
         private bool isSortChanging = false;
+        private List<Subject> subjects;
+
+        private const string IncorrectNameMessage = "Некоректна назва предмета!";
+        private const string DeletionWithHoursSingleMessage = "Видалення не може бути виконано, тому що у дисципліни {disc} є ненульовий розподіл навчального часу.";
 
         public SubjectsTableForm(MainForm parentForm, string dbName)
         {
@@ -37,21 +40,12 @@ namespace Carat
 
         public void LoadData()
         {
-            var subjects = m_subjectRepository.GetAllSubjects();
+            this.subjects = m_subjectRepository.GetAllSubjects();
+            dataGridViewSubjects.Rows.Clear();
 
-            foreach (var subject in subjects)
+            foreach (var subject in this.subjects)
             {
                 dataGridViewSubjects.Rows.Add(subject.Name, subject.Notes);
-            }
-        }
-
-        private void SyncData()
-        {
-            var subjects = m_subjectRepository.GetAllSubjects();
-
-            for (int i = 0; i < subjects.Count; ++i)
-            {
-                dataGridViewSubjects.Rows[i].SetValues(subjects[i].Name, subjects[i].Notes);
             }
         }
 
@@ -86,8 +80,6 @@ namespace Carat
                 return;
             }
 
-            // Getting all data from DB
-            var subjects = m_subjectRepository.GetAllSubjects();
             var subject = new Subject();
 
             // Check that changed cell index is in data range 
@@ -101,16 +93,16 @@ namespace Carat
             subject.Notes = dataGridViewSubjects[1, e.RowIndex].Value?.ToString();
 
             // Check that changed row is modified or new created 
-            if (e.RowIndex < subjects.Count)
+            if (e.RowIndex < this.subjects.Count)
             {
-                subject.Id = subjects[e.RowIndex].Id;
+                subject.Id = this.subjects[e.RowIndex].Id;
 
                 // Call isValidName function wich checks that changed data is valid
                 if (!isValidName(subject.Name))
                 {
                     // Throw user readable error message and sync dataGridView data with DB data
                     MessageBox.Show(IncorrectNameMessage, Tools.MessageBoxErrorTitle(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    SyncData();
+                    LoadData();
                     return;
                 }
 
@@ -135,32 +127,29 @@ namespace Carat
             PerformSort();
         }
 
-        private void dataGridViewSubjects_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        private void dataGridViewSubjects_userDeletingRows(object sender, DataGridViewRowCancelEventArgs e)
         {
-            var subjects = m_subjectRepository.GetAllSubjects();
-
-            if (e.RowIndex < 0)
-            {
-                return;
-            }
-
-            if (e.RowIndex >= subjects.Count)
-            {
-                return;
-            }
-
             if (isSortChanging)
             {
                 return;
             }
 
-            for (int i = e.RowIndex, limit = e.RowIndex + e.RowCount; i < limit; ++i)
+            var deletedSubject = this.subjects.ElementAt(e.Row.Index);
+
+            if (m_subjectRepository.CheckIfHasHours(deletedSubject))
             {
-                if (i < subjects.Count)
-                {
-                    m_curriculumItemRepository.RemoveCurriculumItemsBySubjectId(subjects[i].Id);
-                    m_subjectRepository.RemoveSubject(subjects[i]);
-                }
+                MessageBox.Show(
+                    DeletionWithHoursSingleMessage.Replace("{disc}", deletedSubject.Name),
+                    Tools.MessageBoxErrorTitle(),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                e.Cancel = true;
+            }
+            else
+            {
+                m_curriculumItemRepository.RemoveCurriculumItemsBySubjectId(deletedSubject.Id);
+                m_subjectRepository.RemoveSubject(deletedSubject);
+                this.subjects.RemoveAt(e.Row.Index);
             }
         }
 
@@ -210,7 +199,7 @@ namespace Carat
 
                 workbook.Write(fileData);
 
-                System.Diagnostics.Process.Start(@fileData.Name);               
+                System.Diagnostics.Process.Start(@fileData.Name);
             }
         }
 
@@ -245,7 +234,7 @@ namespace Carat
 
                             subject.Name = row.GetCell(0)?.ToString();
                             subject.Notes = row.GetCell(1)?.ToString();
-                            subjects.Add(subject);
+                            this.subjects.Add(subject);
                         }
 
                         m_subjectRepository.AddSubjects(subjects);

@@ -224,7 +224,7 @@ namespace Carat
                         }
                     case 2:
                         {
-                            teacher.PositionId = m_positionRepository.GetPosition(dataGridViewTeachers[e.ColumnIndex, e.RowIndex].Value?.ToString()?.Trim()).Id;
+                            teacher.PositionId = m_positionRepository.GetPosition(dataGridViewTeachers[e.ColumnIndex, e.RowIndex].FormattedValue?.ToString()?.Trim()).Id;
                             break;
                         }
                     case 3:

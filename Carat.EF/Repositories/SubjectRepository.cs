@@ -87,5 +87,27 @@ namespace Carat.EF.Repositories
                 ctx.SaveChanges();
             }
         }
+
+        public Dictionary<int, Subject> GetSubjects(List<int> subjectIds)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.Subjects
+                        .Where(s => subjectIds.Contains(s.Id))
+                        .ToDictionary(s => s.Id);
+            }
+        }
+
+        public bool CheckIfHasHours(Subject subject)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.CurriculumItems
+                            .Where(ci => ci.SubjectId == subject.Id)
+                            .Join(ctx.Works, a => a.Id, b => b.CurriculumItemId, (a, b) => b.TotalHours)
+                            .Sum()
+                            > 0;
+            }
+        }
     }
 }

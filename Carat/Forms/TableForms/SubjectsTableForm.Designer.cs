@@ -105,7 +105,7 @@ namespace Carat
             this.dataGridViewSubjects.Size = new System.Drawing.Size(899, 493);
             this.dataGridViewSubjects.TabIndex = 2;
             this.dataGridViewSubjects.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSubjects_CellValueChanged);
-            this.dataGridViewSubjects.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewSubjects_RowsRemoved);
+            this.dataGridViewSubjects.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridViewSubjects_userDeletingRows);
             // 
             // SubjectName
             // 

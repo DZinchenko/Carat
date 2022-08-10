@@ -15,9 +15,11 @@ namespace Carat.Data.Repositories
         List<TAItem> GetTAItemsByTeacherIdWithouFilters(int teacherId, uint semestr);
         TAItem GetTAItem(int TAItemId);
         void AddTAItem(TAItem TAItem);
+        void AddTAItems(List<TAItem> TAItems);
         void RemoveTAItem(TAItem TAItem);
         void UpdateTAItem(TAItem TAItem);
         void DeleteAllTAItems();
         bool ExistTAItemsForWorks(List<Work> works);
+        void DeleteAllTAItemsForWorks(List<int> workIds, string educType, string educForm, uint course, uint semestr, string educlevel);
     }
 }

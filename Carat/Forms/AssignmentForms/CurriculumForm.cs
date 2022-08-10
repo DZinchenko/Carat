@@ -798,6 +798,7 @@ namespace Carat
 
                         m_curriculumItemRepository.DeleteCurriculumItems(oldCurriculumItems);
                         m_workRepository.DeleteWorks(oldWorks);
+                        m_taItemRepository.DeleteAllTAItems();
 
                         ReadFirstPage(sheet1, 1, firstSemestrStart, firstSemestrEnd, educType, educForm);
                         ReadFirstPage(sheet1, 2, secondSemestrStart, secondSemestrEnd, educType, educForm);

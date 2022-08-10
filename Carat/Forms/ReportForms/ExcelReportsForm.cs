@@ -1281,7 +1281,7 @@ namespace Carat
                         {
                             if (data.GroupNamesByCurriculumItemIdsByTeachersIds[teacher.Id].ContainsKey(curriculumItem.Id))
                             {
-                                groupsCellText = string.Join("; ", data.GroupNamesByCurriculumItemIdsByTeachersIds[teacher.Id][curriculumItem.Id]);
+                                groupsCellText = string.Join("; ", data.GroupNamesByCurriculumItemIdsByTeachersIds[teacher.Id][curriculumItem.Id].Distinct());
                             }
                         }
 

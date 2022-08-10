@@ -91,6 +91,7 @@ namespace Carat
         private int sortColumnIndex = 0;
 
         private int? replacingTeacherRowInd = null;
+        private int? allHoursAssignmentCurriculumSubjectId = null;
 
         const string IncorrectDataMessage = "Некоректні дані";
 
@@ -126,8 +127,6 @@ namespace Carat
             m_groupsToTeacherRepository = new GroupsToTAItemRepository(dbPath);
             m_TAItemRepository = new TAItemRepository(dbPath);
             m_positionRepository = new PositionRepository(dbPath);
-
-            this.comboBoxTATeachers.DropDownClosed += (obj, e) => { this.replacingTeacherRowInd = null; };
         }
 
         public void UpdateWorks(bool isEmptyWorks)
@@ -145,10 +144,11 @@ namespace Carat
         public void LoadData()
         {
             var curriculumItems = GetAllSortedCurriculumItems();
+            var subjects = m_subjectRepository.GetSubjects(curriculumItems.Select(item => item.SubjectId).ToList());
 
             foreach (var item in curriculumItems)
             {
-                dataGridViewTASubjects.Rows.Add(m_subjectRepository.GetSubject(item.SubjectId)?.Name, item.Course);
+                dataGridViewTASubjects.Rows.Add(subjects[item.SubjectId].Name, item.Course);
             }
 
             LoadTeachers();
@@ -156,6 +156,7 @@ namespace Carat
 
         private void LoadTeachers()
         {
+            comboBoxTATeachers.Items.Clear();
             comboBoxTATeachers.DroppedDown = false;
 
             var teachers = m_teacherRepository.GetAllTeachers(a => a.Name);
@@ -187,7 +188,7 @@ namespace Carat
 
         private void dataGridViewTASubjects_SelectionChanged(object sender, EventArgs e)
         {
-            if (!(dataGridViewTASubjects.SelectedRows.Count == 1))
+            if (this.isSortChanging || !(dataGridViewTASubjects.SelectedRows.Count == 1))
             {
                 return;
             }
@@ -573,25 +574,36 @@ namespace Carat
             var teacherName = cbItem.Substring(0, cbItem.IndexOf('(') - 1);
             var teacher = m_teacherRepository.GetTeacherByName(teacherName);
 
-            if (this.replacingTeacherRowInd != null)
+            if (this.replacingTeacherRowInd.HasValue)
             {
                 this.CommitTeacherReplacement(teacher);
-                return;
             }
-
-            var dgvIndex = dataGridViewTATeachers.Rows.Count;
-
-            if (teacher != null)
+            else if (this.allHoursAssignmentCurriculumSubjectId.HasValue)
             {
-                dataGridViewTATeachers.Rows.Add();
-                dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, dataGridViewTAWorks.Rows[selectedWorkIndex].Cells[1].Value.ToString(), "");
+                this.CommitAllHoursAssignment(allHoursAssignmentCurriculumSubjectId.Value, teacher.Id);
+            }
+            else
+            {
+                var dgvIndex = dataGridViewTATeachers.Rows.Count;
 
-                //Scroll DataGridView to bottom and start editing hours
-                dataGridViewTATeachers.CurrentCell = dataGridViewTATeachers.Rows[dgvIndex].Cells[1];
-                dataGridViewTATeachers.BeginEdit(true);
+                if (teacher != null)
+                {
+                    dataGridViewTATeachers.Rows.Add();
+                    dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, dataGridViewTAWorks.Rows[selectedWorkIndex].Cells[1].Value.ToString(), "");
+
+                    //Scroll DataGridView to bottom and start editing hours
+                    dataGridViewTATeachers.CurrentCell = dataGridViewTATeachers.Rows[dgvIndex].Cells[1];
+                    dataGridViewTATeachers.BeginEdit(true);
+                }
             }
 
             LoadTeachers();
+        }
+
+        private void comboBoxTATeachers_DropDownClosed(object sender, EventArgs e)
+        {
+            this.replacingTeacherRowInd = null;
+            this.allHoursAssignmentCurriculumSubjectId = null;
         }
 
         private void dataGridViewTATeachers_SelectionChanged(object sender, EventArgs e)
@@ -659,14 +671,14 @@ namespace Carat
         {
             if (!isSortChanging)
             {
-                var horizontalScrollingOffset = dataGridViewTASubjects.HorizontalScrollingOffset;
-                var verticalScrollingOffset = dataGridViewTASubjects.VerticalScrollingOffset;
+                var scrollingColumnIndex = dataGridViewTASubjects.FirstDisplayedScrollingColumnIndex;
+                var scrollingRowIndex = dataGridViewTASubjects.FirstDisplayedScrollingRowIndex;
                 isSortChanging = true;
                 dataGridViewTASubjects.Rows.Clear();
                 LoadData();
                 isSortChanging = false;
-                PropertyInfo verticalOffset = dataGridViewTASubjects.GetType().GetProperty("VerticalOffset", BindingFlags.NonPublic | BindingFlags.Instance);
-                verticalOffset.SetValue(this.dataGridViewTASubjects, verticalScrollingOffset, null);
+                dataGridViewTASubjects.FirstDisplayedScrollingColumnIndex = scrollingColumnIndex;
+                dataGridViewTASubjects.FirstDisplayedScrollingRowIndex = scrollingRowIndex;
             }
         }
 
@@ -698,6 +710,7 @@ namespace Carat
             {
                 ContextMenu m = new ContextMenu();
                 m.MenuItems.Add(new MenuItem("Видалити навантаження"));
+                m.MenuItems.Add(new MenuItem("Надати все навантаження викладачу"));
 
                 int currentMouseOverRow = dataGridViewTASubjects.HitTest(e.X, e.Y).RowIndex;
 
@@ -709,6 +722,7 @@ namespace Carat
                     isSelectionChanging = false;
 
                     m.MenuItems[0].Click += DeleteAssignment;
+                    m.MenuItems[1].Click += StartAllHoursAssignment;
                     m.Show(dataGridViewTASubjects, new Point(e.X, e.Y));
                 }
             }
@@ -753,6 +767,8 @@ namespace Carat
             {
                 MessageBox.Show(ex.Message);
             }
+
+            this.LoadTeachers();
 
             m_parentForm.Enabled = true;
         }
@@ -819,6 +835,41 @@ namespace Carat
             var taItem = m_TAItemRepository.GetTAItems(selectedWorkId)[(int)this.replacingTeacherRowInd];
             taItem.TeacherId = newTeacher.Id;
             this.m_TAItemRepository.UpdateTAItem(taItem);
+            this.SyncData();
+        }
+
+        private void StartAllHoursAssignment(object sender, EventArgs e)
+        {
+            this.allHoursAssignmentCurriculumSubjectId = this.selectedCurriculumSubjectId;
+            comboBoxTATeachers.DroppedDown = true;
+        }
+
+        private void CommitAllHoursAssignment(int curriculumItemId, int teacherId)
+        {
+            var curricullumItem = this.m_curriculumItemRepository.GetCurriculumItem(curriculumItemId);
+            var works = m_workRepository.GetWorks(curriculumItemId, m_isEmptyWorks);
+            m_TAItemRepository.DeleteAllTAItemsForWorks(
+                works.Select(w => w.Id).ToList(),
+                this.m_educType,
+                this.m_educForm,
+                this.getCourseBySelected(),
+                this.m_semestr,
+                m_educLevel);
+
+            var newTAItems = works.Select(w => new TAItem()
+            {
+                TeacherId = teacherId,
+                WorkId = w.Id,
+                WorkHours = w.TotalHours,
+                Course = getCourseBySelected(),
+                EducType = m_educType,
+                EducForm = m_educForm,
+                EducLevel = m_educLevel,
+                Semestr = m_semestr
+            }).ToList();
+
+            m_TAItemRepository.AddTAItems(newTAItems);
+
             this.SyncData();
         }
     }
