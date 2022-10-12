@@ -11,6 +11,7 @@ namespace Carat.Data.Repositories
         List<GroupsToTAItem> GetGroupsToTAItemsByGroupId(int groupId);
         List<GroupsToTAItem> GetGroupsToTAItemsByTAItemId(int TAItemId);
         void AddGroupsToTAItem(GroupsToTAItem groupsToTAItem);
+        void AddGroupsToTAItems(List<GroupsToTAItem> groupsToTAItems);
         void RemoveGroupsToTAItem(GroupsToTAItem groupsToTAItem);
         void RemoveGroupsToTAItems(List<GroupsToTAItem> groupsToTAItems);
         void UpdateGroupsToTAItem(GroupsToTAItem groupsToTAItem);

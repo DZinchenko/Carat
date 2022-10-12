@@ -87,13 +87,14 @@ namespace Carat
         private uint m_semestr;
         private string m_educLevel;
         private bool m_isEmptyWorks;
-        private bool isSortChanging = false;
+        private bool isLoading = false;
         private int sortColumnIndex = 0;
 
         private int? replacingTeacherRowInd = null;
         private int? allHoursAssignmentCurriculumSubjectId = null;
 
         const string IncorrectDataMessage = "Некоректні дані";
+        const string TeacherErrorMessage = "Цей викладач вже прив'язаний до даного виду роботи.";
 
         public TeacherAssignmentForm(MainForm parentForm,
                               string dbPath,
@@ -188,7 +189,7 @@ namespace Carat
 
         private void dataGridViewTASubjects_SelectionChanged(object sender, EventArgs e)
         {
-            if (this.isSortChanging || !(dataGridViewTASubjects.SelectedRows.Count == 1))
+            if (this.isLoading || !(dataGridViewTASubjects.SelectedRows.Count == 1))
             {
                 return;
             }
@@ -210,6 +211,7 @@ namespace Carat
 
         private void RemoveLastRowTAWorks()
         {
+            this.isLoading = true;
             int index = dataGridViewTAWorks.Rows.Count - 1;
 
             if (index < 0)
@@ -218,16 +220,23 @@ namespace Carat
             }
 
             dataGridViewTAWorks.Rows.Remove(dataGridViewTAWorks.Rows[index]);
+            this.isLoading = false;
         }
 
         private void LoadWorks(int curriculumItemId)
         {
+            this.isLoading = true;
             for (int i = 0, limit = dataGridViewTAWorks.RowCount; i < limit; ++i)
             {
                 RemoveLastRowTAWorks();
             }
 
             var works = m_workRepository.GetWorks(curriculumItemId, m_isEmptyWorks);
+
+            if (works.Count == 0)
+            {
+                this.dataGridViewTATeachers.Rows.Clear();
+            }
 
             foreach (var work in works)
             {
@@ -241,6 +250,7 @@ namespace Carat
 
                 dataGridViewTAWorks.Rows.Add(m_workTypeRepository.GetWorkType(work.WorkTypeId)?.Name?.ToString(), (work.TotalHours - sum).ToString(Tools.HoursAccuracy));
             }
+            this.isLoading = false;
         }
 
         private void CheckComboBoxTeacherState()
@@ -310,6 +320,7 @@ namespace Carat
 
         private void LoadTAItems()
         {
+            this.isLoading = true;
             for (int i = 0, limit = dataGridViewTATeachers.Rows.Count; i < limit; ++i)
             {
                 RemoveLastTAItem();
@@ -328,6 +339,7 @@ namespace Carat
                 contextMenuStrip.Items.Add(new ToolStripMenuItem("Замінити викладача", null, (obj, e) => { this.StartTeacherReplacement(rowInd); }));
                 dataGridViewTATeachers.Rows[rowInd].Cells[0].ContextMenuStrip = contextMenuStrip;
             }
+            this.isLoading = false;
         }
 
         private void RemoveLastTAItem()
@@ -344,7 +356,7 @@ namespace Carat
 
         private void dataGridViewTATeachers_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (m_TAItemRepository == null)
+            if (this.isLoading || m_TAItemRepository == null)
             {
                 return;
             }
@@ -426,20 +438,12 @@ namespace Carat
 
         private void SyncData()
         {
+            this.isLoading = true;
             var TAItems = m_TAItemRepository.GetAllTAItems(selectedWorkId, m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
-
-            for (int i = 0; i < dataGridViewTATeachers.Rows.Count; i++)
-            {
-                dataGridViewTATeachers.Rows[i].SetValues(
-                    m_teacherRepository.GetTeacher(TAItems[i].TeacherId)?.Name, TAItems[i].WorkHours.ToString(Tools.HoursAccuracy));
-
-                var rowInd = i;
-                var contextMenuStrip = new ContextMenuStrip();
-                contextMenuStrip.Items.Add(new ToolStripMenuItem("Копіювати групи", null, (obj, e) => { this.CopyGroups(rowInd); }));
-                contextMenuStrip.Items.Add(new ToolStripMenuItem("Вставити групи", null, (obj, e) => { this.PasteGroups(rowInd); }));
-                contextMenuStrip.Items.Add(new ToolStripMenuItem("Замінити викладача", null, (obj, e) => { this.StartTeacherReplacement(rowInd); }));
-                dataGridViewTATeachers.Rows[i].Cells[0].ContextMenuStrip = contextMenuStrip;
-            }
+            LoadWorks(selectedCurriculumSubjectId);
+            LoadTAItems();
+            LoadTeachers();
+            this.isLoading = false;
         }
 
         private void SyncHours(int workId)
@@ -535,12 +539,12 @@ namespace Carat
 
         private void dataGridViewTATeachers_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            var items = m_TAItemRepository.GetAllTAItems(selectedWorkId, m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
-
-            if (e.RowIndex < 0)
+            if(this.isLoading || e.RowIndex < 0)
             {
                 return;
             }
+
+            var items = m_TAItemRepository.GetAllTAItems(selectedWorkId, m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
 
             if (e.RowIndex >= items.Count)
             {
@@ -591,9 +595,12 @@ namespace Carat
                     dataGridViewTATeachers.Rows.Add();
                     dataGridViewTATeachers.Rows[dgvIndex].SetValues(teacher.Name, dataGridViewTAWorks.Rows[selectedWorkIndex].Cells[1].Value.ToString(), "");
 
-                    //Scroll DataGridView to bottom and start editing hours
-                    dataGridViewTATeachers.CurrentCell = dataGridViewTATeachers.Rows[dgvIndex].Cells[1];
-                    dataGridViewTATeachers.BeginEdit(true);
+                    if(dataGridViewTATeachers.Rows.Count != dgvIndex) //check that new teacher wasn't deleted for some reason
+                    {
+                        //Scroll DataGridView to bottom and start editing hours
+                        dataGridViewTATeachers.CurrentCell = dataGridViewTATeachers.Rows[dgvIndex].Cells[1];
+                        dataGridViewTATeachers.BeginEdit(true);
+                    }
                 }
             }
 
@@ -669,14 +676,14 @@ namespace Carat
 
         private void PerformSort()
         {
-            if (!isSortChanging)
+            if (!isLoading)
             {
                 var scrollingColumnIndex = dataGridViewTASubjects.FirstDisplayedScrollingColumnIndex;
                 var scrollingRowIndex = dataGridViewTASubjects.FirstDisplayedScrollingRowIndex;
-                isSortChanging = true;
+                isLoading = true;
                 dataGridViewTASubjects.Rows.Clear();
                 LoadData();
-                isSortChanging = false;
+                isLoading = false;
                 dataGridViewTASubjects.FirstDisplayedScrollingColumnIndex = scrollingColumnIndex;
                 dataGridViewTASubjects.FirstDisplayedScrollingRowIndex = scrollingRowIndex;
             }
@@ -684,7 +691,7 @@ namespace Carat
 
         private void comboBoxTATeachers_DrawItem(object sender, DrawItemEventArgs e)
         {
-            if (e.Index >= 0)
+            if (e.Index < comboBoxTATeachers.Items.Count && e.Index >= 0)
             {
                 var item = comboBoxTATeachers.Items[e.Index] as ComboBoxCustomItem;
 
@@ -832,10 +839,18 @@ namespace Carat
 
         private void CommitTeacherReplacement(Teacher newTeacher)
         {
-            var taItem = m_TAItemRepository.GetTAItems(selectedWorkId)[(int)this.replacingTeacherRowInd];
-            taItem.TeacherId = newTeacher.Id;
-            this.m_TAItemRepository.UpdateTAItem(taItem);
-            this.SyncData();
+            if (m_TAItemRepository.IsTeacherAssignedToWork(newTeacher.Id, selectedWorkId))
+            {
+                this.comboBoxTATeachers.DroppedDown = false;
+                MessageBox.Show(TeacherErrorMessage, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                var taItem = m_TAItemRepository.GetTAItems(selectedWorkId)[(int)this.replacingTeacherRowInd];
+                taItem.TeacherId = newTeacher.Id;
+                this.m_TAItemRepository.UpdateTAItem(taItem);
+                this.SyncData();
+            }
         }
 
         private void StartAllHoursAssignment(object sender, EventArgs e)
@@ -856,6 +871,7 @@ namespace Carat
                 this.m_semestr,
                 m_educLevel);
 
+
             var newTAItems = works.Select(w => new TAItem()
             {
                 TeacherId = teacherId,
@@ -869,6 +885,18 @@ namespace Carat
             }).ToList();
 
             m_TAItemRepository.AddTAItems(newTAItems);
+
+            var groupsToTAItems = new List<GroupsToTAItem>();
+            var taItemsGrouped = newTAItems.GroupBy(x => (Course: x.Course, EducForm: x.EducForm, EducLevel: x.EducLevel));
+
+            foreach(var taItemGroup in taItemsGrouped)
+            {
+                var key = taItemGroup.Key;
+                var groups = m_groupRepository.GetGroups(key.Course, key.EducForm, key.EducLevel);
+                groupsToTAItems.AddRange(taItemGroup.SelectMany(ta => groups.Select(g => new GroupsToTAItem { GroupId = g.Id, TAItemID = ta.Id })));
+            }
+
+            m_groupsToTeacherRepository.AddGroupsToTAItems(groupsToTAItems);
 
             this.SyncData();
         }

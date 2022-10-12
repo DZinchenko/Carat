@@ -263,5 +263,13 @@ namespace Carat.EF.Repositories
                 ctx.SaveChanges();
             }
         }
+
+        public bool IsTeacherAssignedToWork(int teacherId, int workId)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.TAItems.Any(x => x.WorkId == workId && x.TeacherId == teacherId);
+            }
+        }
     }
 }

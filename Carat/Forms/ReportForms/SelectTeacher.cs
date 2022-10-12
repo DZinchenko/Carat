@@ -34,7 +34,7 @@ namespace Carat
         private uint m_course;
         private uint m_semestr;
         private ByTeacherReportType m_reportType;
-        private List<string> m_specialWorks = new List<string> 
+        private List<string> m_specialWorks = new List<string>
         {
             "Бакалаврський проект",
             "Магістерська дисертація ОПП",
@@ -314,14 +314,14 @@ namespace Carat
                     string firstCellText = m_subjectRepository.GetSubject(curriculumItem.SubjectId)?.Name;
                     newRow.Cells[1].SetCellValue(firstCellText);
 
-                    
+
                     string secondCellText = "";
                     foreach (var group in groupsList.OrderBy(g => g.Name).ToList())
                     {
                         secondCellText += group.Name + "; ";
                     }
                     newRow.Cells[2].SetCellValue(secondCellText);
-                 
+
                     foreach (var otherTeacher in otherTeachers)
                     {
                         var newRowForOtherTeacher = sheet.CopyRow(8, sheet.LastRowNum);
@@ -348,7 +348,7 @@ namespace Carat
                             newRowForOtherTeacher.Cells[7 + work.WorkTypeId - 1].SetCellValue(taItem.WorkHours);
                         }
                     }
-                    
+
                     foreach (var taItem in taItems)
                     {
                         var work = m_workRepository.GetWork(taItem.WorkId);
@@ -654,80 +654,35 @@ namespace Carat
                 || workType == 19 || workType == 20 || workType == 21 || workType == 34;
         }
 
+        private Dictionary<string, int> workNameRowIndexPairs = new Dictionary<string, int> {
+            {"Індивід заняття з магістрами", 7},
+            {"Індивід заняття зі студентами", 6},
+            {"Керівництво практиками", 9},
+            {"Керівниц.атестац.роб.(бакалаврів)", 13},
+            {"Керівниц.атестац.роб.(магістр ОПП)", 14},
+            {"Керівниц.атестац.роб.(магістр ОНП)", 15},
+            {"Консульт.атестац.роб.(бакалаврів)", 16},
+            {"Консульт.атестац.роб.(магістр ОПП)", 17},
+            {"Консульт.атестац.роб.(магістр ОНП)", 18},
+            {"Рецензув.атестац.роб.(бакалаврів)" ,19},
+            {"Рецензув.атестац.роб.(магістр ОПП)", 20},
+            {"Рецензув.атестац.роб.(магістр ОНП)", 21},
+            {"Вступний іспит (магістр ОПП)", 22},
+            {"Вступний іспит (магістр ОНП)", 23},
+            {"Вступний іспит (аспірант)", 24},
+            {"Робота в ЕК (бакалаврів)", 25},
+            {"Робота в ЕК (магістр ОПП)", 28},
+            {"Робота в ЕК (магістр ОНП)", 31},
+            {"Керівництво (аспірантами)", 34},
+            {"Керівництво (здобувач., стаж.)", 35},
+            {"Консульт.докторантів", 36},
+            {"Заняття з аспірантами", -1}
+        };
+
         private int GetRowIndexByOtherWorkName(string workName)
         {
             int result = -1;
-
-            switch (workName)
-                {
-                case "Індивід заняття з магістрами":
-                    result = 7;
-                    break;
-                case "Індивід заняття зі студентами":
-                    result = 6;
-                    break;
-                case "Керівництво практиками":
-                    result = 9;
-                    break;
-                case "Керівниц.атестац.роб.(бакалаврів)":
-                    result = 13;
-                    break;
-                case "Керівниц.атестац.роб.(магістр ОПП)":
-                    result = 14;
-                    break;
-                case "Керівниц.атестац.роб.(магістр ОНП)":
-                    result = 15;
-                    break;
-                case "Консульт.атестац.роб.(бакалаврів)":
-                    result = 16;
-                    break;
-                case "Консульт.атестац.роб.(магістр ОПП)":
-                    result = 17;
-                    break;
-                case "Консульт.атестац.роб.(магістр ОНП)":
-                    result = 18;
-                    break;
-                case "Рецензув.атестац.роб.(бакалаврів)":
-                    result = 19;
-                    break;
-                case "Рецензув.атестац.роб.(магістр ОПП)":
-                    result = 20;
-                    break;
-                case "Рецензув.атестац.роб.(магістр ОНП)":
-                    result = 21;
-                    break;
-                case "Вступний іспит (магістр ОПП)":
-                    result = 22;
-                    break;
-                case "Вступний іспит (магістр ОНП)":
-                    result = 23;
-                    break;
-                case "Вступний іспит (аспірант)":
-                    result = 24;
-                    break;
-                case "Робота в ЕК (бакалаврів)":
-                    result = 25;
-                    break;
-                case "Робота в ЕК (магістр ОПП)":
-                    result = 28;
-                    break;
-                case "Робота в ЕК (магістр ОНП)":
-                    result = 31;
-                    break;
-                case "Керівництво (аспірантами)":
-                    result = 34;
-                    break;
-                case "Керівництво (здобувач., стаж.)":
-                    result = 35;
-                    break;
-                case "Заняття з аспірантами":
-                    result = -1;
-                    break;
-                case "Консульт.докторантів":
-                    result = 36;
-                    break;
-            }
-
+            workNameRowIndexPairs.TryGetValue(workName, out result);
             return result;
         }
 
@@ -774,7 +729,7 @@ namespace Carat
                     if (curriculumItem.EducType == "Контракт")
                     {
                         hoursCellIndexBC += 2;
-                    }    
+                    }
 
 
                     if (rowIndex == 7 && curriculumItem.EducLevel == "Магістр" && curriculumItem.Course == 2)
@@ -802,9 +757,13 @@ namespace Carat
 
                     var groups = GetGroups(new List<TAItem> { taItem }).Distinct().OrderBy(g => g.Name).ToList();
 
-                    GetCell(sheet.GetRow(rowIndex), facultyColumnIndex + shiftValue).SetCellValue(m_facultyRepository.GetFaculty(groups.First().FacultyId).Name);
-                    GetCell(sheet.GetRow(rowIndex), courseColumnIndex + shiftValue).SetCellValue(curriculumItem.Course);
                     bool isGroupsNotExist = groups.Count == 0;
+
+                    if (!isGroupsNotExist)
+                    {
+                        GetCell(sheet.GetRow(rowIndex), facultyColumnIndex + shiftValue).SetCellValue(m_facultyRepository.GetFaculty(groups.First().FacultyId).Name);
+                    }
+                    GetCell(sheet.GetRow(rowIndex), courseColumnIndex + shiftValue).SetCellValue(curriculumItem.Course);
 
                     foreach (var group in groups)
                     {
@@ -833,7 +792,7 @@ namespace Carat
                             if (IsDivisibleWorkType(rowIndex))
                             {
                                 if (curriculumItem.EducType == "Бюджет")
-                                    budjetCell.SetCellValue(Math.Round(cell.NumericCellValue/workType.StudentHours));
+                                    budjetCell.SetCellValue(Math.Round(cell.NumericCellValue / workType.StudentHours));
                             }
                             else
                             {
@@ -860,25 +819,60 @@ namespace Carat
 
                     if (isGroupsNotExist)
                     {
-                        var budjetCell = GetCell(sheet.GetRow(rowIndex), budjetColumnIndex + shiftValue);
+                        var row = sheet.GetRow(rowIndex);
                         try
                         {
                             if (IsDivisibleWorkType(rowIndex) && (curriculumItem.EducType == "Бюджет"))
                             {
-                                budjetCell.SetCellValue(Math.Round(cell.NumericCellValue / workType.StudentHours));
+                                var budjetCell = GetCell(row, budjetColumnIndex + shiftValue);
+                                var value = Math.Round(cell.NumericCellValue / workType.StudentHours);
+                                budjetCell.SetCellValue(value);
                             }
                         }
                         catch (Exception) { }
 
-                        var contractCell = GetCell(sheet.GetRow(rowIndex), contractColumnIndex + shiftValue);
                         try
                         {
                             if (IsDivisibleWorkType(rowIndex) && (curriculumItem.EducType == "Контракт"))
                             {
-                                contractCell.SetCellValue(Math.Round(cell.NumericCellValue / workType.StudentHours));
+                                var contractCell = GetCell(row, contractColumnIndex + shiftValue);
+                                var value = Math.Round(cell.NumericCellValue / workType.StudentHours);
+                                contractCell.SetCellValue(value);
                             }
                         }
                         catch (Exception) { }
+                    }
+
+
+                    var thisBudjetCell = GetCell(sheet.GetRow(rowIndex), budjetColumnIndex + shiftValue);
+                    var thisContractCell = GetCell(sheet.GetRow(rowIndex), contractColumnIndex + shiftValue);
+                    if (rowIndex >= 9 && rowIndex <= 11)
+                    {
+                        var attestationBudgetCell = GetCell(sheet.GetRow(rowIndex + 4), budjetColumnIndex + shiftValue);
+                        if (attestationBudgetCell.NumericCellValue != thisBudjetCell.NumericCellValue)
+                        {
+                            thisBudjetCell.SetCellValue(attestationBudgetCell.NumericCellValue);
+                        }
+
+                        var attestationContractCell = GetCell(sheet.GetRow(rowIndex + 4), contractColumnIndex + shiftValue);
+                        if (attestationContractCell.NumericCellValue != thisContractCell.NumericCellValue)
+                        {
+                            thisContractCell.SetCellValue(attestationContractCell.NumericCellValue);
+                        }
+                    }
+                    else if (rowIndex >= 13 && rowIndex <= 15)
+                    {
+                        var practiceBudgetCell = GetCell(sheet.GetRow(rowIndex - 4), budjetColumnIndex + shiftValue);
+                        if (practiceBudgetCell.NumericCellValue != thisBudjetCell.NumericCellValue)
+                        {
+                            practiceBudgetCell.SetCellValue(thisBudjetCell.NumericCellValue);
+                        }
+
+                        var practiceContractCell = GetCell(sheet.GetRow(rowIndex - 4), contractColumnIndex + shiftValue);
+                        if (practiceContractCell.NumericCellValue != thisContractCell.NumericCellValue)
+                        {
+                            practiceContractCell.SetCellValue(thisContractCell.NumericCellValue);
+                        }
                     }
 
                     m_parentForm.IncrementProgress();
@@ -914,8 +908,8 @@ namespace Carat
 
                 GetCell(sheet.GetRow(rowIndex), 25).SetCellValue(m_facultyRepository.GetFaculty(groups.FirstOrDefault().FacultyId).Name);
 
-                bool gotStudNumbersFromWork = false; 
-                if (curriculumItem.BudgetStudCnt != null && curriculumItem.ContractStudCnt != null)
+                bool gotStudNumbersFromWork = false;
+                if (curriculumItem.BudgetStudCnt != null && curriculumItem.ContractStudCnt != null && groups.Count > 1)
                 {
                     budjetNumber = (uint)curriculumItem.BudgetStudCnt;
                     contractNumber = (uint)curriculumItem.ContractStudCnt;
@@ -984,8 +978,8 @@ namespace Carat
 
             foreach (var taItem in allTAItems)
             {
-                Dictionary<string, List<TAItem>> resultDic = null;   
-                
+                Dictionary<string, List<TAItem>> resultDic = null;
+
                 var work = m_workRepository.GetWork(taItem.WorkId);
                 if (work == null)
                 {
@@ -997,7 +991,7 @@ namespace Carat
                 {
                     continue;
                 }
-                
+
                 var subject = m_subjectRepository.GetSubject(curriculumItem.SubjectId);
                 if (subject == null)
                 {
@@ -1019,7 +1013,7 @@ namespace Carat
                         resultDic = firstSemesterTAItemsSubjectsEvening;
                     }
                 }
-                else 
+                else
                 {
                     if (curriculumItem.EducForm == "Денна")
                     {
@@ -1049,7 +1043,7 @@ namespace Carat
                 + firstSemesterTAItemsSubjectsEvening.Count
                 + secondSemesterTAItemsSubjectsFull.Count
                 + secondSemesterTAItemsSubjectsExternal.Count
-                + secondSemesterTAItemsSubjectsEvening.Count, 
+                + secondSemesterTAItemsSubjectsEvening.Count,
                 "Individual report generating...");
 
             try
@@ -1065,8 +1059,10 @@ namespace Carat
                     return;
                 }
 
+                var rankDegreeValue = m_rankRepository.GetRank(teacher.RankId).Name + (teacher.Degree != "-" ? ", " + teacher.Degree : "");
+
                 sheet.GetRow(30).Cells[0].SetCellValue(teacher.Name);
-                sheet.GetRow(34).Cells[0].SetCellValue(m_rankRepository.GetRank(teacher.RankId).Name);
+                sheet.GetRow(34).Cells[0].SetCellValue(rankDegreeValue);
                 sheet.GetRow(39).Cells[0].SetCellValue(m_positionRepository.GetPosition(teacher.PositionId).Name);
 
                 int firstSemesterCounter = 0;

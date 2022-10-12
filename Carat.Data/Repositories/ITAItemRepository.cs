@@ -13,6 +13,7 @@ namespace Carat.Data.Repositories
         double GetAssignedTeacherHours(int teacherId, string educType);
         List<TAItem> GetTAItemsByTeacherId(int teacherId, uint semestr, string educType, string educForm);
         List<TAItem> GetTAItemsByTeacherIdWithouFilters(int teacherId, uint semestr);
+        bool IsTeacherAssignedToWork(int teacherId, int workId);
         TAItem GetTAItem(int TAItemId);
         void AddTAItem(TAItem TAItem);
         void AddTAItems(List<TAItem> TAItems);

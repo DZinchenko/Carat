@@ -98,5 +98,14 @@ namespace Carat.EF.Repositories
                 ctx.SaveChanges();
             }
         }
+
+        public void AddGroupsToTAItems(List<GroupsToTAItem> groupsToTAItems)
+        {
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                ctx.GroupsToTeachers.AddRange(groupsToTAItems);
+                ctx.SaveChanges();
+            }
+        }
     }
 }

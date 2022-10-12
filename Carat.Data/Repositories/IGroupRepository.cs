@@ -17,4 +17,11 @@ namespace Carat.Data.Repositories
         void UpdateGroup(Group group);
         void DeleteAllGroups();
     }
+    public static class GroupRepositoryExtensions
+    {
+        public static List<Group> GetGroups(this IGroupRepository repository, uint course, string educForm, string educLevel)
+        {
+            return repository.GetGroups(x => true, course, educForm, educLevel);
+        }
+    }
 }
