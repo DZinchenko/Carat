@@ -7,6 +7,7 @@ namespace Carat.Data.Repositories
     {
         List<TAItem> GetAllTAItems();
         List<TAItem> GetTAItems(int workId);
+        Dictionary<int, List<TAItem>> GetTAItems(List<Work> works);
         List<TAItem> GetAllTAItems(int workId, string educType, string educForm, uint semestr, string educlevel);
         List<TAItem> GetAllTAItems(int workId, string educType, string educForm, uint course, uint semestr, string educlevel);
         double GetAssignedTeacherHours(int teacherId);

@@ -271,5 +271,18 @@ namespace Carat.EF.Repositories
                 return ctx.TAItems.Any(x => x.WorkId == workId && x.TeacherId == teacherId);
             }
         }
+
+        public Dictionary<int, List<TAItem>> GetTAItems(List<Work> works)
+        {
+            var workIds = works.Select(w => w.Id);
+            using (var ctx = new CaratDbContext(m_dbPath))
+            {
+                return ctx.TAItems
+                    .Where(tai => workIds.Contains(tai.WorkId))
+                    .AsEnumerable()
+                    .GroupBy(tai => tai.WorkId)
+                    .ToDictionary(g => g.Key, g => g.ToList());
+            }
+        }
     }
 }

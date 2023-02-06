@@ -80,6 +80,7 @@ namespace Carat
         private int selectedWorkId = 0;
         private int selectedWorkIndex = 0;
         private int selectedCurriculumSubjectId = 0;
+        private int selectedTeacherRowInd = -1;
 
         private string m_educType;
         private string m_educForm;
@@ -194,6 +195,8 @@ namespace Carat
                 return;
             }
 
+            isSelectionChanging = true;
+
             var curriculumItems = GetAllSortedCurriculumItems();
             var rowIndex = dataGridViewTASubjects.SelectedRows[0].Index;
 
@@ -207,54 +210,49 @@ namespace Carat
             selectedCurriculumSubjectId = curriculumItems[rowIndex].Id;
 
             LoadWorks(curriculumItems[rowIndex].Id);
-        }
 
-        private void RemoveLastRowTAWorks()
-        {
-            this.isLoading = true;
-            int index = dataGridViewTAWorks.Rows.Count - 1;
-
-            if (index < 0)
-            {
-                return;
-            }
-
-            dataGridViewTAWorks.Rows.Remove(dataGridViewTAWorks.Rows[index]);
-            this.isLoading = false;
+            isSelectionChanging = false;
         }
 
         private void LoadWorks(int curriculumItemId)
         {
             this.isLoading = true;
-            for (int i = 0, limit = dataGridViewTAWorks.RowCount; i < limit; ++i)
-            {
-                RemoveLastRowTAWorks();
-            }
+
+            dataGridViewTAWorks.Rows.Clear();
 
             var works = m_workRepository.GetWorks(curriculumItemId, m_isEmptyWorks);
-
-            if (works.Count == 0)
-            {
-                this.dataGridViewTATeachers.Rows.Clear();
-            }
+            var taItemDict = m_TAItemRepository.GetTAItems(works);
+            var newRows = new List<DataGridViewRow>();
 
             foreach (var work in works)
             {
-                var taItems = m_TAItemRepository.GetTAItems(work.Id);
+                if (!taItemDict.TryGetValue(work.Id, out var taItems))
+                {
+                    taItems = new List<TAItem>();
+                }
                 double sum = 0;
 
                 foreach (var taItem in taItems)
                 {
                     sum += taItem.WorkHours;
                 }
-
-                dataGridViewTAWorks.Rows.Add(m_workTypeRepository.GetWorkType(work.WorkTypeId)?.Name?.ToString(), (work.TotalHours - sum).ToString(Tools.HoursAccuracy));
+                var newRow = (DataGridViewRow)dataGridViewTAWorks.RowTemplate.Clone();
+                newRow.CreateCells(dataGridViewTAWorks, m_workTypeRepository.GetWorkType(work.WorkTypeId)?.Name?.ToString(), (work.TotalHours - sum).ToString(Tools.HoursAccuracy));
+                newRows.Add(newRow);
             }
+
+            dataGridViewTAWorks.Rows.AddRange(newRows.ToArray());
+            dataGridViewTAWorks.Refresh();
             this.isLoading = false;
         }
 
         private void CheckComboBoxTeacherState()
         {
+            if (isLoading || isSelectionChanging)
+            {
+                return;
+            }
+
             var rowIndex = dataGridViewTAWorks.SelectedCells[0].RowIndex;
             var works = m_workRepository.GetWorks(selectedCurriculumSubjectId, m_isEmptyWorks);
 
@@ -281,6 +279,8 @@ namespace Carat
         private void dataGridViewTAWorks_SelectionChanged(object sender, EventArgs e)
         {
             comboBoxTATeachers.Enabled = false;
+
+            this.selectedTeacherRowInd = -1;
 
             if (!(dataGridViewTAWorks.SelectedCells.Count == 1 || (dataGridViewTAWorks.SelectedRows.Count == 1)))
             {
@@ -406,14 +406,11 @@ namespace Carat
                 }
 
                 SyncHours(item.WorkId);
-
-                dataGridViewTATeachers.ClearSelection();
-                dataGridViewTATeachers.Rows[e.RowIndex].Selected = true;
             }
-
+            LoadTAItems();
+            dataGridViewTATeachers.ClearSelection();
+            dataGridViewTATeachers.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
             CheckComboBoxTeacherState();
-            LoadTeachers();
-            SyncData();
         }
 
         private bool isValidName(string name)
@@ -439,7 +436,6 @@ namespace Carat
         private void SyncData()
         {
             this.isLoading = true;
-            var TAItems = m_TAItemRepository.GetAllTAItems(selectedWorkId, m_educType, m_educForm, getCourseBySelected(), m_semestr, m_educLevel);
             LoadWorks(selectedCurriculumSubjectId);
             LoadTAItems();
             LoadTeachers();
@@ -494,6 +490,7 @@ namespace Carat
                             item.EducForm = m_educForm;
                             item.EducLevel = m_educLevel;
                             item.Semestr = m_semestr;
+                            item.WorkHours = Convert.ToDouble(dataGridViewTAWorks[1, selectedWorkIndex].Value);
 
                             break;
                         }
@@ -615,17 +612,27 @@ namespace Carat
 
         private void dataGridViewTATeachers_SelectionChanged(object sender, EventArgs e)
         {
+            if (dataGridViewTATeachers.RowCount <= 0 || dataGridViewTATeachers.SelectedCells.Count <= 0)
+            {
+                if (m_selectGroupsForm != null)
+                    m_selectGroupsForm.Visible = false;
+                m_selectGroupsForm = null;
+                m_selectGroupsForm?.Close();
+                return;
+            }
+
+            if (dataGridViewTATeachers.SelectedCells[0].RowIndex == this.selectedTeacherRowInd)
+            {
+                return;
+            }
+
             if (m_selectGroupsForm != null)
                 m_selectGroupsForm.Visible = false;
             m_selectGroupsForm = null;
             m_selectGroupsForm?.Close();
 
-            if (!(dataGridViewTATeachers.SelectedCells.Count == 1 || (dataGridViewTATeachers.SelectedRows.Count == 1)))
-            {
-                return;
-            }
-
             var rowIndex = dataGridViewTATeachers.SelectedCells[0].RowIndex;
+            this.selectedTeacherRowInd = rowIndex;
             var taItems = m_TAItemRepository.GetTAItems(selectedWorkId);
 
             if (rowIndex >= taItems.Count)

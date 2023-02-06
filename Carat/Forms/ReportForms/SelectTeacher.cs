@@ -746,6 +746,10 @@ namespace Carat
                         {
                             rowIndex += 2;
                         }
+                        else if (subjectItem.Key == "Аспіранти")
+                        {
+                            rowIndex += 3;
+                        }
                     }
 
                     var cell = GetCell(sheet.GetRow(rowIndex), hoursCellIndexBC + shiftValue);
@@ -894,65 +898,82 @@ namespace Carat
                     continue;
                 }
 
-                var curriculumItem = m_curriculumItemRepository.GetCurriculumItem((m_workRepository.GetWork(subjectItem.Value[0].WorkId)).CurriculumItemId);
-                var rowIndex = startIndex + subjectCounter;
-
-                GetCell(sheet.GetRow(rowIndex), 22).SetCellValue(subjectItem.Key);
-                GetCell(sheet.GetRow(rowIndex), 23).SetCellValue(curriculumItem.SubjectHours);
-                GetCell(sheet.GetRow(rowIndex), 26).SetCellValue(curriculumItem.Course);
-
-                var groups = GetGroups(subjectItem.Value).OrderBy(g => g.Name).ToList();
-                uint budjetNumber = 0;
-                uint contractNumber = 0;
-                string groupsCellText = "";
-
-                GetCell(sheet.GetRow(rowIndex), 25).SetCellValue(m_facultyRepository.GetFaculty(groups.FirstOrDefault().FacultyId).Name);
-
-                bool gotStudNumbersFromWork = false;
-                if (curriculumItem.BudgetStudCnt != null && curriculumItem.ContractStudCnt != null && groups.Count > 1)
+                var taItemsCourseGrouped = subjectItem.Value.GroupBy(x => x.Course);
+                foreach (var taItemCourseGroup in taItemsCourseGrouped)
                 {
-                    budjetNumber = (uint)curriculumItem.BudgetStudCnt;
-                    contractNumber = (uint)curriculumItem.ContractStudCnt;
-                    gotStudNumbersFromWork = true;
-                }
+                    var taItems = taItemCourseGroup.ToList();
+                    var curriculumItem = m_curriculumItemRepository.GetCurriculumItem((m_workRepository.GetWork(taItems[0].WorkId)).CurriculumItemId);
+                    var rowIndex = startIndex + subjectCounter;
 
-                foreach (var group in groups)
-                {
-                    groupsCellText += group.Name + "; ";
-                    if (!gotStudNumbersFromWork)
+                    GetCell(sheet.GetRow(rowIndex), 22).SetCellValue(subjectItem.Key);
+                    GetCell(sheet.GetRow(rowIndex), 23).SetCellValue(curriculumItem.SubjectHours);
+                    GetCell(sheet.GetRow(rowIndex), 26).SetCellValue(curriculumItem.Course);
+
+                    var groups = GetGroups(taItems).OrderBy(g => g.Name).ToList();
+                    uint budjetNumber = 0;
+                    uint contractNumber = 0;
+                    string groupsCellText = "";
+
+                    if (groups.Count != 0)
                     {
-                        budjetNumber += group.BudgetNumber;
-                        contractNumber += group.ContractNumber;
-                    }
-                }
-
-                GetCell(sheet.GetRow(rowIndex), 24).SetCellValue(groups.Count);
-                GetCell(sheet.GetRow(rowIndex), 33).SetCellValue(groupsCellText);
-                GetCell(sheet.GetRow(rowIndex), 34).SetCellValue(budjetNumber);
-                GetCell(sheet.GetRow(rowIndex), 35).SetCellValue(contractNumber);
-
-                foreach (var taItem in subjectItem.Value)
-                {
-                    var work = m_workRepository.GetWork(taItem.WorkId);
-                    var workType = m_workTypeRepository.GetWorkType(work.WorkTypeId);
-                    var curriculumItemOfWork = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
-                    var columnIndex = GetColumnIndexByWorkName(workType.Name);
-
-                    if (columnIndex < 0)
-                    {
-                        continue;
+                        GetCell(sheet.GetRow(rowIndex), 25).SetCellValue(m_facultyRepository.GetFaculty(groups.FirstOrDefault().FacultyId).Name);
                     }
 
-                    if (curriculumItemOfWork.EducType == "Контракт")
+                    bool gotStudNumbersFromWork = false;
+
+                    var taItemsGrouped = taItems.GroupBy(x => (Course: x.Course, EducForm: x.EducForm, EducLevel: x.EducLevel));
+                    List<Group> allGropsForSubject = new List<Group>();
+                    foreach (var taItemGroup in taItemsGrouped)
                     {
-                        columnIndex += 2;
+                        var key = taItemGroup.Key;
+                        allGropsForSubject.AddRange(m_groupRepository.GetGroups(key.Course, key.EducForm, key.EducLevel));
                     }
 
-                    GetCell(sheet.GetRow(rowIndex), columnIndex).SetCellValue(taItem.WorkHours);
-                }
+                    if (curriculumItem.BudgetStudCnt != null && curriculumItem.ContractStudCnt != null && groups.Count == allGropsForSubject.Count)
+                    {
+                        budjetNumber = (uint)curriculumItem.BudgetStudCnt;
+                        contractNumber = (uint)curriculumItem.ContractStudCnt;
+                        gotStudNumbersFromWork = true;
+                    }
 
-                ++subjectCounter;
-                m_parentForm.IncrementProgress();
+                    foreach (var group in groups)
+                    {
+                        groupsCellText += group.Name + "; ";
+                        if (!gotStudNumbersFromWork)
+                        {
+                            budjetNumber += group.BudgetNumber;
+                            contractNumber += group.ContractNumber;
+                        }
+                    }
+
+                    GetCell(sheet.GetRow(rowIndex), 24).SetCellValue(groups.Count);
+                    GetCell(sheet.GetRow(rowIndex), 33).SetCellValue(groupsCellText);
+                    GetCell(sheet.GetRow(rowIndex), 34).SetCellValue(budjetNumber);
+                    GetCell(sheet.GetRow(rowIndex), 35).SetCellValue(contractNumber);
+
+                    foreach (var taItem in taItems)
+                    {
+                        var work = m_workRepository.GetWork(taItem.WorkId);
+                        var workType = m_workTypeRepository.GetWorkType(work.WorkTypeId);
+                        var curriculumItemOfWork = m_curriculumItemRepository.GetCurriculumItem(work.CurriculumItemId);
+                        var columnIndex = GetColumnIndexByWorkName(workType.Name);
+
+                        if (columnIndex < 0)
+                        {
+                            continue;
+                        }
+
+                        if (curriculumItemOfWork.EducType == "Контракт")
+                        {
+                            columnIndex += 2;
+                        }
+
+                        GetCell(sheet.GetRow(rowIndex), columnIndex).SetCellValue(taItem.WorkHours);
+                    }
+
+                    ++subjectCounter;
+                    m_parentForm.IncrementProgress();
+                }
             }
 
             return subjectCounter;
@@ -1059,7 +1080,7 @@ namespace Carat
                     return;
                 }
 
-                var rankDegreeValue = m_rankRepository.GetRank(teacher.RankId).Name + (teacher.Degree != "-" ? ", " + teacher.Degree : "");
+                var rankDegreeValue = (teacher.Degree != "-" ? teacher.Degree + ", " : "") +  m_rankRepository.GetRank(teacher.RankId).Name;
 
                 sheet.GetRow(30).Cells[0].SetCellValue(teacher.Name);
                 sheet.GetRow(34).Cells[0].SetCellValue(rankDegreeValue);
