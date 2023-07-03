@@ -28,6 +28,7 @@ namespace Carat
         private const string IncorrectDataMessage = "Некоректні дані!";
         private const string NotEmptyWorksMessage = "Для того, щоб видалити дисципліну, вам потрібно обнулити години!";
         private const string DistributedHourExistMessage = "Обнулення є неможливим бо ще існують розподілені години!";
+        private const string ImportErrorMessageStart = "При обробці форми К3 виникла помилка:\n";
         private bool isSelectionChanging = false;
         private string m_educType;
         private string m_educForm;
@@ -810,7 +811,7 @@ namespace Carat
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ImportErrorMessageStart + ex.Message);
             }
         }
 

@@ -74,10 +74,10 @@ namespace Carat
                 throw new Exception("Invalid cell text!");
             }
 
-            var reg = new Regex(@";\W\dк\.;\W");
-            var courseInString = reg.Match(cellText).Groups[0].Value.ToString()[2];
+            var reg = new Regex(@";\W\dк\.;");
+            var courseInString = reg.Match(cellText).Groups[0].Value;
 
-            return Convert.ToUInt32(courseInString.ToString());
+            return Convert.ToUInt32(courseInString.ToString()[2]);
         }
 
         static public string GetEducLevel(string cellText)

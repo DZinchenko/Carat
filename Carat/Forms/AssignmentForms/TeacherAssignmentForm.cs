@@ -616,8 +616,9 @@ namespace Carat
             {
                 if (m_selectGroupsForm != null)
                     m_selectGroupsForm.Visible = false;
-                m_selectGroupsForm = null;
                 m_selectGroupsForm?.Close();
+                m_selectGroupsForm = null;
+                this.selectedTeacherRowInd = -1;
                 return;
             }
 
@@ -628,8 +629,8 @@ namespace Carat
 
             if (m_selectGroupsForm != null)
                 m_selectGroupsForm.Visible = false;
-            m_selectGroupsForm = null;
             m_selectGroupsForm?.Close();
+            m_selectGroupsForm = null;
 
             var rowIndex = dataGridViewTATeachers.SelectedCells[0].RowIndex;
             this.selectedTeacherRowInd = rowIndex;
